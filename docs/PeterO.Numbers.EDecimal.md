@@ -155,8 +155,8 @@ The elements described above are in the same order as the order of each bit of e
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
 * <code>[Abs(PeterO.Numbers.EContext)](#Abs_PeterO_Numbers_EContext)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
-* <code>[Add(int)](#Add_int)</code> - Adds this object and an 32-bit signed integer and returns the result.
-* <code>[Add(long)](#Add_long)</code> - Not documented yet.
+* <code>[Add(int)](#Add_int)</code> - Adds this object and a 32-bit signed integer and returns the result.
+* <code>[Add(long)](#Add_long)</code> - Adds this object and an 64-bit signed integer and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal)](#Add_PeterO_Numbers_EDecimal)</code> - Adds this object and another decimal number and returns the result.
 * <code>[Add(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the sum of this object and another object.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares the mathematical values of this object and another object, accepting NaN values.
@@ -358,7 +358,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[Sqrt(PeterO.Numbers.EContext)](#Sqrt_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
 * <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to Sqrt.
 * <code>[Subtract(int)](#Subtract_int)</code> - Subtracts a 32-bit signed integer from this object and returns the result.
-* <code>[Subtract(long)](#Subtract_long)</code> - Not documented yet.
+* <code>[Subtract(long)](#Subtract_long)</code> - Subtracts a 64-bit signed integer from this object and returns the result.
 * <code>[Subtract(PeterO.Numbers.EDecimal)](#Subtract_PeterO_Numbers_EDecimal)</code> - Subtracts an arbitrary-precision decimal number from this instance and returns the result.
 * <code>[Subtract(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Subtracts an arbitrary-precision decimal number from this instance.
 * <code>[public static readonly PeterO.Numbers.EDecimal Ten;](#Ten)</code> - Represents the number 10.
@@ -572,7 +572,7 @@ An arbitrary-precision decimal number. Returns signaling NaN if this value is si
     public PeterO.Numbers.EDecimal Add(
         int intValue);
 
-Adds this object and an 32-bit signed integer and returns the result.
+Adds this object and a 32-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
@@ -588,16 +588,15 @@ The sum of the two objects.
     public PeterO.Numbers.EDecimal Add(
         long longValue);
 
-Not documented yet.
+Adds this object and an 64-bit signed integer and returns the result.
 
 <b>Parameters:</b>
 
- * <i>longValue</i>: The parameter  <i>longValue</i>
- is a 64-bit signed integer.
+ * <i>intValue</i>: A 64-bit signed integer to add to this object.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The sum of the two objects.
 
 <a id="Add_PeterO_Numbers_EDecimal"></a>
 ### Add
@@ -1951,7 +1950,7 @@ Either  <i>offset</i>
         int length,
         PeterO.Numbers.EContext ctx);
 
-Creates an arbitrary-precision decimal number from a sequence of bytes (interpreted as text) that represents a number. Each byte in the sequence has to be a code point in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.
+Creates an arbitrary-precision decimal number from a sequence of bytes (interpreted as text) that represents a number. Each byte in the sequence has to be a code point in the Basic Latin range (0x00 to 0x7f or U+0000 to U+007F) of the Unicode Standard.
 
 The format of the sequence generally consists of:
 
@@ -3441,7 +3440,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater than 32767.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater tha 32767.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -4576,16 +4575,15 @@ The difference of the two objects.
     public PeterO.Numbers.EDecimal Subtract(
         long longValue);
 
-Not documented yet.
+Subtracts a 64-bit signed integer from this object and returns the result.
 
 <b>Parameters:</b>
 
- * <i>longValue</i>: The parameter  <i>longValue</i>
- is a 64-bit signed integer.
+ * <i>intValue</i>: A 64-bit signed integer to subtract from this object.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The difference of the two objects.
 
 <a id="Subtract_PeterO_Numbers_EDecimal"></a>
 ### Subtract
@@ -4828,7 +4826,7 @@ This number's value, truncated to a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater than 32767.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater tha 32767.
 
 <a id="ToInt16IfExact"></a>
 ### ToInt16IfExact
@@ -4844,7 +4842,7 @@ This number's value as a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is infinity or not-a-number, is not an exact integer, or is less than -32768 or greater than 32767.
+This value is infinity or not-a-number, is not an exact integer, or is less than -32768 or greater tha 32767.
 
 <a id="ToInt16Unchecked"></a>
 ### ToInt16Unchecked

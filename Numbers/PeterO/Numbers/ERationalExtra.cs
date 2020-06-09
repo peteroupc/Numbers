@@ -84,7 +84,9 @@ namespace PeterO.Numbers {
       return ERational.FromDouble(eint);
     }
 
-    /// <summary>Adds two rational numbers.</summary>
+    /// <summary>Adds an arbitrary-precision rational number and another
+    /// arbitrary-precision rational number and returns the
+    /// result.</summary>
     /// <param name='bthis'>The first operand.</param>
     /// <param name='augend'>The second operand.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
@@ -142,8 +144,9 @@ namespace PeterO.Numbers {
       return bthis.Subtract(1);
     }
 
-    /// <summary>Multiplies this instance by the value of an
-    /// arbitrary-precision rational number.</summary>
+    /// <summary>Multiplies an arbitrary-precision rational number by
+    /// another arbitrary-precision rational number and returns the
+    /// result.</summary>
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -177,9 +180,9 @@ namespace PeterO.Numbers {
       return dividend.Divide(divisor);
     }
 
-    /// <summary>Finds the remainder that results when this instance is
-    /// divided by the value of an arbitrary-precision rational
-    /// number.</summary>
+    /// <summary>Returns the remainder that would result when an
+    /// arbitrary-precision rational number is divided by another
+    /// arbitrary-precision rational number.</summary>
     /// <param name='dividend'>The dividend.</param>
     /// <param name='divisor'>The divisor.</param>
     /// <returns>The remainder of the two numbers.</returns>
@@ -443,7 +446,7 @@ namespace PeterO.Numbers {
     /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
-    /// than -32768 or greater than 32767.</exception>
+    /// than -32768 or greater tha 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(

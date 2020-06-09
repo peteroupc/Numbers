@@ -97,8 +97,9 @@ namespace PeterO.Numbers {
       return FromEInteger(eint);
     }
 
-    /// <summary>Adds two arbitrary-precision decimal floating-point
-    /// numbers and returns the result.</summary>
+    /// <summary>Adds an arbitrary-precision decimal floating-point number
+    /// and another arbitrary-precision decimal floating-point number and
+    /// returns the result.</summary>
     /// <param name='bthis'>The first arbitrary-precision decimal
     /// floating-point number.</param>
     /// <param name='otherValue'>The second decimal binary floating-point
@@ -159,9 +160,9 @@ namespace PeterO.Numbers {
       return bthis.Subtract(1);
     }
 
-    /// <summary>Multiplies two decimal numbers. The resulting exponent
-    /// will be the sum of the exponents of the two decimal
-    /// numbers.</summary>
+    /// <summary>Multiplies an arbitrary-precision decimal floating-point
+    /// number by another arbitrary-precision decimal floating-point number
+    /// and returns the result.</summary>
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two decimal numbers.</returns>
@@ -199,8 +200,10 @@ namespace PeterO.Numbers {
       return dividend.Divide(divisor);
     }
 
-    /// <summary>Finds the remainder when dividing one arbitrary-precision
-    /// decimal number by another.</summary>
+    /// <summary>Returns the remainder that would result when an
+    /// arbitrary-precision decimal floating-point number is divided by
+    /// another arbitrary-precision decimal floating-point
+    /// number.</summary>
     /// <param name='dividend'>The number that will be divided by the
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
@@ -453,7 +456,7 @@ namespace PeterO.Numbers {
     /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
-    /// than -32768 or greater than 32767.</exception>
+    /// than -32768 or greater tha 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(

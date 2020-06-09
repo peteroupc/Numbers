@@ -3131,8 +3131,9 @@ namespace PeterO.Numbers {
           ExtendedMathValue : MathValue).Abs(this, context);
     }
 
-    /// <summary>Adds this object and another decimal number and returns
-    /// the result.</summary>
+    /// <summary>Adds this arbitrary-precision decimal floating-point
+    /// number and another arbitrary-precision decimal floating-point
+    /// number and returns the result.</summary>
     /// <param name='otherValue'>An arbitrary-precision decimal
     /// number.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -3148,9 +3149,9 @@ namespace PeterO.Numbers {
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Finds the sum of this object and another object. The
-    /// result's exponent is set to the lower of the exponents of the two
-    /// operands.</summary>
+    /// <summary>Adds this arbitrary-precision decimal floating-point
+    /// number and another arbitrary-precision decimal floating-point
+    /// number and returns the result.</summary>
     /// <param name='otherValue'>The number to add to.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -3793,8 +3794,9 @@ namespace PeterO.Numbers {
       return GetMathValue(ctx).CompareToWithContext(this, other, false, ctx);
     }
 
-    /// <summary>Divides this object by another decimal number and returns
-    /// the result. When possible, the result will be exact.</summary>
+    /// <summary>Divides this arbitrary-precision decimal floating-point
+    /// number by another arbitrary-precision decimal floating-point number
+    /// and returns the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
@@ -3808,10 +3810,9 @@ namespace PeterO.Numbers {
           EContext.ForRounding(ERounding.None));
     }
 
-    /// <summary>Divides this arbitrary-precision decimal number by another
-    /// arbitrary-precision decimal number. The preferred exponent for the
-    /// result is this object's exponent minus the divisor's
-    /// exponent.</summary>
+    /// <summary>Divides this arbitrary-precision decimal floating-point
+    /// number by another arbitrary-precision decimal floating-point number
+    /// and returns the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -4620,9 +4621,9 @@ namespace PeterO.Numbers {
           this.flags).RoundToPrecision(ctx);
     }
 
-    /// <summary>Multiplies two decimal numbers. The resulting exponent
-    /// will be the sum of the exponents of the two decimal
-    /// numbers.</summary>
+    /// <summary>Multiplies this arbitrary-precision decimal floating-point
+    /// number by another arbitrary-precision decimal floating-point number
+    /// and returns the result.</summary>
     /// <param name='otherValue'>Another decimal number.</param>
     /// <returns>The product of the two decimal numbers.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -4664,10 +4665,9 @@ namespace PeterO.Numbers {
       return this.Multiply(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Multiplies two decimal numbers. The resulting scale will
-    /// be the sum of the scales of the two decimal numbers. The result's
-    /// sign is positive if both operands have the same sign, and negative
-    /// if they have different signs.</summary>
+    /// <summary>Multiplies this arbitrary-precision decimal floating-point
+    /// number by another arbitrary-precision decimal floating-point number
+    /// and returns the result.</summary>
     /// <param name='op'>Another decimal number.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -4680,25 +4680,26 @@ namespace PeterO.Numbers {
       return GetMathValue(ctx).Multiply(this, op, ctx);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='longValue'>The parameter <paramref name='longValue'/>
-    /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Adds this arbitrary-precision decimal floating-point
+    /// number and a 64-bit signed integer and returns the
+    /// result.</summary>
+    /// <returns>The sum of the two objects.</returns>
+    /// <param name='longValue'/>
     public EDecimal Add(long longValue) {
       return this.Add(EDecimal.FromInt64(longValue));
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='longValue'>The parameter <paramref name='longValue'/>
-    /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Subtracts a 64-bit signed integer from this
+    /// arbitrary-precision decimal floating-point number and returns the
+    /// result.</summary>
+    /// <returns>The difference of the two objects.</returns>
+    /// <param name='longValue'/>
     public EDecimal Subtract(long longValue) {
       return this.Subtract(EDecimal.FromInt64(longValue));
     }
 
-    /// <summary>Multiplies this object by the given 64-bit signed integer.
-    /// The resulting exponent will be the sum of the exponents of the two
-    /// numbers.</summary>
+    /// <summary>Multiplies this arbitrary-precision decimal floating-point
+    /// number by a 64-bit signed integer and returns the result.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -4706,8 +4707,8 @@ namespace PeterO.Numbers {
       return this.Multiply(EDecimal.FromInt64(longValue));
     }
 
-    /// <summary>Divides this object by a 64-bit signed integer and returns
-    /// the result. When possible, the result will be exact.</summary>
+    /// <summary>Divides this arbitrary-precision decimal floating-point
+    /// number by a 64-bit signed integer and returns the result.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
@@ -4720,8 +4721,9 @@ namespace PeterO.Numbers {
       return this.Divide(EDecimal.FromInt64(longValue));
     }
 
-    /// <summary>Adds this object and an 32-bit signed integer and returns
-    /// the result.</summary>
+    /// <summary>Adds this arbitrary-precision decimal floating-point
+    /// number and a 32-bit signed integer and returns the
+    /// result.</summary>
     /// <param name='intValue'>A 32-bit signed integer to add to this
     /// object.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -4729,8 +4731,9 @@ namespace PeterO.Numbers {
       return this.Add(EDecimal.FromInt32(intValue));
     }
 
-    /// <summary>Subtracts a 32-bit signed integer from this object and
-    /// returns the result.</summary>
+    /// <summary>Subtracts a 32-bit signed integer from this
+    /// arbitrary-precision decimal floating-point number and returns the
+    /// result.</summary>
     /// <param name='intValue'>A 32-bit signed integer to subtract from
     /// this object.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -4739,9 +4742,8 @@ namespace PeterO.Numbers {
         this.Subtract(EDecimal.FromInt32(intValue)) : this.Add(-intValue);
     }
 
-    /// <summary>Multiplies this object by the given 32-bit signed integer.
-    /// The resulting exponent will be the sum of the exponents of the two
-    /// numbers.</summary>
+    /// <summary>Multiplies this arbitrary-precision decimal floating-point
+    /// number by a 32-bit signed integer and returns the result.</summary>
     /// <param name='intValue'>A 32-bit signed integer to multiply this
     /// object by.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -4749,8 +4751,8 @@ namespace PeterO.Numbers {
       return this.Multiply(EDecimal.FromInt32(intValue));
     }
 
-    /// <summary>Divides this object by a 32-bit signed integer and returns
-    /// the result. When possible, the result will be exact.</summary>
+    /// <summary>Divides this arbitrary-precision decimal floating-point
+    /// number by a 32-bit signed integer and returns the result.</summary>
     /// <param name='intValue'>A 32-bit signed integer, the divisor, to
     /// divide this object by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
@@ -5213,11 +5215,10 @@ namespace PeterO.Numbers {
       return GetMathValue(ctx).Reduce(this, ctx);
     }
 
-    /// <summary>Finds the remainder that results when dividing two
-    /// arbitrary-precision decimal numbers. The remainder is the value
-    /// that remains when the absolute value of this object is divided by
-    /// the absolute value of the other object; the remainder has the same
-    /// sign (positive or negative) as this object's value.</summary>
+    /// <summary>Returns the remainder that would result when this
+    /// arbitrary-precision decimal floating-point number is divided by
+    /// another arbitrary-precision decimal floating-point
+    /// number.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result, and of the
@@ -5839,8 +5840,9 @@ namespace PeterO.Numbers {
       return GetMathValue(ctx).SquareRoot(this, ctx);
     }
 
-    /// <summary>Subtracts an arbitrary-precision decimal number from this
-    /// instance and returns the result.</summary>
+    /// <summary>Subtracts an arbitrary-precision decimal floating-point
+    /// number from this arbitrary-precision decimal floating-point number
+    /// and returns the result.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -5848,8 +5850,9 @@ namespace PeterO.Numbers {
       return this.Subtract(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Subtracts an arbitrary-precision decimal number from this
-    /// instance.</summary>
+    /// <summary>Subtracts an arbitrary-precision decimal floating-point
+    /// number from this arbitrary-precision decimal floating-point number
+    /// and returns the result.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -7478,7 +7481,7 @@ namespace PeterO.Numbers {
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
     /// not-a-number, or the number, once converted to an integer by
-    /// discarding its fractional part, is less than -32768 or greater than
+    /// discarding its fractional part, is less than -32768 or greater tha
     /// 32767.</exception>
     public short ToInt16Checked() {
       if (!this.IsFinite) {
@@ -7514,7 +7517,7 @@ namespace PeterO.Numbers {
     /// <returns>This number's value as a 16-bit signed integer.</returns>
     /// <exception cref='ArithmeticException'>This value is infinity or
     /// not-a-number, is not an exact integer, or is less than -32768 or
-    /// greater than 32767.</exception>
+    /// greater tha 32767.</exception>
     public short ToInt16IfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");

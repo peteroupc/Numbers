@@ -1282,7 +1282,8 @@ namespace PeterO.Numbers {
         EInteger(this.wordCount, this.words, false);
     }
 
-    /// <summary>Adds this object and another object.</summary>
+    /// <summary>Adds this arbitrary-precision integer and another
+    /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='bigintAugend'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -1750,7 +1751,8 @@ namespace PeterO.Numbers {
       return (cmp == 0) ? Min(first, second) : (cmp < 0 ? first : second);
     }
 
-    /// <summary>Adds this object and another object.</summary>
+    /// <summary>Adds this arbitrary-precision integer and a 32-bit signed
+    /// integer and returns the result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>An arbitrary-precision integer.</returns>
@@ -1820,8 +1822,8 @@ namespace PeterO.Numbers {
       return this.Add(EInteger.FromInt32(intValue));
     }
 
-    /// <summary>Subtracts an arbitrary-precision integer from this
-    /// arbitrary-precision integer.</summary>
+    /// <summary>Subtracts a 32-bit signed integer from this
+    /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -1831,8 +1833,8 @@ namespace PeterO.Numbers {
           this : this.Add(-intValue));
     }
 
-    /// <summary>Multiplies this instance by the value of an
-    /// arbitrary-precision integer object.</summary>
+    /// <summary>Multiplies this arbitrary-precision integer by a 32-bit
+    /// signed integer and returns the result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -1844,12 +1846,13 @@ namespace PeterO.Numbers {
       return this.Multiply(EInteger.FromInt32(intValue));
     }
 
-    /// <summary>Divides this instance by the value of an
-    /// arbitrary-precision integer. The result is rounded down (the
-    /// fractional part is discarded). Except if the result is 0, it will
-    /// be negative if this object is positive and the other is negative,
-    /// or vice versa, and will be positive if both are positive or both
-    /// are negative.</summary>
+    /// <summary>Divides this arbitrary-precision integer by a 32-bit
+    /// signed integer and returns the result. The result of the division
+    /// is rounded down (the fractional part is discarded). Except if the
+    /// result of the division is 0, it will be negative if this
+    /// arbitrary-precision integer is positive and the other 32-bit signed
+    /// integer is negative, or vice versa, and will be positive if both
+    /// are positive or both are negative.</summary>
     /// <param name='intValue'>The divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
@@ -1858,12 +1861,13 @@ namespace PeterO.Numbers {
       return this.Divide(EInteger.FromInt32(intValue));
     }
 
-    /// <summary>Finds the remainder that results when this instance is
-    /// divided by the value of an arbitrary-precision integer. The
-    /// remainder is the value that remains when the absolute value of this
-    /// object is divided by the absolute value of the other object; the
-    /// remainder has the same sign (positive or negative) as this
-    /// object.</summary>
+    /// <summary>Returns the remainder that would result when this
+    /// arbitrary-precision integer is divided by a 32-bit signed integer.
+    /// The remainder is the number that remains when the absolute value of
+    /// this arbitrary-precision integer is divided by the absolute value
+    /// of the other 32-bit signed integer; the remainder has the same sign
+    /// (positive or negative) as this arbitrary-precision
+    /// integer.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The remainder of the two numbers.</returns>
@@ -1900,12 +1904,13 @@ namespace PeterO.Numbers {
       return thisInt == intValue ? 0 : (thisInt < intValue ? -1 : 1);
     }
 
-    /// <summary>Divides this instance by the value of an
-    /// arbitrary-precision integer. The result is rounded down (the
-    /// fractional part is discarded). Except if the result is 0, it will
-    /// be negative if this object is positive and the other is negative,
-    /// or vice versa, and will be positive if both are positive or both
-    /// are negative.</summary>
+    /// <summary>Divides this arbitrary-precision integer by another
+    /// arbitrary-precision integer and returns the result. The result of
+    /// the division is rounded down (the fractional part is discarded).
+    /// Except if the result of the division is 0, it will be negative if
+    /// this arbitrary-precision integer is positive and the other
+    /// arbitrary-precision integer is negative, or vice versa, and will be
+    /// positive if both are positive or both are negative.</summary>
     /// <param name='bigintDivisor'>The divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -2890,8 +2895,18 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Divides this object by a 32-bit signed integer and returns
-    /// the quotient and remainder.</summary>
+    /// <summary>Divides this arbitrary-precision integer by a 32-bit
+    /// signed integer and returns a two-item array containing the result
+    /// of the division and the remainder, in that order. The result of the
+    /// division is rounded down (the fractional part is discarded). Except
+    /// if the result of the division is 0, it will be negative if this
+    /// arbitrary-precision integer is positive and the other 32-bit signed
+    /// integer is negative, or vice versa, and will be positive if both
+    /// are positive or both are negative. The remainder is the number that
+    /// remains when the absolute value of this arbitrary-precision integer
+    /// is divided by the absolute value of the other 32-bit signed
+    /// integer; the remainder has the same sign (positive or negative) as
+    /// this arbitrary-precision integer.</summary>
     /// <param name='intDivisor'>The number to divide by.</param>
     /// <returns>An array with two arbitrary-precision integers: the first
     /// is the quotient, and the second is the remainder.</returns>
@@ -2901,7 +2916,8 @@ namespace PeterO.Numbers {
       return this.DivRem(EInteger.FromInt32(intDivisor));
     }
 
-  /// <summary>Not documented yet.</summary>
+  /// <summary>Adds this arbitrary-precision integer and a 64-bit signed
+  /// integer and returns the result.</summary>
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
@@ -2909,7 +2925,8 @@ namespace PeterO.Numbers {
 return this.Add(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
+  /// <summary>Subtracts a 64-bit signed integer from this
+  /// arbitrary-precision integer and returns the result.</summary>
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
@@ -2917,7 +2934,8 @@ return this.Add(EInteger.FromInt64(longValue));
 return this.Subtract(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
+  /// <summary>Multiplies this arbitrary-precision integer by a 64-bit
+  /// signed integer and returns the result.</summary>
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
@@ -2925,7 +2943,13 @@ return this.Subtract(EInteger.FromInt64(longValue));
 return this.Multiply(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
+  /// <summary>Divides this arbitrary-precision integer by a 64-bit
+  /// signed integer and returns the result. The result of the division
+  /// is rounded down (the fractional part is discarded). Except if the
+  /// result of the division is 0, it will be negative if this
+  /// arbitrary-precision integer is positive and the other 64-bit signed
+  /// integer is negative, or vice versa, and will be positive if both
+  /// are positive or both are negative.</summary>
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
@@ -2933,7 +2957,13 @@ return this.Multiply(EInteger.FromInt64(longValue));
 return this.Divide(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
+  /// <summary>Returns the remainder that would result when this
+  /// arbitrary-precision integer is divided by a 64-bit signed integer.
+  /// The remainder is the number that remains when the absolute value of
+  /// this arbitrary-precision integer is divided by the absolute value
+  /// of the other 64-bit signed integer; the remainder has the same sign
+  /// (positive or negative) as this arbitrary-precision
+  /// integer.</summary>
   /// <param name='longValue'>The parameter <paramref name='longValue'/>
   /// is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
@@ -2949,7 +2979,18 @@ return this.Remainder(EInteger.FromInt64(longValue));
 return this.CompareTo(EInteger.FromInt64(longValue));
 }
 
-  /// <summary>Not documented yet.</summary>
+  /// <summary>Divides this arbitrary-precision integer by a 64-bit
+  /// signed integer and returns a two-item array containing the result
+  /// of the division and the remainder, in that order. The result of the
+  /// division is rounded down (the fractional part is discarded). Except
+  /// if the result of the division is 0, it will be negative if this
+  /// arbitrary-precision integer is positive and the other 64-bit signed
+  /// integer is negative, or vice versa, and will be positive if both
+  /// are positive or both are negative. The remainder is the number that
+  /// remains when the absolute value of this arbitrary-precision integer
+  /// is divided by the absolute value of the other 64-bit signed
+  /// integer; the remainder has the same sign (positive or negative) as
+  /// this arbitrary-precision integer.</summary>
   /// <param name='intDivisor'>The parameter <paramref
   /// name='intDivisor'/> is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
@@ -2957,8 +2998,19 @@ return this.CompareTo(EInteger.FromInt64(longValue));
       return this.DivRem(EInteger.FromInt64(intDivisor));
 }
 
-    /// <summary>Divides this object by another arbitrary-precision integer
-    /// and returns the quotient and remainder.</summary>
+    /// <summary>Divides this arbitrary-precision integer by another
+    /// arbitrary-precision integer and returns a two-item array containing
+    /// the result of the division and the remainder, in that order. The
+    /// result of the division is rounded down (the fractional part is
+    /// discarded). Except if the result of the division is 0, it will be
+    /// negative if this arbitrary-precision integer is positive and the
+    /// other arbitrary-precision integer is negative, or vice versa, and
+    /// will be positive if both are positive or both are negative. The
+    /// remainder is the number that remains when the absolute value of
+    /// this arbitrary-precision integer is divided by the absolute value
+    /// of the other arbitrary-precision integer; the remainder has the
+    /// same sign (positive or negative) as this arbitrary-precision
+    /// integer.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An array with two arbitrary-precision integers: the first
     /// is the quotient, and the second is the remainder.</returns>
@@ -4067,8 +4119,8 @@ ShortMask) != 0) ? 9 :
       return r;
     }
 
-    /// <summary>Multiplies this instance by the value of an
-    /// arbitrary-precision integer object.</summary>
+    /// <summary>Multiplies this arbitrary-precision integer by another
+    /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='bigintMult'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -4652,12 +4704,13 @@ ShortMask) != 0) ? 9 :
       return r;
     }
 
-    /// <summary>Finds the remainder that results when this instance is
-    /// divided by the value of an arbitrary-precision integer. The
-    /// remainder is the value that remains when the absolute value of this
-    /// object is divided by the absolute value of the other object; the
-    /// remainder has the same sign (positive or negative) as this
-    /// object.</summary>
+    /// <summary>Returns the remainder that would result when this
+    /// arbitrary-precision integer is divided by another
+    /// arbitrary-precision integer. The remainder is the number that
+    /// remains when the absolute value of this arbitrary-precision integer
+    /// is divided by the absolute value of the other arbitrary-precision
+    /// integer; the remainder has the same sign (positive or negative) as
+    /// this arbitrary-precision integer.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
@@ -5548,7 +5601,7 @@ ShortMask) != 0) ? 9 :
     }
 
     /// <summary>Subtracts an arbitrary-precision integer from this
-    /// arbitrary-precision integer.</summary>
+    /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='subtrahend'>Another arbitrary-precision
     /// integer.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -9494,7 +9547,7 @@ ShortMask) != 0) ? 9 :
     /// it can fit in a 16-bit signed integer.</summary>
     /// <returns>This number's value as a 16-bit signed integer.</returns>
     /// <exception cref='OverflowException'>This value is less than -32768
-    /// or greater than 32767.</exception>
+    /// or greater tha 32767.</exception>
     public short ToInt16Checked() {
       int val = this.ToInt32Checked();
       if (val < -32768 || val > 32767) {

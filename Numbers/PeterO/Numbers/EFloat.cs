@@ -1463,8 +1463,8 @@ namespace PeterO.Numbers {
       return MathValue.Abs(this, context);
     }
 
-    /// <summary>Adds this object and another number and returns the
-    /// result.</summary>
+    /// <summary>Adds this arbitrary-precision binary floating-point number
+    /// and a 32-bit signed integer and returns the result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -1472,8 +1472,9 @@ namespace PeterO.Numbers {
       return this.Add(EFloat.FromInt32(intValue));
     }
 
-    /// <summary>Subtracts an arbitrary-precision integer from this
-    /// arbitrary-precision integer.</summary>
+    /// <summary>Subtracts a 32-bit signed integer from this
+    /// arbitrary-precision binary floating-point number and returns the
+    /// result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -1482,8 +1483,8 @@ namespace PeterO.Numbers {
         this.Subtract(EFloat.FromInt32(intValue)) : this.Add(-intValue);
     }
 
-    /// <summary>Multiplies this instance by the value of an
-    /// arbitrary-precision integer object.</summary>
+    /// <summary>Multiplies this arbitrary-precision binary floating-point
+    /// number by a 32-bit signed integer and returns the result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -1495,12 +1496,8 @@ namespace PeterO.Numbers {
       return this.Multiply(EFloat.FromInt32(intValue));
     }
 
-    /// <summary>Divides this instance by the value of a 32-bit signed
-    /// integer. The result is rounded down (the fractional part is
-    /// discarded). Except if the result is 0, it will be negative if this
-    /// object is positive and the other is negative, or vice versa, and
-    /// will be positive if both are positive or both are
-    /// negative.</summary>
+    /// <summary>Divides this arbitrary-precision binary floating-point
+    /// number by a 32-bit signed integer and returns the result.</summary>
     /// <param name='intValue'>The divisor.</param>
     /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
@@ -1509,7 +1506,8 @@ namespace PeterO.Numbers {
       return this.Divide(EFloat.FromInt32(intValue));
     }
 
-    /// <summary>Not documented yet.</summary>
+    /// <summary>Adds this arbitrary-precision binary floating-point number
+    /// and a 64-bit signed integer and returns the result.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The return value is not documented yet.</returns>
@@ -1517,28 +1515,29 @@ namespace PeterO.Numbers {
       return this.Add(EFloat.FromInt64(longValue));
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='longValue'>The parameter <paramref name='longValue'/>
-    /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Subtracts a 64-bit signed integer from this
+    /// arbitrary-precision binary floating-point number and returns the
+    /// result.</summary>
+    /// <returns>The difference of the two objects.</returns>
+    /// <param name='longValue'/>
     public EFloat Subtract(long longValue) {
       return this.Subtract(EFloat.FromInt64(longValue));
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <param name='longValue'>The parameter <paramref name='longValue'/>
-    /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Multiplies this arbitrary-precision binary floating-point
+    /// number by a 64-bit signed integer and returns the result.</summary>
+    /// <returns>The product of the two numbers.</returns>
+    /// <example>
+    /// <code>EInteger result = EInteger.FromString("5").Multiply(200L);</code>
+    ///  .
+    /// </example>
+    /// <param name='longValue'/>
     public EFloat Multiply(long longValue) {
       return this.Multiply(EFloat.FromInt64(longValue));
     }
 
-    /// <summary>Divides this instance by the value of a 64-bit signed
-    /// integer. The result is rounded down (the fractional part is
-    /// discarded). Except if the result is 0, it will be negative if this
-    /// object is positive and the other is negative, or vice versa, and
-    /// will be positive if both are positive or both are
-    /// negative.</summary>
+    /// <summary>Divides this arbitrary-precision binary floating-point
+    /// number by a 64-bit signed integer and returns the result.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The quotient of the two objects.</returns>
@@ -1548,8 +1547,9 @@ namespace PeterO.Numbers {
       return this.Divide(EFloat.FromInt64(longValue));
     }
 
-    /// <summary>Adds this object and another binary floating-point number
-    /// and returns the result.</summary>
+    /// <summary>Adds this arbitrary-precision binary floating-point number
+    /// and another arbitrary-precision binary floating-point number and
+    /// returns the result.</summary>
     /// <param name='otherValue'>An arbitrary-precision binary
     /// floating-point number.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -1557,9 +1557,9 @@ namespace PeterO.Numbers {
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Finds the sum of this object and another object. The
-    /// result's exponent is set to the lower of the exponents of the two
-    /// operands.</summary>
+    /// <summary>Adds this arbitrary-precision binary floating-point number
+    /// and another arbitrary-precision binary floating-point number and
+    /// returns the result.</summary>
     /// <param name='otherValue'>The number to add to.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -2000,9 +2000,9 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Divides this object by another binary floating-point
-    /// number and returns the result. When possible, the result will be
-    /// exact.</summary>
+    /// <summary>Divides this arbitrary-precision binary floating-point
+    /// number by another arbitrary-precision binary floating-point number
+    /// and returns the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
@@ -2016,9 +2016,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Divides this arbitrary-precision binary floating-point
-    /// number by another arbitrary-precision binary floating-point number.
-    /// The preferred exponent for the result is this object's exponent
-    /// minus the divisor's exponent.</summary>
+    /// number by another arbitrary-precision binary floating-point number
+    /// and returns the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -2708,9 +2707,9 @@ namespace PeterO.Numbers {
           this.flags).RoundToPrecision(ctx);
     }
 
-    /// <summary>Multiplies two binary floating-point numbers. The
-    /// resulting exponent will be the sum of the exponents of the two
-    /// binary floating-point numbers.</summary>
+    /// <summary>Multiplies this arbitrary-precision binary floating-point
+    /// number by another arbitrary-precision binary floating-point number
+    /// and returns the result.</summary>
     /// <param name='otherValue'>Another binary floating-point
     /// number.</param>
     /// <returns>The product of the two binary floating-point
@@ -2739,11 +2738,9 @@ namespace PeterO.Numbers {
       return this.Multiply(otherValue, EContext.UnlimitedHalfEven);
     }
 
-    /// <summary>Multiplies two binary floating-point numbers. The
-    /// resulting scale will be the sum of the scales of the two binary
-    /// floating-point numbers. The result's sign is positive if both
-    /// operands have the same sign, and negative if they have different
-    /// signs.</summary>
+    /// <summary>Multiplies this arbitrary-precision binary floating-point
+    /// number by another arbitrary-precision binary floating-point number
+    /// and returns the result.</summary>
     /// <param name='op'>Another binary floating-point number.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -3182,12 +3179,9 @@ namespace PeterO.Numbers {
       return MathValue.Reduce(this, ctx);
     }
 
-    /// <summary>Finds the remainder that results when dividing two
-    /// arbitrary-precision binary floating-point numbers. The remainder is
-    /// the value that remains when the absolute value of this object is
-    /// divided by the absolute value of the other object; the remainder
-    /// has the same sign (positive or negative) as this object's
-    /// value.</summary>
+    /// <summary>Returns the remainder that would result when this
+    /// arbitrary-precision binary floating-point number is divided by
+    /// another arbitrary-precision binary floating-point number.</summary>
     /// <param name='divisor'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <param name='ctx'>The parameter <paramref name='ctx'/> is an
@@ -3684,7 +3678,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Subtracts an arbitrary-precision binary floating-point
-    /// number from this instance and returns the result.</summary>
+    /// number from this arbitrary-precision binary floating-point number
+    /// and returns the result.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -3693,7 +3688,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Subtracts an arbitrary-precision binary floating-point
-    /// number from this instance.</summary>
+    /// number from this arbitrary-precision binary floating-point number
+    /// and returns the result.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
@@ -4613,7 +4609,7 @@ namespace PeterO.Numbers {
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
     /// not-a-number, or the number, once converted to an integer by
-    /// discarding its fractional part, is less than -32768 or greater than
+    /// discarding its fractional part, is less than -32768 or greater tha
     /// 32767.</exception>
     public short ToInt16Checked() {
       if (!this.IsFinite) {
@@ -4638,7 +4634,7 @@ namespace PeterO.Numbers {
     /// <returns>This number's value as a 16-bit signed integer.</returns>
     /// <exception cref='ArithmeticException'>This value is infinity or
     /// not-a-number, is not an exact integer, or is less than -32768 or
-    /// greater than 32767.</exception>
+    /// greater tha 32767.</exception>
     public short ToInt16IfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");

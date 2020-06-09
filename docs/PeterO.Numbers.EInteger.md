@@ -894,7 +894,7 @@ An arbitrary-precision integer with the same value as the 64-bit number.
         byte[] bytes,
         int radix);
 
-Converts a sequence of bytes (interpreted as text) to an arbitrary-precision integer in a given radix. Each byte in the sequence has to be a character in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.
+Converts a sequence of bytes (interpreted as text) to an arbitrary-precision integer in a given radix. Each byte in the sequence has to be a character in the Basic Latin range (0x00 to 0x7f or U+0000 to U+007F) of the Unicode Standard.
 
 <b>Parameters:</b>
 
@@ -980,7 +980,7 @@ The string is empty or in an invalid format.
         int index,
         int endIndex);
 
-Converts a portion of a sequence of bytes (interpreted as text) to an arbitrary-precision integer in a given radix. Each byte in the sequence has to be a character in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.
+Converts a portion of a sequence of bytes (interpreted as text) to an arbitrary-precision integer in a given radix. Each byte in the sequence has to be a character in the Basic Latin range (0x00 to 0x7f or U+0000 to U+007F) of the Unicode Standard.
 
 <b>Parameters:</b>
 
@@ -1097,7 +1097,7 @@ This number's value as an arbitrary-precision integer.
     public static PeterO.Numbers.EInteger FromString(
         byte[] bytes);
 
-Converts a sequence of bytes (interpreted as text) to an arbitrary-precision integer. Each byte in the sequence has to be a code point in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.
+Converts a sequence of bytes (interpreted as text) to an arbitrary-precision integer. Each byte in the sequence has to be a code point in the Basic Latin range (0x00 to 0x7f or U+0000 to U+007F) of the Unicode Standard.
 
 <b>Parameters:</b>
 
@@ -1177,7 +1177,7 @@ The parameter  <i>str</i>
         int index,
         int endIndex);
 
-Converts a portion of a sequence of bytes (interpreted as text) to an arbitrary-precision integer. Each byte in the sequence has to be a character in the Basic Latin range (0x00 to 0x7F or U+0000 to U+007F) of the Unicode Standard.
+Converts a portion of a sequence of bytes (interpreted as text) to an arbitrary-precision integer. Each byte in the sequence has to be a character in the Basic Latin range (0x00 to 0x7f or U+0000 to U+007F) of the Unicode Standard.
 
 <b>Parameters:</b>
 
@@ -2258,7 +2258,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is less than -32768 or greater than 32767.
+ is less than -32768 or greater tha 32767.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -3198,7 +3198,7 @@ This number's value as a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is less than -32768 or greater than 32767.
+This value is less than -32768 or greater tha 32767.
 
 <a id="ToInt16Unchecked"></a>
 ### ToInt16Unchecked

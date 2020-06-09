@@ -25,8 +25,8 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Adds two arbitrary-precision integer objects and returns
-    /// the result.</summary>
+    /// <summary>Adds an arbitrary-precision integer and another
+    /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='bthis'>The first operand.</param>
     /// <param name='augend'>The second operand.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -81,8 +81,8 @@ namespace PeterO.Numbers {
       return bthis.Subtract(1);
     }
 
-    /// <summary>Multiplies an arbitrary-precision integer by the value of
-    /// an arbitrary-precision integer.</summary>
+    /// <summary>Multiplies an arbitrary-precision integer by another
+    /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -114,9 +114,13 @@ namespace PeterO.Numbers {
       return dividend.Divide(divisor);
     }
 
-    /// <summary>Finds the remainder that results when an
-    /// arbitrary-precision integer is divided by the value of another
-    /// arbitrary-precision integer.</summary>
+    /// <summary>Returns the remainder that would result when an
+    /// arbitrary-precision integer is divided by another
+    /// arbitrary-precision integer. The remainder is the number that
+    /// remains when the absolute value of an arbitrary-precision integer
+    /// is divided by the absolute value of the other arbitrary-precision
+    /// integer; the remainder has the same sign (positive or negative) as
+    /// this arbitrary-precision integer.</summary>
     /// <param name='dividend'>The first operand.</param>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The remainder of the two numbers.</returns>
@@ -400,9 +404,19 @@ namespace PeterO.Numbers {
       return v;
     }
 
-    /// <summary>Divides one arbitrary-precision integer by another, and
-    /// returns the quotient and sets an output parameter to the
-    /// remainder.</summary>
+    /// <summary>Divides this arbitrary-precision integer by another
+    /// arbitrary-precision integer and returns a two-item array containing
+    /// the result of the division and the remainder, in that order. The
+    /// result of the division is rounded down (the fractional part is
+    /// discarded). Except if the result of the division is 0, it will be
+    /// negative if this arbitrary-precision integer is positive and the
+    /// other arbitrary-precision integer is negative, or vice versa, and
+    /// will be positive if both are positive or both are negative. The
+    /// remainder is the number that remains when the absolute value of
+    /// this arbitrary-precision integer is divided by the absolute value
+    /// of the other arbitrary-precision integer; the remainder has the
+    /// same sign (positive or negative) as this arbitrary-precision
+    /// integer.</summary>
     /// <param name='dividend'>The arbitrary-precision integer to be
     /// divided.</param>
     /// <param name='divisor'>The arbitrary-precision integer to divide
@@ -636,7 +650,7 @@ namespace PeterO.Numbers {
     /// <returns>The value of <paramref name='input'/> as a 16-bit signed
     /// integer.</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is less than -32768 or greater than
+    /// name='input'/> is less than -32768 or greater tha
     /// 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>

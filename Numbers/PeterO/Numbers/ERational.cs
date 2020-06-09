@@ -926,7 +926,9 @@ namespace PeterO.Numbers {
       return this;
     }
 
-    /// <summary>Adds two rational numbers.</summary>
+    /// <summary>Adds this arbitrary-precision rational number and another
+    /// arbitrary-precision rational number and returns the
+    /// result.</summary>
     /// <param name='otherValue'>Another arbitrary-precision rational
     /// number.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
@@ -1554,8 +1556,9 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Divides this instance by the value of an
-    /// arbitrary-precision rational number object.</summary>
+    /// <summary>Divides this arbitrary-precision rational number by
+    /// another arbitrary-precision rational number and returns the
+    /// result.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The quotient of the two objects.</returns>
@@ -1706,8 +1709,9 @@ namespace PeterO.Numbers {
       return (this.flags & BigNumberFlags.FlagSignalingNaN) != 0;
     }
 
-    /// <summary>Multiplies this instance by the value of an
-    /// arbitrary-precision rational number.</summary>
+    /// <summary>Multiplies this arbitrary-precision rational number by
+    /// another arbitrary-precision rational number and returns the
+    /// result.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -1760,9 +1764,9 @@ namespace PeterO.Numbers {
           this.flags ^ BigNumberFlags.FlagNegative);
     }
 
-    /// <summary>Finds the remainder that results when this instance is
-    /// divided by the value of an arbitrary-precision rational
-    /// number.</summary>
+    /// <summary>Returns the remainder that would result when this
+    /// arbitrary-precision rational number is divided by another
+    /// arbitrary-precision rational number.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The remainder of the two numbers.</returns>
@@ -1817,7 +1821,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Subtracts an arbitrary-precision rational number from this
-    /// instance.</summary>
+    /// arbitrary-precision rational number and returns the
+    /// result.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -2417,8 +2422,8 @@ namespace PeterO.Numbers {
       return this.Subtract(FromInt32(1));
     }
 
-    /// <summary>Returns the sum of a rational number and a 32-bit signed
-    /// integer.</summary>
+    /// <summary>Adds this arbitrary-precision rational number and a 32-bit
+    /// signed integer and returns the result.</summary>
     /// <param name='v'>A 32-bit signed integer.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
     /// this object is NaN.</returns>
@@ -2426,8 +2431,9 @@ namespace PeterO.Numbers {
       return this.Add(FromInt32(v));
     }
 
-    /// <summary>Returns the result of subtracting a 32-bit signed integer
-    /// from this instance.</summary>
+    /// <summary>Subtracts a 32-bit signed integer from this
+    /// arbitrary-precision rational number and returns the
+    /// result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -2435,8 +2441,8 @@ namespace PeterO.Numbers {
       return this.Subtract(FromInt32(v));
     }
 
-    /// <summary>Returns the value of this instance multiplied by a 32-bit
-    /// signed integer.</summary>
+    /// <summary>Multiplies this arbitrary-precision rational number by a
+    /// 32-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -2444,8 +2450,8 @@ namespace PeterO.Numbers {
       return this.Multiply(FromInt32(v));
     }
 
-    /// <summary>Divides this instance by the value of a 32-bit signed
-    /// integer.</summary>
+    /// <summary>Divides this arbitrary-precision rational number by a
+    /// 32-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
     /// <returns>The quotient of the two objects.</returns>
@@ -2455,8 +2461,9 @@ namespace PeterO.Numbers {
       return this.Divide(FromInt32(v));
     }
 
-    /// <summary>Finds the remainder that results when this instance is
-    /// divided by the value of a 32-bit signed integer.</summary>
+    /// <summary>Returns the remainder that would result when this
+    /// arbitrary-precision rational number is divided by a 32-bit signed
+    /// integer.</summary>
     /// <param name='v'>The divisor.</param>
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
@@ -2465,8 +2472,8 @@ namespace PeterO.Numbers {
       return this.Remainder(FromInt32(v));
     }
 
-    /// <summary>Returns the sum of a rational number and a 64-bit signed
-    /// integer.</summary>
+    /// <summary>Adds this arbitrary-precision rational number and a 64-bit
+    /// signed integer and returns the result.</summary>
     /// <param name='v'>A 64-bit signed integer.</param>
     /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
     /// this object is NaN.</returns>
@@ -2474,8 +2481,9 @@ namespace PeterO.Numbers {
       return this.Add(FromInt64(v));
     }
 
-    /// <summary>Returns the result of subtracting a 64-bit signed integer
-    /// from this instance.</summary>
+    /// <summary>Subtracts a 64-bit signed integer from this
+    /// arbitrary-precision rational number and returns the
+    /// result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -2483,8 +2491,8 @@ namespace PeterO.Numbers {
       return this.Subtract(FromInt64(v));
     }
 
-    /// <summary>Returns the value of this instance multiplied by a 64-bit
-    /// signed integer.</summary>
+    /// <summary>Multiplies this arbitrary-precision rational number by a
+    /// 64-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -2492,8 +2500,8 @@ namespace PeterO.Numbers {
       return this.Multiply(FromInt64(v));
     }
 
-    /// <summary>Divides this instance by the value of a 64-bit signed
-    /// integer.</summary>
+    /// <summary>Divides this arbitrary-precision rational number by a
+    /// 64-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
     /// <returns>The quotient of the two objects.</returns>
@@ -2503,8 +2511,9 @@ namespace PeterO.Numbers {
       return this.Divide(FromInt64(v));
     }
 
-    /// <summary>Finds the remainder that results when this instance is
-    /// divided by the value of a 64-bit signed integer.</summary>
+    /// <summary>Returns the remainder that would result when this
+    /// arbitrary-precision rational number is divided by a 64-bit signed
+    /// integer.</summary>
     /// <param name='v'>The divisor.</param>
     /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
@@ -2598,7 +2607,7 @@ namespace PeterO.Numbers {
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
     /// not-a-number, or the number, once converted to an integer by
-    /// discarding its fractional part, is less than -32768 or greater than
+    /// discarding its fractional part, is less than -32768 or greater tha
     /// 32767.</exception>
     public short ToInt16Checked() {
       if (!this.IsFinite) {
@@ -2623,7 +2632,7 @@ namespace PeterO.Numbers {
     /// <returns>This number's value as a 16-bit signed integer.</returns>
     /// <exception cref='ArithmeticException'>This value is infinity or
     /// not-a-number, is not an exact integer, or is less than -32768 or
-    /// greater than 32767.</exception>
+    /// greater tha 32767.</exception>
     public short ToInt16IfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
