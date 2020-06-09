@@ -116,6 +116,14 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[FromSByte(sbyte)](#FromSByte_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision binary floating-point number.
 * <code>[FromSingle(float)](#FromSingle_float)</code> - Creates a binary floating-point number from a 32-bit floating-point number.
 * <code>[FromSingleBits(int)](#FromSingleBits_int)</code> - Creates a binary floating-point number from a 32-bit floating-point number encoded in the IEEE 754 binary32 format.
+* <code>[FromString(byte[])](#FromString_byte)</code> - Creates a binary floating-point number from a sequence of bytes that represents a number, using an unlimited precision context.
+* <code>[FromString(byte[], int, int)](#FromString_byte_int_int)</code> - Creates a binary floating-point number from a sequence of bytes that represents a number.
+* <code>[FromString(byte[], int, int, PeterO.Numbers.EContext)](#FromString_byte_int_int_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from a sequence of bytes that represents a number.
+* <code>[FromString(byte[], PeterO.Numbers.EContext)](#FromString_byte_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from a sequence of bytes that represents a number.
+* <code>[FromString(char[])](#FromString_char)</code> - Creates a binary floating-point number from a sequence of chars that represents a number, using an unlimited precision context.
+* <code>[FromString(char[], int, int)](#FromString_char_int_int)</code> - Creates a binary floating-point number from a sequence of chars that represents a number.
+* <code>[FromString(char[], int, int, PeterO.Numbers.EContext)](#FromString_char_int_int_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from a sequence of chars that represents a number.
+* <code>[FromString(char[], PeterO.Numbers.EContext)](#FromString_char_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from a sequence of chars that represents a number.
 * <code>[FromString(string)](#FromString_string)</code> - Creates a binary floating-point number from a text string that represents a number, using an unlimited precision context.
 * <code>[FromString(string, int, int)](#FromString_string_int_int)</code> - Creates a binary floating-point number from a text string that represents a number.
 * <code>[FromString(string, int, int, PeterO.Numbers.EContext)](#FromString_string_int_int_PeterO_Numbers_EContext)</code> - Creates a binary floating-point number from a text string that represents a number.
@@ -1023,7 +1031,7 @@ The given arbitrary-precision binary floating-point number minus one.
     public PeterO.Numbers.EFloat Divide(
         int intValue);
 
-Divides this arbitrary-precision binary floating-point number by a 32-bit signed integer and returns the result.
+Divides this arbitrary-precision binary floating-point number by a 32-bit signed integer and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -1044,7 +1052,7 @@ Attempted to divide by zero.
     public PeterO.Numbers.EFloat Divide(
         long longValue);
 
-Divides this arbitrary-precision binary floating-point number by a 64-bit signed integer and returns the result.
+Divides this arbitrary-precision binary floating-point number by a 64-bit signed integer and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -1066,7 +1074,7 @@ Attempted to divide by zero.
     public PeterO.Numbers.EFloat Divide(
         PeterO.Numbers.EFloat divisor);
 
-Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result.
+Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -1083,7 +1091,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
         PeterO.Numbers.EFloat divisor,
         PeterO.Numbers.EContext ctx);
 
-Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result.
+Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -1584,6 +1592,316 @@ Creates a binary floating-point number from a 32-bit floating-point number encod
 
 A binary floating-point number with the same floating-point value as  <i>flt</i>
 .
+
+<a id="FromString_byte"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        byte[] bytes);
+
+Creates a binary floating-point number from a sequence of bytes that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int, int,
+            EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>bytes</i>: A sequence of bytes to convert to a binary floating-point number.
+
+<b>Return Value:</b>
+
+The parsed number, converted to arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bytes</i>
+ is null.
+
+ * System.FormatException:
+The portion given of  <i>bytes</i>
+ is not a correctly formatted number sequence.
+
+<a id="FromString_byte_int_int"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        byte[] bytes,
+        int offset,
+        int length);
+
+Creates a binary floating-point number from a sequence of bytes that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>bytes</i>: A sequence of bytes to convert to a binary floating-point number.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>bytes</i>
+ begins.
+
+ * <i>length</i>: The length, in code units, of the desired portion of  <i>bytes</i>
+ (but not more than  <i>bytes</i>
+ 's length).
+
+<b>Return Value:</b>
+
+An arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ *  T:System.ArgumentException:
+Either  <i> offset</i>
+ or  <i> length</i>
+ is less than 0 or greater than  <i>bytes</i>
+ 's length, or  <i>             bytes</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
+ * System.ArgumentNullException:
+The parameter  <i>bytes</i>
+ is null.
+
+ * System.ArgumentException:
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>bytes</i>
+ 's length, or  <i>bytes</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
+<a id="FromString_byte_int_int_PeterO_Numbers_EContext"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        byte[] bytes,
+        int offset,
+        int length,
+        PeterO.Numbers.EContext ctx);
+
+Creates a binary floating-point number from a sequence of bytes that represents a number. Note that if the sequence contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value. The format of the sequence generally consists of:
+
+ * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if '-' , the value is negative.)
+
+ * One or more digits, with a single optional decimal point (".", U+002E) before or after those digits or between two of them. These digits may begin with any number of zeros.
+
+ * Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-" (negative exponent) plus one or more digits specifying the exponent (these digits may begin with any number of zeros).
+
+The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.
+
+All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
+
+<b>Parameters:</b>
+
+ * <i>bytes</i>: A sequence of bytes to convert to a binary floating-point number.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>bytes</i>
+ begins.
+
+ * <i>length</i>: The length, in code units, of the desired portion of  <i>bytes</i>
+ (but not more than  <i>bytes</i>
+ 's length).
+
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.
+
+<b>Return Value:</b>
+
+The parsed number, converted to arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bytes</i>
+ is null.
+
+ * System.FormatException:
+The portion given of  <i>bytes</i>
+ is not a correctly formatted number sequence; or either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>bytes</i>
+ 's length, or  <i>bytes</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
+<a id="FromString_byte_PeterO_Numbers_EContext"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        byte[] bytes,
+        PeterO.Numbers.EContext ctx);
+
+Creates a binary floating-point number from a sequence of bytes that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>bytes</i>: A sequence of bytes to convert to a binary floating-point number.
+
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.
+
+<b>Return Value:</b>
+
+The parsed number, converted to arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bytes</i>
+ is null.
+
+<a id="FromString_char"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        char[] chars);
+
+Creates a binary floating-point number from a sequence of  `char` s that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int, int,
+            EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>chars</i>: A sequence of  `char` s to convert to a binary floating-point number.
+
+<b>Return Value:</b>
+
+The parsed number, converted to arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>chars</i>
+ is null.
+
+ * System.FormatException:
+The portion given of  <i>chars</i>
+ is not a correctly formatted number sequence.
+
+<a id="FromString_char_int_int"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        char[] chars,
+        int offset,
+        int length);
+
+Creates a binary floating-point number from a sequence of  `char` s that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>chars</i>: A sequence of  `char` s to convert to a binary floating-point number.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>chars</i>
+ begins.
+
+ * <i>length</i>: The length, in code units, of the desired portion of  <i>chars</i>
+ (but not more than  <i>chars</i>
+ 's length).
+
+<b>Return Value:</b>
+
+An arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ *  T:System.ArgumentException:
+Either  <i> offset</i>
+ or  <i> length</i>
+ is less than 0 or greater than  <i>chars</i>
+ 's length, or  <i>             chars</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
+ * System.ArgumentNullException:
+The parameter  <i>chars</i>
+ is null.
+
+ * System.ArgumentException:
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>chars</i>
+ 's length, or  <i>chars</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
+<a id="FromString_char_int_int_PeterO_Numbers_EContext"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        char[] chars,
+        int offset,
+        int length,
+        PeterO.Numbers.EContext ctx);
+
+Creates a binary floating-point number from a sequence of  `char` s that represents a number. Note that if the sequence contains a negative exponent, the resulting value might not be exact, in which case the resulting binary floating-point number will be an approximation of this decimal number's value. The format of the sequence generally consists of:
+
+ * An optional plus sign ("+" , U+002B) or minus sign ("-", U+002D) (if '-' , the value is negative.)
+
+ * One or more digits, with a single optional decimal point (".", U+002E) before or after those digits or between two of them. These digits may begin with any number of zeros.
+
+ * Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-" (negative exponent) plus one or more digits specifying the exponent (these digits may begin with any number of zeros).
+
+The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.
+
+All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
+
+<b>Parameters:</b>
+
+ * <i>chars</i>: A sequence of  `char` s to convert to a binary floating-point number.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>chars</i>
+ begins.
+
+ * <i>length</i>: The length, in code units, of the desired portion of  <i>chars</i>
+ (but not more than  <i>chars</i>
+ 's length).
+
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.
+
+<b>Return Value:</b>
+
+The parsed number, converted to arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>chars</i>
+ is null.
+
+ * System.FormatException:
+The portion given of  <i>chars</i>
+ is not a correctly formatted number sequence; or either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>chars</i>
+ 's length, or  <i>chars</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
+<a id="FromString_char_PeterO_Numbers_EContext"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        char[] chars,
+        PeterO.Numbers.EContext ctx);
+
+Creates a binary floating-point number from a sequence of  `char` s that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>chars</i>: A sequence of  `char` s to convert to a binary floating-point number.
+
+ * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If HasFlags of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited. Note that providing a context is often much faster than creating an EDecimal without a context then calling ToEFloat on that EDecimal, especially if the context specifies a precision limit and exponent range.
+
+<b>Return Value:</b>
+
+The parsed number, converted to arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>chars</i>
+ is null.
 
 <a id="FromString_string"></a>
 ### FromString
@@ -2360,7 +2678,8 @@ Multiplies this arbitrary-precision binary floating-point number by a 64-bit sig
 
 <b>Parameters:</b>
 
- * <i>longValue</i>:
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -3920,7 +4239,8 @@ Subtracts a 64-bit signed integer from this arbitrary-precision binary floating-
 
 <b>Parameters:</b>
 
- * <i>longValue</i>:
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 

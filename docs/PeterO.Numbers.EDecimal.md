@@ -592,7 +592,8 @@ Adds this arbitrary-precision decimal floating-point number and a 64-bit signed 
 
 <b>Parameters:</b>
 
- * <i>longValue</i>:
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
@@ -1178,7 +1179,7 @@ The given arbitrary-precision decimal number minus one.
     public PeterO.Numbers.EDecimal Divide(
         int intValue);
 
-Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result.
+Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -1194,7 +1195,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
     public PeterO.Numbers.EDecimal Divide(
         long longValue);
 
-Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result.
+Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -1211,7 +1212,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
     public PeterO.Numbers.EDecimal Divide(
         PeterO.Numbers.EDecimal divisor);
 
-Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
+Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -1228,7 +1229,7 @@ The quotient of the two numbers. Returns infinity if the divisor is 0 and the di
         PeterO.Numbers.EDecimal divisor,
         PeterO.Numbers.EContext ctx);
 
-Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
+Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result. When possible, the result will be exact.
 
 <b>Parameters:</b>
 
@@ -4579,7 +4580,8 @@ Subtracts a 64-bit signed integer from this arbitrary-precision decimal floating
 
 <b>Parameters:</b>
 
- * <i>longValue</i>:
+ * <i>longValue</i>: The parameter  <i>longValue</i>
+ is a 64-bit signed integer.
 
 <b>Return Value:</b>
 

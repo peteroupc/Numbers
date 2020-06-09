@@ -9,8 +9,8 @@ using System;
 using System.Text;
 
 /*
-TODO: FromString(char[]) in EFloat/ERational classes
-TODO: FromString(char[], ..., ...) in EFloat/ERational classes
+TODO: FromString(char[]) in ERational classes
+TODO: FromString(char[], ..., ...) in ERational classes
 TODO: add one/zero/ten to Java version; maybe change to fields in next major
 version
 TODO: Use FastIntegerFixed in ERational
@@ -3133,7 +3133,10 @@ namespace PeterO.Numbers {
 
     /// <summary>Adds this arbitrary-precision decimal floating-point
     /// number and another arbitrary-precision decimal floating-point
-    /// number and returns the result.</summary>
+    /// number and returns the result. The exponent for the result is the
+    /// lower of this arbitrary-precision decimal floating-point number's
+    /// exponent and the other arbitrary-precision decimal floating-point
+    /// number's exponent.</summary>
     /// <param name='otherValue'>An arbitrary-precision decimal
     /// number.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -4625,7 +4628,10 @@ namespace PeterO.Numbers {
 
     /// <summary>Multiplies this arbitrary-precision decimal floating-point
     /// number by another arbitrary-precision decimal floating-point number
-    /// and returns the result.</summary>
+    /// and returns the result. The exponent for the result is this
+    /// arbitrary-precision decimal floating-point number's exponent plus
+    /// the other arbitrary-precision decimal floating-point number's
+    /// exponent.</summary>
     /// <param name='otherValue'>Another decimal number.</param>
     /// <returns>The product of the two decimal numbers.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -4683,8 +4689,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Adds this arbitrary-precision decimal floating-point
-    /// number and a 64-bit signed integer and returns the
-    /// result.</summary>
+    /// number and a 64-bit signed integer and returns the result. The
+    /// exponent for the result is the lower of this arbitrary-precision
+    /// decimal floating-point number's exponent and the other 64-bit
+    /// signed integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -4694,7 +4702,9 @@ namespace PeterO.Numbers {
 
     /// <summary>Subtracts a 64-bit signed integer from this
     /// arbitrary-precision decimal floating-point number and returns the
-    /// result.</summary>
+    /// result. The exponent for the result is the lower of this
+    /// arbitrary-precision decimal floating-point number's exponent and
+    /// the other 64-bit signed integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -4703,7 +4713,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Multiplies this arbitrary-precision decimal floating-point
-    /// number by a 64-bit signed integer and returns the result.</summary>
+    /// number by a 64-bit signed integer and returns the result. The
+    /// exponent for the result is this arbitrary-precision decimal
+    /// floating-point number's exponent plus the other 64-bit signed
+    /// integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -4727,8 +4740,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Adds this arbitrary-precision decimal floating-point
-    /// number and a 32-bit signed integer and returns the
-    /// result.</summary>
+    /// number and a 32-bit signed integer and returns the result. The
+    /// exponent for the result is the lower of this arbitrary-precision
+    /// decimal floating-point number's exponent and the other 32-bit
+    /// signed integer's exponent.</summary>
     /// <param name='intValue'>A 32-bit signed integer to add to this
     /// object.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -4738,7 +4753,9 @@ namespace PeterO.Numbers {
 
     /// <summary>Subtracts a 32-bit signed integer from this
     /// arbitrary-precision decimal floating-point number and returns the
-    /// result.</summary>
+    /// result. The exponent for the result is the lower of this
+    /// arbitrary-precision decimal floating-point number's exponent and
+    /// the other 32-bit signed integer's exponent.</summary>
     /// <param name='intValue'>A 32-bit signed integer to subtract from
     /// this object.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -4748,7 +4765,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Multiplies this arbitrary-precision decimal floating-point
-    /// number by a 32-bit signed integer and returns the result.</summary>
+    /// number by a 32-bit signed integer and returns the result. The
+    /// exponent for the result is this arbitrary-precision decimal
+    /// floating-point number's exponent plus the other 32-bit signed
+    /// integer's exponent.</summary>
     /// <param name='intValue'>A 32-bit signed integer to multiply this
     /// object by.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -5848,7 +5868,10 @@ namespace PeterO.Numbers {
 
     /// <summary>Subtracts an arbitrary-precision decimal floating-point
     /// number from this arbitrary-precision decimal floating-point number
-    /// and returns the result.</summary>
+    /// and returns the result. The exponent for the result is the lower of
+    /// this arbitrary-precision decimal floating-point number's exponent
+    /// and the other arbitrary-precision decimal floating-point number's
+    /// exponent.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
     /// <returns>The difference of the two objects.</returns>

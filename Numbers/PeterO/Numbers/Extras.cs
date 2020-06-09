@@ -9,8 +9,34 @@ using System;
 
 namespace PeterO.Numbers {
   internal static class Extras {
+    public static byte[] CharsConcat(
+      byte[] c1,
+      int offset1,
+      int length1,
+      byte[] c2,
+      int offset2,
+      int length2) {
+      var chars = new byte[length1 + length2];
+      Array.Copy(c1, offset1, chars, 0, length1);
+      Array.Copy(c2, offset2, chars, length1, length2);
+      return chars;
+    }
+
+    public static char[] CharsConcat(
+      char[] c1,
+      int offset1,
+      int length1,
+      char[] c2,
+      int offset2,
+      int length2) {
+      var chars = new char[length1 + length2];
+      Array.Copy(c1, offset1, chars, 0, length1);
+      Array.Copy(c2, offset2, chars, length1, length2);
+      return chars;
+    }
+
     public static int[] DoubleToIntegers(double dbl) {
-      long value = BitConverter.ToInt64 (
+      long value = BitConverter.ToInt64(
           BitConverter.GetBytes((double)dbl),
           0);
       var ret = new int[2];

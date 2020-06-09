@@ -430,7 +430,7 @@ chars[i +
         }
         return ef.RoundToPrecision(ctx);
       } else if (decimalDigitStart != decimalDigitEnd) {
-        byte[] ctmpstr = CharsConcat(
+        byte[] ctmpstr = Extras.CharsConcat(
           chars,
           digitStart,
           digitEnd - digitStart,
@@ -663,7 +663,7 @@ chars[i +
                 decimalDigitStart,
                 decimalDigitEnd);
           } else {
-            byte[] cdecstr = CharsConcat(
+            byte[] cdecstr = Extras.CharsConcat(
               chars,
               digitStart,
               digitEnd - digitStart,
@@ -700,19 +700,6 @@ chars[i +
         fastIntScale,
         (byte)(negative ? BigNumberFlags.FlagNegative : 0));
       return ret;
-    }
-
-    private static byte[] CharsConcat(
-      byte[] c1,
-      int offset1,
-      int length1,
-      byte[] c2,
-      int offset2,
-      int length2) {
-      var chars = new byte[length1 + length2];
-      Array.Copy(c1, offset1, chars, 0, length1);
-      Array.Copy(c2, offset2, chars, length1, length2);
-      return chars;
     }
 
     private static EDecimal ParseOrdinaryNumber(
@@ -1130,7 +1117,7 @@ EDecimal.FromCache(-si)) : EDecimal.FromCache(si);
                 decimalDigitStart,
                 decimalDigitEnd);
           } else {
-            byte[] cdecstr = CharsConcat(
+            byte[] cdecstr = Extras.CharsConcat(
               chars,
               digitStart,
               digitEnd - digitStart,

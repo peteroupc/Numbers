@@ -7,7 +7,7 @@ at: http://peteroupc.github.io/
  */
 using System;
 
-// TODO: Add byte[] equivalent of FromString in EFloat and ERational
+// TODO: Add byte[] equivalent of FromString in ERational
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision binary floating-point
   /// number. (The "E" stands for "extended", meaning that instances of
@@ -716,117 +716,7 @@ namespace PeterO.Numbers {
           (EInteger)(floatExponent - 150));
     }
 
-    /// <summary>Creates a binary floating-point number from a text string
-    /// that represents a number. Note that if the string contains a
-    /// negative exponent, the resulting value might not be exact, in which
-    /// case the resulting binary floating-point number will be an
-    /// approximation of this decimal number's value.
-    /// <para>The format of the string generally consists of:</para>
-    /// <list type=''>
-    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
-    /// U+002D) (if '-' , the value is negative.)</item>
-    /// <item>One or more digits, with a single optional decimal point
-    /// (".", U+002E) before or after those digits or between two of them.
-    /// These digits may begin with any number of zeros.</item>
-    /// <item>Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-"
-    /// (negative exponent) plus one or more digits specifying the exponent
-    /// (these digits may begin with any number of zeros).</item></list>
-    /// <para>The string can also be "-INF", "-Infinity", "Infinity",
-    /// "INF", quiet NaN ("NaN") followed by any number of digits (these
-    /// digits may begin with any number of zeros), or signaling NaN
-    /// ("sNaN") followed by any number of digits (these digits may begin
-    /// with any number of zeros), all where the letters can be any
-    /// combination of basic upper-case and/or basic lower-case
-    /// letters.</para>
-    /// <para>All characters mentioned above are the corresponding
-    /// characters in the Basic Latin range. In particular, the digits must
-    /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
-    /// allowed to contain white space characters, including
-    /// spaces.</para></summary>
-    /// <param name='str'>The parameter <paramref name='str'/> is a text
-    /// string.</param>
-    /// <param name='offset'>An index starting at 0 showing where the
-    /// desired portion of <paramref name='str'/> begins.</param>
-    /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='str'/> (but not more than <paramref
-    /// name='str'/> 's length).</param>
-    /// <param name='ctx'>An arithmetic context to control the precision,
-    /// rounding, and exponent range of the result. If HasFlags of the
-    /// context is true, will also store the flags resulting from the
-    /// operation (the flags are in addition to the pre-existing flags).
-    /// Can be null, in which case the precision is unlimited. Note that
-    /// providing a context is often much faster than creating an EDecimal
-    /// without a context then calling ToEFloat on that EDecimal,
-    /// especially if the context specifies a precision limit and exponent
-    /// range.</param>
-    /// <returns>The parsed number, converted to arbitrary-precision binary
-    /// floating-point number.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='str'/> is null.</exception>
-    /// <exception cref='FormatException'>The portion given of <paramref
-    /// name='str'/> is not a correctly formatted number string; or either
-    /// <paramref name='offset'/> or <paramref name='length'/> is less than
-    /// 0 or greater than <paramref name='str'/> 's length, or <paramref
-    /// name='str'/> 's length minus <paramref name='offset'/> is less than
-    /// <paramref name='length'/>.</exception>
-    public static EFloat FromString(
-      string str,
-      int offset,
-      int length,
-      EContext ctx) {
-      if (str == null) {
-        throw new ArgumentNullException(nameof(str));
-      }
-      if (offset < 0) {
-        throw new FormatException("offset(" + offset + ") is not greater" +
-          "\u0020or equal to 0");
-      }
-      if (offset > str.Length) {
-        throw new FormatException("offset(" + offset + ") is not less or" +
-          "\u0020equal to " + str.Length);
-      }
-      if (length < 0) {
-        throw new FormatException("length(" + length + ") is not greater or" +
-          "\u0020equal to 0");
-      }
-      if (length > str.Length) {
-        throw new FormatException("length(" + length + ") is not less or" +
-          "\u0020equal to " + str.Length);
-      }
-      if (str.Length - offset < length) {
-        throw new FormatException("str's length minus " + offset + "(" +
-          (str.Length - offset) + ") is not greater or equal to " + length);
-      }
-      EContext b64 = EContext.Binary64;
-      if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
-        !ctx.IsSimplified && ctx.EMax.CompareTo(b64.EMax) <= 0 &&
-        ctx.EMin.CompareTo(b64.EMin) >= 0 &&
-        ctx.Precision.CompareTo(b64.Precision) <= 0) {
-        int tmpoffset = offset;
-        int endpos = offset + length;
-        if (length == 0) {
-          throw new FormatException();
-        }
-        if (str[tmpoffset] == '-' || str[tmpoffset] == '+') {
-          ++tmpoffset;
-        }
-        if (tmpoffset < endpos && ((str[tmpoffset] >= '0' &&
-              str[tmpoffset] <= '9') || str[tmpoffset] == '.')) {
-          EFloat ef = DoubleEFloatFromString(str, offset, length, ctx);
-          if (ef != null) {
-            return ef;
-          }
-        }
-      }
-      return EDecimal.FromString(
-          str,
-          offset,
-          length,
-          EContext.Unlimited.WithSimplified(ctx != null && ctx.IsSimplified))
-        .ToEFloat(ctx);
-    }
-
-    private static EFloat SignalUnderflow(EContext ec, bool negative, bool
+    internal static EFloat SignalUnderflow(EContext ec, bool negative, bool
       zeroSignificand) {
       EInteger eTiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
       eTiny = eTiny.Subtract(2); // subtract 2 from proper eTiny to
@@ -840,7 +730,7 @@ namespace PeterO.Numbers {
       return ret.RoundToPrecision(ec);
     }
 
-    private static EFloat SignalOverflow(EContext ec, bool negative, bool
+    internal static EFloat SignalOverflow(EContext ec, bool negative, bool
       zeroSignificand) {
       if (zeroSignificand) {
         EFloat ret = EFloat.Create(EInteger.Zero, ec.EMax);
@@ -1123,21 +1013,117 @@ namespace PeterO.Numbers {
       if (negative) {
         mant = mant.Negate();
       }
-      // DebugUtility.Log("c " + ((mant.Sign<0 && negative) ||
-      // (mant.Sign >= 0 && !negative)));
       return EDecimal.Create(mant, exp).ToEFloat(ctx);
-      /* EInteger absexp = exp.Abs();
-      ef1 = EFloat.FromEInteger(mant);
-      ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTenFromBig(absexp));
-      DebugUtility.Log("c ef1=" + ef1 + " ef2=" + ef2);
-      if (exp.Sign < 0) {
-        return ef1.Divide(ef2, ctx);
-      } else {
-        DebugUtility.Log("mult=" + ef1.Multiply(ef2, null));
-        DebugUtility.Log("mult=" + ef1.Multiply(ef2, ctx));
-        return ef1.Multiply(ef2, ctx);
+    }
+
+    /// <summary>Creates a binary floating-point number from a text string
+    /// that represents a number. Note that if the string contains a
+    /// negative exponent, the resulting value might not be exact, in which
+    /// case the resulting binary floating-point number will be an
+    /// approximation of this decimal number's value.
+    /// <para>The format of the string generally consists of:</para>
+    /// <list type=''>
+    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
+    /// U+002D) (if '-' , the value is negative.)</item>
+    /// <item>One or more digits, with a single optional decimal point
+    /// (".", U+002E) before or after those digits or between two of them.
+    /// These digits may begin with any number of zeros.</item>
+    /// <item>Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-"
+    /// (negative exponent) plus one or more digits specifying the exponent
+    /// (these digits may begin with any number of zeros).</item></list>
+    /// <para>The string can also be "-INF", "-Infinity", "Infinity",
+    /// "INF", quiet NaN ("NaN") followed by any number of digits (these
+    /// digits may begin with any number of zeros), or signaling NaN
+    /// ("sNaN") followed by any number of digits (these digits may begin
+    /// with any number of zeros), all where the letters can be any
+    /// combination of basic upper-case and/or basic lower-case
+    /// letters.</para>
+    /// <para>All characters mentioned above are the corresponding
+    /// characters in the Basic Latin range. In particular, the digits must
+    /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
+    /// allowed to contain white space characters, including
+    /// spaces.</para></summary>
+    /// <param name='str'>The parameter <paramref name='str'/> is a text
+    /// string.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='str'/> begins.</param>
+    /// <param name='length'>The length, in code units, of the desired
+    /// portion of <paramref name='str'/> (but not more than <paramref
+    /// name='str'/> 's length).</param>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If HasFlags of the
+    /// context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// Can be null, in which case the precision is unlimited. Note that
+    /// providing a context is often much faster than creating an EDecimal
+    /// without a context then calling ToEFloat on that EDecimal,
+    /// especially if the context specifies a precision limit and exponent
+    /// range.</param>
+    /// <returns>The parsed number, converted to arbitrary-precision binary
+    /// floating-point number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='str'/> is null.</exception>
+    /// <exception cref='FormatException'>The portion given of <paramref
+    /// name='str'/> is not a correctly formatted number string; or either
+    /// <paramref name='offset'/> or <paramref name='length'/> is less than
+    /// 0 or greater than <paramref name='str'/> 's length, or <paramref
+    /// name='str'/> 's length minus <paramref name='offset'/> is less than
+    /// <paramref name='length'/>.</exception>
+    public static EFloat FromString(
+      string str,
+      int offset,
+      int length,
+      EContext ctx) {
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
       }
-      */
+      if (offset < 0) {
+        throw new FormatException("offset(" + offset + ") is not greater" +
+          "\u0020or equal to 0");
+      }
+      if (offset > str.Length) {
+        throw new FormatException("offset(" + offset + ") is not less or" +
+          "\u0020equal to " + str.Length);
+      }
+      if (length < 0) {
+        throw new FormatException("length(" + length + ") is not greater or" +
+          "\u0020equal to 0");
+      }
+      if (length > str.Length) {
+        throw new FormatException("length(" + length + ") is not less or" +
+          "\u0020equal to " + str.Length);
+      }
+      if (str.Length - offset < length) {
+        throw new FormatException("str's length minus " + offset + "(" +
+          (str.Length - offset) + ") is not greater or equal to " + length);
+      }
+      EContext b64 = EContext.Binary64;
+      if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
+        !ctx.IsSimplified && ctx.EMax.CompareTo(b64.EMax) <= 0 &&
+        ctx.EMin.CompareTo(b64.EMin) >= 0 &&
+        ctx.Precision.CompareTo(b64.Precision) <= 0) {
+        int tmpoffset = offset;
+        int endpos = offset + length;
+        if (length == 0) {
+          throw new FormatException();
+        }
+        if (str[tmpoffset] == '-' || str[tmpoffset] == '+') {
+          ++tmpoffset;
+        }
+        if (tmpoffset < endpos && ((str[tmpoffset] >= '0' &&
+              str[tmpoffset] <= '9') || str[tmpoffset] == '.')) {
+          EFloat ef = DoubleEFloatFromString(str, offset, length, ctx);
+          if (ef != null) {
+            return ef;
+          }
+        }
+      }
+      return EDecimal.FromString(
+          str,
+          offset,
+          length,
+          EContext.Unlimited.WithSimplified(ctx != null && ctx.IsSimplified))
+        .ToEFloat(ctx);
     }
 
     /// <summary>Creates a binary floating-point number from a text string
@@ -1205,6 +1191,262 @@ namespace PeterO.Numbers {
     /// <paramref name='length'/>.</exception>
     public static EFloat FromString(string str, int offset, int length) {
       return FromString(str, offset, length, null);
+    }
+
+    /// <summary>Creates a binary floating-point number from a sequence of
+    /// <c>char</c> s that represents a number. Note that if the sequence
+    /// contains a negative exponent, the resulting value might not be
+    /// exact, in which case the resulting binary floating-point number
+    /// will be an approximation of this decimal number's value.
+    /// <para>The format of the sequence generally consists of:</para>
+    /// <list type=''>
+    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
+    /// U+002D) (if '-' , the value is negative.)</item>
+    /// <item>One or more digits, with a single optional decimal point
+    /// (".", U+002E) before or after those digits or between two of them.
+    /// These digits may begin with any number of zeros.</item>
+    /// <item>Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-"
+    /// (negative exponent) plus one or more digits specifying the exponent
+    /// (these digits may begin with any number of zeros).</item></list>
+    /// <para>The sequence can also be "-INF", "-Infinity", "Infinity",
+    /// "INF", quiet NaN ("NaN") followed by any number of digits (these
+    /// digits may begin with any number of zeros), or signaling NaN
+    /// ("sNaN") followed by any number of digits (these digits may begin
+    /// with any number of zeros), all where the letters can be any
+    /// combination of basic upper-case and/or basic lower-case
+    /// letters.</para>
+    /// <para>All characters mentioned above are the corresponding
+    /// characters in the Basic Latin range. In particular, the digits must
+    /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
+    /// allowed to contain white space characters, including
+    /// spaces.</para></summary>
+    /// <param name='chars'>A sequence of <c>char</c> s to convert to a
+    /// binary floating-point number.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='chars'/> begins.</param>
+    /// <param name='length'>The length, in code units, of the desired
+    /// portion of <paramref name='chars'/> (but not more than <paramref
+    /// name='chars'/> 's length).</param>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If HasFlags of the
+    /// context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// Can be null, in which case the precision is unlimited. Note that
+    /// providing a context is often much faster than creating an EDecimal
+    /// without a context then calling ToEFloat on that EDecimal,
+    /// especially if the context specifies a precision limit and exponent
+    /// range.</param>
+    /// <returns>The parsed number, converted to arbitrary-precision binary
+    /// floating-point number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='chars'/> is null.</exception>
+    /// <exception cref='FormatException'>The portion given of <paramref
+    /// name='chars'/> is not a correctly formatted number sequence; or
+    /// either <paramref name='offset'/> or <paramref name='length'/> is
+    /// less than 0 or greater than <paramref name='chars'/> 's length, or
+    /// <paramref name='chars'/> 's length minus <paramref name='offset'/>
+    /// is less than <paramref name='length'/>.</exception>
+    public static EFloat FromString(
+      char[] chars,
+      int offset,
+      int length,
+      EContext ctx) {
+      return EFloatCharArrayString.FromString(chars, offset, length, ctx);
+    }
+
+    /// <summary>Creates a binary floating-point number from a sequence of
+    /// <c>char</c> s that represents a number, using an unlimited
+    /// precision context. For more information, see the
+    /// <c>FromString(String, int, int, EContext)</c> method.</summary>
+    /// <param name='chars'>A sequence of <c>char</c> s to convert to a
+    /// binary floating-point number.</param>
+    /// <returns>The parsed number, converted to arbitrary-precision binary
+    /// floating-point number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='chars'/> is null.</exception>
+    /// <exception cref='FormatException'>The portion given of <paramref
+    /// name='chars'/> is not a correctly formatted number
+    /// sequence.</exception>
+    public static EFloat FromString(char[] chars) {
+      return FromString(chars, 0, chars == null ? 0 : chars.Length, null);
+    }
+
+    /// <summary>Creates a binary floating-point number from a sequence of
+    /// <c>char</c> s that represents a number. For more information, see
+    /// the <c>FromString(String, int, int, EContext)</c> method.</summary>
+    /// <param name='chars'>A sequence of <c>char</c> s to convert to a
+    /// binary floating-point number.</param>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If HasFlags of the
+    /// context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// Can be null, in which case the precision is unlimited. Note that
+    /// providing a context is often much faster than creating an EDecimal
+    /// without a context then calling ToEFloat on that EDecimal,
+    /// especially if the context specifies a precision limit and exponent
+    /// range.</param>
+    /// <returns>The parsed number, converted to arbitrary-precision binary
+    /// floating-point number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='chars'/> is null.</exception>
+    public static EFloat FromString(char[] chars, EContext ctx) {
+      return FromString(chars, 0, chars == null ? 0 : chars.Length, ctx);
+    }
+
+    /// <summary>Creates a binary floating-point number from a sequence of
+    /// <c>char</c> s that represents a number. For more information, see
+    /// the <c>FromString(String, int, int, EContext)</c> method.</summary>
+    /// <param name='chars'>A sequence of <c>char</c> s to convert to a
+    /// binary floating-point number.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='chars'/> begins.</param>
+    /// <param name='length'>The length, in code units, of the desired
+    /// portion of <paramref name='chars'/> (but not more than <paramref
+    /// name='chars'/> 's length).</param>
+    /// <returns>An arbitrary-precision binary floating-point
+    /// number.</returns>
+    /// <exception cref=' T:System.ArgumentException'>Either <paramref
+    /// name=' offset'/> or <paramref name=' length'/> is less than 0 or
+    /// greater than <paramref name='chars'/> 's length, or <paramref
+    /// name=' chars'/> 's length minus <paramref name='offset'/> is less
+    /// than <paramref name='length'/>.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='chars'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='chars'/> 's length, or <paramref
+    /// name='chars'/> 's length minus <paramref name='offset'/> is less
+    /// than <paramref name='length'/>.</exception>
+    public static EFloat FromString(char[] chars, int offset, int length) {
+      return FromString(chars, offset, length, null);
+    }
+
+    /// <summary>Creates a binary floating-point number from a sequence of
+    /// bytes that represents a number. Note that if the sequence contains
+    /// a negative exponent, the resulting value might not be exact, in
+    /// which case the resulting binary floating-point number will be an
+    /// approximation of this decimal number's value.
+    /// <para>The format of the sequence generally consists of:</para>
+    /// <list type=''>
+    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
+    /// U+002D) (if '-' , the value is negative.)</item>
+    /// <item>One or more digits, with a single optional decimal point
+    /// (".", U+002E) before or after those digits or between two of them.
+    /// These digits may begin with any number of zeros.</item>
+    /// <item>Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-"
+    /// (negative exponent) plus one or more digits specifying the exponent
+    /// (these digits may begin with any number of zeros).</item></list>
+    /// <para>The sequence can also be "-INF", "-Infinity", "Infinity",
+    /// "INF", quiet NaN ("NaN") followed by any number of digits (these
+    /// digits may begin with any number of zeros), or signaling NaN
+    /// ("sNaN") followed by any number of digits (these digits may begin
+    /// with any number of zeros), all where the letters can be any
+    /// combination of basic upper-case and/or basic lower-case
+    /// letters.</para>
+    /// <para>All characters mentioned above are the corresponding
+    /// characters in the Basic Latin range. In particular, the digits must
+    /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
+    /// allowed to contain white space characters, including
+    /// spaces.</para></summary>
+    /// <param name='bytes'>A sequence of bytes to convert to a binary
+    /// floating-point number.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='bytes'/> begins.</param>
+    /// <param name='length'>The length, in code units, of the desired
+    /// portion of <paramref name='bytes'/> (but not more than <paramref
+    /// name='bytes'/> 's length).</param>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If HasFlags of the
+    /// context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// Can be null, in which case the precision is unlimited. Note that
+    /// providing a context is often much faster than creating an EDecimal
+    /// without a context then calling ToEFloat on that EDecimal,
+    /// especially if the context specifies a precision limit and exponent
+    /// range.</param>
+    /// <returns>The parsed number, converted to arbitrary-precision binary
+    /// floating-point number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
+    /// <exception cref='FormatException'>The portion given of <paramref
+    /// name='bytes'/> is not a correctly formatted number sequence; or
+    /// either <paramref name='offset'/> or <paramref name='length'/> is
+    /// less than 0 or greater than <paramref name='bytes'/> 's length, or
+    /// <paramref name='bytes'/> 's length minus <paramref name='offset'/>
+    /// is less than <paramref name='length'/>.</exception>
+    public static EFloat FromString(
+      byte[] bytes,
+      int offset,
+      int length,
+      EContext ctx) {
+      return EFloatByteArrayString.FromString(bytes, offset, length, ctx);
+    }
+
+    /// <summary>Creates a binary floating-point number from a sequence of
+    /// bytes that represents a number, using an unlimited precision
+    /// context. For more information, see the <c>FromString(String, int,
+    /// int, EContext)</c> method.</summary>
+    /// <param name='bytes'>A sequence of bytes to convert to a binary
+    /// floating-point number.</param>
+    /// <returns>The parsed number, converted to arbitrary-precision binary
+    /// floating-point number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
+    /// <exception cref='FormatException'>The portion given of <paramref
+    /// name='bytes'/> is not a correctly formatted number
+    /// sequence.</exception>
+    public static EFloat FromString(byte[] bytes) {
+      return FromString(bytes, 0, bytes == null ? 0 : bytes.Length, null);
+    }
+
+    /// <summary>Creates a binary floating-point number from a sequence of
+    /// bytes that represents a number. For more information, see the
+    /// <c>FromString(String, int, int, EContext)</c> method.</summary>
+    /// <param name='bytes'>A sequence of bytes to convert to a binary
+    /// floating-point number.</param>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If HasFlags of the
+    /// context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// Can be null, in which case the precision is unlimited. Note that
+    /// providing a context is often much faster than creating an EDecimal
+    /// without a context then calling ToEFloat on that EDecimal,
+    /// especially if the context specifies a precision limit and exponent
+    /// range.</param>
+    /// <returns>The parsed number, converted to arbitrary-precision binary
+    /// floating-point number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
+    public static EFloat FromString(byte[] bytes, EContext ctx) {
+      return FromString(bytes, 0, bytes == null ? 0 : bytes.Length, ctx);
+    }
+
+    /// <summary>Creates a binary floating-point number from a sequence of
+    /// bytes that represents a number. For more information, see the
+    /// <c>FromString(String, int, int, EContext)</c> method.</summary>
+    /// <param name='bytes'>A sequence of bytes to convert to a binary
+    /// floating-point number.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='bytes'/> begins.</param>
+    /// <param name='length'>The length, in code units, of the desired
+    /// portion of <paramref name='bytes'/> (but not more than <paramref
+    /// name='bytes'/> 's length).</param>
+    /// <returns>An arbitrary-precision binary floating-point
+    /// number.</returns>
+    /// <exception cref=' T:System.ArgumentException'>Either <paramref
+    /// name=' offset'/> or <paramref name=' length'/> is less than 0 or
+    /// greater than <paramref name='bytes'/> 's length, or <paramref
+    /// name=' bytes'/> 's length minus <paramref name='offset'/> is less
+    /// than <paramref name='length'/>.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='bytes'/> 's length, or <paramref
+    /// name='bytes'/> 's length minus <paramref name='offset'/> is less
+    /// than <paramref name='length'/>.</exception>
+    public static EFloat FromString(byte[] bytes, int offset, int length) {
+      return FromString(bytes, offset, length, null);
     }
 
     /// <summary>Gets the greater value between two binary floating-point
@@ -1464,7 +1706,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Adds this arbitrary-precision binary floating-point number
-    /// and a 32-bit signed integer and returns the result.</summary>
+    /// and a 32-bit signed integer and returns the result. The exponent
+    /// for the result is the lower of this arbitrary-precision binary
+    /// floating-point number's exponent and the other 32-bit signed
+    /// integer's exponent.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -1474,7 +1719,9 @@ namespace PeterO.Numbers {
 
     /// <summary>Subtracts a 32-bit signed integer from this
     /// arbitrary-precision binary floating-point number and returns the
-    /// result.</summary>
+    /// result. The exponent for the result is the lower of this
+    /// arbitrary-precision binary floating-point number's exponent and the
+    /// other 32-bit signed integer's exponent.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -1484,7 +1731,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Multiplies this arbitrary-precision binary floating-point
-    /// number by a 32-bit signed integer and returns the result.</summary>
+    /// number by a 32-bit signed integer and returns the result. The
+    /// exponent for the result is this arbitrary-precision binary
+    /// floating-point number's exponent plus the other 32-bit signed
+    /// integer's exponent.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -1508,7 +1758,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Adds this arbitrary-precision binary floating-point number
-    /// and a 64-bit signed integer and returns the result.</summary>
+    /// and a 64-bit signed integer and returns the result. The exponent
+    /// for the result is the lower of this arbitrary-precision binary
+    /// floating-point number's exponent and the other 64-bit signed
+    /// integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The return value is not documented yet.</returns>
@@ -1518,7 +1771,9 @@ namespace PeterO.Numbers {
 
     /// <summary>Subtracts a 64-bit signed integer from this
     /// arbitrary-precision binary floating-point number and returns the
-    /// result.</summary>
+    /// result. The exponent for the result is the lower of this
+    /// arbitrary-precision binary floating-point number's exponent and the
+    /// other 64-bit signed integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The difference of the two objects.</returns>
@@ -1527,7 +1782,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Multiplies this arbitrary-precision binary floating-point
-    /// number by a 64-bit signed integer and returns the result.</summary>
+    /// number by a 64-bit signed integer and returns the result. The
+    /// exponent for the result is this arbitrary-precision binary
+    /// floating-point number's exponent plus the other 64-bit signed
+    /// integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The product of the two numbers.</returns>
@@ -1553,7 +1811,10 @@ namespace PeterO.Numbers {
 
     /// <summary>Adds this arbitrary-precision binary floating-point number
     /// and another arbitrary-precision binary floating-point number and
-    /// returns the result.</summary>
+    /// returns the result. The exponent for the result is the lower of
+    /// this arbitrary-precision binary floating-point number's exponent
+    /// and the other arbitrary-precision binary floating-point number's
+    /// exponent.</summary>
     /// <param name='otherValue'>An arbitrary-precision binary
     /// floating-point number.</param>
     /// <returns>The sum of the two objects.</returns>
@@ -2715,7 +2976,10 @@ namespace PeterO.Numbers {
 
     /// <summary>Multiplies this arbitrary-precision binary floating-point
     /// number by another arbitrary-precision binary floating-point number
-    /// and returns the result.</summary>
+    /// and returns the result. The exponent for the result is this
+    /// arbitrary-precision binary floating-point number's exponent plus
+    /// the other arbitrary-precision binary floating-point number's
+    /// exponent.</summary>
     /// <param name='otherValue'>Another binary floating-point
     /// number.</param>
     /// <returns>The product of the two binary floating-point
@@ -3685,7 +3949,10 @@ namespace PeterO.Numbers {
 
     /// <summary>Subtracts an arbitrary-precision binary floating-point
     /// number from this arbitrary-precision binary floating-point number
-    /// and returns the result.</summary>
+    /// and returns the result. The exponent for the result is the lower of
+    /// this arbitrary-precision binary floating-point number's exponent
+    /// and the other arbitrary-precision binary floating-point number's
+    /// exponent.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
     /// <returns>The difference of the two objects.</returns>

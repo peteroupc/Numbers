@@ -580,7 +580,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString(null);
+        EFloat.FromString((string)null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -591,7 +591,7 @@ namespace Test {
       Assert.AreEqual(EFloat.Zero, EFloat.FromString("0"));
       Assert.AreEqual(EFloat.Zero, EFloat.FromString("0", null));
       try {
-        EFloat.FromString(null, null);
+        EFloat.FromString((string)null, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -609,7 +609,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString(null, 0, 1);
+        EFloat.FromString((string)null, 0, 1);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -663,7 +663,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EFloat.FromString(null, 0, 1, null);
+        EFloat.FromString((string)null, 0, 1, null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
