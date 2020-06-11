@@ -58,6 +58,7 @@ namespace PeterO.Numbers {
       if (effectiveLength == 0) {
         return EInteger.Zero;
       }
+      int[] c2d = EInteger.CharToDigit;
       short[] bigint;
       if (radix == 16) {
         // Special case for hexadecimal radix
@@ -75,7 +76,7 @@ namespace PeterO.Numbers {
           for (int i = 0; i < leftover; ++i) {
             extraWord <<= 4;
             byte c = cs[index + i];
-            int digit = (c >= 0x80) ? 36 : EInteger.CharToDigit[(int)c];
+            int digit = (c >= 0x80) ? 36 : c2d[(int)c];
             if (digit >= 16) {
               throw new FormatException("Illegal character found");
             }
@@ -93,27 +94,27 @@ namespace PeterO.Numbers {
         #endif
         while (index < endIndex) {
           byte c = cs[index + 3];
-          int digit = (c >= 0x80) ? 36 : EInteger.CharToDigit[(int)c];
+          int digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
           int word = digit;
           c = cs[index + 2];
-          digit = (c >= 0x80) ? 36 : EInteger.CharToDigit[(int)c];
+          digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
 
           word |= digit << 4;
           c = cs[index + 1];
-          digit = (c >= 0x80) ? 36 : EInteger.CharToDigit[(int)c];
+          digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
 
           word |= digit << 8;
           c = cs[index];
-          digit = (c >= 0x80) ? 36 : EInteger.CharToDigit[(int)c];
+          digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
           }
@@ -258,8 +259,10 @@ namespace PeterO.Numbers {
           return EInteger.FromInt64(negative ? -rv : rv);
         }
       }
+      int[] c2d = EInteger.CharToDigit;
+      int[] d2w = EInteger.DigitsInWord;
       long lsize = ((long)(endIndex - index) * 100 /
-EInteger.DigitsInWord[radix]) + 1;
+d2w[radix]) + 1;
       lsize = Math.Min(lsize, Int32.MaxValue);
       lsize = Math.Max(lsize, 5);
       var bigint = new short[(int)lsize];
@@ -342,12 +345,13 @@ EInteger.DigitsInWord[radix]) + 1;
         }
       } else {
         var haveSmallInt = true;
-        int maxSafeInt = EInteger.MaxSafeInts[radix - 2];
+        int[] msi = EInteger.MaxSafeInts;
+        int maxSafeInt = msi[radix - 2];
         int maxShortPlusOneMinusRadix = 65536 - radix;
         var smallInt = 0;
         for (int i = index; i < endIndex; ++i) {
           byte c = cs[i];
-          int digit = (c >= 0x80) ? 36 : EInteger.CharToDigit[(int)c];
+          int digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= radix) {
             throw new FormatException("Illegal character found");
           }
