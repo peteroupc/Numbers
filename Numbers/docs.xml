@@ -935,8 +935,16 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(PeterO.Numbers.EDecimal)">
 
-        <summary>Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.</summary><param name='otherValue'>An arbitrary-precision decimal
-            number.</param><returns>The sum of the two objects.</returns>
+            <summary>Adds this arbitrary-precision decimal floating-point
+            number and another arbitrary-precision decimal floating-point
+            number and returns the result. The exponent for the result is the
+            lower of this arbitrary-precision decimal floating-point number's
+            exponent and the other arbitrary-precision decimal floating-point
+            number's exponent.</summary>
+            <param name='otherValue'>An arbitrary-precision decimal
+            number.</param>
+            <returns>The sum of the two objects.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
@@ -955,13 +963,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(System.Int32)">
 
-        <summary>Adds this arbitrary-precision decimal floating-point number and a 32-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 32-bit signed integer's exponent.</summary><param name='intValue'>A 32-bit signed integer to add to this
-            object.</param><returns>The sum of the two objects.</returns>
+            <summary>Adds this arbitrary-precision decimal floating-point
+            number and a 32-bit signed integer and returns the result. The
+            exponent for the result is the lower of this arbitrary-precision
+            decimal floating-point number's exponent and the other 32-bit
+            signed integer's exponent.</summary>
+            <param name='intValue'>A 32-bit signed integer to add to this
+            object.</param>
+            <returns>The sum of the two objects.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(System.Int64)">
 
-        <summary>Adds this arbitrary-precision decimal floating-point number and a 64-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The sum of the two objects.</returns>
+            <summary>Adds this arbitrary-precision decimal floating-point
+            number and a 64-bit signed integer and returns the result. The
+            exponent for the result is the lower of this arbitrary-precision
+            decimal floating-point number's exponent and the other 64-bit
+            signed integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The sum of the two objects.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(PeterO.Numbers.EDecimal)">
 
@@ -2868,7 +2890,16 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Multiply(PeterO.Numbers.EDecimal)">
 
-        <summary>Multiplies this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is this arbitrary-precision decimal floating-point number's exponent plus the other arbitrary-precision decimal floating-point number's exponent.</summary><param name='otherValue'>Another decimal number.</param><returns>The product of the two decimal numbers.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+            <summary>Multiplies this arbitrary-precision decimal floating-point
+            number by another arbitrary-precision decimal floating-point number
+            and returns the result. The exponent for the result is this
+            arbitrary-precision decimal floating-point number's exponent plus
+            the other arbitrary-precision decimal floating-point number's
+            exponent.</summary>
+            <param name='otherValue'>Another decimal number.</param>
+            <returns>The product of the two decimal numbers.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
@@ -2887,13 +2918,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Multiply(System.Int32)">
 
-        <summary>Multiplies this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result. The exponent for the result is this arbitrary-precision decimal floating-point number's exponent plus the other 32-bit signed integer's exponent.</summary><param name='intValue'>A 32-bit signed integer to multiply this
-            object by.</param><returns>The product of the two numbers.</returns>
+            <summary>Multiplies this arbitrary-precision decimal floating-point
+            number by a 32-bit signed integer and returns the result. The
+            exponent for the result is this arbitrary-precision decimal
+            floating-point number's exponent plus the other 32-bit signed
+            integer's exponent.</summary>
+            <param name='intValue'>A 32-bit signed integer to multiply this
+            object by.</param>
+            <returns>The product of the two numbers.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Multiply(System.Int64)">
 
-        <summary>Multiplies this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result. The exponent for the result is this arbitrary-precision decimal floating-point number's exponent plus the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The product of the two numbers.</returns>
+            <summary>Multiplies this arbitrary-precision decimal floating-point
+            number by a 64-bit signed integer and returns the result. The
+            exponent for the result is this arbitrary-precision decimal
+            floating-point number's exponent plus the other 64-bit signed
+            integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The product of the two numbers.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MultiplyAndAdd(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 
@@ -3878,8 +3923,16 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(PeterO.Numbers.EDecimal)">
 
-        <summary>Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.</summary><param name='otherValue'>The number to subtract from this
-            instance's value.</param><returns>The difference of the two objects.</returns>
+            <summary>Subtracts an arbitrary-precision decimal floating-point
+            number from this arbitrary-precision decimal floating-point number
+            and returns the result. The exponent for the result is the lower of
+            this arbitrary-precision decimal floating-point number's exponent
+            and the other arbitrary-precision decimal floating-point number's
+            exponent.</summary>
+            <param name='otherValue'>The number to subtract from this
+            instance's value.</param>
+            <returns>The difference of the two objects.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
@@ -3900,13 +3953,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(System.Int32)">
 
-        <summary>Subtracts a 32-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 32-bit signed integer's exponent.</summary><param name='intValue'>A 32-bit signed integer to subtract from
-            this object.</param><returns>The difference of the two objects.</returns>
+            <summary>Subtracts a 32-bit signed integer from this
+            arbitrary-precision decimal floating-point number and returns the
+            result. The exponent for the result is the lower of this
+            arbitrary-precision decimal floating-point number's exponent and
+            the other 32-bit signed integer's exponent.</summary>
+            <param name='intValue'>A 32-bit signed integer to subtract from
+            this object.</param>
+            <returns>The difference of the two objects.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(System.Int64)">
 
-        <summary>Subtracts a 64-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The difference of the two objects.</returns>
+            <summary>Subtracts a 64-bit signed integer from this
+            arbitrary-precision decimal floating-point number and returns the
+            result. The exponent for the result is the lower of this
+            arbitrary-precision decimal floating-point number's exponent and
+            the other 64-bit signed integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The difference of the two objects.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.EDecimal.Ten">
 
@@ -5533,8 +5600,16 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat)">
 
-        <summary>Adds this arbitrary-precision binary floating-point number and another arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other arbitrary-precision binary floating-point number's exponent.</summary><param name='otherValue'>An arbitrary-precision binary
-            floating-point number.</param><returns>The sum of the two objects.</returns>
+            <summary>Adds this arbitrary-precision binary floating-point number
+            and another arbitrary-precision binary floating-point number and
+            returns the result. The exponent for the result is the lower of
+            this arbitrary-precision binary floating-point number's exponent
+            and the other arbitrary-precision binary floating-point number's
+            exponent.</summary>
+            <param name='otherValue'>An arbitrary-precision binary
+            floating-point number.</param>
+            <returns>The sum of the two objects.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -5554,13 +5629,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(System.Int32)">
 
-        <summary>Adds this arbitrary-precision binary floating-point number and a 32-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other 32-bit signed integer's exponent.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is
-            a 32-bit signed integer.</param><returns>The sum of the two objects.</returns>
+            <summary>Adds this arbitrary-precision binary floating-point number
+            and a 32-bit signed integer and returns the result. The exponent
+            for the result is the lower of this arbitrary-precision binary
+            floating-point number's exponent and the other 32-bit signed
+            integer's exponent.</summary>
+            <param name='intValue'>The parameter <paramref name='intValue'/> is
+            a 32-bit signed integer.</param>
+            <returns>The sum of the two objects.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(System.Int64)">
 
-        <summary>Adds this arbitrary-precision binary floating-point number and a 64-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+            <summary>Adds this arbitrary-precision binary floating-point number
+            and a 64-bit signed integer and returns the result. The exponent
+            for the result is the lower of this arbitrary-precision binary
+            floating-point number's exponent and the other 64-bit signed
+            integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The return value is not documented yet.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
@@ -6536,10 +6625,11 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.Byte[])">
-<summary>Creates a binary floating-point number from a sequence of bytes
-            that represents a number, using an unlimited precision context. For
-            more information, see the <c>FromString(String, int, int,
-            EContext)</c> method.</summary>
+
+            <summary>Creates a binary floating-point number from a sequence of
+            bytes that represents a number, using an unlimited precision
+            context. For more information, see the <c>FromString(String, int,
+            int, EContext)</c> method.</summary>
             <param name='bytes'>A sequence of bytes to convert to a binary
             floating-point number.</param>
             <returns>The parsed number, converted to arbitrary-precision binary
@@ -6547,10 +6637,12 @@
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
             <exception cref='FormatException'>The portion given of <paramref name='bytes'/> is not a correctly formatted number
             sequence.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.Byte[],PeterO.Numbers.EContext)">
-<summary>Creates a binary floating-point number from a sequence of bytes
-            that represents a number. For more information, see the
+
+            <summary>Creates a binary floating-point number from a sequence of
+            bytes that represents a number. For more information, see the
             <c>FromString(String, int, int, EContext)</c> method.</summary>
             <param name='bytes'>A sequence of bytes to convert to a binary
             floating-point number.</param>
@@ -6566,10 +6658,12 @@
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.Byte[],System.Int32,System.Int32)">
-<summary>Creates a binary floating-point number from a sequence of bytes
-            that represents a number. For more information, see the
+
+            <summary>Creates a binary floating-point number from a sequence of
+            bytes that represents a number. For more information, see the
             <c>FromString(String, int, int, EContext)</c> method.</summary>
             <param name='bytes'>A sequence of bytes to convert to a binary
             floating-point number.</param>
@@ -6580,19 +6674,20 @@
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
             <exception cref=' T:System.ArgumentException'>Either <paramref name=' offset'/> or <paramref name=' length'/> is less than 0 or
-            greater than <paramref name='bytes'/> 's length, or <paramref name='
-            bytes'/> 's length minus <paramref name='offset'/> is less than
-            <paramref name='length'/>.</exception>
+            greater than <paramref name='bytes'/> 's length, or <paramref name=' bytes'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
-            greater than <paramref name='bytes'/> 's length, or <paramref name='bytes'/> 's length minus <paramref name='offset'/> is less than
-            <paramref name='length'/>.</exception>
+            greater than <paramref name='bytes'/> 's length, or <paramref name='bytes'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.Byte[],System.Int32,System.Int32,PeterO.Numbers.EContext)">
-<summary>Creates a binary floating-point number from a sequence of bytes
-            that represents a number. Note that if the sequence contains a
-            negative exponent, the resulting value might not be exact, in which
-            case the resulting binary floating-point number will be an
+
+            <summary>Creates a binary floating-point number from a sequence of
+            bytes that represents a number. Note that if the sequence contains
+            a negative exponent, the resulting value might not be exact, in
+            which case the resulting binary floating-point number will be an
             approximation of this decimal number's value.
             <para>The format of the sequence generally consists of:</para>
             <list type=''>
@@ -6634,30 +6729,35 @@
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
-            <exception cref='FormatException'>The portion given of <paramref name='bytes'/> is not a correctly formatted number sequence; or either
-            <paramref name='offset'/> or <paramref name='length'/> is less than
-            0 or greater than <paramref name='bytes'/> 's length, or <paramref name='bytes'/> 's length minus <paramref name='offset'/> is less than
-            <paramref name='length'/>.</exception>
+            <exception cref='FormatException'>The portion given of <paramref name='bytes'/> is not a correctly formatted number sequence; or
+            either <paramref name='offset'/> or <paramref name='length'/> is
+            less than 0 or greater than <paramref name='bytes'/> 's length, or
+            <paramref name='bytes'/> 's length minus <paramref name='offset'/>
+            is less than <paramref name='length'/>.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.Char[])">
-<summary>Creates a binary floating-point number from a sequence of <c>char</c>s
-            that represents a number, using an unlimited precision context. For
-            more information, see the <c>FromString(String, int, int,
-            EContext)</c> method.</summary>
-            <param name='chars'>A sequence of <c>char</c>s to convert to a binary
-            floating-point number.</param>
+
+            <summary>Creates a binary floating-point number from a sequence of
+            <c>char</c> s that represents a number, using an unlimited
+            precision context. For more information, see the
+            <c>FromString(String, int, int, EContext)</c> method.</summary>
+            <param name='chars'>A sequence of <c>char</c> s to convert to a
+            binary floating-point number.</param>
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
             <exception cref='FormatException'>The portion given of <paramref name='chars'/> is not a correctly formatted number
             sequence.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.Char[],PeterO.Numbers.EContext)">
-<summary>Creates a binary floating-point number from a sequence of <c>char</c>s
-            that represents a number. For more information, see the
-            <c>FromString(String, int, int, EContext)</c> method.</summary>
-            <param name='chars'>A sequence of <c>char</c>s to convert to a binary
-            floating-point number.</param>
+
+            <summary>Creates a binary floating-point number from a sequence of
+            <c>char</c> s that represents a number. For more information, see
+            the <c>FromString(String, int, int, EContext)</c> method.</summary>
+            <param name='chars'>A sequence of <c>char</c> s to convert to a
+            binary floating-point number.</param>
             <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If HasFlags of the
             context is true, will also store the flags resulting from the
@@ -6670,13 +6770,15 @@
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.Char[],System.Int32,System.Int32)">
-<summary>Creates a binary floating-point number from a sequence of <c>char</c>s
-            that represents a number. For more information, see the
-            <c>FromString(String, int, int, EContext)</c> method.</summary>
-            <param name='chars'>A sequence of <c>char</c>s to convert to a binary
-            floating-point number.</param>
+
+            <summary>Creates a binary floating-point number from a sequence of
+            <c>char</c> s that represents a number. For more information, see
+            the <c>FromString(String, int, int, EContext)</c> method.</summary>
+            <param name='chars'>A sequence of <c>char</c> s to convert to a
+            binary floating-point number.</param>
             <param name='offset'>An index starting at 0 showing where the
             desired portion of <paramref name='chars'/> begins.</param>
             <param name='length'>The length, in code units, of the desired
@@ -6684,20 +6786,21 @@
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
             <exception cref=' T:System.ArgumentException'>Either <paramref name=' offset'/> or <paramref name=' length'/> is less than 0 or
-            greater than <paramref name='chars'/> 's length, or <paramref name='
-            chars'/> 's length minus <paramref name='offset'/> is less than
-            <paramref name='length'/>.</exception>
+            greater than <paramref name='chars'/> 's length, or <paramref name=' chars'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
-            greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less than
-            <paramref name='length'/>.</exception>
+            greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.Char[],System.Int32,System.Int32,PeterO.Numbers.EContext)">
-<summary>Creates a binary floating-point number from a sequence of <c>char</c>s
-            that represents a number. Note that if the sequence contains a
-            negative exponent, the resulting value might not be exact, in which
-            case the resulting binary floating-point number will be an
-            approximation of this decimal number's value.
+
+            <summary>Creates a binary floating-point number from a sequence of
+            <c>char</c> s that represents a number. Note that if the sequence
+            contains a negative exponent, the resulting value might not be
+            exact, in which case the resulting binary floating-point number
+            will be an approximation of this decimal number's value.
             <para>The format of the sequence generally consists of:</para>
             <list type=''>
             <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
@@ -6720,8 +6823,8 @@
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
             allowed to contain white space characters, including
             spaces.</para></summary>
-            <param name='chars'>A sequence of <c>char</c>s to convert to a binary
-            floating-point number.</param>
+            <param name='chars'>A sequence of <c>char</c> s to convert to a
+            binary floating-point number.</param>
             <param name='offset'>An index starting at 0 showing where the
             desired portion of <paramref name='chars'/> begins.</param>
             <param name='length'>The length, in code units, of the desired
@@ -6738,10 +6841,12 @@
             <returns>The parsed number, converted to arbitrary-precision binary
             floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
-            <exception cref='FormatException'>The portion given of <paramref name='chars'/> is not a correctly formatted number sequence; or either
-            <paramref name='offset'/> or <paramref name='length'/> is less than
-            0 or greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less than
-            <paramref name='length'/>.</exception>
+            <exception cref='FormatException'>The portion given of <paramref name='chars'/> is not a correctly formatted number sequence; or
+            either <paramref name='offset'/> or <paramref name='length'/> is
+            less than 0 or greater than <paramref name='chars'/> 's length, or
+            <paramref name='chars'/> 's length minus <paramref name='offset'/>
+            is less than <paramref name='length'/>.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.String)">
 
@@ -7289,9 +7394,18 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat)">
 
-        <summary>Multiplies this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result. The exponent for the result is this arbitrary-precision binary floating-point number's exponent plus the other arbitrary-precision binary floating-point number's exponent.</summary><param name='otherValue'>Another binary floating-point
-            number.</param><returns>The product of the two binary floating-point
-            numbers.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+            <summary>Multiplies this arbitrary-precision binary floating-point
+            number by another arbitrary-precision binary floating-point number
+            and returns the result. The exponent for the result is this
+            arbitrary-precision binary floating-point number's exponent plus
+            the other arbitrary-precision binary floating-point number's
+            exponent.</summary>
+            <param name='otherValue'>Another binary floating-point
+            number.</param>
+            <returns>The product of the two binary floating-point
+            numbers.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -7311,15 +7425,31 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Multiply(System.Int32)">
 
-        <summary>Multiplies this arbitrary-precision binary floating-point number by a 32-bit signed integer and returns the result. The exponent for the result is this arbitrary-precision binary floating-point number's exponent plus the other 32-bit signed integer's exponent.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is
-            a 32-bit signed integer.</param><returns>The product of the two numbers.</returns><example><code>EInteger result = EInteger.FromString("5").Multiply(200);</code> .
+            <summary>Multiplies this arbitrary-precision binary floating-point
+            number by a 32-bit signed integer and returns the result. The
+            exponent for the result is this arbitrary-precision binary
+            floating-point number's exponent plus the other 32-bit signed
+            integer's exponent.</summary>
+            <param name='intValue'>The parameter <paramref name='intValue'/> is
+            a 32-bit signed integer.</param>
+            <returns>The product of the two numbers.</returns>
+            <example><code>EInteger result = EInteger.FromString("5").Multiply(200);</code> .
             </example>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Multiply(System.Int64)">
 
-        <summary>Multiplies this arbitrary-precision binary floating-point number by a 64-bit signed integer and returns the result. The exponent for the result is this arbitrary-precision binary floating-point number's exponent plus the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The product of the two numbers.</returns><example><code>EInteger result = EInteger.FromString("5").Multiply(200L);</code> .
+            <summary>Multiplies this arbitrary-precision binary floating-point
+            number by a 64-bit signed integer and returns the result. The
+            exponent for the result is this arbitrary-precision binary
+            floating-point number's exponent plus the other 64-bit signed
+            integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The product of the two numbers.</returns>
+            <example><code>EInteger result = EInteger.FromString("5").Multiply(200L);</code> .
             </example>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.MultiplyAndAdd(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 
@@ -8189,8 +8319,16 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat)">
 
-        <summary>Subtracts an arbitrary-precision binary floating-point number from this arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other arbitrary-precision binary floating-point number's exponent.</summary><param name='otherValue'>The number to subtract from this
-            instance's value.</param><returns>The difference of the two objects.</returns>
+            <summary>Subtracts an arbitrary-precision binary floating-point
+            number from this arbitrary-precision binary floating-point number
+            and returns the result. The exponent for the result is the lower of
+            this arbitrary-precision binary floating-point number's exponent
+            and the other arbitrary-precision binary floating-point number's
+            exponent.</summary>
+            <param name='otherValue'>The number to subtract from this
+            instance's value.</param>
+            <returns>The difference of the two objects.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
@@ -8212,13 +8350,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(System.Int32)">
 
-        <summary>Subtracts a 32-bit signed integer from this arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other 32-bit signed integer's exponent.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is
-            a 32-bit signed integer.</param><returns>The difference of the two objects.</returns>
+            <summary>Subtracts a 32-bit signed integer from this
+            arbitrary-precision binary floating-point number and returns the
+            result. The exponent for the result is the lower of this
+            arbitrary-precision binary floating-point number's exponent and the
+            other 32-bit signed integer's exponent.</summary>
+            <param name='intValue'>The parameter <paramref name='intValue'/> is
+            a 32-bit signed integer.</param>
+            <returns>The difference of the two objects.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(System.Int64)">
 
-        <summary>Subtracts a 64-bit signed integer from this arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The difference of the two objects.</returns>
+            <summary>Subtracts a 64-bit signed integer from this
+            arbitrary-precision binary floating-point number and returns the
+            result. The exponent for the result is the lower of this
+            arbitrary-precision binary floating-point number's exponent and the
+            other 64-bit signed integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The difference of the two objects.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.EFloat.Ten">
 

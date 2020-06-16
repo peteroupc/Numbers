@@ -572,7 +572,7 @@ An arbitrary-precision decimal number. Returns signaling NaN if this value is si
     public PeterO.Numbers.EDecimal Add(
         int intValue);
 
-Adds this arbitrary-precision decimal floating-point number and a 32-bit signed integer and returns the result.
+Adds this arbitrary-precision decimal floating-point number and a 32-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 32-bit signed integer's exponent.
 
 <b>Parameters:</b>
 
@@ -588,7 +588,7 @@ The sum of the two objects.
     public PeterO.Numbers.EDecimal Add(
         long longValue);
 
-Adds this arbitrary-precision decimal floating-point number and a 64-bit signed integer and returns the result.
+Adds this arbitrary-precision decimal floating-point number and a 64-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 64-bit signed integer's exponent.
 
 <b>Parameters:</b>
 
@@ -605,7 +605,7 @@ The sum of the two objects.
     public PeterO.Numbers.EDecimal Add(
         PeterO.Numbers.EDecimal otherValue);
 
-Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result.
+Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.
 
 <b>Parameters:</b>
 
@@ -2906,7 +2906,7 @@ A number whose exponent is increased by  <i>bigPlaces</i>
     public PeterO.Numbers.EDecimal Multiply(
         int intValue);
 
-Multiplies this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result.
+Multiplies this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result. The exponent for the result is this arbitrary-precision decimal floating-point number's exponent plus the other 32-bit signed integer's exponent.
 
 <b>Parameters:</b>
 
@@ -2922,7 +2922,7 @@ The product of the two numbers.
     public PeterO.Numbers.EDecimal Multiply(
         long longValue);
 
-Multiplies this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result.
+Multiplies this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result. The exponent for the result is this arbitrary-precision decimal floating-point number's exponent plus the other 64-bit signed integer's exponent.
 
 <b>Parameters:</b>
 
@@ -2958,7 +2958,7 @@ The product of the two decimal numbers.
     public PeterO.Numbers.EDecimal Multiply(
         PeterO.Numbers.EDecimal otherValue);
 
-Multiplies this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
+Multiplies this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is this arbitrary-precision decimal floating-point number's exponent plus the other arbitrary-precision decimal floating-point number's exponent.
 
 <b>Parameters:</b>
 
@@ -4560,7 +4560,7 @@ The square root. Signals the flag FlagInvalid and returns NaN if this object is 
     public PeterO.Numbers.EDecimal Subtract(
         int intValue);
 
-Subtracts a 32-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result.
+Subtracts a 32-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 32-bit signed integer's exponent.
 
 <b>Parameters:</b>
 
@@ -4576,7 +4576,7 @@ The difference of the two objects.
     public PeterO.Numbers.EDecimal Subtract(
         long longValue);
 
-Subtracts a 64-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result.
+Subtracts a 64-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 64-bit signed integer's exponent.
 
 <b>Parameters:</b>
 
@@ -4593,7 +4593,7 @@ The difference of the two objects.
     public PeterO.Numbers.EDecimal Subtract(
         PeterO.Numbers.EDecimal otherValue);
 
-Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result.
+Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.
 
 <b>Parameters:</b>
 
