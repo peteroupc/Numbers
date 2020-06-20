@@ -695,7 +695,7 @@
             <list><item>By calling the toString() method, which will always
             return distinct strings for distinct arbitrary-precision decimal
             values.</item>
-             <item>By calling the UnsignedMantissa, Exponent, and
+            <item>By calling the UnsignedMantissa, Exponent, and
             IsNegative properties, and calling the IsInfinity, IsQuietNaN, and
             IsSignalingNaN methods. The return values combined will uniquely
             identify a particular arbitrary-precision decimal value.</item>
@@ -724,13 +724,13 @@
             cleared in a timely fashion due to garbage collection. This is
             relevant for applications that use many-digit-long numbers as
             secret parameters.</item>
-             <item>The methods in this class
+            <item>The methods in this class
             (especially those that involve arithmetic) are not guaranteed to be
             "constant-time" (non-data-dependent) for all relevant inputs.
             Certain attacks that involve encrypted communications have
             exploited the timing and other aspects of such communications to
             derive keying material or cleartext indirectly.</item>
-             </list>
+            </list>
             <para>Applications should instead use dedicated security libraries
             to handle big numbers in security-sensitive algorithms.</para>
             <para><b>Reproducibility note</b> </para>
@@ -752,14 +752,14 @@
             runtime settings that change how floating-point math behaves with
             them, and these settings are often not accessible to .NET or Java
             code.</item>
-             <item>Non-associativity and intermediate precisions:
+            <item>Non-associativity and intermediate precisions:
             In general, EDecimal and EFloat use "unlimited" precision in their
             calculations unless specified otherwise by an EContext object.
             However, by limiting the precision of EDecimal, EFloat, and other
             floating-point numbers in this way, operations such as addition and
             multiplication on three or more numbers can be
             <i>non-associative</i>
-             , meaning the result can change depending on
+            , meaning the result can change depending on
             the order in which those numbers are added or multiplied. This
             property means that if an algorithm does not ensure such numbers
             are added or multiplied in the same order every time, its results
@@ -772,15 +772,15 @@
             example) don't exist with method calls to EDecimal and EFloat
             methods, especially since they require limited-precision support to
             be declared explicitly via EContext.</item>
-             <item>fmadd
+            <item>fmadd
             instruction: EDecimal and EFloat include a MultiplyAndAdd method
             with the same semantics as in the General Decimal Arithmetic
             Specification, which requires delivering correctly rounded results
             for this method.</item>
-             <item>Square root estimate: Not applicable
+            <item>Square root estimate: Not applicable
             since EDecimal and EFloat don't include any estimates to square
             root.</item>
-             <item>Transcendental functions: This includes
+            <item>Transcendental functions: This includes
             logarithms, exponentials, and the Pi method. For these functions,
             results are not guaranteed to always be correctly rounded. When
             using transcendentals, an application that cares about
@@ -789,7 +789,7 @@
             be the same across computers, unlike with "native" floating-point
             types where the choice of implementation is often not within the
             application's control.</item>
-             <item>Conversions: Conversions
+            <item>Conversions: Conversions
             between EDecimal or EFloat and text strings have the same
             implementation across computers for the same version of this
             library (see also the advice for transcendentals above). But as for
@@ -801,9 +801,9 @@
             should not be considered reproducible across computers.</item>
             <item>Compiler differences: Not applicable where these classes
             don't use "native" floating-point types.</item>
-             <item>Uninitialized
+            <item>Uninitialized
             data; per-processor code: Not applicable.</item>
-             </list>
+            </list>
             <para><b>Forms of numbers</b> </para>
             <para>There are several other types of numbers that are mentioned
             in this class and elsewhere in this documentation. For reference,
@@ -811,97 +811,97 @@
             <para><b>Unsigned integer</b> : An integer that's always 0 or
             greater, with the following maximum values:</para>
             <list><item>8-bit unsigned integer, or <i>byte</i>
-             : 255.</item>
+            : 255.</item>
             <item>16-bit unsigned integer: 65535.</item>
-             <item>32-bit unsigned
+            <item>32-bit unsigned
             integer: (2 <sup>32</sup>
-             -1).</item>
-             <item>64-bit unsigned
+            -1).</item>
+            <item>64-bit unsigned
             integer: (2 <sup>64</sup>
-             -1).</item>
-             </list>
+            -1).</item>
+            </list>
             <para><b>Signed integer</b> : An integer in <i>two's-complement
             form</i>
-             , with the following ranges:</para>
+            , with the following ranges:</para>
             <list><item>8-bit signed integer: -128 to 127.</item>
-             <item>16-bit
+            <item>16-bit
             signed integer: -32768 to 32767.</item>
-             <item>32-bit signed
+            <item>32-bit signed
             integer: -2 <sup>31</sup>
-             to (2 <sup>31</sup>
-             - 1).</item>
+            to (2 <sup>31</sup>
+            - 1).</item>
             <item>64-bit signed integer: -2 <sup>63</sup>
-             to (2 <sup>63</sup>
-             -
+            to (2 <sup>63</sup>
+            -
             1).</item>
-             </list>
+            </list>
             <para><b>Two's complement form</b> : In <i>two's-complement
             form</i>
-             , nonnegative numbers have the highest (most significant)
+            , nonnegative numbers have the highest (most significant)
             bit set to zero, and negative numbers have that bit (and all bits
             beyond) set to one, and a negative number is stored in such form by
             decreasing its absolute value by 1 and swapping the bits of the
             resulting number.</para>
             <para><b>64-bit floating-point number</b> : A 64-bit binary
             floating-point number, in the form <i>significand</i>
-             * 2
+            * 2
             <sup><i>exponent</i>
-             </sup>
+            </sup>
             . The significand is 53 bits long
             (Precision) and the exponent ranges from -1074 (EMin) to 971
             (EMax). The number is stored in the following format (commonly
             called the IEEE 754 format):</para>
             <code>|C|BBB...BBB|AAAAAA...AAAAAA|</code> <list><item>A. Low 52 bits (Precision minus 1 bits): Lowest bits of
             the significand.</item>
-             <item>B. Next 11 bits: Exponent area:
+            <item>B. Next 11 bits: Exponent area:
             <list><item>If all bits are ones, the final stored value is
             infinity (positive or negative depending on the C bit) if all bits
             in area A are zeros, or not-a-number (NaN) otherwise.</item>
             <item>If all bits are zeros, the final stored value is a subnormal
             number, the exponent is EMin, and the highest bit of the
             significand is zero.</item>
-             <item>If any other number, the exponent
+            <item>If any other number, the exponent
             is this value reduced by 1, then raised by EMin, and the highest
             bit of the significand is one.</item>
-             </list>
-             </item>
-             <item>C.
+            </list>
+            </item>
+            <item>C.
             Highest bit: If one, this is a negative number.</item>
-             </list>
+            </list>
             <para>The elements described above are in the same order as the
             order of each bit of each element, that is, either most significant
             first or least significant first.</para>
             <para><b>32-bit binary floating-point number</b> : A 32-bit binary
             number which is stored similarly to a <i>64-bit floating-point
             number</i>
-             , except that:</para>
+            , except that:</para>
             <list><item>Precision is 24 bits.</item>
-             <item>EMin is -149.</item>
+            <item>EMin is -149.</item>
             <item>EMax is 104.</item>
-             <item>A. The low 23 bits (Precision minus
+            <item>A. The low 23 bits (Precision minus
             1 bits) are the lowest bits of the significand.</item>
-             <item>B. The
+            <item>B. The
             next 8 bits are the exponent area.</item>
-             <item>C. If the highest
+            <item>C. If the highest
             bit is one, this is a negative number.</item>
-             </list>
+            </list>
             <para><b>.NET Framework decimal</b> : A 128-bit decimal
             floating-point number, in the form <i>significand</i>
-             * 10 <sup>-
+            * 10 <sup>-
             <i>scale</i>
-             </sup>
-             , where the scale ranges from 0 to 28. The
+            </sup>
+            , where the scale ranges from 0 to 28. The
             number is stored in the following format:</para>
             <list><item>Low 96 bits are the significand, as a 96-bit unsigned
             integer (all 96-bit values are allowed, up to (2 <sup>96</sup>
             -1)).</item>
-             <item>Next 16 bits are unused.</item>
-             <item>Next 8
+            <item>Next 16 bits are unused.</item>
+            <item>Next 8
             bits are the scale, stored as an 8-bit unsigned integer.</item>
             <item>Next 7 bits are unused.</item>
-             <item>If the highest bit is
+            <item>If the highest bit is
             one, it's a negative number.</item>
-             </list>
+            </list>
             <para>The elements described above are in the same order as the
             order of each bit of each element, that is, either most significant
             first or least significant first.</para>
@@ -12636,6 +12636,109 @@
             binary32 format.</param>
             <returns>A rational number with the same floating-point value as
             <paramref name='flt'/>.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromString(System.Byte[])">
+
+            <summary>Creates a rational number from a sequence of bytes that
+            represents a number. See <c>FromString(String, int, int)</c> for
+            more information.</summary>
+            <param name='bytes'>A sequence of bytes that represents a
+            number.</param>
+            <returns>An arbitrary-precision rational number with the same value
+            as the given sequence of bytes.</returns>
+            <exception cref='FormatException'>The parameter <paramref name='bytes'/> is not a correctly formatted sequence of
+            bytes.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromString(System.Byte[],System.Int32,System.Int32)">
+
+            <summary><para>Creates a rational number from a sequence of bytes that
+            represents a number.</para>
+            <para>The format of the sequence of bytes generally consists
+            of:</para>
+            <list type=''>
+            <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
+            U+002D) (if '-' , the value is negative.)</item>
+            <item>The numerator in the form of one or more digits (these digits
+            may begin with any number of zeros).</item>
+            <item>Optionally, "/" followed by the denominator in the form of
+            one or more digits (these digits may begin with any number of
+            zeros). If a denominator is not given, it's equal to
+            1.</item></list>
+            <para>The sequence of bytes can also be "-INF", "-Infinity",
+            "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number
+            of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any
+            number of digits, all in any combination of upper and lower
+            case.</para>
+            <para>All characters mentioned above are the corresponding
+            characters in the Basic Latin range. In particular, the digits must
+            be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of
+            bytes is not allowed to contain white space characters, including
+            spaces.</para></summary>
+            <param name='bytes'>A sequence of bytes, a portion of which
+            represents a number.</param>
+            <param name='offset'>An index starting at 0 showing where the
+            desired portion of <paramref name='bytes'/> begins.</param>
+            <param name='length'>The length, in code units, of the desired
+            portion of <paramref name='bytes'/> (but not more than <paramref name='bytes'/> 's length).</param>
+            <returns>An arbitrary-precision rational number.</returns>
+            <exception cref='FormatException'>The parameter <paramref name='bytes'/> is not a correctly formatted sequence of
+            bytes.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+            <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
+            greater than <paramref name='bytes'/> 's length, or <paramref name='bytes'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromString(System.Char[])">
+
+            <summary>Creates a rational number from a sequence of <c>char</c> s
+            that represents a number. See <c>FromString(String, int, int)</c> for more information.</summary>
+            <param name='chars'>A sequence of <c>char</c> s that represents a
+            number.</param>
+            <returns>An arbitrary-precision rational number with the same value
+            as the given sequence of <c>char</c> s.</returns>
+            <exception cref='FormatException'>The parameter <paramref name='chars'/> is not a correctly formatted sequence of <c>char</c> s.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromString(System.Char[],System.Int32,System.Int32)">
+
+            <summary><para>Creates a rational number from a sequence of <c>char</c> s
+            that represents a number.</para>
+            <para>The format of the sequence of <c>char</c> s generally
+            consists of:</para>
+            <list type=''>
+            <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
+            U+002D) (if '-' , the value is negative.)</item>
+            <item>The numerator in the form of one or more digits (these digits
+            may begin with any number of zeros).</item>
+            <item>Optionally, "/" followed by the denominator in the form of
+            one or more digits (these digits may begin with any number of
+            zeros). If a denominator is not given, it's equal to
+            1.</item></list>
+            <para>The sequence of <c>char</c> s can also be "-INF",
+            "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed
+            by any number of digits, or signaling NaN ("sNaN" /"-sNaN")
+            followed by any number of digits, all in any combination of upper
+            and lower case.</para>
+            <para>All characters mentioned above are the corresponding
+            characters in the Basic Latin range. In particular, the digits must
+            be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of
+            <c>char</c> s is not allowed to contain white space characters,
+            including spaces.</para></summary>
+            <param name='chars'>A sequence of <c>char</c> s, a portion of which
+            represents a number.</param>
+            <param name='offset'>An index starting at 0 showing where the
+            desired portion of <paramref name='chars'/> begins.</param>
+            <param name='length'>The length, in code units, of the desired
+            portion of <paramref name='chars'/> (but not more than <paramref name='chars'/> 's length).</param>
+            <returns>An arbitrary-precision rational number.</returns>
+            <exception cref='FormatException'>The parameter <paramref name='chars'/> is not a correctly formatted sequence of <c>char</c> s.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
+            <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
+            greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromString(System.String)">

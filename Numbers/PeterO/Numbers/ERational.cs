@@ -684,13 +684,9 @@ namespace PeterO.Numbers {
             BigNumberFlags.FlagSignalingNaN;
           if (numerInt > MaxSafeInt) {
             numer = EInteger.FromSubstring(str, numerStart, endStr);
-            return new ERational(numer,
-                EInteger.One,
-                flags3);
+            return CreateNaN(numer, true, negative);
           } else {
-            return new ERational(EInteger.FromInt32(numerInt),
-                EInteger.One,
-                flags3);
+            return CreateNaN(EInteger.FromInt32(numerInt), true, negative);
           }
         }
       }
@@ -766,6 +762,132 @@ namespace PeterO.Numbers {
           numer == null ? (EInteger)numerInt : numer,
           ndenom == null ? (EInteger)ndenomInt : ndenom);
       return negative ? erat.Negate() : erat;
+    }
+
+    /// <summary>Creates a rational number from a sequence of <c>char</c> s
+    /// that represents a number. See <c>FromString(String, int, int)</c>
+    /// for more information.</summary>
+    /// <param name='chars'>A sequence of <c>char</c> s that represents a
+    /// number.</param>
+    /// <returns>An arbitrary-precision rational number with the same value
+    /// as the given sequence of <c>char</c> s.</returns>
+    /// <exception cref='FormatException'>The parameter <paramref
+    /// name='chars'/> is not a correctly formatted sequence of <c>char</c>
+    /// s.</exception>
+    public static ERational FromString(char[] chars) {
+      return FromString(chars, 0, chars == null ? 0 : chars.Length);
+    }
+
+    /// <summary>
+    /// <para>Creates a rational number from a sequence of <c>char</c> s
+    /// that represents a number.</para>
+    /// <para>The format of the sequence of <c>char</c> s generally
+    /// consists of:</para>
+    /// <list type=''>
+    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
+    /// U+002D) (if '-' , the value is negative.)</item>
+    /// <item>The numerator in the form of one or more digits (these digits
+    /// may begin with any number of zeros).</item>
+    /// <item>Optionally, "/" followed by the denominator in the form of
+    /// one or more digits (these digits may begin with any number of
+    /// zeros). If a denominator is not given, it's equal to
+    /// 1.</item></list>
+    /// <para>The sequence of <c>char</c> s can also be "-INF",
+    /// "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed
+    /// by any number of digits, or signaling NaN ("sNaN" /"-sNaN")
+    /// followed by any number of digits, all in any combination of upper
+    /// and lower case.</para>
+    /// <para>All characters mentioned above are the corresponding
+    /// characters in the Basic Latin range. In particular, the digits must
+    /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of
+    /// <c>char</c> s is not allowed to contain white space characters,
+    /// including spaces.</para></summary>
+    /// <param name='chars'>A sequence of <c>char</c> s, a portion of which
+    /// represents a number.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='chars'/> begins.</param>
+    /// <param name='length'>The length, in code units, of the desired
+    /// portion of <paramref name='chars'/> (but not more than <paramref
+    /// name='chars'/> 's length).</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
+    /// <exception cref='FormatException'>The parameter <paramref
+    /// name='chars'/> is not a correctly formatted sequence of <c>char</c>
+    /// s.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='chars'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='chars'/> 's length, or <paramref
+    /// name='chars'/> 's length minus <paramref name='offset'/> is less
+    /// than <paramref name='length'/>.</exception>
+    public static ERational FromString(
+      char[] chars,
+      int offset,
+      int length) {
+       return ERationalCharArrayString.FromString(chars, offset, length);
+    }
+
+    /// <summary>Creates a rational number from a sequence of bytes that
+    /// represents a number. See <c>FromString(String, int, int)</c> for
+    /// more information.</summary>
+    /// <param name='bytes'>A sequence of bytes that represents a
+    /// number.</param>
+    /// <returns>An arbitrary-precision rational number with the same value
+    /// as the given sequence of bytes.</returns>
+    /// <exception cref='FormatException'>The parameter <paramref
+    /// name='bytes'/> is not a correctly formatted sequence of
+    /// bytes.</exception>
+    public static ERational FromString(byte[] bytes) {
+      return FromString(bytes, 0, bytes == null ? 0 : bytes.Length);
+    }
+
+    /// <summary>
+    /// <para>Creates a rational number from a sequence of bytes that
+    /// represents a number.</para>
+    /// <para>The format of the sequence of bytes generally consists
+    /// of:</para>
+    /// <list type=''>
+    /// <item>An optional plus sign ("+" , U+002B) or minus sign ("-",
+    /// U+002D) (if '-' , the value is negative.)</item>
+    /// <item>The numerator in the form of one or more digits (these digits
+    /// may begin with any number of zeros).</item>
+    /// <item>Optionally, "/" followed by the denominator in the form of
+    /// one or more digits (these digits may begin with any number of
+    /// zeros). If a denominator is not given, it's equal to
+    /// 1.</item></list>
+    /// <para>The sequence of bytes can also be "-INF", "-Infinity",
+    /// "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number
+    /// of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any
+    /// number of digits, all in any combination of upper and lower
+    /// case.</para>
+    /// <para>All characters mentioned above are the corresponding
+    /// characters in the Basic Latin range. In particular, the digits must
+    /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of
+    /// bytes is not allowed to contain white space characters, including
+    /// spaces.</para></summary>
+    /// <param name='bytes'>A sequence of bytes, a portion of which
+    /// represents a number.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='bytes'/> begins.</param>
+    /// <param name='length'>The length, in code units, of the desired
+    /// portion of <paramref name='bytes'/> (but not more than <paramref
+    /// name='bytes'/> 's length).</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
+    /// <exception cref='FormatException'>The parameter <paramref
+    /// name='bytes'/> is not a correctly formatted sequence of
+    /// bytes.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='bytes'/> 's length, or <paramref
+    /// name='bytes'/> 's length minus <paramref name='offset'/> is less
+    /// than <paramref name='length'/>.</exception>
+    public static ERational FromString(
+      byte[] bytes,
+      int offset,
+      int length) {
+       return ERationalByteArrayString.FromString(bytes, offset, length);
     }
 
     /// <summary>Compares the absolute values of this object and another

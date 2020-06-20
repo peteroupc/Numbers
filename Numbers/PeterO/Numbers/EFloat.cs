@@ -7,7 +7,6 @@ at: http://peteroupc.github.io/
  */
 using System;
 
-// TODO: Add byte[] equivalent of FromString in ERational
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision binary floating-point
   /// number. (The "E" stands for "extended", meaning that instances of

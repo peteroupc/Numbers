@@ -9,8 +9,6 @@ using System;
 using System.Text;
 
 /*
-TODO: FromString(char[]) in ERational classes
-TODO: FromString(char[], ..., ...) in ERational classes
 TODO: add one/zero/ten to Java version; maybe change to fields in next major
 version
 TODO: Use FastIntegerFixed in ERational
