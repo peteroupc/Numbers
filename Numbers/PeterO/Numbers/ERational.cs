@@ -2729,7 +2729,7 @@ namespace PeterO.Numbers {
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
     /// not-a-number, or the number, once converted to an integer by
-    /// discarding its fractional part, is less than -32768 or greater tha
+    /// discarding its fractional part, is less than -32768 or greater than
     /// 32767.</exception>
     public short ToInt16Checked() {
       if (!this.IsFinite) {
@@ -2754,7 +2754,7 @@ namespace PeterO.Numbers {
     /// <returns>This number's value as a 16-bit signed integer.</returns>
     /// <exception cref='ArithmeticException'>This value is infinity or
     /// not-a-number, is not an exact integer, or is less than -32768 or
-    /// greater tha 32767.</exception>
+    /// greater than 32767.</exception>
     public short ToInt16IfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");

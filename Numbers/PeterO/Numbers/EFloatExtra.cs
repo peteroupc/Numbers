@@ -145,7 +145,8 @@ namespace PeterO.Numbers {
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating binary
-    /// expansion.</returns>
+    /// expansion. If this is not desired, use DivideToExponent instead, or
+    /// use the Divide overload that takes an EContext instead.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> is null.</exception>
     public static EFloat operator /(
@@ -401,7 +402,7 @@ namespace PeterO.Numbers {
     /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
-    /// than -32768 or greater tha 32767.</exception>
+    /// than -32768 or greater than 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(

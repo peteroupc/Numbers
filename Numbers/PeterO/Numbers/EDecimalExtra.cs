@@ -188,7 +188,9 @@ namespace PeterO.Numbers {
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating
     /// decimal expansion; examples include 1 divided by any multiple of 3,
-    /// such as 1/3 or 1/12.</returns>
+    /// such as 1/3 or 1/12. If this is not desired, use DivideToExponent
+    /// instead, or use the Divide overload that takes an EContext
+    /// instead.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> is null.</exception>
     public static EDecimal operator /(
@@ -456,7 +458,7 @@ namespace PeterO.Numbers {
     /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
-    /// than -32768 or greater tha 32767.</exception>
+    /// than -32768 or greater than 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(

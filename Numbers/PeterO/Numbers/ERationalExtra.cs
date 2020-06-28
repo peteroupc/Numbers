@@ -446,7 +446,7 @@ namespace PeterO.Numbers {
     /// <exception cref='OverflowException'>The parameter <paramref
     /// name='input'/> is infinity or not-a-number, or the number, once
     /// converted to an integer by discarding its fractional part, is less
-    /// than -32768 or greater tha 32767.</exception>
+    /// than -32768 or greater than 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(

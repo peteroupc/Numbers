@@ -3797,8 +3797,10 @@ namespace PeterO.Numbers {
 
     /// <summary>Divides this arbitrary-precision decimal floating-point
     /// number by another arbitrary-precision decimal floating-point number
-    /// and returns the result. When possible, the result will be
-    /// exact.</summary>
+    /// and returns the result; returns NaN instead if the result would
+    /// have a nonterminating decimal expansion (including 1/3, 1/12, 1/7,
+    /// 2/3, and so on); if this is not desired, use DivideToExponent, or
+    /// use the Divide overload that takes an EContext.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
     /// divisor is 0 and the dividend is nonzero. Returns not-a-number
@@ -3814,8 +3816,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Divides this arbitrary-precision decimal floating-point
     /// number by another arbitrary-precision decimal floating-point number
-    /// and returns the result. When possible, the result will be
-    /// exact.</summary>
+    /// and returns the result.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -4723,8 +4724,11 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Divides this arbitrary-precision decimal floating-point
-    /// number by a 64-bit signed integer and returns the result. When
-    /// possible, the result will be exact.</summary>
+    /// number by a 64-bit signed integer and returns the result; returns
+    /// NaN instead if the result would have a nonterminating decimal
+    /// expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is
+    /// not desired, use DivideToExponent, or use the Divide overload that
+    /// takes an EContext.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
@@ -4732,7 +4736,9 @@ namespace PeterO.Numbers {
     /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
     /// result can't be exact because it would have a nonterminating
     /// decimal expansion; examples include 1 divided by any multiple of 3,
-    /// such as 1/3 or 1/12.</returns>
+    /// such as 1/3 or 1/12. If this is not desired, use DivideToExponent
+    /// instead, or use the Divide overload that takes an EContext
+    /// instead.</returns>
     public EDecimal Divide(long longValue) {
       return this.Divide(EDecimal.FromInt64(longValue));
     }
@@ -4775,8 +4781,11 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Divides this arbitrary-precision decimal floating-point
-    /// number by a 32-bit signed integer and returns the result. When
-    /// possible, the result will be exact.</summary>
+    /// number by a 32-bit signed integer and returns the result; returns
+    /// NaN instead if the result would have a nonterminating decimal
+    /// expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is
+    /// not desired, use DivideToExponent, or use the Divide overload that
+    /// takes an EContext.</summary>
     /// <param name='intValue'>A 32-bit signed integer, the divisor, to
     /// divide this object by.</param>
     /// <returns>The quotient of the two numbers. Returns infinity if the
@@ -7508,7 +7517,7 @@ namespace PeterO.Numbers {
     /// integer.</returns>
     /// <exception cref='OverflowException'>This value is infinity or
     /// not-a-number, or the number, once converted to an integer by
-    /// discarding its fractional part, is less than -32768 or greater tha
+    /// discarding its fractional part, is less than -32768 or greater than
     /// 32767.</exception>
     public short ToInt16Checked() {
       if (!this.IsFinite) {
@@ -7544,7 +7553,7 @@ namespace PeterO.Numbers {
     /// <returns>This number's value as a 16-bit signed integer.</returns>
     /// <exception cref='ArithmeticException'>This value is infinity or
     /// not-a-number, is not an exact integer, or is less than -32768 or
-    /// greater tha 32767.</exception>
+    /// greater than 32767.</exception>
     public short ToInt16IfExact() {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");

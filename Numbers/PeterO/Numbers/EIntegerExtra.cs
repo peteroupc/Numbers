@@ -650,7 +650,7 @@ namespace PeterO.Numbers {
     /// <returns>The value of <paramref name='input'/> as a 16-bit signed
     /// integer.</returns>
     /// <exception cref='OverflowException'>The parameter <paramref
-    /// name='input'/> is less than -32768 or greater tha
+    /// name='input'/> is less than -32768 or greater than
     /// 32767.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>

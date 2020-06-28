@@ -444,7 +444,7 @@ namespace Test {
     }
 
     [Test]
-    public static void TestDoubleSingleBitsSpecific() {
+    public void TestDoubleSingleBitsSpecific() {
       {
         string str =
 "-0.0230382307472970331019279655038189957849681377410888671875";
@@ -857,17 +857,19 @@ namespace Test {
         EFloat efa = EFloat.Create(6202238844624971L,
   908).Log(EContext.Binary64);
         EFloat efb = EFloat.Create(731990329769283L, -40);
-        Assert.AreEqual(efb, efa);
+        string str = String.Empty + EFloat.Create(6202238844624971L, 908);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
       {
-        EFloat efa = EFloat.Create(
+        EFloat efaa = EFloat.Create(
             EInteger.FromString("7692406748247399"),
-            EInteger.FromString("-465")).Log(EContext.Binary64).Reduce(null);
+            EInteger.FromString("-465"));
+        EFloat efa = efaa.Log(EContext.Binary64).Reduce(null);
         EFloat efb = EFloat.Create(
             EInteger.FromString("-5026693231795637"),
             EInteger.FromString("-44"));
         string str = OutputEF(efb) + "\n" + OutputEF(efa);
-        Assert.AreEqual(efb, efa, str);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(
@@ -877,7 +879,7 @@ namespace Test {
             EInteger.FromString("-339788104073483"),
             EInteger.FromString("-39"));
         string str = OutputEF(efb) + "\n" + OutputEF(efa);
-        Assert.AreEqual(efb, efa, str);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(
@@ -887,7 +889,7 @@ namespace Test {
             EInteger.FromString("1000630292553943"),
             EInteger.FromString("-42"));
         string str = OutputEF(efb) + "\n" + OutputEF(efa);
-        Assert.AreEqual(efb, efa, str);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(
@@ -897,7 +899,7 @@ namespace Test {
             EInteger.FromString("-276083795723785"),
             EInteger.FromString("-41"));
         string str = OutputEF(efb) + "\n" + OutputEF(efa);
-        Assert.AreEqual(efb, efa, str);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
     }
     [Test]

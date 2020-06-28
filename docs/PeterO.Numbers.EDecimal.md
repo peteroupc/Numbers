@@ -1204,7 +1204,7 @@ Divides this arbitrary-precision decimal floating-point number by a 64-bit signe
 
 <b>Return Value:</b>
 
-The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion; examples include 1 divided by any multiple of 3, such as 1/3 or 1/12.
+The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion; examples include 1 divided by any multiple of 3, such as 1/3 or 1/12. If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.
 
 <a id="Divide_PeterO_Numbers_EDecimal"></a>
 ### Divide
@@ -3193,7 +3193,7 @@ Divides this object by another decimal number and returns the result. When possi
 
 <b>Return Value:</b>
 
-The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion; examples include 1 divided by any multiple of 3, such as 1/3 or 1/12.
+The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion; examples include 1 divided by any multiple of 3, such as 1/3 or 1/12. If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.
 
 <b>Exceptions:</b>
 

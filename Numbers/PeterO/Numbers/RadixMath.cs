@@ -1300,7 +1300,7 @@ namespace PeterO.Numbers {
               // DebugUtility.Log("--> " +thisValue);
               roots.Increment();
             }
-            for (int i = 0; i < 6; ++i) {
+            for (var i = 0; i < 6; ++i) {
               thisValue = this.SquareRoot(
                   thisValue,
                   ctxdiv.WithUnlimitedExponents());
@@ -1355,17 +1355,23 @@ namespace PeterO.Numbers {
             var roots = new FastInteger(0);
             FastInteger error;
             EInteger bigError;
-            error = (this.CompareTo(thisValue,
-  this.helper.ValueOf(Int32.MaxValue)) >= 0) ?
-               new FastInteger(16) : new FastInteger(10);
+            error = new FastInteger(10);
+            if (this.CompareTo(thisValue,
+                this.helper.ValueOf(Int32.MaxValue)) >= 0) {
+              if (this.helper.GetRadix() == 2) {
+                error = new FastInteger(32);
+              }
+              error = new FastInteger(16);
+            }
             bigError = error.ToEInteger();
             ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
               .WithRounding(intermedRounding).WithBlankFlags();
             T smallfrac = (ctxdiv.Precision.CompareTo(400) > 0) ?
               this.Divide(one, this.helper.ValueOf(1000000), ctxdiv) :
-              this.Divide(one, this.helper.ValueOf(60), ctxdiv);
+              this.Divide(one, this.helper.ValueOf(120), ctxdiv);
             T closeToOne = this.Add(one, smallfrac, null);
             // DebugUtility.Log("Before Ln " +thisValue);
+            T oldThisValue = thisValue;
             // Take square root until this value
             // is close to 1
             while (this.CompareTo(thisValue, closeToOne) >= 0) {
@@ -1375,6 +1381,7 @@ namespace PeterO.Numbers {
               // DebugUtility.Log("--> " +thisValue);
               roots.Increment();
             }
+            // DebugUtility.Log("rootcount="+roots);
             // Find -Ln(1/thisValue)
             // DebugUtility.Log("LnInternalCloseToOne C " + thisValue);
             thisValue = this.Divide(one, thisValue, ctxdiv);
@@ -2566,6 +2573,135 @@ namespace PeterO.Numbers {
           context);
     }
 
+    private T Root(T thisValue, int root, EContext ctx) {
+      if (ctx == null) {
+        return this.SignalInvalidWithMessage(ctx, "ctx is null");
+      }
+      if (!ctx.HasMaxPrecision) {
+        return this.SignalInvalidWithMessage(
+            ctx,
+            "ctx has unlimited precision");
+      }
+      T ret = this.SquareRootHandleSpecial(thisValue, ctx);
+      if ((object)ret != (object)default(T)) {
+        return ret;
+      }
+      EContext ctxtmp = ctx.WithBlankFlags();
+      EInteger currentExp = this.helper.GetExponent(thisValue);
+      EInteger origExp = currentExp;
+      EInteger idealExp;
+      idealExp = currentExp;
+      idealExp /= EInteger.FromInt32(root);
+      if (currentExp.Sign < 0 && !currentExp.IsEven) {
+        // Round towards negative infinity; BigInteger's
+        // division operation rounds towards zero
+        idealExp -= EInteger.One;
+      }
+      // DebugUtility.Log("curr=" + currentExp + " ideal=" + idealExp);
+      if (this.helper.GetSign(thisValue) == 0) {
+        ret = this.RoundToPrecision(
+            this.helper.CreateNewWithFlags(
+              EInteger.Zero,
+              idealExp,
+              this.helper.GetFlags(thisValue)),
+            ctxtmp);
+        if (ctx.HasFlags) {
+          ctx.Flags |= ctxtmp.Flags;
+        }
+        return ret;
+      }
+      EInteger mantissa = this.helper.GetMantissa(thisValue);
+      FastInteger digitCount = this.helper.GetDigitLength(mantissa);
+      FastInteger targetPrecision = FastInteger.FromBig(ctx.Precision);
+      FastInteger precision = targetPrecision.Copy().Multiply(root).AddInt(2);
+      var rounded = false;
+      var inexact = false;
+      if (digitCount.CompareTo(precision) < 0) {
+        FastInteger diff = precision.Copy().Subtract(digitCount);
+        // DebugUtility.Log(diff);
+        if ((!diff.IsEvenNumber) ^ (!origExp.IsEven)) {
+          diff.Increment();
+        }
+        EInteger bigdiff = diff.ToEInteger();
+        currentExp -= (EInteger)bigdiff;
+        mantissa = this.TryMultiplyByRadixPower(mantissa, diff);
+        if (mantissa == null) {
+          return this.SignalInvalidWithMessage(
+              ctx,
+              "Result requires too much memory");
+        }
+      }
+      EInteger[] sr = mantissa.RootRem(root);
+      digitCount = this.helper.GetDigitLength(sr[0]);
+      EInteger rootRemainder = sr[1];
+      // DebugUtility.Log("I " + mantissa + " -> " + sr[0] + " [target="+
+      // targetPrecision + "], (zero= " + rootRemainder.IsZero +") "
+      mantissa = sr[0];
+      if (!rootRemainder.IsZero) {
+        rounded = true;
+        inexact = true;
+      }
+      EInteger oldexp = currentExp;
+      currentExp = currentExp.ShiftRight(1);
+      if (oldexp.Sign < 0 && !oldexp.IsEven) {
+        // Round towards negative infinity; BigInteger's
+        // division operation rounds towards zero
+        currentExp -= EInteger.One;
+      }
+      T retval = this.helper.CreateNewWithFlags(mantissa, currentExp, 0);
+      // DebugUtility.Log("idealExp= " + idealExp + ", curr" + currentExp
+      // +" guess= " + mantissa);
+      retval = this.RoundToPrecisionInternal(
+          retval,
+          0,
+          inexact ? 1 : 0,
+          null,
+          false,
+          ctxtmp);
+      currentExp = this.helper.GetExponent(retval);
+      // DebugUtility.Log("guess I " + guess + " idealExp=" + idealExp
+      // +", curr " + currentExp + " clamped= " +
+      // (ctxtmp.Flags&PrecisionContext.FlagClamped));
+      if ((ctxtmp.Flags & EContext.FlagUnderflow) == 0) {
+        int expcmp = currentExp.CompareTo(idealExp);
+        if (expcmp <= 0 || !this.IsFinite(retval)) {
+          retval = this.ReduceToPrecisionAndIdealExponent(
+              retval,
+              ctx.HasExponentRange ? ctxtmp : null,
+              inexact ? targetPrecision : null,
+              FastInteger.FromBig(idealExp));
+        }
+      }
+      if (ctx.HasFlags) {
+        if (ctx.ClampNormalExponents &&
+          !this.helper.GetExponent(retval).Equals(idealExp) && (ctxtmp.Flags &
+            EContext.FlagInexact) == 0) {
+          ctx.Flags |= EContext.FlagClamped;
+        }
+        rounded |= (ctxtmp.Flags & EContext.FlagOverflow) != 0;
+        // DebugUtility.Log("guess II " + guess);
+        currentExp = this.helper.GetExponent(retval);
+        if (rounded) {
+          ctxtmp.Flags |= EContext.FlagRounded;
+        } else {
+          if (currentExp.CompareTo(idealExp) > 0) {
+            // Greater than the ideal, treat as rounded anyway
+            ctxtmp.Flags |= EContext.FlagRounded;
+          } else {
+            // DebugUtility.Log("idealExp= " + idealExp + ", curr" +
+            // currentExp + " (II)");
+            ctxtmp.Flags &= ~EContext.FlagRounded;
+          }
+        }
+        if (inexact) {
+          ctxtmp.Flags |= EContext.FlagRounded;
+          ctxtmp.Flags |= EContext.FlagInexact;
+        }
+        ctx.Flags |= ctxtmp.Flags;
+      }
+      return retval;
+    }
+
     public T SquareRoot(T thisValue, EContext ctx) {
       if (ctx == null) {
         return this.SignalInvalidWithMessage(ctx, "ctx is null");
@@ -2611,7 +2747,7 @@ namespace PeterO.Numbers {
       var inexact = false;
       if (digitCount.CompareTo(precision) < 0) {
         FastInteger diff = precision.Copy().Subtract(digitCount);
-        // DebugUtility.Log(diff);
+        // DebugUtility.Log("precisiondiff=" + diff);
         if ((!diff.IsEvenNumber) ^ (!origExp.IsEven)) {
           diff.Increment();
         }
@@ -2627,8 +2763,10 @@ namespace PeterO.Numbers {
       EInteger[] sr = mantissa.SqrtRem();
       digitCount = this.helper.GetDigitLength(sr[0]);
       EInteger squareRootRemainder = sr[1];
-      // DebugUtility.Log("I " + mantissa + " -> " + sr[0] + " [target="+
-      // targetPrecision + "], (zero= " + squareRootRemainder.IsZero +") "
+      // DebugUtility.Log("I " + mantissa + " -> " + sr[0] +
+      // " [target="+
+      // targetPrecision + "], (zero= " +
+      // squareRootRemainder.IsZero +") ");
       mantissa = sr[0];
       if (!squareRootRemainder.IsZero) {
         rounded = true;

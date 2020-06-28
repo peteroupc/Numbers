@@ -695,7 +695,7 @@
             <list><item>By calling the toString() method, which will always
             return distinct strings for distinct arbitrary-precision decimal
             values.</item>
-            <item>By calling the UnsignedMantissa, Exponent, and
+             <item>By calling the UnsignedMantissa, Exponent, and
             IsNegative properties, and calling the IsInfinity, IsQuietNaN, and
             IsSignalingNaN methods. The return values combined will uniquely
             identify a particular arbitrary-precision decimal value.</item>
@@ -724,13 +724,13 @@
             cleared in a timely fashion due to garbage collection. This is
             relevant for applications that use many-digit-long numbers as
             secret parameters.</item>
-            <item>The methods in this class
+             <item>The methods in this class
             (especially those that involve arithmetic) are not guaranteed to be
             "constant-time" (non-data-dependent) for all relevant inputs.
             Certain attacks that involve encrypted communications have
             exploited the timing and other aspects of such communications to
             derive keying material or cleartext indirectly.</item>
-            </list>
+             </list>
             <para>Applications should instead use dedicated security libraries
             to handle big numbers in security-sensitive algorithms.</para>
             <para><b>Reproducibility note</b> </para>
@@ -752,14 +752,14 @@
             runtime settings that change how floating-point math behaves with
             them, and these settings are often not accessible to .NET or Java
             code.</item>
-            <item>Non-associativity and intermediate precisions:
+             <item>Non-associativity and intermediate precisions:
             In general, EDecimal and EFloat use "unlimited" precision in their
             calculations unless specified otherwise by an EContext object.
             However, by limiting the precision of EDecimal, EFloat, and other
             floating-point numbers in this way, operations such as addition and
             multiplication on three or more numbers can be
             <i>non-associative</i>
-            , meaning the result can change depending on
+             , meaning the result can change depending on
             the order in which those numbers are added or multiplied. This
             property means that if an algorithm does not ensure such numbers
             are added or multiplied in the same order every time, its results
@@ -772,15 +772,15 @@
             example) don't exist with method calls to EDecimal and EFloat
             methods, especially since they require limited-precision support to
             be declared explicitly via EContext.</item>
-            <item>fmadd
+             <item>fmadd
             instruction: EDecimal and EFloat include a MultiplyAndAdd method
             with the same semantics as in the General Decimal Arithmetic
             Specification, which requires delivering correctly rounded results
             for this method.</item>
-            <item>Square root estimate: Not applicable
+             <item>Square root estimate: Not applicable
             since EDecimal and EFloat don't include any estimates to square
             root.</item>
-            <item>Transcendental functions: This includes
+             <item>Transcendental functions: This includes
             logarithms, exponentials, and the Pi method. For these functions,
             results are not guaranteed to always be correctly rounded. When
             using transcendentals, an application that cares about
@@ -789,7 +789,7 @@
             be the same across computers, unlike with "native" floating-point
             types where the choice of implementation is often not within the
             application's control.</item>
-            <item>Conversions: Conversions
+             <item>Conversions: Conversions
             between EDecimal or EFloat and text strings have the same
             implementation across computers for the same version of this
             library (see also the advice for transcendentals above). But as for
@@ -801,9 +801,9 @@
             should not be considered reproducible across computers.</item>
             <item>Compiler differences: Not applicable where these classes
             don't use "native" floating-point types.</item>
-            <item>Uninitialized
+             <item>Uninitialized
             data; per-processor code: Not applicable.</item>
-            </list>
+             </list>
             <para><b>Forms of numbers</b> </para>
             <para>There are several other types of numbers that are mentioned
             in this class and elsewhere in this documentation. For reference,
@@ -811,97 +811,97 @@
             <para><b>Unsigned integer</b> : An integer that's always 0 or
             greater, with the following maximum values:</para>
             <list><item>8-bit unsigned integer, or <i>byte</i>
-            : 255.</item>
+             : 255.</item>
             <item>16-bit unsigned integer: 65535.</item>
-            <item>32-bit unsigned
+             <item>32-bit unsigned
             integer: (2 <sup>32</sup>
-            -1).</item>
-            <item>64-bit unsigned
+             -1).</item>
+             <item>64-bit unsigned
             integer: (2 <sup>64</sup>
-            -1).</item>
-            </list>
+             -1).</item>
+             </list>
             <para><b>Signed integer</b> : An integer in <i>two's-complement
             form</i>
-            , with the following ranges:</para>
+             , with the following ranges:</para>
             <list><item>8-bit signed integer: -128 to 127.</item>
-            <item>16-bit
+             <item>16-bit
             signed integer: -32768 to 32767.</item>
-            <item>32-bit signed
+             <item>32-bit signed
             integer: -2 <sup>31</sup>
-            to (2 <sup>31</sup>
-            - 1).</item>
+             to (2 <sup>31</sup>
+             - 1).</item>
             <item>64-bit signed integer: -2 <sup>63</sup>
-            to (2 <sup>63</sup>
-            -
+             to (2 <sup>63</sup>
+             -
             1).</item>
-            </list>
+             </list>
             <para><b>Two's complement form</b> : In <i>two's-complement
             form</i>
-            , nonnegative numbers have the highest (most significant)
+             , nonnegative numbers have the highest (most significant)
             bit set to zero, and negative numbers have that bit (and all bits
             beyond) set to one, and a negative number is stored in such form by
             decreasing its absolute value by 1 and swapping the bits of the
             resulting number.</para>
             <para><b>64-bit floating-point number</b> : A 64-bit binary
             floating-point number, in the form <i>significand</i>
-            * 2
+             * 2
             <sup><i>exponent</i>
-            </sup>
+             </sup>
             . The significand is 53 bits long
             (Precision) and the exponent ranges from -1074 (EMin) to 971
             (EMax). The number is stored in the following format (commonly
             called the IEEE 754 format):</para>
             <code>|C|BBB...BBB|AAAAAA...AAAAAA|</code> <list><item>A. Low 52 bits (Precision minus 1 bits): Lowest bits of
             the significand.</item>
-            <item>B. Next 11 bits: Exponent area:
+             <item>B. Next 11 bits: Exponent area:
             <list><item>If all bits are ones, the final stored value is
             infinity (positive or negative depending on the C bit) if all bits
             in area A are zeros, or not-a-number (NaN) otherwise.</item>
             <item>If all bits are zeros, the final stored value is a subnormal
             number, the exponent is EMin, and the highest bit of the
             significand is zero.</item>
-            <item>If any other number, the exponent
+             <item>If any other number, the exponent
             is this value reduced by 1, then raised by EMin, and the highest
             bit of the significand is one.</item>
-            </list>
-            </item>
-            <item>C.
+             </list>
+             </item>
+             <item>C.
             Highest bit: If one, this is a negative number.</item>
-            </list>
+             </list>
             <para>The elements described above are in the same order as the
             order of each bit of each element, that is, either most significant
             first or least significant first.</para>
             <para><b>32-bit binary floating-point number</b> : A 32-bit binary
             number which is stored similarly to a <i>64-bit floating-point
             number</i>
-            , except that:</para>
+             , except that:</para>
             <list><item>Precision is 24 bits.</item>
-            <item>EMin is -149.</item>
+             <item>EMin is -149.</item>
             <item>EMax is 104.</item>
-            <item>A. The low 23 bits (Precision minus
+             <item>A. The low 23 bits (Precision minus
             1 bits) are the lowest bits of the significand.</item>
-            <item>B. The
+             <item>B. The
             next 8 bits are the exponent area.</item>
-            <item>C. If the highest
+             <item>C. If the highest
             bit is one, this is a negative number.</item>
-            </list>
+             </list>
             <para><b>.NET Framework decimal</b> : A 128-bit decimal
             floating-point number, in the form <i>significand</i>
-            * 10 <sup>-
+             * 10 <sup>-
             <i>scale</i>
-            </sup>
-            , where the scale ranges from 0 to 28. The
+             </sup>
+             , where the scale ranges from 0 to 28. The
             number is stored in the following format:</para>
             <list><item>Low 96 bits are the significand, as a 96-bit unsigned
             integer (all 96-bit values are allowed, up to (2 <sup>96</sup>
             -1)).</item>
-            <item>Next 16 bits are unused.</item>
-            <item>Next 8
+             <item>Next 16 bits are unused.</item>
+             <item>Next 8
             bits are the scale, stored as an 8-bit unsigned integer.</item>
             <item>Next 7 bits are unused.</item>
-            <item>If the highest bit is
+             <item>If the highest bit is
             one, it's a negative number.</item>
-            </list>
+             </list>
             <para>The elements described above are in the same order as the
             order of each bit of each element, that is, either most significant
             first or least significant first.</para>
@@ -1518,33 +1518,21 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(PeterO.Numbers.EDecimal)">
 
-            <summary>Divides this arbitrary-precision decimal floating-point
-            number by another arbitrary-precision decimal floating-point number
-            and returns the result. When possible, the result will be
-            exact.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <returns>The quotient of the two numbers. Returns infinity if the
+        <summary>Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='divisor'>The number to divide by.</param><returns>The quotient of the two numbers. Returns infinity if the
             divisor is 0 and the dividend is nonzero. Returns not-a-number
             (NaN) if the divisor and the dividend are 0. Returns NaN if the
             result can't be exact because it would have a nonterminating
             decimal expansion; examples include 1 divided by any multiple of 3,
             such as 1/3 or 1/12.</returns>
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Divides this arbitrary-precision decimal floating-point
-            number by another arbitrary-precision decimal floating-point number
-            and returns the result. When possible, the result will be
-            exact.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>An arithmetic context to control the precision,
+        <summary>Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='divisor'>The number to divide by.</param><param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
-            rounding is needed.</param>
-            <returns>The quotient of the two objects. Signals FlagDivideByZero
+            rounding is needed.</param><returns>The quotient of the two objects. Signals FlagDivideByZero
             and returns infinity if the divisor is 0 and the dividend is
             nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
             divisor and the dividend are 0; or, either <paramref name='ctx'/>
@@ -1553,37 +1541,26 @@
             divided by any multiple of 3, such as 1/3 or 1/12); or, the
             rounding mode is ERounding.None and the result is not
             exact.</returns>
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(System.Int32)">
 
-            <summary>Divides this arbitrary-precision decimal floating-point
-            number by a 32-bit signed integer and returns the result. When
-            possible, the result will be exact.</summary>
-            <param name='intValue'>A 32-bit signed integer, the divisor, to
-            divide this object by.</param>
-            <returns>The quotient of the two numbers. Returns infinity if the
+        <summary>Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='intValue'>A 32-bit signed integer, the divisor, to
+            divide this object by.</param><returns>The quotient of the two numbers. Returns infinity if the
             divisor is 0 and the dividend is nonzero. Returns not-a-number
             (NaN) if the divisor and the dividend are 0. Returns NaN if the
             result can't be exact because it would have a nonterminating
             decimal expansion; examples include 1 divided by any multiple of 3,
             such as 1/3 or 1/12.</returns>
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(System.Int64)">
 
-            <summary>Divides this arbitrary-precision decimal floating-point
-            number by a 64-bit signed integer and returns the result. When
-            possible, the result will be exact.</summary>
-            <param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param>
-            <returns>The quotient of the two numbers. Returns infinity if the
+        <summary>Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param><returns>The quotient of the two numbers. Returns infinity if the
             divisor is 0 and the dividend is nonzero. Returns not-a-number
             (NaN) if the divisor and the dividend are 0. Returns NaN if the
             result can't be exact because it would have a nonterminating
             decimal expansion; examples include 1 divided by any multiple of 3,
-            such as 1/3 or 1/12.</returns>
-
+            such as 1/3 or 1/12.  If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)">
 
@@ -4155,26 +4132,20 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16Checked">
 
-            <summary>Converts this number's value to a 16-bit signed integer if
+        <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer after converting it to an
-            integer by discarding its fractional part.</summary>
-            <returns>This number's value, truncated to a 16-bit signed
-            integer.</returns>
-            <exception cref='OverflowException'>This value is infinity or
+            integer by discarding its fractional part.</summary><returns>This number's value, truncated to a 16-bit signed
+            integer.</returns><exception cref='OverflowException'>This value is infinity or
             not-a-number, or the number, once converted to an integer by
             discarding its fractional part, is less than -32768 or greater than 32767.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16IfExact">
 
-            <summary>Converts this number's value to a 16-bit signed integer if
+        <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer without rounding to a
-            different numerical value.</summary>
-            <returns>This number's value as a 16-bit signed integer.</returns>
-            <exception cref='ArithmeticException'>This value is infinity or
+            different numerical value.</summary><returns>This number's value as a 16-bit signed integer.</returns><exception cref='ArithmeticException'>This value is infinity or
             not-a-number, is not an exact integer, or is less than -32768 or
             greater than 32767.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16Unchecked">
 
@@ -4530,7 +4501,7 @@
             (NaN) if the divisor and the dividend are 0. Returns NaN if the
             result can't be exact because it would have a nonterminating
             decimal expansion; examples include 1 divided by any multiple of 3,
-            such as 1/3 or 1/12.</returns>
+            such as 1/3 or 1/12.  If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 
 </doc>
@@ -4601,19 +4572,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16">
 
-            <summary>Converts an arbitrary-precision decimal number to a 16-bit
+        <summary>Converts an arbitrary-precision decimal number to a 16-bit
             signed integer if it can fit in a 16-bit signed integer after
             converting it to an integer by discarding its fractional
-            part.</summary>
-            <param name='input'>The number to convert as an arbitrary-precision
-            decimal number.</param>
-            <returns>The value of <paramref name='input'/>, truncated to a
-            16-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
+            part.</summary><param name='input'>The number to convert as an arbitrary-precision
+            decimal number.</param><returns>The value of <paramref name='input'/>, truncated to a
+            16-bit signed integer.</returns><exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
             converted to an integer by discarding its fractional part, is less
-            than -32768 or greater than 32767.</exception>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
-
+            than -32768 or greater than 32767.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32">
 
@@ -6189,62 +6155,37 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat)">
 
-            <summary>Divides this arbitrary-precision binary floating-point
-            number by another arbitrary-precision binary floating-point number
-            and returns the result. When possible, the result will be
-            exact.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <returns>The quotient of the two numbers. Returns infinity if the
+        <summary>Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='divisor'>The number to divide by.</param><returns>The quotient of the two numbers. Returns infinity if the
             divisor is 0 and the dividend is nonzero. Returns not-a-number
             (NaN) if the divisor and the dividend are 0. Returns NaN if the
             result can't be exact because it would have a nonterminating binary
-            expansion.</returns>
-
+            expansion.  If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Divides this arbitrary-precision binary floating-point
-            number by another arbitrary-precision binary floating-point number
-            and returns the result. When possible, the result will be
-            exact.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>An arithmetic context to control the precision,
+        <summary>Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='divisor'>The number to divide by.</param><param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
-            rounding is needed.</param>
-            <returns>The quotient of the two objects. Signals FlagDivideByZero
+            rounding is needed.</param><returns>The quotient of the two objects. Signals FlagDivideByZero
             and returns infinity if the divisor is 0 and the dividend is
             nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
             divisor and the dividend are 0; or, either <paramref name='ctx'/>
             is null or <paramref name='ctx'/> 's precision is 0, and the result
             would have a nonterminating binary expansion; or, the rounding mode
             is ERounding.None and the result is not exact.</returns>
-
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(System.Int32)">
 
-            <summary>Divides this arbitrary-precision binary floating-point
-            number by a 32-bit signed integer and returns the result. When
-            possible, the result will be exact.</summary>
-            <param name='intValue'>The divisor.</param>
-            <returns>The quotient of the two objects.</returns>
-            <exception cref='DivideByZeroException'>Attempted to divide by
+        <summary>Divides this arbitrary-precision binary floating-point number by a 32-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='intValue'>The divisor.</param><returns>The quotient of the two objects.</returns><exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(System.Int64)">
 
-            <summary>Divides this arbitrary-precision binary floating-point
-            number by a 64-bit signed integer and returns the result. When
-            possible, the result will be exact.</summary>
-            <param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param>
-            <returns>The quotient of the two objects.</returns>
-            <exception cref='DivideByZeroException'>Attempted to divide by
+        <summary>Divides this arbitrary-precision binary floating-point number by a 64-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param><returns>The quotient of the two objects.</returns><exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)">
 
@@ -8511,26 +8452,20 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16Checked">
 
-            <summary>Converts this number's value to a 16-bit signed integer if
+        <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer after converting it to an
-            integer by discarding its fractional part.</summary>
-            <returns>This number's value, truncated to a 16-bit signed
-            integer.</returns>
-            <exception cref='OverflowException'>This value is infinity or
+            integer by discarding its fractional part.</summary><returns>This number's value, truncated to a 16-bit signed
+            integer.</returns><exception cref='OverflowException'>This value is infinity or
             not-a-number, or the number, once converted to an integer by
             discarding its fractional part, is less than -32768 or greater than 32767.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16IfExact">
 
-            <summary>Converts this number's value to a 16-bit signed integer if
+        <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer without rounding to a
-            different numerical value.</summary>
-            <returns>This number's value as a 16-bit signed integer.</returns>
-            <exception cref='ArithmeticException'>This value is infinity or
+            different numerical value.</summary><returns>This number's value as a 16-bit signed integer.</returns><exception cref='ArithmeticException'>This value is infinity or
             not-a-number, is not an exact integer, or is less than -32768 or
             greater than 32767.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16Unchecked">
 
@@ -8922,7 +8857,7 @@
             divisor is 0 and the dividend is nonzero. Returns not-a-number
             (NaN) if the divisor and the dividend are 0. Returns NaN if the
             result can't be exact because it would have a nonterminating binary
-            expansion.</returns>
+            expansion.  If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 
 </doc>
@@ -8980,19 +8915,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16">
 
-            <summary>Converts an arbitrary-precision binary floating-point
+        <summary>Converts an arbitrary-precision binary floating-point
             number to a 16-bit signed integer if it can fit in a 16-bit signed
             integer after converting it to an integer by discarding its
-            fractional part.</summary>
-            <param name='input'>The number to convert as an arbitrary-precision
-            binary floating-point number.</param>
-            <returns>The value of <paramref name='input'/>, truncated to a
-            16-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
+            fractional part.</summary><param name='input'>The number to convert as an arbitrary-precision
+            binary floating-point number.</param><returns>The value of <paramref name='input'/>, truncated to a
+            16-bit signed integer.</returns><exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
             converted to an integer by discarding its fractional part, is less
-            than -32768 or greater than 32767.</exception>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
-
+            than -32768 or greater than 32767.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32">
 
@@ -11430,12 +11360,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToInt16Checked">
 
-            <summary>Converts this number's value to a 16-bit signed integer if
-            it can fit in a 16-bit signed integer.</summary>
-            <returns>This number's value as a 16-bit signed integer.</returns>
-            <exception cref='OverflowException'>This value is less than -32768
+        <summary>Converts this number's value to a 16-bit signed integer if
+            it can fit in a 16-bit signed integer.</summary><returns>This number's value as a 16-bit signed integer.</returns><exception cref='OverflowException'>This value is less than -32768
             or greater than 32767.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToInt16Unchecked">
 
@@ -11742,15 +11669,10 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16">
 
-            <summary>Converts an arbitrary-precision integer to a 16-bit signed
-            integer if it can fit in a 16-bit signed integer.</summary>
-            <param name='input'>The number to convert as an arbitrary-precision
-            integer.</param>
-            <returns>The value of <paramref name='input'/> as a 16-bit signed
-            integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is less than -32768 or greater than 32767.</exception>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
-
+        <summary>Converts an arbitrary-precision integer to a 16-bit signed
+            integer if it can fit in a 16-bit signed integer.</summary><param name='input'>The number to convert as an arbitrary-precision
+            integer.</param><returns>The value of <paramref name='input'/> as a 16-bit signed
+            integer.</returns><exception cref='OverflowException'>The parameter <paramref name='input'/> is less than -32768 or greater than 32767.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int32">
 
@@ -13397,26 +13319,20 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16Checked">
 
-            <summary>Converts this number's value to a 16-bit signed integer if
+        <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer after converting it to an
-            integer by discarding its fractional part.</summary>
-            <returns>This number's value, truncated to a 16-bit signed
-            integer.</returns>
-            <exception cref='OverflowException'>This value is infinity or
+            integer by discarding its fractional part.</summary><returns>This number's value, truncated to a 16-bit signed
+            integer.</returns><exception cref='OverflowException'>This value is infinity or
             not-a-number, or the number, once converted to an integer by
             discarding its fractional part, is less than -32768 or greater than 32767.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16IfExact">
 
-            <summary>Converts this number's value to a 16-bit signed integer if
+        <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer without rounding to a
-            different numerical value.</summary>
-            <returns>This number's value as a 16-bit signed integer.</returns>
-            <exception cref='ArithmeticException'>This value is infinity or
+            different numerical value.</summary><returns>This number's value as a 16-bit signed integer.</returns><exception cref='ArithmeticException'>This value is infinity or
             not-a-number, is not an exact integer, or is less than -32768 or
             greater than 32767.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16Unchecked">
 
@@ -13823,19 +13739,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int16">
 
-            <summary>Converts an arbitrary-precision rational number to a
+        <summary>Converts an arbitrary-precision rational number to a
             16-bit signed integer if it can fit in a 16-bit signed integer
             after converting it to an integer by discarding its fractional
-            part.</summary>
-            <param name='input'>The number to convert as an arbitrary-precision
-            rational number.</param>
-            <returns>The value of <paramref name='input'/>, truncated to a
-            16-bit signed integer.</returns>
-            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
+            part.</summary><param name='input'>The number to convert as an arbitrary-precision
+            rational number.</param><returns>The value of <paramref name='input'/>, truncated to a
+            16-bit signed integer.</returns><exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
             converted to an integer by discarding its fractional part, is less
-            than -32768 or greater than 32767.</exception>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
-
+            than -32768 or greater than 32767.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int32">
 

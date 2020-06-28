@@ -5600,6 +5600,66 @@ ShortMask) != 0) ? 9 :
       return this.SqrtRemInternal(true);
     }
 
+    /// <summary>Finds the nth root of this instance's value, rounded
+    /// down.</summary>
+    /// <param name='root'>The root to find; must be 1 or greater. If this
+    /// value is 2, this method finds the square root; if 3, the cube root,
+    /// and so on.</param>
+    /// <returns>The square root of this object's value. Returns 0 if this
+    /// value is 0 or less.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='root'/> is null.</exception>
+    public EInteger Root(EInteger root) {
+      if (root == null) {
+        throw new ArgumentNullException(nameof(root));
+      }
+      EInteger[] srrem = this.RootRemInternal(root, false);
+      return srrem[0];
+    }
+
+    /// <summary>Calculates the nth root and the remainder.</summary>
+    /// <param name='root'>The root to find; must be 1 or greater. If this
+    /// value is 2, this method finds the square root; if 3, the cube root,
+    /// and so on.</param>
+    /// <returns>An array of two arbitrary-precision integers: the first
+    /// integer is the nth root, and the second is the difference between
+    /// this value and the nth power of the first integer. Returns two
+    /// zeros if this value is 0 or less, or one and zero if this value
+    /// equals 1.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='root'/> is null.</exception>
+    public EInteger[] RootRem(EInteger root) {
+      if (root == null) {
+        throw new ArgumentNullException(nameof(root));
+      }
+      return this.RootRemInternal(root, true);
+    }
+
+    /// <summary>Finds the nth root of this instance's value, rounded
+    /// down.</summary>
+    /// <param name='root'>The root to find; must be 1 or greater. If this
+    /// value is 2, this method finds the square root; if 3, the cube root,
+    /// and so on.</param>
+    /// <returns>The square root of this object's value. Returns 0 if this
+    /// value is 0 or less.</returns>
+    public EInteger Root(int root) {
+      EInteger[] srrem = this.RootRemInternal(EInteger.FromInt32(root), false);
+      return srrem[0];
+    }
+
+    /// <summary>Calculates the nth root and the remainder.</summary>
+    /// <param name='root'>The root to find; must be 1 or greater. If this
+    /// value is 2, this method finds the square root; if 3, the cube root,
+    /// and so on.</param>
+    /// <returns>An array of two arbitrary-precision integers: the first
+    /// integer is the nth root, and the second is the difference between
+    /// this value and the nth power of the first integer. Returns two
+    /// zeros if this value is 0 or less, or one and zero if this value
+    /// equals 1.</returns>
+    public EInteger[] RootRem(int root) {
+      return this.RootRemInternal(EInteger.FromInt32(root), true);
+    }
+
     /// <summary>Subtracts an arbitrary-precision integer from this
     /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='subtrahend'>Another arbitrary-precision
@@ -9366,6 +9426,44 @@ ShortMask) != 0) ? 9 :
           (int)size) : (size > tempSize ? 1 : -1);
     }
 
+    private EInteger[] RootRemInternal(EInteger root, bool useRem) {
+if (root.CompareTo(1) == 0) {
+         return new[] { this, EInteger.Zero };
+       }
+if (root.CompareTo(1) < 0) {
+         throw new ArgumentException("root");
+       }
+if (root.CompareTo(2) == 0) {
+         return this.SqrtRemInternal(useRem);
+       }
+       if (this.Sign <= 0) {
+        return new[] { EInteger.Zero, EInteger.Zero };
+      }
+      if (this.Equals(EInteger.One)) {
+        return new[] { EInteger.One, EInteger.Zero };
+      }
+      EInteger bl = this.GetUnsignedBitLengthAsEInteger();
+      EInteger rm1 = root.Subtract(1);
+      EInteger shift = bl.Multiply(rm1).Divide(root);
+      EInteger ret = this.ShiftRight(shift);
+      while (true) {
+          EInteger oldret = ret;
+          ret = this.Divide(ret.Pow(rm1)).Add(ret.Multiply(rm1)).Divide(root);
+          if (oldret.Equals(ret)) {
+            break;
+          }
+       }
+       if (useRem) {
+         EInteger rem = this.Subtract(ret.Pow(root));
+         if (rem.Sign < 0) {
+           throw new InvalidOperationException();
+         }
+          return new[] { ret, rem};
+       } else {
+          return new[] { ret, null};
+       }
+    }
+
     private EInteger[] SqrtRemInternal(bool useRem) {
       if (this.Sign <= 0) {
         return new[] { EInteger.Zero, EInteger.Zero };
@@ -9547,7 +9645,7 @@ ShortMask) != 0) ? 9 :
     /// it can fit in a 16-bit signed integer.</summary>
     /// <returns>This number's value as a 16-bit signed integer.</returns>
     /// <exception cref='OverflowException'>This value is less than -32768
-    /// or greater tha 32767.</exception>
+    /// or greater than 32767.</exception>
     public short ToInt16Checked() {
       int val = this.ToInt32Checked();
       if (val < -32768 || val > 32767) {

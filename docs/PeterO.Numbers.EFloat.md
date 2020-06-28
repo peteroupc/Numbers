@@ -1082,7 +1082,7 @@ Divides this arbitrary-precision binary floating-point number by another arbitra
 
 <b>Return Value:</b>
 
-The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion.
+The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion. If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.
 
 <a id="Divide_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Divide
@@ -2945,7 +2945,7 @@ Divides one binary floating-point number by another and returns the result. When
 
 <b>Return Value:</b>
 
-The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion.
+The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion. If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.
 
 <b>Exceptions:</b>
 
