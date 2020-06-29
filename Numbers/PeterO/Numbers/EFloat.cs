@@ -579,7 +579,8 @@ namespace PeterO.Numbers {
     /// <param name='dblBits'>The parameter <paramref name='dblBits'/> is a
     /// 64-bit signed integer.</param>
     /// <returns>A binary floating-point number with the same value as the
-    /// floating-point number encoded in <paramref name='dbl'/>.</returns>
+    /// floating-point number encoded in <paramref
+    /// name='dblBits'/>.</returns>
     public static EFloat FromDoubleBits(long dblBits) {
       var floatExponent = (int)((dblBits >> 52) & 0x7ff);
       bool neg = (dblBits >> 63) != 0;
@@ -670,7 +671,7 @@ namespace PeterO.Numbers {
     /// <param name='value'>A 32-bit binary floating-point number encoded
     /// in the IEEE 754 binary32 format.</param>
     /// <returns>A binary floating-point number with the same
-    /// floating-point value as <paramref name='flt'/>.</returns>
+    /// floating-point value as <paramref name='value'/>.</returns>
     public static EFloat FromSingleBits(int value) {
       bool neg = (value >> 31) != 0;
       var floatExponent = (int)((value >> 23) & 0xff);
