@@ -11,7 +11,10 @@ namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision rational number. This
   /// class can't be inherited. (The "E" stands for "extended", meaning
   /// that instances of this class can be values other than numbers
-  /// proper, such as infinity and not-a-number.)
+  /// proper, such as infinity and not-a-number.) In this class, a
+  /// rational number consists of a numerator and denominator, each an
+  /// arbitrary-precision integer (EInteger), and this class does not
+  /// automatically convert rational numbers to lowest terms.
   /// <para><b>Thread safety:</b> Instances of this class are immutable,
   /// so they are inherently safe for use by multiple threads. Multiple
   /// instances of this object with the same properties are
@@ -32,9 +35,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "ERational is immutable")]
     public static readonly ERational NaN = new ERational(
-      EInteger.Zero,
-      EInteger.One,
-      BigNumberFlags.FlagQuietNaN);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.One,
+      (byte)BigNumberFlags.FlagQuietNaN);
 
     /// <summary>Negative infinity, less than any other number.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -43,9 +46,9 @@ namespace PeterO.Numbers {
         Justification = "ERational is immutable")]
     public static readonly ERational NegativeInfinity =
       new ERational(
-        EInteger.Zero,
-        EInteger.One,
-        BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
+        FastIntegerFixed.Zero,
+        FastIntegerFixed.One,
+        (byte)(BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative));
 
     /// <summary>A rational number for negative zero.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -53,9 +56,9 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "ERational is immutable")]
     public static readonly ERational NegativeZero =
-      new ERational(EInteger.Zero, EInteger.One, BigNumberFlags.FlagNegative);
-
-    /// <summary>The rational number one.</summary>
+      new ERational(FastIntegerFixed.Zero, FastIntegerFixed.One,
+          (byte)(BigNumberFlags.FlagNegative)); // / <summary>The rational
+number one.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
         "CA2104",
@@ -70,9 +73,9 @@ namespace PeterO.Numbers {
         Justification = "ERational is immutable")]
     public static readonly ERational PositiveInfinity =
       new ERational(
-        EInteger.Zero,
-        EInteger.One,
-        BigNumberFlags.FlagInfinity);
+        FastIntegerFixed.Zero,
+        FastIntegerFixed.One,
+        (byte)BigNumberFlags.FlagInfinity);
 
     /// <summary>A signaling not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -81,9 +84,9 @@ namespace PeterO.Numbers {
         Justification = "ERational is immutable")]
     public static readonly ERational SignalingNaN =
       new ERational(
-        EInteger.Zero,
-        EInteger.One,
-        BigNumberFlags.FlagSignalingNaN);
+        FastIntegerFixed.Zero,
+        FastIntegerFixed.One,
+        (byte)BigNumberFlags.FlagSignalingNaN);
 
     /// <summary>The rational number ten.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -99,12 +102,15 @@ namespace PeterO.Numbers {
         Justification = "ERational is immutable")]
     public static readonly ERational Zero = FromEInteger(EInteger.Zero);
 
-    private readonly EInteger denominator;
+    private readonly FastIntegerFixed denominator;
 
-    private readonly int flags;
-    private readonly EInteger unsignedNumerator;
+    private readonly byte flags;
+    private readonly FastIntegerFixed unsignedNumerator;
 
-    private ERational(EInteger numerator, EInteger denominator, int flags) {
+    private ERational(
+      FastIntegerFixed numerator,
+      FastIntegerFixed denominator,
+      byte flags) {
       #if DEBUG
       if (numerator == null) {
         throw new ArgumentNullException(nameof(numerator));
@@ -112,7 +118,7 @@ namespace PeterO.Numbers {
       if (denominator == null) {
         throw new ArgumentNullException(nameof(denominator));
       }
-      if (denominator.IsZero) {
+      if (denominator.IsValueZero) {
         throw new ArgumentException("Denominator is zero.");
       }
       #endif
@@ -132,6 +138,7 @@ namespace PeterO.Numbers {
     /// null.</exception>
     /// <exception cref='ArgumentException'>Denominator is
     /// zero.</exception>
+    [Obsolete("Use the Create method instead.")]
     public ERational(EInteger numerator, EInteger denominator) {
       if (numerator == null) {
         throw new ArgumentNullException(nameof(numerator));
@@ -144,16 +151,16 @@ namespace PeterO.Numbers {
       }
       bool numNegative = numerator.Sign < 0;
       bool denNegative = denominator.Sign < 0;
-      this.flags = (numNegative != denNegative) ?
-        BigNumberFlags.FlagNegative : 0;
+      this.flags = (byte)((numNegative != denNegative) ?
+        BigNumberFlags.FlagNegative : 0);
       if (numNegative) {
-        numerator = -numerator;
+        numerator = numerator.Negate();
       }
       if (denNegative) {
-        denominator = -denominator;
+        denominator = denominator.Negate();
       }
-      this.unsignedNumerator = numerator;
-      this.denominator = denominator;
+      this.unsignedNumerator = FastIntegerFixed.FromBig(numerator);
+      this.denominator = FastIntegerFixed.FromBig(denominator);
     }
 
     /// <summary>Creates a copy of this arbitrary-precision rational
@@ -170,7 +177,7 @@ namespace PeterO.Numbers {
     /// <value>This object's denominator.</value>
     public EInteger Denominator {
       get {
-        return this.denominator;
+        return this.denominator.ToEInteger();
       }
     }
 
@@ -203,7 +210,8 @@ namespace PeterO.Numbers {
     public bool IsZero {
       get {
         return ((this.flags & (BigNumberFlags.FlagInfinity |
-                BigNumberFlags.FlagNaN)) == 0) && this.unsignedNumerator.IsZero;
+                BigNumberFlags.FlagNaN)) == 0) &&
+this.unsignedNumerator.IsValueZero;
       }
     }
 
@@ -212,8 +220,16 @@ namespace PeterO.Numbers {
     /// <returns><c>true</c> if this object's value is an integer;
     /// otherwise, <c>false</c>.</returns>
     public bool IsInteger() {
-      return this.IsFinite &&
-        this.unsignedNumerator.Remainder(this.denominator).Sign == 0;
+      if (!this.IsFinite) {
+        return false;
+      }
+      if (this.denominator.IsEvenNumber &&
+           !this.unsignedNumerator.IsEvenNumber) {
+        // Even denominator, odd numerator, so not an integer
+        return false;
+      }
+      EInteger rem = this.Numerator.Remainder(this.Denominator);
+      return rem.IsZero;
     }
 
     /// <summary>Gets this object's numerator.</summary>
@@ -222,8 +238,8 @@ namespace PeterO.Numbers {
     /// if this object is negative).</value>
     public EInteger Numerator {
       get {
-        return this.IsNegative ? (-(EInteger)this.unsignedNumerator) :
-          this.unsignedNumerator;
+        return this.IsNegative ? this.unsignedNumerator.Negate().ToEInteger() :
+          this.unsignedNumerator.ToEInteger();
       }
     }
 
@@ -233,7 +249,7 @@ namespace PeterO.Numbers {
       get {
         return ((this.flags & (BigNumberFlags.FlagInfinity |
                 BigNumberFlags.FlagNaN)) != 0) ? (this.IsNegative ? -1 : 1) :
-          (this.unsignedNumerator.IsZero ? 0 : (this.IsNegative ? -1 : 1));
+          (this.unsignedNumerator.IsValueZero ? 0 : (this.IsNegative ? -1 : 1));
       }
     }
 
@@ -243,7 +259,7 @@ namespace PeterO.Numbers {
     /// value, returns the diagnostic information.</value>
     public EInteger UnsignedNumerator {
       get {
-        return this.unsignedNumerator;
+        return this.unsignedNumerator.ToEInteger();
       }
     }
 
@@ -280,10 +296,35 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentException'>The denominator is
     /// zero.</exception>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='numerator'/> or <paramref name='denominator'/> is
+    /// null.</exception>
     public static ERational Create(
       EInteger numerator,
       EInteger denominator) {
-      return new ERational(numerator, denominator);
+      if (numerator == null) {
+        throw new ArgumentNullException(nameof(numerator));
+      }
+      if (denominator == null) {
+        throw new ArgumentNullException(nameof(denominator));
+      }
+      if (denominator.IsZero) {
+        throw new ArgumentException("denominator is zero");
+      }
+      bool numNegative = numerator.Sign < 0;
+      bool denNegative = denominator.Sign < 0;
+      var bflags = (byte)((numNegative != denNegative) ?
+        BigNumberFlags.FlagNegative : 0);
+      if (numNegative) {
+        numerator = numerator.Negate();
+      }
+      if (denNegative) {
+        denominator = denominator.Negate();
+      }
+      return new ERational(
+         FastIntegerFixed.FromBig(numerator),
+         FastIntegerFixed.FromBig(denominator),
+         bflags);
     }
 
     /// <summary>Creates a not-a-number arbitrary-precision rational
@@ -336,7 +377,9 @@ namespace PeterO.Numbers {
       }
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
-      return new ERational(diag, EInteger.One, flags);
+      return new ERational(FastIntegerFixed.FromBig(diag),
+  FastIntegerFixed.One,
+  (byte)flags);
     }
 
     /// <summary>Converts a 64-bit floating-point number to a rational
@@ -383,20 +426,9 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(ef));
       }
       if (!ef.IsFinite) {
-        var flags = 0;
-        if (ef.IsNegative) {
-          flags |= BigNumberFlags.FlagNegative;
-        }
-        if (ef.IsInfinity()) {
-          flags |= BigNumberFlags.FlagInfinity;
-        }
-        if (ef.IsSignalingNaN()) {
-          flags |= BigNumberFlags.FlagSignalingNaN;
-        }
-        if (ef.IsQuietNaN()) {
-          flags |= BigNumberFlags.FlagQuietNaN;
-        }
-        return new ERational(ef.UnsignedMantissa, EInteger.One, flags);
+        return (ef.IsInfinity()) ? (ef.IsNegative ? NegativeInfinity :
+PositiveInfinity) : (CreateNaN(ef.UnsignedMantissa, ef.IsSignalingNaN(),
+  ef.IsNegative));
       }
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
@@ -431,20 +463,9 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(ef));
       }
       if (!ef.IsFinite) {
-        var flags = 0;
-        if (ef.IsNegative) {
-          flags |= BigNumberFlags.FlagNegative;
-        }
-        if (ef.IsInfinity()) {
-          flags |= BigNumberFlags.FlagInfinity;
-        }
-        if (ef.IsSignalingNaN()) {
-          flags |= BigNumberFlags.FlagSignalingNaN;
-        }
-        if (ef.IsQuietNaN()) {
-          flags |= BigNumberFlags.FlagQuietNaN;
-        }
-        return new ERational(ef.UnsignedMantissa, EInteger.One, flags);
+        return (ef.IsInfinity()) ? (ef.IsNegative ? NegativeInfinity :
+PositiveInfinity) : (CreateNaN(ef.UnsignedMantissa, ef.IsSignalingNaN(),
+  ef.IsNegative));
       }
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
@@ -1043,7 +1064,7 @@ namespace PeterO.Numbers {
         return new ERational(
             this.unsignedNumerator,
             this.denominator,
-            this.flags & ~BigNumberFlags.FlagNegative);
+            (byte)(this.flags & ~BigNumberFlags.FlagNegative));
       }
       return this;
     }
@@ -1062,11 +1083,11 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
-        return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
+        return CreateNaN(this.UnsignedNumerator, false, this.IsNegative);
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-            otherValue.unsignedNumerator,
+            otherValue.UnsignedNumerator,
             false,
             otherValue.IsNegative);
       }
@@ -1691,11 +1712,11 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
-        return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
+        return CreateNaN(this.UnsignedNumerator, false, this.IsNegative);
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-            otherValue.unsignedNumerator,
+            otherValue.UnsignedNumerator,
             false,
             otherValue.IsNegative);
       }
@@ -1722,10 +1743,7 @@ namespace PeterO.Numbers {
       }
       EInteger ad = this.Numerator * (EInteger)otherValue.Denominator;
       EInteger bc = this.Denominator * (EInteger)otherValue.Numerator;
-      return new ERational(
-          ad.Abs(),
-          bc.Abs(),
-          resultNeg ? BigNumberFlags.FlagNegative : 0);
+      return Create(ad, bc);
     }
 
     /// <summary>Determines whether this object's numerator, denominator,
@@ -1844,11 +1862,11 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
-        return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
+        return CreateNaN(this.UnsignedNumerator, false, this.IsNegative);
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-            otherValue.unsignedNumerator,
+            otherValue.UnsignedNumerator,
             false,
             otherValue.IsNegative);
       }
@@ -1870,10 +1888,7 @@ namespace PeterO.Numbers {
       EInteger ac = this.Numerator * (EInteger)otherValue.Numerator;
       EInteger bd = this.Denominator * (EInteger)otherValue.Denominator;
       return ac.IsZero ? (resultNeg ? NegativeZero : Zero) :
-        new ERational(
-          ac.Abs(),
-          bd.Abs(),
-          resultNeg ? BigNumberFlags.FlagNegative : 0);
+        Create(ac, bd);
     }
 
     /// <summary>Returns a rational number with the same value as this one
@@ -1883,7 +1898,7 @@ namespace PeterO.Numbers {
       return new ERational(
           this.unsignedNumerator,
           this.denominator,
-          this.flags ^ BigNumberFlags.FlagNegative);
+          (byte)(this.flags ^ BigNumberFlags.FlagNegative));
     }
 
     /// <summary>Returns the remainder that would result when this
@@ -1899,11 +1914,11 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
-        return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
+        return CreateNaN(this.UnsignedNumerator, false, this.IsNegative);
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-            otherValue.unsignedNumerator,
+            otherValue.UnsignedNumerator,
             false,
             otherValue.IsNegative);
       }
@@ -1913,7 +1928,6 @@ namespace PeterO.Numbers {
       if (otherValue.IsQuietNaN()) {
         return otherValue;
       }
-      bool resultNeg = this.IsNegative ^ otherValue.IsNegative;
       if (this.IsInfinity()) {
         return NaN;
       }
@@ -1936,10 +1950,7 @@ namespace PeterO.Numbers {
       bc = thisDen * (EInteger)tnum;
       tden *= (EInteger)thisDen;
       ad -= (EInteger)bc;
-      return new ERational(
-          ad.Abs(),
-          tden.Abs(),
-          resultNeg ? BigNumberFlags.FlagNegative : 0);
+      return Create(ad, tden);
     }
 
     /// <summary>Subtracts an arbitrary-precision rational number from this
@@ -1955,11 +1966,11 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(otherValue));
       }
       if (this.IsSignalingNaN()) {
-        return CreateNaN(this.unsignedNumerator, false, this.IsNegative);
+        return CreateNaN(this.UnsignedNumerator, false, this.IsNegative);
       }
       if (otherValue.IsSignalingNaN()) {
         return CreateNaN(
-            otherValue.unsignedNumerator,
+            otherValue.UnsignedNumerator,
             false,
             otherValue.IsNegative);
       }
@@ -2000,7 +2011,7 @@ namespace PeterO.Numbers {
         return EFloat.NegativeZero.ToDouble();
       }
       return EFloat.FromEInteger(this.Numerator)
-        .Divide(EFloat.FromEInteger(this.denominator), EContext.Binary64)
+        .Divide(EFloat.FromEInteger(this.Denominator), EContext.Binary64)
         .ToDouble();
     }
 
@@ -2027,7 +2038,7 @@ namespace PeterO.Numbers {
         return EFloat.NegativeZero.ToDoubleBits();
       }
       return EFloat.FromEInteger(this.Numerator)
-        .Divide(EFloat.FromEInteger(this.denominator), EContext.Binary64)
+        .Divide(EFloat.FromEInteger(this.Denominator), EContext.Binary64)
         .ToDoubleBits();
     }
 
@@ -2054,7 +2065,7 @@ namespace PeterO.Numbers {
         return EFloat.NegativeZero.ToSingleBits();
       }
       return EFloat.FromEInteger(this.Numerator)
-        .Divide(EFloat.FromEInteger(this.denominator), EContext.Binary32)
+        .Divide(EFloat.FromEInteger(this.Denominator), EContext.Binary32)
         .ToSingleBits();
     }
 
@@ -2075,7 +2086,7 @@ namespace PeterO.Numbers {
         return this.IsNegative ? NegativeZero : Zero;
       }
       EInteger num = this.Numerator;
-      EInteger den = this.denominator;
+      EInteger den = this.Denominator;
       EInteger gcd = num.Abs().Gcd(den);
       return Create(num.Divide(gcd), den.Divide(gcd));
     }
@@ -2102,7 +2113,7 @@ namespace PeterO.Numbers {
         throw new OverflowException("Value is infinity or NaN");
       }
       EInteger unum = this.UnsignedNumerator;
-      EInteger uden = this.denominator;
+      EInteger uden = this.Denominator;
       if (unum.CompareTo(uden) < 0) {
         return EInteger.Zero;
       }
@@ -2141,7 +2152,7 @@ namespace PeterO.Numbers {
         throw new OverflowException("Value is infinity or NaN");
       }
       EInteger unum = this.UnsignedNumerator;
-      EInteger uden = this.denominator;
+      EInteger uden = this.Denominator;
       if (unum.IsZero) {
         return EInteger.Zero;
       }
@@ -2171,7 +2182,7 @@ namespace PeterO.Numbers {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      return this.Numerator / (EInteger)this.denominator;
+      return this.Numerator / (EInteger)this.Denominator;
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer,
@@ -2193,13 +2204,14 @@ namespace PeterO.Numbers {
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      if (this.denominator.IsEven && !this.unsignedNumerator.IsEven) {
+      if (this.denominator.IsEvenNumber &&
+           !this.unsignedNumerator.IsEvenNumber) {
         // Even denominator, odd numerator, so not an integer
         throw new ArithmeticException("Value is not an integer");
       }
       EInteger rem;
       EInteger quo;
-      EInteger[] divrem = this.Numerator.DivRem(this.denominator);
+      EInteger[] divrem = this.Numerator.DivRem(this.Denominator);
       quo = divrem[0];
       rem = divrem[1];
       if (!rem.IsZero) {
@@ -2233,7 +2245,7 @@ namespace PeterO.Numbers {
     public EDecimal ToEDecimal(EContext ctx) {
       if (this.IsNaN()) {
         return EDecimal.CreateNaN(
-            this.unsignedNumerator,
+            this.UnsignedNumerator,
             this.IsSignalingNaN(),
             this.IsNegative,
             ctx);
@@ -2272,7 +2284,7 @@ namespace PeterO.Numbers {
       }
       if (this.IsNaN()) {
         return EDecimal.CreateNaN(
-            this.unsignedNumerator,
+            this.UnsignedNumerator,
             this.IsSignalingNaN(),
             this.IsNegative,
             ctx);
@@ -2370,7 +2382,7 @@ namespace PeterO.Numbers {
     public EFloat ToEFloat(EContext ctx) {
       if (this.IsNaN()) {
         return EFloat.CreateNaN(
-            this.unsignedNumerator,
+            this.UnsignedNumerator,
             this.IsSignalingNaN(),
             this.IsNegative,
             ctx);
@@ -2407,7 +2419,7 @@ namespace PeterO.Numbers {
       }
       if (this.IsNaN()) {
         return EFloat.CreateNaN(
-            this.unsignedNumerator,
+            this.UnsignedNumerator,
             this.IsSignalingNaN(),
             this.IsNegative,
             ctx);
@@ -2494,7 +2506,7 @@ namespace PeterO.Numbers {
         return EFloat.NegativeZero.ToSingle();
       }
       return EFloat.FromEInteger(this.Numerator)
-        .Divide(EFloat.FromEInteger(this.denominator), EContext.Binary32)
+        .Divide(EFloat.FromEInteger(this.Denominator), EContext.Binary32)
         .ToSingle();
     }
 
@@ -2507,14 +2519,14 @@ namespace PeterO.Numbers {
     public override string ToString() {
       if (!this.IsFinite) {
         if (this.IsSignalingNaN()) {
-          if (this.unsignedNumerator.IsZero) {
+          if (this.unsignedNumerator.IsValueZero) {
             return this.IsNegative ? "-sNaN" : "sNaN";
           }
           return this.IsNegative ? "-sNaN" + this.unsignedNumerator :
             "sNaN" + this.unsignedNumerator;
         }
         if (this.IsQuietNaN()) {
-          if (this.unsignedNumerator.IsZero) {
+          if (this.unsignedNumerator.IsValueZero) {
             return this.IsNegative ? "-NaN" : "NaN";
           }
           return this.IsNegative ? "-NaN" + this.unsignedNumerator :
@@ -2524,7 +2536,7 @@ namespace PeterO.Numbers {
           return this.IsNegative ? "-Infinity" : "Infinity";
         }
       }
-      return (this.Numerator.IsZero && this.IsNegative) ? ("-0/" +
+      return (this.unsignedNumerator.IsValueZero && this.IsNegative) ? ("-0/" +
           this.Denominator) : (this.Numerator + "/" + this.Denominator);
     }
 

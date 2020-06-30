@@ -11,7 +11,6 @@ using System.Text;
 /*
 TODO: add one/zero/ten to Java version; maybe change to fields in next major
 version
-TODO: Use FastIntegerFixed in ERational
 TODO: Log1P and ExpM1 in EFloat and ERational
 TODO: Log-Real numbers
 */
