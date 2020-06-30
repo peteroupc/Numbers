@@ -57,7 +57,6 @@ namespace Test {
           !lowerF.Contains(".fptest")) {
           continue;
         }
-        var lines = 0;
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
             var ln = w.ReadLine();

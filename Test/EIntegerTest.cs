@@ -3052,6 +3052,64 @@ namespace Test {
     }
 
     [Test]
+    public void TestRoot() {
+      var r = new RandomGenerator();
+      for (var i = 0; i < 20; ++i) {
+        EInteger bigintA = RandomBigInteger(r);
+        if (bigintA.Sign < 0) {
+          bigintA = -bigintA;
+        }
+        if (bigintA.Sign == 0) {
+          bigintA = EInteger.One;
+        }
+        EInteger sqr = bigintA.Multiply(bigintA).Multiply(bigintA);
+        EInteger sr = sqr.Root(3);
+        TestCommon.CompareTestEqual(bigintA, sr);
+        sr = sqr.Root(2);
+        TestCommon.CompareTestEqual(bigintA, sr);
+      }
+      for (var i = 0; i < 10000; ++i) {
+        EInteger bigintA = RandomBigInteger(r);
+        if (bigintA.Sign < 0) {
+          bigintA = -bigintA;
+        }
+        if (bigintA.Sign == 0) {
+          bigintA = EInteger.One;
+        }
+        EInteger sr = bigintA.Root(3);
+        EInteger srsqr = sr.Multiply(sr).Multiply(sr);
+        sr += EInteger.One;
+        EInteger sronesqr = sr.Multiply(sr).Multiply(sr);
+        if (srsqr.CompareTo(bigintA) > 0) {
+          Assert.Fail(srsqr + " not " + bigintA +
+            " or less (TestRoot, root=" + sr + ")");
+        }
+        if (sronesqr.CompareTo(bigintA) <= 0) {
+          Assert.Fail(srsqr + " not greater than " + bigintA +
+            " (TestRoot, root=" + sr + ")");
+        }
+      }
+      try {
+ EInteger.FromInt32(7).Root(0);
+Assert.Fail("Should have failed");
+} catch (ArgumentException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+      try {
+ EInteger.FromInt32(7).Root(-1);
+Assert.Fail("Should have failed");
+} catch (ArgumentException) {
+// NOTE: Intentionally empty
+} catch (Exception ex) {
+ Assert.Fail(ex.ToString());
+throw new InvalidOperationException(String.Empty, ex);
+}
+    }
+
+    [Test]
     public void TestSqrt() {
       var r = new RandomGenerator();
       for (var i = 0; i < 20; ++i) {
@@ -3064,6 +3122,8 @@ namespace Test {
         }
         EInteger sqr = bigintA.Multiply(bigintA);
         EInteger sr = sqr.Sqrt();
+        TestCommon.CompareTestEqual(bigintA, sr);
+        sr = sqr.Root(2);
         TestCommon.CompareTestEqual(bigintA, sr);
       }
       for (var i = 0; i < 10000; ++i) {

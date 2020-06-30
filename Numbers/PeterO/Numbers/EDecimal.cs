@@ -11,7 +11,7 @@ using System.Text;
 /*
 TODO: add one/zero/ten to Java version; maybe change to fields in next major
 version
-TODO: Log1P and ExpM1 in EFloat and ERational
+TODO: Log1P and ExpM1 in EFloat and EDecimal
 TODO: Log-Real numbers
 */
 namespace PeterO.Numbers {
@@ -909,7 +909,7 @@ namespace PeterO.Numbers {
     /// <param name='dblBits'>The parameter <paramref name='dblBits'/> is a
     /// 64-bit signed integer.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
-    /// as <paramref name='value'/>.</returns>
+    /// as <paramref name='dblBits'/>.</returns>
     public static EDecimal FromDoubleBits(long dblBits) {
       var value = new int[] {
         unchecked((int)(dblBits & 0xffffffffL)),
@@ -1154,9 +1154,8 @@ namespace PeterO.Numbers {
     /// closest "float" to 0.1, not 0.1 exactly). To create an
     /// arbitrary-precision decimal number from a decimal value, use
     /// FromString instead in most cases.</summary>
-    /// <param name='value'>The parameter <paramref name='flt'/> is a
-    /// 32-bit binary floating-point number encoded in the IEEE 754
-    /// binary32 format.</param>
+    /// <param name='value'>A 32-bit binary floating-point number encoded
+    /// in the IEEE 754 binary32 format.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as <paramref name='value'/>.</returns>
     public static EDecimal FromSingleBits(int value) {

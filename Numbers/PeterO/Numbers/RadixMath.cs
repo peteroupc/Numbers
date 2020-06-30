@@ -1180,6 +1180,7 @@ namespace PeterO.Numbers {
         return this.ReturnQuietNaN(thisValue, ctx);
       }
       int sign = this.helper.GetSign(thisValue);
+      EContext ctxCopy;
       if (sign < 0) {
         if ((flags & BigNumberFlags.FlagInfinity) != 0) {
           return this.SignalInvalid(ctx);
@@ -1196,14 +1197,24 @@ namespace PeterO.Numbers {
            // ln(negative)
            return this.SignalInvalid(ctx);
         } else {
-           // TODO: ln(0 > x < 1)
+          ctxCopy = ctx.WithBlankFlags();
+          T half = this.Divide(this.helper.ValueOf(1),
+  this.helper.ValueOf(2),
+  ctxCopy);
+          if (this.CompareTo(thisValue, half) <= 0) {
+            EContext ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision.Add(2));
+            thisValue = this.Add(thisValue, this.helper.ValueOf(1), ctxdiv);
+            return this.Ln(thisValue, ctx);
+          } else {
+           // TODO: ln(0.5 > x < 1)
            throw new NotImplementedException();
+          }
         }
       }
       if ((flags & BigNumberFlags.FlagInfinity) != 0) {
         return thisValue;
       }
-      EContext ctxCopy = ctx.WithBlankFlags();
+      ctxCopy = ctx.WithBlankFlags();
       T one = this.helper.ValueOf(1);
       // ERounding intermedRounding = ERounding.HalfEven;
       if (sign == 0) {
@@ -1212,7 +1223,6 @@ namespace PeterO.Numbers {
               ctxCopy);
       } else {
         int cmpOne = this.CompareTo(thisValue, one);
-        // EContext ctxdiv = null;
         if (cmpOne == 0) {
           // ln(2)
           thisValue = this.RoundToPrecision(
@@ -1220,10 +1230,12 @@ namespace PeterO.Numbers {
               ctxCopy);
         } else if (cmpOne < 0) {
           // TODO: ln(1 > x < 2)
+          // EContext ctxdiv = null;
           throw new NotImplementedException();
         } else {
-          // TODO: ln(x > 2)
-          throw new NotImplementedException();
+           EContext ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision.Add(2));
+           thisValue = this.Add(thisValue, one, ctxdiv);
+           thisValue = this.Ln(thisValue, ctxCopy);
         }
       }
       if (ctx.HasFlags) {

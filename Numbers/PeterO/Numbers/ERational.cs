@@ -517,7 +517,7 @@ PositiveInfinity) : (CreateNaN(ef.UnsignedMantissa, ef.IsSignalingNaN(),
     /// <param name='value'>A 32-bit integer encoded in the IEEE 754
     /// binary32 format.</param>
     /// <returns>A rational number with the same floating-point value as
-    /// <paramref name='flt'/>.</returns>
+    /// <paramref name='value'/>.</returns>
     public static ERational FromSingleBits(int value) {
       return FromEFloat(EFloat.FromSingleBits(value));
     }
@@ -530,7 +530,7 @@ PositiveInfinity) : (CreateNaN(ef.UnsignedMantissa, ef.IsSignalingNaN(),
     /// <param name='value'>A 64-bit integer encoded in the IEEE 754
     /// binary64 format.</param>
     /// <returns>A rational number with the same floating-point value as
-    /// <paramref name='flt'/>.</returns>
+    /// <paramref name='value'/>.</returns>
     public static ERational FromDoubleBits(long value) {
       return FromEFloat(EFloat.FromDoubleBits(value));
     }
