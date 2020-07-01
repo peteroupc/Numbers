@@ -2753,6 +2753,63 @@ namespace PeterO.Numbers {
       return this.LogN(EFloat.FromInt32(10), ctx);
     }
 
+    /// <summary>Not documented yet.</summary>
+    /// <returns>The return value is not documented yet.</returns>
+    /// <param name='ctx'>Not documented yet.</param>
+    public EFloat Log1P(EContext ctx) {
+      EFloat value = this;
+      if (value.IsNaN()) {
+        return value.Plus(ctx);
+      }
+      if (ctx == null || !ctx.HasMaxPrecision ||
+        (value.CompareTo(-1) < 0)) {
+        return EFloat.SignalingNaN.Plus(ctx);
+      }
+      if (ctx.Traps != 0) {
+        EContext tctx = ctx.GetNontrapping();
+        EFloat ret = value.Log1P(tctx);
+        return ctx.TriggerTraps(ret, tctx);
+      } else if (ctx.IsSimplified) {
+        EContext tmpctx = ctx.WithSimplified(false).WithBlankFlags();
+        EFloat ret = value.PreRound(ctx).Log1P(tmpctx);
+        if (ctx.HasFlags) {
+          int flags = ctx.Flags;
+          ctx.Flags = flags | tmpctx.Flags;
+        }
+        // Console.WriteLine("{0} {1} [{4} {5}] -> {2}
+        // [{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
+        // value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
+        return ret.RoundToPrecision(ctx);
+      } else {
+        if (value.CompareTo(-1) == 0) {
+          return EFloat.NegativeInfinity;
+        } else if (value.IsPositiveInfinity()) {
+          return EFloat.PositiveInfinity;
+        }
+        if (value.CompareTo(0) == 0) {
+          return EFloat.FromInt32(0).Plus(ctx);
+        }
+        int flags = ctx.Flags;
+        EContext tmpctx = null;
+        EFloat ret;
+        // DebugUtility.Log("cmp=" +
+        // value.CompareTo(EFloat.Create(1, -1)) +
+        // " add=" + value.Add(EFloat.FromInt32(1)));
+        if (value.CompareTo(EFloat.Create(1, -1)) < 0) {
+          ret = value.Add(EFloat.FromInt32(1)).Log(ctx);
+        } else {
+          tmpctx = ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
+          ret = value.Add(EFloat.FromInt32(1), tmpctx).Log(ctx);
+          flags |= tmpctx.Flags;
+        }
+        if (ctx.HasFlags) {
+          flags |= ctx.Flags;
+          ctx.Flags = flags;
+        }
+        return ret;
+      }
+    }
+
     /// <summary>Finds the base-N logarithm of this object, that is, the
     /// power (exponent) that the number N must be raised to in order to
     /// equal this object's value.</summary>

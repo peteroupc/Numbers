@@ -902,6 +902,36 @@ namespace Test {
         TestCommon.CompareTestEqual(efb, efa, str);
       }
     }
+
+ [Test]
+ public void TestLog1P() {
+{
+ EFloat efa = EFloat.Create(3326311965476095L, -26).Log1P(EContext.Binary64);
+ EFloat efb = EFloat.Create(4987402727842631L, -48);
+ Assert.AreEqual(efb, efa);
+}
+{
+ EFloat efa = EFloat.Create(-5934733692758989L, -166).Log1P(EContext.Binary64);
+ EFloat efb = EFloat.Create(-5934733692758989L, -166);
+ Assert.AreEqual(efb, efa);
+}
+{
+ EFloat efa = EFloat.Create(7028563965745449L, -26).Log1P(EContext.Binary64);
+ EFloat efb = EFloat.Create(2598989644557185L, -47);
+ Assert.AreEqual(efb, efa);
+}
+{
+ EFloat efa = EFloat.Create(6661843800332999L, -311).Log1P(EContext.Binary64);
+ EFloat efb = EFloat.Create(6661843800332999L, -311);
+ Assert.AreEqual(efb, efa);
+}
+{
+ EFloat efa = EFloat.Create(2966802219632029L, -588).Log1P(EContext.Binary64);
+ EFloat efb = EFloat.Create(2966802219632029L, -588);
+ Assert.AreEqual(efb, efa);
+}
+  }
+
     [Test]
     public void TestLog10() {
       Assert.IsTrue(EFloat.One.Log10(null).IsNaN());

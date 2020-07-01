@@ -9427,13 +9427,14 @@ ShortMask) != 0) ? 9 :
     }
 
     private EInteger[] RootRemInternal(EInteger root, bool useRem) {
-if (root.CompareTo(1) == 0) {
-         return new[] { this, EInteger.Zero };
+       if (root.CompareTo(1) == 0) {
+         EInteger thisValue = this;
+         return new[] { thisValue, EInteger.Zero };
        }
-if (root.CompareTo(1) < 0) {
+       if (root.CompareTo(1) < 0) {
          throw new ArgumentException("root");
        }
-if (root.CompareTo(2) == 0) {
+       if (root.CompareTo(2) == 0) {
          return this.SqrtRemInternal(useRem);
        }
        if (this.Sign <= 0) {
@@ -9454,11 +9455,11 @@ if (root.CompareTo(2) == 0) {
           }
        }
        if (useRem) {
-         EInteger rem = this.Subtract(ret.Pow(root));
-         if (rem.Sign < 0) {
+         EInteger erem = this.Subtract(ret.Pow(root));
+         if (erem.Sign < 0) {
            throw new InvalidOperationException();
          }
-         return new[] { ret, rem};
+         return new[] { ret, erem};
        } else {
           return new[] { ret, null};
        }

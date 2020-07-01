@@ -56,9 +56,12 @@ namespace PeterO.Numbers {
         "CA2104",
         Justification = "ERational is immutable")]
     public static readonly ERational NegativeZero =
-      new ERational(FastIntegerFixed.Zero, FastIntegerFixed.One,
-          (byte)(BigNumberFlags.FlagNegative)); // / <summary>The rational
-number one.</summary>
+      new ERational(
+          FastIntegerFixed.Zero,
+          FastIntegerFixed.One,
+          (byte)BigNumberFlags.FlagNegative);
+
+    /// <summary>The rational number one.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
         "CA2104",
@@ -1331,14 +1334,12 @@ PositiveInfinity) : (CreateNaN(ef.UnsignedMantissa, ef.IsSignalingNaN(),
       int cmp = first.CompareToValue(second);
       if (cmp == 0) {
         if (first.IsNegative) {
-          return (!second.IsNegative) ? first :
-(first.Denominator.CompareTo(second.Denominator) < 0 ?
-
+          return (!second.IsNegative) ? first : (
+              first.Denominator.CompareTo(second.Denominator) < 0 ?
               first : second);
         } else {
-          return second.IsNegative ? second :
-(first.Denominator.CompareTo(second.Denominator) > 0 ?
-
+          return second.IsNegative ? second : (
+              first.Denominator.CompareTo(second.Denominator) > 0 ?
               first : second);
         }
       }
@@ -2182,7 +2183,7 @@ PositiveInfinity) : (CreateNaN(ef.UnsignedMantissa, ef.IsSignalingNaN(),
       if (!this.IsFinite) {
         throw new OverflowException("Value is infinity or NaN");
       }
-      return this.Numerator / (EInteger)this.Denominator;
+      return this.Numerator.Divide(this.Denominator);
     }
 
     /// <summary>Converts this value to an arbitrary-precision integer,
