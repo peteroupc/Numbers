@@ -149,6 +149,10 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Remainder(int)](#Remainder_int)</code> - Returns the remainder that would result when this arbitrary-precision integer is divided by a 32-bit signed integer.
 * <code>[Remainder(long)](#Remainder_long)</code> - Returns the remainder that would result when this arbitrary-precision integer is divided by a 64-bit signed integer.
 * <code>[Remainder(PeterO.Numbers.EInteger)](#Remainder_PeterO_Numbers_EInteger)</code> - Returns the remainder that would result when this arbitrary-precision integer is divided by another arbitrary-precision integer.
+* <code>[Root(int)](#Root_int)</code> - Finds the nth root of this instance's value, rounded down.
+* <code>[Root(PeterO.Numbers.EInteger)](#Root_PeterO_Numbers_EInteger)</code> - Finds the nth root of this instance's value, rounded down.
+* <code>[RootRem(int)](#RootRem_int)</code> - Calculates the nth root and the remainder.
+* <code>[RootRem(PeterO.Numbers.EInteger)](#RootRem_PeterO_Numbers_EInteger)</code> - Calculates the nth root and the remainder.
 * <code>[ShiftLeft(int)](#ShiftLeft_int)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits.
 * <code>[ShiftLeft(PeterO.Numbers.EInteger)](#ShiftLeft_PeterO_Numbers_EInteger)</code> - Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits given as an arbitrary-precision integer.
 * <code>[ShiftRight(int)](#ShiftRight_int)</code> - Returns an arbitrary-precision integer with the bits shifted to the right.
@@ -2258,7 +2262,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is less than -32768 or greater tha 32767.
+ is less than -32768 or greater than 32767.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2987,6 +2991,82 @@ Attempted to divide by zero.
 The parameter  <i>divisor</i>
  is null.
 
+<a id="Root_int"></a>
+### Root
+
+    public PeterO.Numbers.EInteger Root(
+        int root);
+
+Finds the nth root of this instance's value, rounded down.
+
+<b>Parameters:</b>
+
+ * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and so on.
+
+<b>Return Value:</b>
+
+The square root of this object's value. Returns 0 if this value is 0 or less.
+
+<a id="Root_PeterO_Numbers_EInteger"></a>
+### Root
+
+    public PeterO.Numbers.EInteger Root(
+        PeterO.Numbers.EInteger root);
+
+Finds the nth root of this instance's value, rounded down.
+
+<b>Parameters:</b>
+
+ * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and so on.
+
+<b>Return Value:</b>
+
+The square root of this object's value. Returns 0 if this value is 0 or less.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>root</i>
+ is null.
+
+<a id="RootRem_int"></a>
+### RootRem
+
+    public PeterO.Numbers.EInteger[] RootRem(
+        int root);
+
+Calculates the nth root and the remainder.
+
+<b>Parameters:</b>
+
+ * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and so on.
+
+<b>Return Value:</b>
+
+An array of two arbitrary-precision integers: the first integer is the nth root, and the second is the difference between this value and the nth power of the first integer. Returns two zeros if this value is 0 or less, or one and zero if this value equals 1.
+
+<a id="RootRem_PeterO_Numbers_EInteger"></a>
+### RootRem
+
+    public PeterO.Numbers.EInteger[] RootRem(
+        PeterO.Numbers.EInteger root);
+
+Calculates the nth root and the remainder.
+
+<b>Parameters:</b>
+
+ * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and so on.
+
+<b>Return Value:</b>
+
+An array of two arbitrary-precision integers: the first integer is the nth root, and the second is the difference between this value and the nth power of the first integer. Returns two zeros if this value is 0 or less, or one and zero if this value equals 1.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>root</i>
+ is null.
+
 <a id="ShiftLeft_int"></a>
 ### ShiftLeft
 
@@ -3198,7 +3278,7 @@ This number's value as a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is less than -32768 or greater tha 32767.
+This value is less than -32768 or greater than 32767.
 
 <a id="ToInt16Unchecked"></a>
 ### ToInt16Unchecked

@@ -312,7 +312,7 @@ namespace PeterO.Numbers {
       "Microsoft.Usage",
       "CA2225",
       Justification = "Class implements an alternate method named Xor.")]
-    public static EInteger operator ~ (
+    public static EInteger operator ~(
       EInteger thisValue) {
       return Not(thisValue);
     }

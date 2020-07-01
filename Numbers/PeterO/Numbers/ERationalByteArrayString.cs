@@ -99,8 +99,10 @@ chars[i +
             numer = EInteger.FromSubstring(chars, numerStart, endStr);
             return ERational.CreateNaN(numer, false, negative);
           } else {
-            return ERational.CreateNaN(EInteger.FromInt32(numerInt), false,
-  negative);
+            return ERational.CreateNaN(
+               EInteger.FromInt32(numerInt),
+               false,
+               negative);
           }
         }
       }
@@ -134,8 +136,10 @@ ERational.SignalingNaN.Negate();
             numer = EInteger.FromSubstring(chars, numerStart, endStr);
             return ERational.CreateNaN(numer, true, negative);
           } else {
-            return ERational.CreateNaN(EInteger.FromInt32(numerInt), true,
-  negative);
+            return ERational.CreateNaN(
+              EInteger.FromInt32(numerInt),
+              true,
+              negative);
           }
         }
       }

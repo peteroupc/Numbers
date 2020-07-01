@@ -1050,8 +1050,6 @@ namespace PeterO.Numbers {
         if (ctx.HasExponentRange && this.thisRadix >= 2 &&
             this.thisRadix <= 12 &&
             this.CompareTo(thisValue, this.helper.ValueOf(10)) > 0) {
-          // FastInteger[] precBounds = NumberUtility.DigitLengthBounds(
-            // this.helper, // this.helper.GetMantissa(thisValue));
           // Calculated with ceil(ln(radix))+1 (radixes 0 and 1 are
           // not used and have entries of 1)
           int[] upperDivisors = {

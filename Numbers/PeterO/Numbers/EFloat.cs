@@ -2646,6 +2646,85 @@ namespace PeterO.Numbers {
       return MathValue.Exp(this, ctx);
     }
 
+    /// <summary>Finds e (the base of natural logarithms) raised to the
+    /// power of this object's value, and subtracts the result by 1 and
+    /// returns the final result, in a way that avoids loss of precision if
+    /// the true result is very close to 0.</summary>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If <c>HasFlags</c> of
+    /// the context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// <i>This parameter can't be null, as the exponential function's
+    /// results are generally not exact.</i> (Unlike in the General Binary
+    /// Arithmetic Specification, any rounding mode is allowed.).</param>
+    /// <returns>Exponential of this object, minus 1. Signals FlagInvalid
+    /// and returns not-a-number (NaN) if the parameter <paramref
+    /// name='ctx'/> is null or the precision is unlimited (the context's
+    /// Precision property is 0).</returns>
+    public EFloat ExpM1(EContext ctx) {
+      EFloat value = this;
+      if (value.IsNaN()) {
+        return value.Plus(ctx);
+      }
+      if (ctx == null || !ctx.HasMaxPrecision) {
+        return EFloat.SignalingNaN.Plus(ctx);
+      }
+      if (ctx.Traps != 0) {
+        EContext tctx = ctx.GetNontrapping();
+        EFloat ret = value.ExpM1(tctx);
+        return ctx.TriggerTraps(ret, tctx);
+      } else if (ctx.IsSimplified) {
+        EContext tmpctx = ctx.WithSimplified(false).WithBlankFlags();
+        EFloat ret = value.PreRound(ctx).ExpM1(tmpctx);
+        if (ctx.HasFlags) {
+          int flags = ctx.Flags;
+          ctx.Flags = flags | tmpctx.Flags;
+        }
+        // Console.WriteLine("{0} {1} [{4} {5}] -> {2}
+        // [{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
+        // value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
+        return ret.RoundToPrecision(ctx);
+      } else {
+        if (value.CompareTo(-1) == 0) {
+          return EFloat.NegativeInfinity;
+        } else if (value.IsPositiveInfinity()) {
+          return EFloat.PositiveInfinity;
+        } else if (value.IsNegativeInfinity()) {
+          return EFloat.FromInt32(-1).Plus(ctx);
+        } else if (value.CompareTo(0) == 0) {
+          return EFloat.FromInt32(0).Plus(ctx);
+        }
+        int flags = ctx.Flags;
+        EContext tmpctx = null;
+        EFloat ret;
+        {
+          EInteger prec = ctx.Precision.Add(3);
+          tmpctx = ctx.WithBigPrecision(prec).WithBlankFlags();
+          if (value.Abs().CompareTo(EFloat.Create(1, -1)) < 0) {
+            ret = value.Exp(tmpctx).Add(EFloat.FromInt32(-1), ctx);
+            EFloat oldret = ret;
+            while (true) {
+              prec = prec.Add(ctx.Precision).Add(3);
+              tmpctx = ctx.WithBigPrecision(prec).WithBlankFlags();
+              ret = value.Exp(tmpctx).Add(EFloat.FromInt32(-1), ctx);
+              if (ret.CompareTo(0) != 0 && ret.CompareTo(oldret) == 0) {
+                break;
+              }
+              oldret = ret;
+            }
+          } else {
+            ret = value.Exp(tmpctx).Add(EFloat.FromInt32(-1), ctx);
+          }
+          flags |= tmpctx.Flags;
+        }
+        if (ctx.HasFlags) {
+          flags |= ctx.Flags;
+          ctx.Flags = flags;
+        }
+        return ret;
+      }
+    }
+
     /// <summary>Calculates this object's hash code. No application or
     /// process IDs are used in the hash code calculation.</summary>
     /// <returns>A 32-bit signed integer.</returns>
@@ -2753,9 +2832,25 @@ namespace PeterO.Numbers {
       return this.LogN(EFloat.FromInt32(10), ctx);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <returns>The return value is not documented yet.</returns>
-    /// <param name='ctx'>Not documented yet.</param>
+    /// <summary>Adds 1 to this object's value and finds the natural
+    /// logarithm of the result, in a way that avoids loss of precision
+    /// when this object's value is between 0 and 1.</summary>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If <c>HasFlags</c> of
+    /// the context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// <i>This parameter can't be null, as the ln function's results are
+    /// generally not exact.</i> (Unlike in the General Binary Arithmetic
+    /// Specification, any rounding mode is allowed.).</param>
+    /// <returns>Ln(1+(this object)). Signals the flag FlagInvalid and
+    /// returns NaN if this object is less than -1 (the result would be a
+    /// complex number with a real part equal to Ln of 1 plus this object's
+    /// absolute value and an imaginary part equal to pi, but the return
+    /// value is still NaN.). Signals FlagInvalid and returns not-a-number
+    /// (NaN) if the parameter <paramref name='ctx'/> is null or the
+    /// precision is unlimited (the context's Precision property is 0).
+    /// Signals no flags and returns negative infinity if this object's
+    /// value is 0.</returns>
     public EFloat Log1P(EContext ctx) {
       EFloat value = this;
       if (value.IsNaN()) {
@@ -3153,9 +3248,9 @@ namespace PeterO.Numbers {
       if ((subtrahend.flags & BigNumberFlags.FlagNaN) == 0) {
         int newflags = subtrahend.flags ^ BigNumberFlags.FlagNegative;
         negated = new EFloat(
-            subtrahend.unsignedMantissa,
-            subtrahend.exponent,
-            (byte)newflags);
+          subtrahend.unsignedMantissa,
+          subtrahend.exponent,
+          (byte)newflags);
       }
       return MathValue.MultiplyAndAdd(this, op, negated, ctx);
     }
@@ -4050,9 +4145,9 @@ namespace PeterO.Numbers {
       if ((otherValue.flags & BigNumberFlags.FlagNaN) == 0) {
         int newflags = otherValue.flags ^ BigNumberFlags.FlagNegative;
         negated = new EFloat(
-            otherValue.unsignedMantissa,
-            otherValue.exponent,
-            (byte)newflags);
+          otherValue.unsignedMantissa,
+          otherValue.exponent,
+          (byte)newflags);
       }
       return this.Add(negated, ctx);
     }
@@ -4842,7 +4937,7 @@ namespace PeterO.Numbers {
         int flags) {
         return new EFloat(FastIntegerFixed.FromBig(mantissa),
             FastIntegerFixed.FromBig(exponent),
-          (byte)flags);
+            (byte)flags);
       }
 
       public EFloat CreateNewWithFlagsFastInt(
@@ -4850,9 +4945,9 @@ namespace PeterO.Numbers {
         FastIntegerFixed fexponent,
         int flags) {
         return new EFloat(
-          fmantissa,
-          fexponent,
-          (byte)flags);
+            fmantissa,
+            fexponent,
+            (byte)flags);
       }
 
       /// <summary>This is an internal method.</summary>

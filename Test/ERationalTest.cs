@@ -277,9 +277,9 @@ namespace Test {
         Assert.AreEqual(ei1, er.Numerator);
         Assert.AreEqual(ei2, er.Denominator);
         ERational er2 = ERational.FromString(
-          "xyzxyz" + erstr,
-          6,
-          erstr.Length);
+            "xyzxyz" + erstr,
+            6,
+            erstr.Length);
         Assert.AreEqual(er, er2);
         er2 = ERational.FromString(erstr + "xyzxyz", 0, erstr.Length);
         Assert.AreEqual(er, er2);
@@ -442,9 +442,9 @@ namespace Test {
         ERational enumber = RandomObjects.RandomERational(fr);
         bool numDenClose = !enumber.IsFinite ||
           enumber.Numerator.GetUnsignedBitLengthAsEInteger()
-            .Subtract(enumber.Denominator.GetUnsignedBitLengthAsEInteger())
-            .Abs().CompareTo(130) < 0 ||
-            enumber.Denominator.CompareTo(enumber.UnsignedNumerator) >= 0;
+          .Subtract(enumber.Denominator.GetUnsignedBitLengthAsEInteger())
+          .Abs().CompareTo(130) < 0 ||
+          enumber.Denominator.CompareTo(enumber.UnsignedNumerator) >= 0;
         if (!enumber.IsFinite) {
           try {
             enumber.ToByteChecked();
@@ -597,9 +597,9 @@ namespace Test {
             throw new InvalidOperationException(String.Empty, ex);
           }
           try {
-if (numDenClose) {
-  enumber.ToByteUnchecked();
-}
+            if (numDenClose) {
+              enumber.ToByteUnchecked();
+            }
           } catch (Exception ex) {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
@@ -637,9 +637,9 @@ if (numDenClose) {
             eint,
             EInteger.FromInt16(enumber.ToInt16Checked()));
           if (numDenClose) {
-          TestCommon.AssertEquals(
-            eint,
-            EInteger.FromInt16(enumber.ToInt16Unchecked()));
+            TestCommon.AssertEquals(
+              eint,
+              EInteger.FromInt16(enumber.ToInt16Unchecked()));
           }
           if (isInteger) {
             TestCommon.AssertEquals(
@@ -685,9 +685,9 @@ if (numDenClose) {
             throw new InvalidOperationException(String.Empty, ex);
           }
           try {
-if (numDenClose) {
-  enumber.ToInt16Unchecked();
-}
+            if (numDenClose) {
+              enumber.ToInt16Unchecked();
+            }
           } catch (Exception ex) {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
@@ -774,9 +774,9 @@ if (numDenClose) {
             throw new InvalidOperationException(String.Empty, ex);
           }
           try {
-if (numDenClose) {
-  enumber.ToInt32Unchecked();
-}
+            if (numDenClose) {
+              enumber.ToInt32Unchecked();
+            }
           } catch (Exception ex) {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
@@ -864,9 +864,9 @@ if (numDenClose) {
             throw new InvalidOperationException(String.Empty, ex);
           }
           try {
-if (numDenClose) {
-  enumber.ToInt64Unchecked();
-}
+            if (numDenClose) {
+              enumber.ToInt64Unchecked();
+            }
           } catch (Exception ex) {
             Assert.Fail(ex.ToString());
             throw new InvalidOperationException(String.Empty, ex);
@@ -1228,10 +1228,10 @@ if (numDenClose) {
         EFloat f2 = EFloat.FromSingle(er.ToSingle());
         TestCommon.CompareTestEqual(d1, d2);
         TestCommon.CompareTestEqual(f1, f2);
-      d1 = er.ToEFloat(EContext.Binary64);
-      d2 = EFloat.FromDoubleBits(er.ToDoubleBits());
-      f1 = er.ToEFloat(EContext.Binary32);
-      f2 = EFloat.FromSingleBits(er.ToSingleBits());
+        d1 = er.ToEFloat(EContext.Binary64);
+        d2 = EFloat.FromDoubleBits(er.ToDoubleBits());
+        f1 = er.ToEFloat(EContext.Binary32);
+        f2 = EFloat.FromSingleBits(er.ToSingleBits());
         TestCommon.CompareTestEqual(d1, d2);
         TestCommon.CompareTestEqual(f1, f2);
       }

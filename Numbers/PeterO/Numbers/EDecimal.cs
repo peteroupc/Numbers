@@ -7,11 +7,9 @@ at: http://peteroupc.github.io/
  */
 using System;
 using System.Text;
-
 /*
-TODO: add one/zero/ten to Java version; maybe change to fields in next major
-version
-TODO: ExpM1 in EFloat and EDecimal
+TODO: In next major version, maybe convert EDecimal.One/Ten/Zero to fields
+rather than properties
 TODO: Log-Real numbers
 */
 namespace PeterO.Numbers {
@@ -444,7 +442,7 @@ namespace PeterO.Numbers {
         CacheLast);
 
     internal static EDecimal FromCache(int v) {
-       return Cache[v - CacheFirst];
+      return Cache[v - CacheFirst];
     }
 
     private static EDecimal[] EDecimalCache(int first, int last) {
@@ -631,12 +629,12 @@ namespace PeterO.Numbers {
       }
     }
 
-      internal static EDecimal ChangeExponent(EDecimal ret, EInteger exponent) {
-          return new EDecimal(
-            ret.unsignedMantissa,
-            FastIntegerFixed.FromBig(exponent),
-            (byte)ret.flags);
-      }
+    internal static EDecimal ChangeExponent(EDecimal ret, EInteger exponent) {
+      return new EDecimal(
+          ret.unsignedMantissa,
+          FastIntegerFixed.FromBig(exponent),
+          (byte)ret.flags);
+    }
 
     /// <summary>Returns a number with the value
     /// <c>exponent*10^significand</c>.</summary>
@@ -4285,6 +4283,85 @@ namespace PeterO.Numbers {
       return GetMathValue(ctx).Exp(this, ctx);
     }
 
+    /// <summary>Finds e (the base of natural logarithms) raised to the
+    /// power of this object's value, and subtracts the result by 1 and
+    /// returns the final result, in a way that avoids loss of precision if
+    /// the true result is very close to 0.</summary>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If <c>HasFlags</c> of
+    /// the context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// <i>This parameter can't be null, as the exponential function's
+    /// results are generally not exact.</i> (Unlike in the General Binary
+    /// Arithmetic Specification, any rounding mode is allowed.).</param>
+    /// <returns>Exponential of this object, minus 1. Signals FlagInvalid
+    /// and returns not-a-number (NaN) if the parameter <paramref
+    /// name='ctx'/> is null or the precision is unlimited (the context's
+    /// Precision property is 0).</returns>
+    public EDecimal ExpM1(EContext ctx) {
+      EDecimal value = this;
+      if (value.IsNaN()) {
+        return value.Plus(ctx);
+      }
+      if (ctx == null || !ctx.HasMaxPrecision) {
+        return EDecimal.SignalingNaN.Plus(ctx);
+      }
+      if (ctx.Traps != 0) {
+        EContext tctx = ctx.GetNontrapping();
+        EDecimal ret = value.ExpM1(tctx);
+        return ctx.TriggerTraps(ret, tctx);
+      } else if (ctx.IsSimplified) {
+        EContext tmpctx = ctx.WithSimplified(false).WithBlankFlags();
+        EDecimal ret = value.PreRound(ctx).ExpM1(tmpctx);
+        if (ctx.HasFlags) {
+          int flags = ctx.Flags;
+          ctx.Flags = flags | tmpctx.Flags;
+        }
+        // Console.WriteLine("{0} {1} [{4} {5}] -> {2}
+        // [{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
+        // value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
+        return ret.RoundToPrecision(ctx);
+      } else {
+        if (value.CompareTo(-1) == 0) {
+          return EDecimal.NegativeInfinity;
+        } else if (value.IsPositiveInfinity()) {
+          return EDecimal.PositiveInfinity;
+        } else if (value.IsNegativeInfinity()) {
+          return EDecimal.FromInt32(-1).Plus(ctx);
+        } else if (value.CompareTo(0) == 0) {
+          return EDecimal.FromInt32(0).Plus(ctx);
+        }
+        int flags = ctx.Flags;
+        EContext tmpctx = null;
+        EDecimal ret;
+        {
+          EInteger prec = ctx.Precision.Add(3);
+          tmpctx = ctx.WithBigPrecision(prec).WithBlankFlags();
+          if (value.Abs().CompareTo(EDecimal.Create(5, -1)) < 0) {
+            ret = value.Exp(tmpctx).Add(EDecimal.FromInt32(-1), ctx);
+            EDecimal oldret = ret;
+            while (true) {
+              prec = prec.Add(ctx.Precision).Add(3);
+              tmpctx = ctx.WithBigPrecision(prec).WithBlankFlags();
+              ret = value.Exp(tmpctx).Add(EDecimal.FromInt32(-1), ctx);
+              if (ret.CompareTo(0) != 0 && ret.CompareTo(oldret) == 0) {
+                break;
+              }
+              oldret = ret;
+            }
+          } else {
+            ret = value.Exp(tmpctx).Add(EDecimal.FromInt32(-1), ctx);
+          }
+          flags |= tmpctx.Flags;
+        }
+        if (ctx.HasFlags) {
+          flags |= ctx.Flags;
+          ctx.Flags = flags;
+        }
+        return ret;
+      }
+    }
+
     /// <summary>Calculates this object's hash code. No application or
     /// process IDs are used in the hash code calculation.</summary>
     /// <returns>A 32-bit signed integer.</returns>
@@ -4392,9 +4469,25 @@ namespace PeterO.Numbers {
       return this.LogN(EDecimal.FromInt32(10), ctx);
     }
 
-    /// <summary>Not documented yet.</summary>
-    /// <returns>The return value is not documented yet.</returns>
-    /// <param name='ctx'>Not documented yet.</param>
+    /// <summary>Adds 1 to this object's value and finds the natural
+    /// logarithm of the result, in a way that avoids loss of precision
+    /// when this object's value is between 0 and 1.</summary>
+    /// <param name='ctx'>An arithmetic context to control the precision,
+    /// rounding, and exponent range of the result. If <c>HasFlags</c> of
+    /// the context is true, will also store the flags resulting from the
+    /// operation (the flags are in addition to the pre-existing flags).
+    /// <i>This parameter can't be null, as the ln function's results are
+    /// generally not exact.</i> (Unlike in the General Binary Arithmetic
+    /// Specification, any rounding mode is allowed.).</param>
+    /// <returns>Ln(1+(this object)). Signals the flag FlagInvalid and
+    /// returns NaN if this object is less than -1 (the result would be a
+    /// complex number with a real part equal to Ln of 1 plus this object's
+    /// absolute value and an imaginary part equal to pi, but the return
+    /// value is still NaN.). Signals FlagInvalid and returns not-a-number
+    /// (NaN) if the parameter <paramref name='ctx'/> is null or the
+    /// precision is unlimited (the context's Precision property is 0).
+    /// Signals no flags and returns negative infinity if this object's
+    /// value is 0.</returns>
     public EDecimal Log1P(EContext ctx) {
       EDecimal value = this;
       if (value.IsNaN()) {

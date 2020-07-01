@@ -4,7 +4,7 @@
         System.IComparable,
         System.IEquatable
 
-Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.) <b>Thread safety:</b> Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
+Represents an arbitrary-precision rational number. This class can't be inherited. (The "E" stands for "extended", meaning that instances of this class can be values other than numbers proper, such as infinity and not-a-number.) In this class, a rational number consists of a numerator and denominator, each an arbitrary-precision integer (EInteger), and this class does not automatically convert rational numbers to lowest terms. <b>Thread safety:</b> Instances of this class are immutable, so they are inherently safe for use by multiple threads. Multiple instances of this object with the same properties are interchangeable, so they should not be compared using the "==" operator (which might only check if each side of the operator is the same instance).
 
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Returns the absolute value of this rational number, that is, a number with the same value as this one but as a nonnegative number.
@@ -187,6 +187,8 @@ Represents an arbitrary-precision rational number. This class can't be inherited
     public ERational(
         PeterO.Numbers.EInteger numerator,
         PeterO.Numbers.EInteger denominator);
+
+<b>Deprecated.</b> Use the Create method instead.
 
 Initializes a new instance of the [PeterO.Numbers.ERational](PeterO.Numbers.ERational.md) class.
 
@@ -717,6 +719,11 @@ An arbitrary-precision rational number.
  * System.ArgumentException:
 The denominator is zero.
 
+ * System.ArgumentNullException:
+The parameter  <i>numerator</i>
+ or  <i>denominator</i>
+ is null.
+
 <a id="CreateNaN_PeterO_Numbers_EInteger"></a>
 ### CreateNaN
 
@@ -964,7 +971,7 @@ Creates a binary rational number from a 64-bit floating-point number encoded in 
 
 <b>Return Value:</b>
 
-A rational number with the same floating-point value as  <i>flt</i>
+A rational number with the same floating-point value as  <i>value</i>
 .
 
 <a id="FromEDecimal_PeterO_Numbers_EDecimal"></a>
@@ -1161,7 +1168,7 @@ Creates a binary rational number from a 32-bit floating-point number encoded in 
 
 <b>Return Value:</b>
 
-A rational number with the same floating-point value as  <i>flt</i>
+A rational number with the same floating-point value as  <i>value</i>
 .
 
 <a id="FromString_byte"></a>
@@ -2032,7 +2039,7 @@ The value of  <i>input</i>
 
  * System.OverflowException:
 The parameter  <i>input</i>
- is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater tha 32767.
+ is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater than 32767.
 
  * System.ArgumentNullException:
 The parameter  <i>input</i>
@@ -2932,7 +2939,7 @@ This number's value, truncated to a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.OverflowException:
-This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater tha 32767.
+This value is infinity or not-a-number, or the number, once converted to an integer by discarding its fractional part, is less than -32768 or greater than 32767.
 
 <a id="ToInt16IfExact"></a>
 ### ToInt16IfExact
@@ -2948,7 +2955,7 @@ This number's value as a 16-bit signed integer.
 <b>Exceptions:</b>
 
  * System.ArithmeticException:
-This value is infinity or not-a-number, is not an exact integer, or is less than -32768 or greater tha 32767.
+This value is infinity or not-a-number, is not an exact integer, or is less than -32768 or greater than 32767.
 
 <a id="ToInt16Unchecked"></a>
 ### ToInt16Unchecked

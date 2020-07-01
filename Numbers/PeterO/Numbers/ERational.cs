@@ -429,9 +429,11 @@ this.unsignedNumerator.IsValueZero;
         throw new ArgumentNullException(nameof(ef));
       }
       if (!ef.IsFinite) {
-        return (ef.IsInfinity()) ? (ef.IsNegative ? NegativeInfinity :
-PositiveInfinity) : (CreateNaN(ef.UnsignedMantissa, ef.IsSignalingNaN(),
-  ef.IsNegative));
+        return ef.IsInfinity() ? (ef.IsNegative ? NegativeInfinity :
+PositiveInfinity) : CreateNaN(
+                 ef.UnsignedMantissa,
+                 ef.IsSignalingNaN(),
+                 ef.IsNegative);
       }
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
@@ -466,9 +468,11 @@ PositiveInfinity) : (CreateNaN(ef.UnsignedMantissa, ef.IsSignalingNaN(),
         throw new ArgumentNullException(nameof(ef));
       }
       if (!ef.IsFinite) {
-        return (ef.IsInfinity()) ? (ef.IsNegative ? NegativeInfinity :
-PositiveInfinity) : (CreateNaN(ef.UnsignedMantissa, ef.IsSignalingNaN(),
-  ef.IsNegative));
+        return ef.IsInfinity() ? (ef.IsNegative ? NegativeInfinity :
+PositiveInfinity) : CreateNaN(
+                 ef.UnsignedMantissa,
+                 ef.IsSignalingNaN(),
+                 ef.IsNegative);
       }
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;

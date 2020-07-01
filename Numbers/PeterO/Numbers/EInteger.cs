@@ -209,24 +209,24 @@ namespace PeterO.Numbers {
     /// greater than 0; otherwise, <c>false</c>.</value>
     public bool IsPowerOfTwo {
       get {
-            int wc = this.wordCount;
-            if (this.negative || wc == 0 ||
-                (wc > 1 && this.words[0] != 0)) {
-              return false;
-            }
-            for (var i = 0; i < wc - 1; ++i) {
-              if (this.words[i] != 0) {
-                return false;
-              }
-            }
-            int lastw = ((int)this.words[wc - 1]) & 0xffff;
-            if (lastw == 0) {
-              throw new InvalidOperationException();
-            }
-            while ((lastw & 1) == 0) {
-              lastw >>= 1;
-            }
-            return lastw == 1;
+        int wc = this.wordCount;
+        if (this.negative || wc == 0 ||
+          (wc > 1 && this.words[0] != 0)) {
+          return false;
+        }
+        for (var i = 0; i < wc - 1; ++i) {
+          if (this.words[i] != 0) {
+            return false;
+          }
+        }
+        int lastw = ((int)this.words[wc - 1]) & 0xffff;
+        if (lastw == 0) {
+          throw new InvalidOperationException();
+        }
+        while ((lastw & 1) == 0) {
+          lastw >>= 1;
+        }
+        return lastw == 1;
       }
     }
 
@@ -669,10 +669,10 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(cs));
       }
       return EIntegerCharArrayString.FromRadixSubstringImpl(
-        cs,
-        radix,
-        index,
-        endIndex);
+          cs,
+          radix,
+          index,
+          endIndex);
     }
 
     /// <summary>Converts a portion of a sequence of bytes (interpreted as
@@ -809,10 +809,10 @@ namespace PeterO.Numbers {
         throw new ArgumentNullException(nameof(bytes));
       }
       return EIntegerByteArrayString.FromRadixSubstringImpl(
-        bytes,
-        radix,
-        index,
-        endIndex);
+          bytes,
+          radix,
+          index,
+          endIndex);
     }
 
     private static EInteger FromRadixSubstringImpl(
@@ -2013,14 +2013,14 @@ namespace PeterO.Numbers {
           cc = (b >> 31) & 1;
         }
       } else {
-      for (var i = 0; i < factor2Count; ++i) {
-        a = unchecked((((int)factor2[factor2Start + i]) & SMask) * factor1);
-        a = unchecked(a + cc);
-        b = ((int)minuendArr[minuendArrStart + i] & SMask) - (a & SMask);
-        resultArr[resultStart + i] = unchecked((short)b);
-        cc = (a >> 16) + ((b >> 31) & 1);
-        cc &= SMask;
-      }
+        for (var i = 0; i < factor2Count; ++i) {
+          a = unchecked((((int)factor2[factor2Start + i]) & SMask) * factor1);
+          a = unchecked(a + cc);
+          b = ((int)minuendArr[minuendArrStart + i] & SMask) - (a & SMask);
+          resultArr[resultStart + i] = unchecked((short)b);
+          cc = (a >> 16) + ((b >> 31) & 1);
+          cc &= SMask;
+        }
       }
       a = cc;
       b = ((int)minuendArr[minuendArrStart + factor2Count] & SMask) - a;
@@ -2916,87 +2916,87 @@ namespace PeterO.Numbers {
       return this.DivRem(EInteger.FromInt32(intDivisor));
     }
 
-  /// <summary>Adds this arbitrary-precision integer and a 64-bit signed
-  /// integer and returns the result.</summary>
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Adds this arbitrary-precision integer and a 64-bit signed
+    /// integer and returns the result.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
     public EInteger Add(long longValue) {
-return this.Add(EInteger.FromInt64(longValue));
-}
+      return this.Add(EInteger.FromInt64(longValue));
+    }
 
-  /// <summary>Subtracts a 64-bit signed integer from this
-  /// arbitrary-precision integer and returns the result.</summary>
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Subtracts a 64-bit signed integer from this
+    /// arbitrary-precision integer and returns the result.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
     public EInteger Subtract(long longValue) {
-return this.Subtract(EInteger.FromInt64(longValue));
-}
+      return this.Subtract(EInteger.FromInt64(longValue));
+    }
 
-  /// <summary>Multiplies this arbitrary-precision integer by a 64-bit
-  /// signed integer and returns the result.</summary>
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Multiplies this arbitrary-precision integer by a 64-bit
+    /// signed integer and returns the result.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
     public EInteger Multiply(long longValue) {
-return this.Multiply(EInteger.FromInt64(longValue));
-}
+      return this.Multiply(EInteger.FromInt64(longValue));
+    }
 
-  /// <summary>Divides this arbitrary-precision integer by a 64-bit
-  /// signed integer and returns the result. The result of the division
-  /// is rounded down (the fractional part is discarded). Except if the
-  /// result of the division is 0, it will be negative if this
-  /// arbitrary-precision integer is positive and the other 64-bit signed
-  /// integer is negative, or vice versa, and will be positive if both
-  /// are positive or both are negative.</summary>
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Divides this arbitrary-precision integer by a 64-bit
+    /// signed integer and returns the result. The result of the division
+    /// is rounded down (the fractional part is discarded). Except if the
+    /// result of the division is 0, it will be negative if this
+    /// arbitrary-precision integer is positive and the other 64-bit signed
+    /// integer is negative, or vice versa, and will be positive if both
+    /// are positive or both are negative.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
     public EInteger Divide(long longValue) {
-return this.Divide(EInteger.FromInt64(longValue));
-}
+      return this.Divide(EInteger.FromInt64(longValue));
+    }
 
-  /// <summary>Returns the remainder that would result when this
-  /// arbitrary-precision integer is divided by a 64-bit signed integer.
-  /// The remainder is the number that remains when the absolute value of
-  /// this arbitrary-precision integer is divided by the absolute value
-  /// of the other 64-bit signed integer; the remainder has the same sign
-  /// (positive or negative) as this arbitrary-precision
-  /// integer.</summary>
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Returns the remainder that would result when this
+    /// arbitrary-precision integer is divided by a 64-bit signed integer.
+    /// The remainder is the number that remains when the absolute value of
+    /// this arbitrary-precision integer is divided by the absolute value
+    /// of the other 64-bit signed integer; the remainder has the same sign
+    /// (positive or negative) as this arbitrary-precision
+    /// integer.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
     public EInteger Remainder(long longValue) {
-return this.Remainder(EInteger.FromInt64(longValue));
-}
+      return this.Remainder(EInteger.FromInt64(longValue));
+    }
 
-  /// <summary>Not documented yet.</summary>
-  /// <param name='longValue'>The parameter <paramref name='longValue'/>
-  /// is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Not documented yet.</summary>
+    /// <param name='longValue'>The parameter <paramref name='longValue'/>
+    /// is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
     public int CompareTo(long longValue) {
-return this.CompareTo(EInteger.FromInt64(longValue));
-}
+      return this.CompareTo(EInteger.FromInt64(longValue));
+    }
 
-  /// <summary>Divides this arbitrary-precision integer by a 64-bit
-  /// signed integer and returns a two-item array containing the result
-  /// of the division and the remainder, in that order. The result of the
-  /// division is rounded down (the fractional part is discarded). Except
-  /// if the result of the division is 0, it will be negative if this
-  /// arbitrary-precision integer is positive and the other 64-bit signed
-  /// integer is negative, or vice versa, and will be positive if both
-  /// are positive or both are negative. The remainder is the number that
-  /// remains when the absolute value of this arbitrary-precision integer
-  /// is divided by the absolute value of the other 64-bit signed
-  /// integer; the remainder has the same sign (positive or negative) as
-  /// this arbitrary-precision integer.</summary>
-  /// <param name='intDivisor'>The parameter <paramref
-  /// name='intDivisor'/> is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
+    /// <summary>Divides this arbitrary-precision integer by a 64-bit
+    /// signed integer and returns a two-item array containing the result
+    /// of the division and the remainder, in that order. The result of the
+    /// division is rounded down (the fractional part is discarded). Except
+    /// if the result of the division is 0, it will be negative if this
+    /// arbitrary-precision integer is positive and the other 64-bit signed
+    /// integer is negative, or vice versa, and will be positive if both
+    /// are positive or both are negative. The remainder is the number that
+    /// remains when the absolute value of this arbitrary-precision integer
+    /// is divided by the absolute value of the other 64-bit signed
+    /// integer; the remainder has the same sign (positive or negative) as
+    /// this arbitrary-precision integer.</summary>
+    /// <param name='intDivisor'>The parameter <paramref
+    /// name='intDivisor'/> is a 64-bit signed integer.</param>
+    /// <returns>The return value is not documented yet.</returns>
     public EInteger[] DivRem(long intDivisor) {
       return this.DivRem(EInteger.FromInt64(intDivisor));
-}
+    }
 
     /// <summary>Divides this arbitrary-precision integer by another
     /// arbitrary-precision integer and returns a two-item array containing
@@ -3352,7 +3352,7 @@ return this.CompareTo(EInteger.FromInt64(longValue));
                   } else if (eu && !ev) {
                     buc = (Math.Abs(buc - bvc) > 1 && (bu[0] & 0x0f) == 0) ?
                       WordsShiftRightFour(bu, buc) : WordsShiftRightOne(bu,
-  buc);
+        buc);
                     } else if (!eu && ev) {
                     if ((bv[0] & 0xff) == 0 && Math.Abs(buc - bvc) > 1) {
                       // DebugUtility.Log("bv8");
@@ -3361,7 +3361,7 @@ return this.CompareTo(EInteger.FromInt64(longValue));
                       bvc = (
                           (bv[0] & 0x0f) == 0 && Math.Abs(
                 buc - bvc) > 1) ? WordsShiftRightFour(bv, bvc) :
-WordsShiftRightOne(bv, bvc);
+        WordsShiftRightOne(bv, bvc);
                     }
                   } else if (WordsCompare(bu, buc, bv, bvc) >= 0) {
                     buc = WordsSubtract(bu, buc, bv, bvc);
@@ -3384,8 +3384,7 @@ WordsShiftRightOne(bv, bvc);
                 var valueBvVar = new EInteger(bvc, bv, false);
                 if (bshl >= 0) {
                   valueBuVar = valueBuVar.IsZero ? (valueBvVar << bshl) :
-(valueBuVar <<
-                      bshl);
+        (valueBuVar << bshl);
                 } else {
                   valueBuVar = valueBuVar.IsZero ? LeftShiftBigIntVar(
                       valueBvVar,
@@ -3459,7 +3458,8 @@ WordsShiftRightOne(bv, bvc);
                     ((value >= 100000000000000L) ? 15 : ((value
                           >= 10000000000000L) ?
                         14 : ((value >= 1000000000000L) ? 13 : ((value
-                >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
+                              >= 100000000000L) ? 12 : ((value >=
+10000000000L) ?
                               11 : ((value >= 1000000000L) ? 10 : 9)))))))));
           } else {
             var v2 = (int)value;
@@ -3609,17 +3609,19 @@ WordsShiftRightOne(bv, bvc);
                     int maxDigitEstimate = maxDigits + 4;
                     int minDigitEstimate = minDigits + 4;
                     retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                minDigitEstimate)) >= 0 ? retval + maxDigitEstimate : retval +
+                          minDigitEstimate)) >= 0 ? retval +
+maxDigitEstimate : retval +
                       minDigitEstimate;
                     done = true;
                     break;
                   }
                 } else if (bitlen <= 6432162) {
                   // Much more accurate approximation
-          // Approximation of ln(2)/ln(10)
-          minDigits = 1 + (int)(((long)(bitlen - 1) * 661971961083L) >> 41);
-          maxDigits = 1 + (int)(((long)bitlen * 661971961083L) >> 41);
-          if (minDigits == maxDigits) {
+                  // Approximation of ln(2)/ln(10)
+                  minDigits = 1 + (int)(((long)(bitlen - 1) * 661971961083L) >>
+41);
+                  maxDigits = 1 + (int)(((long)bitlen * 661971961083L) >> 41);
+                  if (minDigits == maxDigits) {
                     // Number of digits is the same for
                     // all numbers with this bit length
                     retval += minDigits + 4;
@@ -3711,15 +3713,12 @@ WordsShiftRightOne(bv, bvc);
                         0xffff) != 0) ? 4 : ((((c << 10) & ShortMask) != 0) ?
                       5 : ((((c << 9) & ShortMask) != 0) ? 6 : ((((c <<
                                 8) & ShortMask) != 0) ? 7 : ((((c << 7) &
-                                ShortMask) != 0) ? 8 : ((((c << 6) &
-ShortMask) != 0) ? 9 :
+                ShortMask) != 0) ? 8 : ((((c << 6) & ShortMask) != 0) ? 9 :
                               ((((c << 5) & ShortMask) != 0) ? 10 : ((((c <<
-                                        4) & ShortMask) != 0) ? 11 : ((((c <<
-3) &
+                4) & ShortMask) != 0) ? 11 : ((((c << 3) &
                                         0xffff) != 0) ? 12 : ((((c << 2) &
                                           0xffff) != 0) ? 13 : ((((c << 1) &
-                                            ShortMask) != 0) ? 14 :
-15))))))))))))));
+                ShortMask) != 0) ? 14 : 15))))))))))))));
           retSetBitLong += rsb;
           return retSetBitLong;
         }
@@ -4845,14 +4844,14 @@ ShortMask) != 0) ? 9 :
         // unshifted word has less memory
         int lastWord = ((int)this.words[this.wordCount - 1]) & 0xffff;
         int lastWordBL = NumberUtility.BitLength(lastWord) +
-           shiftBits;
+          shiftBits;
         var newWordCount = 0;
         if (lastWordBL <= 16) {
-           // New bit count is such that an additional word
-           // is not needed
-           newWordCount = numWords + shiftWords;
+          // New bit count is such that an additional word
+          // is not needed
+          newWordCount = numWords + shiftWords;
         } else {
-           newWordCount = numWords + BitsToWords(numberBits);
+          newWordCount = numWords + BitsToWords(numberBits);
         }
         var ret = new short[newWordCount];
         Array.Copy(this.words, 0, ret, shiftWords, numWords);
@@ -5129,7 +5128,7 @@ ShortMask) != 0) ? 9 :
         throw new ArgumentNullException(nameof(second));
       }
       return this.And(second.Not());
-   }
+    }
 
     /// <summary>Does an OR NOT operation (or implication or IMP operation)
     /// between this arbitrary-precision integer and another one.</summary>
@@ -5155,7 +5154,7 @@ ShortMask) != 0) ? 9 :
         throw new ArgumentNullException(nameof(second));
       }
       return this.Or(second.Not());
-   }
+    }
 
     /// <summary>Does an OR NOT operation (or implication or IMP operation)
     /// between this arbitrary-precision integer and another one.</summary>
@@ -5178,7 +5177,7 @@ ShortMask) != 0) ? 9 :
     /// the purposes of this operator.</remarks>
     public EInteger Imp(EInteger second) {
       return this.OrNot(second);
-   }
+    }
 
     /// <summary>Does an XOR NOT operation (or equivalence operation, EQV
     /// operation, or exclusive-OR NOT operation) between this
@@ -5205,7 +5204,7 @@ ShortMask) != 0) ? 9 :
         throw new ArgumentNullException(nameof(second));
       }
       return this.Xor(second.Not());
-   }
+    }
 
     /// <summary>Does an XOR NOT operation (or equivalence operation, EQV
     /// operation, or exclusive-OR NOT operation) between this
@@ -5232,7 +5231,7 @@ ShortMask) != 0) ? 9 :
         throw new ArgumentNullException(nameof(second));
       }
       return this.XorNot(second);
-   }
+    }
 
     /// <summary>Does an exclusive OR (XOR) operation between this
     /// arbitrary-precision integer and another one.</summary>
@@ -9427,17 +9426,17 @@ ShortMask) != 0) ? 9 :
     }
 
     private EInteger[] RootRemInternal(EInteger root, bool useRem) {
-       if (root.CompareTo(1) == 0) {
-         EInteger thisValue = this;
-         return new[] { thisValue, EInteger.Zero };
-       }
-       if (root.CompareTo(1) < 0) {
-         throw new ArgumentException("root");
-       }
-       if (root.CompareTo(2) == 0) {
-         return this.SqrtRemInternal(useRem);
-       }
-       if (this.Sign <= 0) {
+      if (root.CompareTo(1) == 0) {
+        EInteger thisValue = this;
+        return new[] { thisValue, EInteger.Zero };
+      }
+      if (root.CompareTo(1) < 0) {
+        throw new ArgumentOutOfRangeException("root");
+      }
+      if (root.CompareTo(2) == 0) {
+        return this.SqrtRemInternal(useRem);
+      }
+      if (this.Sign <= 0) {
         return new[] { EInteger.Zero, EInteger.Zero };
       }
       if (this.Equals(EInteger.One)) {
@@ -9448,21 +9447,21 @@ ShortMask) != 0) ? 9 :
       EInteger shift = bl.Multiply(rm1).Divide(root);
       EInteger ret = this.ShiftRight(shift);
       while (true) {
-          EInteger oldret = ret;
-          ret = this.Divide(ret.Pow(rm1)).Add(ret.Multiply(rm1)).Divide(root);
-          if (oldret.Equals(ret)) {
-            break;
-          }
-       }
-       if (useRem) {
-         EInteger erem = this.Subtract(ret.Pow(root));
-         if (erem.Sign < 0) {
-           throw new InvalidOperationException();
-         }
-         return new[] { ret, erem};
-       } else {
-          return new[] { ret, null};
-       }
+        EInteger oldret = ret;
+        ret = this.Divide(ret.Pow(rm1)).Add(ret.Multiply(rm1)).Divide(root);
+        if (oldret.Equals(ret)) {
+          break;
+        }
+      }
+      if (useRem) {
+        EInteger erem = this.Subtract(ret.Pow(root));
+        if (erem.Sign < 0) {
+          throw new InvalidOperationException();
+        }
+        return new[] { ret, erem};
+      } else {
+        return new[] { ret, null};
+      }
     }
 
     private EInteger[] SqrtRemInternal(bool useRem) {
