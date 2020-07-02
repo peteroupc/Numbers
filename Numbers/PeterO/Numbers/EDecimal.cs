@@ -10,7 +10,6 @@ using System.Text;
 /*
 TODO: In next major version, maybe convert EDecimal.One/Ten/Zero to fields
 rather than properties
-TODO: Log-Real numbers
 */
 namespace PeterO.Numbers {
   /// <summary>

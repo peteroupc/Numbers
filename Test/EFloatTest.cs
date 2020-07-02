@@ -901,6 +901,14 @@ namespace Test {
         string str = OutputEF(efb) + "\n" + OutputEF(efa);
         TestCommon.CompareTestEqual(efb, efa, str);
       }
+      {
+ EFloat ef = EFloat.FromString(
+   "49565911.77858351171016693115234375")
+    .Log(EContext.Binary64);
+ EFloat ef2 = EFloat.FromString(
+   "17.718813892893447103915605111978948116302490234375");
+ TestCommon.CompareTestEqual(ef2, ef);
+      }
     }
 
     [Test]
@@ -943,37 +951,49 @@ namespace Test {
       }
     }
 
+    public static string DebugStringLog1P(
+      EFloat expec,
+      EFloat actual,
+      EFloat inp) {
+        return OutputEF(expec) + "\n" + OutputEF(actual) + "\n" + OutputEF(inp);
+    }
+
     [Test]
     public void TestLog1P() {
       {
         EFloat efa = EFloat.Create(3326311965476095L,
-  -26).Log1P(EContext.Binary64);
+  -26);
+        EFloat efl = efa.Log1P(EContext.Binary64);
         EFloat efb = EFloat.Create(4987402727842631L, -48);
-        TestCommon.CompareTestEqual(efb, efa);
+        TestCommon.CompareTestEqual(efb, efl, DebugStringLog1P(efb, efl, efa));
       }
       {
         EFloat efa = EFloat.Create(-5934733692758989L,
-  -166).Log1P(EContext.Binary64);
+  -166);
+        EFloat efl = efa.Log1P(EContext.Binary64);
         EFloat efb = EFloat.Create(-5934733692758989L, -166);
-        TestCommon.CompareTestEqual(efb, efa);
+        TestCommon.CompareTestEqual(efb, efl, DebugStringLog1P(efb, efl, efa));
       }
       {
         EFloat efa = EFloat.Create(7028563965745449L,
-  -26).Log1P(EContext.Binary64);
+  -26);
+        EFloat efl = efa.Log1P(EContext.Binary64);
         EFloat efb = EFloat.Create(2598989644557185L, -47);
-        TestCommon.CompareTestEqual(efb, efa);
+        TestCommon.CompareTestEqual(efb, efl, DebugStringLog1P(efb, efl, efa));
       }
       {
         EFloat efa = EFloat.Create(6661843800332999L,
-  -311).Log1P(EContext.Binary64);
+  -311);
+        EFloat efl = efa.Log1P(EContext.Binary64);
         EFloat efb = EFloat.Create(6661843800332999L, -311);
-        TestCommon.CompareTestEqual(efb, efa);
+        TestCommon.CompareTestEqual(efb, efl, DebugStringLog1P(efb, efl, efa));
       }
       {
         EFloat efa = EFloat.Create(2966802219632029L,
-  -588).Log1P(EContext.Binary64);
+  -588);
+        EFloat efl = efa.Log1P(EContext.Binary64);
         EFloat efb = EFloat.Create(2966802219632029L, -588);
-        TestCommon.CompareTestEqual(efb, efa);
+        TestCommon.CompareTestEqual(efb, efl, DebugStringLog1P(efb, efl, efa));
       }
     }
 
@@ -1372,7 +1392,6 @@ namespace Test {
         EFloat.NegativeZero.Plus(null));
     }
     [Test]
-    [Timeout(100000)]
     public void TestPow() {
       var ecs = new EContext[] {
         EContext.Binary32,
@@ -1399,23 +1418,6 @@ namespace Test {
           ei = ei.Add(ei.Sign < 0 ? thresh.Negate() : thresh);
         }
         powerlist.Add(ei);
-      }
-      foreach (EContext ec in ecs) {
-        EFloat efa = EFloat.FromInt32(1).NextPlus(ec).Negate();
-        EFloat efb = EFloat.FromInt32(1).NextMinus(ec).Negate();
-        foreach (EInteger ei in powerlist) {
-          EFloat efp = efa.Pow(EFloat.FromEInteger(ei));
-          EFloat efexp = null;
-          efexp = (ei.IsEven) ? (ei.Sign >= 0 ? EFloat.PositiveInfinity :
-EFloat.Zero) : (ei.Sign >= 0 ? EFloat.NegativeInfinity :
-EFloat.NegativeZero);
-          Assert.AreEqual(efexp, efp);
-          efp = efb.Pow(EFloat.FromEInteger(ei));
-          efexp = (ei.IsEven) ? (ei.Sign < 0 ? EFloat.PositiveInfinity :
-EFloat.Zero) : (ei.Sign < 0 ? EFloat.NegativeInfinity :
-EFloat.NegativeZero);
-          Assert.AreEqual(efexp, efp);
-        }
       }
     }
     [Test]

@@ -3065,8 +3065,6 @@ namespace Test {
         EInteger sqr = bigintA.Multiply(bigintA).Multiply(bigintA);
         EInteger sr = sqr.Root(3);
         TestCommon.CompareTestEqual(bigintA, sr);
-        sr = sqr.Root(2);
-        TestCommon.CompareTestEqual(bigintA, sr);
       }
       for (var i = 0; i < 10000; ++i) {
         EInteger bigintA = RandomBigInteger(r);

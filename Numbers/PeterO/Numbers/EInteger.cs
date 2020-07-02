@@ -4599,6 +4599,12 @@ maxDigitEstimate : retval +
       if (this.CompareTo(-1) == 0) {
         return this.IsEven ? EInteger.FromInt32(1) : this;
       }
+      EInteger bitLength = this.GetUnsignedBitLengthAsEInteger();
+      if (!this.IsPowerOfTwo) {
+        bitLength = bitLength.Subtract(1);
+      }
+      DebugUtility.Log("sizeNeeded=" + bitLength.Multiply(bigPower));
+      DebugUtility.Log("bigPower=" + bigPower);
       if (bigPower.CanFitInInt32()) {
         return this.Pow(bigPower.ToInt32Checked());
       }
@@ -9431,7 +9437,7 @@ maxDigitEstimate : retval +
         return new[] { thisValue, EInteger.Zero };
       }
       if (root.CompareTo(1) < 0) {
-        throw new ArgumentOutOfRangeException("root");
+        throw new ArgumentOutOfRangeException(nameof(root));
       }
       if (root.CompareTo(2) == 0) {
         return this.SqrtRemInternal(useRem);

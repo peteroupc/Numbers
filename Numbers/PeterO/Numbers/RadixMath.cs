@@ -1280,26 +1280,41 @@ namespace PeterO.Numbers {
             var roots = new FastInteger(0);
             FastInteger error;
             EInteger bigError;
+            FastIntegerFixed fmant = this.helper.GetMantissaFastInt(thisValue);
+            FastIntegerFixed[] bounds = NumberUtility.DigitLengthBoundsFixed(
+                  this.helper,
+                  fmant);
+            // DebugUtility.Log("thisValue "+thisValue);
+            // DebugUtility.Log("bounds "+bounds[1]+" ctxprec="+ctx.Precision);
             error = new FastInteger(10);
             if (this.CompareTo(thisValue,
-                this.helper.ValueOf(Int32.MaxValue)) >= 0) {
+                this.helper.ValueOf(10000000)) >= 0) {
               if (this.helper.GetRadix() == 2) {
                 error = new FastInteger(32);
               }
               error = new FastInteger(16);
             }
             bigError = error.ToEInteger();
-            ctxdiv = SetPrecisionIfLimited(ctx, ctx.Precision + bigError)
+            EInteger cprec = EInteger.Max(bounds[1].ToEInteger(), ctx.Precision)
+               .Add(bigError);
+            ctxdiv = SetPrecisionIfLimited(ctx, cprec)
               .WithRounding(intermedRounding).WithBlankFlags();
             T smallfrac = (ctxdiv.Precision.CompareTo(400) > 0) ?
               this.Divide(one, this.helper.ValueOf(1000000), ctxdiv) :
-              this.Divide(one, this.helper.ValueOf(120), ctxdiv);
+              this.Divide(one, this.helper.ValueOf(200), ctxdiv);
             T closeToOne = this.Add(one, smallfrac, null);
             // DebugUtility.Log("Before Ln " +thisValue);
             T oldThisValue = thisValue;
             // Take square root until this value
             // is close to 1
-            while (this.CompareTo(thisValue, closeToOne) >= 0) {
+            while (this.CompareTo(thisValue, two) >= 0) {
+              thisValue = this.SquareRoot(
+                  thisValue,
+                  ctxdiv.WithUnlimitedExponents());
+              // DebugUtility.Log("--> " +thisValue);
+              roots.Increment();
+            }
+            for (int i = 0; i < 8; ++i) {
               thisValue = this.SquareRoot(
                   thisValue,
                   ctxdiv.WithUnlimitedExponents());
@@ -4806,9 +4821,9 @@ this.helper.GetDigitLength(op2Mantissa.ToEInteger());
       if (sign < 0) {
         // Use the reciprocal for negative powers
         thisValue = this.Divide(one, thisValue, ctxdiv);
-         /*DUL("-->recip thisValue=" + thisValue +
+        DebugUtility.Log("-->recip thisValue=" + thisValue +
             " powInt=" + powIntBig + " flags=" + (ctxdiv == null ? -1 :
-ctxdiv.Flags));*/
+ctxdiv.Flags));
         if ((ctxdiv.Flags & EContext.FlagOverflow) != 0) {
           return this.SignalOverflow(ctx, retvalNeg);
         }
@@ -4817,9 +4832,9 @@ ctxdiv.Flags));*/
       T r = one;
       while (!powIntBig.IsZero) {
         if (!powIntBig.IsEven) {
-            /*DUL("-->thisValue=" + thisValue +
-            " powInt=" + powIntBig + " flags=" +
-           (ctxdiv == null ? -1 : ctxdiv.Flags));*/
+          // DebugUtility.Log("-->RT thisValue=" + thisValue +
+          // " powInt=" + powIntBig + " flags=" +
+          // (ctxdiv == null ? -1 : ctxdiv.Flags));
           r = this.Multiply(r, thisValue, ctxdiv);
           if (ctxdiv != null && (ctxdiv.Flags & EContext.FlagOverflow) != 0) {
             return this.SignalOverflow(ctx, retvalNeg);
@@ -4830,6 +4845,9 @@ ctxdiv.Flags));*/
           if (ctxdiv != null) {
             ctxdiv.Flags &= ~EContext.FlagOverflow;
           }
+          // DebugUtility.Log("-->TT thisValue=" + thisValue +
+          // " powInt=" + powIntBig + " flags=" +
+          // (ctxdiv == null ? -1 : ctxdiv.Flags));
           T tmp = this.Multiply(thisValue, thisValue, ctxdiv);
           if (ctxdiv != null && (ctxdiv.Flags & EContext.FlagOverflow) != 0) {
             // Avoid multiplying too huge numbers with

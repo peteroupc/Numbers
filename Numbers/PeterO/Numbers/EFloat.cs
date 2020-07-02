@@ -2894,7 +2894,11 @@ namespace PeterO.Numbers {
           ret = value.Add(EFloat.FromInt32(1)).Log(ctx);
         } else {
           tmpctx = ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
+          // DebugUtility.Log("orig "+value);
+          // DebugUtility.Log("sub "+value.Add(EFloat.FromInt32(1),
+          //tmpctx).Subtract(value));
           ret = value.Add(EFloat.FromInt32(1), tmpctx).Log(ctx);
+          // DebugUtility.Log("ret "+ret);
           flags |= tmpctx.Flags;
         }
         if (ctx.HasFlags) {
