@@ -1666,15 +1666,6 @@ An arbitrary-precision binary floating-point number.
 
 <b>Exceptions:</b>
 
- *  T:System.ArgumentException:
-Either  <i> offset</i>
- or  <i> length</i>
- is less than 0 or greater than  <i>bytes</i>
- 's length, or  <i> bytes</i>
- 's length minus  <i>offset</i>
- is less than  <i>length</i>
-.
-
  * System.ArgumentNullException:
 The parameter  <i>bytes</i>
  is null.
@@ -1819,15 +1810,6 @@ Creates a binary floating-point number from a sequence of  `char`  s that repres
 An arbitrary-precision binary floating-point number.
 
 <b>Exceptions:</b>
-
- *  T:System.ArgumentException:
-Either  <i> offset</i>
- or  <i> length</i>
- is less than 0 or greater than  <i>chars</i>
- 's length, or  <i> chars</i>
- 's length minus  <i>offset</i>
- is less than  <i>length</i>
-.
 
  * System.ArgumentNullException:
 The parameter  <i>chars</i>
