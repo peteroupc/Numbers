@@ -1305,11 +1305,6 @@ namespace PeterO.Numbers {
     /// name='chars'/> 's length).</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref=' T:System.ArgumentException'>Either <paramref
-    /// name=' offset'/> or <paramref name=' length'/> is less than 0 or
-    /// greater than <paramref name='chars'/> 's length, or <paramref
-    /// name=' chars'/> 's length minus <paramref name='offset'/> is less
-    /// than <paramref name='length'/>.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='chars'/> is null.</exception>
     /// <exception cref='ArgumentException'>Either <paramref
@@ -1433,11 +1428,6 @@ namespace PeterO.Numbers {
     /// name='bytes'/> 's length).</param>
     /// <returns>An arbitrary-precision binary floating-point
     /// number.</returns>
-    /// <exception cref=' T:System.ArgumentException'>Either <paramref
-    /// name=' offset'/> or <paramref name=' length'/> is less than 0 or
-    /// greater than <paramref name='bytes'/> 's length, or <paramref
-    /// name=' bytes'/> 's length minus <paramref name='offset'/> is less
-    /// than <paramref name='length'/>.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bytes'/> is null.</exception>
     /// <exception cref='ArgumentException'>Either <paramref
@@ -2896,7 +2886,7 @@ namespace PeterO.Numbers {
           tmpctx = ctx.WithBigPrecision(ctx.Precision.Add(3)).WithBlankFlags();
           // DebugUtility.Log("orig "+value);
           // DebugUtility.Log("sub "+value.Add(EFloat.FromInt32(1),
-          //tmpctx).Subtract(value));
+          // tmpctx).Subtract(value));
           ret = value.Add(EFloat.FromInt32(1), tmpctx).Log(ctx);
           // DebugUtility.Log("ret "+ret);
           flags |= tmpctx.Flags;

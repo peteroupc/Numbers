@@ -1,6 +1,14 @@
 Release notes
 -------
 
+Version 1.7.0
+
+- Added overloads to string-to-number methods that take char[] and byte[] arrays.
+- Added methods that convert EDecimal, EFloat, and ERational to and from raw bits that follow IEEE 754 binary floating-point formats (To/FromDoubleBits, To/FromSingleBits).
+- Added Log1P and ExpM1 methods to EDecimal and EFloat
+- Added 'long' overloads to several arithmetic methods
+- Added implication and equivalence (Imp/Eqv) methods and an nth-root method to EInteger
+
 Version 1.6.0
 
 - Numerous performance improvements in the EInteger, EDecimal, EFloat, and ERational classes.  Among them is the use of caches for small EInteger, EDecimal, and EFloat values, and faster multiplication algorithms for large EIntegers.

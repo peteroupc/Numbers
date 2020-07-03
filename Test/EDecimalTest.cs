@@ -3274,15 +3274,15 @@ namespace Test {
     [Test]
     [Timeout(60000)]
     public void TestRoundToExponent() {
-      this.TestRoundToExponentOne("-0", "-0", 0, ERounding.Down);
-      this.TestRoundToExponentOne("-0", "-0", 0, ERounding.HalfEven);
-      this.TestRoundToExponentOne("-0", "-0", 0, ERounding.Floor);
-      this.TestRoundToExponentOne("-0.0", "-0", 0, ERounding.Down);
-      this.TestRoundToExponentOne("-0.0", "-0", 0, ERounding.HalfEven);
-      this.TestRoundToExponentOne("-0.0", "-0", 0, ERounding.Floor);
-      this.TestRoundToExponentOne("-0.0000", "-0", 0, ERounding.Down);
-      this.TestRoundToExponentOne("-0.0000", "-0", 0, ERounding.HalfEven);
-      this.TestRoundToExponentOne("-0.0000", "-0", 0, ERounding.Floor);
+      TestRoundToExponentOne("-0", "-0", 0, ERounding.Down);
+      TestRoundToExponentOne("-0", "-0", 0, ERounding.HalfEven);
+      TestRoundToExponentOne("-0", "-0", 0, ERounding.Floor);
+      TestRoundToExponentOne("-0.0", "-0", 0, ERounding.Down);
+      TestRoundToExponentOne("-0.0", "-0", 0, ERounding.HalfEven);
+      TestRoundToExponentOne("-0.0", "-0", 0, ERounding.Floor);
+      TestRoundToExponentOne("-0.0000", "-0", 0, ERounding.Down);
+      TestRoundToExponentOne("-0.0000", "-0", 0, ERounding.HalfEven);
+      TestRoundToExponentOne("-0.0000", "-0", 0, ERounding.Floor);
     }
     [Test]
     public void TestRoundToExponentExact() {
@@ -5516,7 +5516,7 @@ namespace Test {
       Assert.AreEqual((float)oldd, d);
     }
 
-    private void TestRoundToExponentOne(
+    private static void TestRoundToExponentOne(
       string input,
       string expected,
       int exponent,

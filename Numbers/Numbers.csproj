@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.6.0</Version>
+    <Version>1.7.0</Version>
     <Owners>Peter Occil</Owners>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
     <Copyright>Written by Peter O.  Any copyright is released to the Public Domain.</Copyright>
@@ -14,16 +14,14 @@
     <PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>
-Version 1.6.0
+Version 1.7.0
 
-- Numerous performance improvements in the EInteger, EDecimal, EFloat, and ERational classes.  Among them is the use of caches for small EInteger, EDecimal, and EFloat values, and faster multiplication algorithms for large EIntegers.
-- Correctness fixes to the Log() methods in EDecimal and EFloat
-- New LogN() method in EDecimal and EFloat
-- New methods in EInteger, including FromBytes, GetDigitCountAsEInteger, and DivRem(long)
-- New ToSizedEInteger/ToSizedEIntegerIfExact/IsInteger methods in EDecimal, EFloat, and ERational
-- New Create overloads in EFloat and ERational
-- New Min and Max methods in EInteger and ERational
-- Bug fixes
+- Added overloads to string-to-number methods that take char[] and byte[] arrays.
+- Added methods that convert EDecimal, EFloat, and ERational to and from raw bits that follow IEEE 754 binary floating-point formats (To/FromDoubleBits, To/FromSingleBits).
+- Added Log1P and ExpM1 methods to EDecimal and EFloat
+- Added 'long' overloads to several arithmetic methods
+- Added implication and equivalence (Imp/Eqv) methods and an nth-root method to EInteger
+
 </PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>
     <SignAssembly>true</SignAssembly>

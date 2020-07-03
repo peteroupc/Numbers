@@ -4603,8 +4603,8 @@ maxDigitEstimate : retval +
       if (!this.IsPowerOfTwo) {
         bitLength = bitLength.Subtract(1);
       }
-      DebugUtility.Log("sizeNeeded=" + bitLength.Multiply(bigPower));
-      DebugUtility.Log("bigPower=" + bigPower);
+      // DebugUtility.Log("sizeNeeded=" + bitLength.Multiply(bigPower));
+      // DebugUtility.Log("bigPower=" + bigPower);
       if (bigPower.CanFitInInt32()) {
         return this.Pow(bigPower.ToInt32Checked());
       }
@@ -9464,9 +9464,9 @@ maxDigitEstimate : retval +
         if (erem.Sign < 0) {
           throw new InvalidOperationException();
         }
-        return new[] { ret, erem};
+        return new[] { ret, erem };
       } else {
-        return new[] { ret, null};
+        return new[] { ret, null };
       }
     }
 

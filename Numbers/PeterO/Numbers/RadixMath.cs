@@ -4821,9 +4821,9 @@ this.helper.GetDigitLength(op2Mantissa.ToEInteger());
       if (sign < 0) {
         // Use the reciprocal for negative powers
         thisValue = this.Divide(one, thisValue, ctxdiv);
-        DebugUtility.Log("-->recip thisValue=" + thisValue +
-            " powInt=" + powIntBig + " flags=" + (ctxdiv == null ? -1 :
-ctxdiv.Flags));
+        // DebugUtility.Log("-->recip thisValue=" + thisValue +
+        //    " powInt=" + powIntBig + " flags=" + (ctxdiv == null ? -1 :
+        // ctxdiv.Flags));
         if ((ctxdiv.Flags & EContext.FlagOverflow) != 0) {
           return this.SignalOverflow(ctx, retvalNeg);
         }

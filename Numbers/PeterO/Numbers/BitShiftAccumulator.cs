@@ -42,7 +42,7 @@ namespace PeterO.Numbers {
        return this.GetDigitLength();
     }
 
-    private void VerifyKnownLength() {
+    private static void VerifyKnownLength() {
       #if DEBUG
       if (this.knownBitLength != null) {
         if (this.knownBitLength.CompareTo(this.CalcKnownBitLength()) != 0) {
@@ -72,7 +72,7 @@ namespace PeterO.Numbers {
           // NOTE: For BitShiftAccumulator, truncating and shifting
           // are the same, unlike in DigitShiftAccumulator
           this.ShiftRight(preShift);
-          this.VerifyKnownLength();
+          VerifyKnownLength();
           return;
         } else {
           FastInteger bitDiff = this.knownBitLength.Copy()
@@ -83,20 +83,20 @@ namespace PeterO.Numbers {
             // NOTE: For BitShiftAccumulator, truncating and shifting
             // are the same, unlike in DigitShiftAccumulator
             this.ShiftRight(preShift);
-            this.VerifyKnownLength();
+            VerifyKnownLength();
             return;
           } else {
             // NOTE: For BitShiftAccumulator, truncating and shifting
             // are the same, unlike in DigitShiftAccumulator
             this.ShiftRight(bitDiff);
-            this.VerifyKnownLength();
+            VerifyKnownLength();
             return;
           }
         }
       }
       if (bits.CanFitInInt32()) {
         this.ShiftToDigitsInt(bits.ToInt32());
-        this.VerifyKnownLength();
+        VerifyKnownLength();
       } else {
         this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
         EInteger bigintDiff = this.knownBitLength.ToEInteger();
@@ -107,7 +107,7 @@ namespace PeterO.Numbers {
           // desired bit length
           this.ShiftRight(FastInteger.FromBig(bigintDiff));
         }
-        this.VerifyKnownLength();
+        VerifyKnownLength();
       }
     }
 
