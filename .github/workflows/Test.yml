@@ -32,19 +32,9 @@ jobs:
       uses: warrenbuckley/Setup-MSBuild@v1
     - name: Setup VSTest Path
       uses: darenm/Setup-VSTest@v1
-    - name: NuGet Restore Test20
+    - name: Add GitHubActionsTestLogger to Test40
       run: |
-        cd Test20
-        nuget install Microsoft.NET.Test.Sdk # Update is required for GitHubActionsTestLogger to print anything
-        nuget install GitHubActionsTestLogger
-        nuget restore ..\Numbers.sln
-    - name: MSBuild Test20
-      run: msbuild /p:Configuration=Release
-    - name: VSTest Test20
-      run: vstest.console bin\Release\Test20.exe /Logger:GitHubActions
-    - name: NuGet Restore Test40
-      run: |
-        cd ..\Test40
+        cd Test40
         nuget install Microsoft.NET.Test.Sdk # Update is required for GitHubActionsTestLogger to print anything
         nuget install GitHubActionsTestLogger
         nuget restore ..\Numbers.sln
@@ -52,3 +42,9 @@ jobs:
       run: msbuild /p:Configuration=Release
     - name: VSTest Test40
       run:  vstest.console bin\Release\Test40.exe /Logger:GitHubActions
+    - name: MSBuild Test20
+      run: |
+        cd ..\Test20
+        msbuild /p:Configuration=Release
+    - name: VSTest Test20
+      run: vstest.console bin\Release\Test20.exe /Logger:GitHubActions
