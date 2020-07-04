@@ -89,8 +89,9 @@ namespace PeterO.Numbers {
     /// result.</summary>
     /// <param name='bthis'>The first operand.</param>
     /// <param name='augend'>The second operand.</param>
-    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
-    /// either operand is NaN.</returns>
+    /// <returns>The sum of the two numbers, that is, an
+    /// arbitrary-precision rational number plus another
+    /// arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter "otherValue"
     /// is null.</exception>
     public static ERational operator +(ERational bthis, ERational augend) {
@@ -149,7 +150,9 @@ namespace PeterO.Numbers {
     /// result.</summary>
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <returns>The product of the two numbers, that is, an
+    /// arbitrary-precision rational number times another
+    /// arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter "otherValue"
     /// is null.</exception>
     public static ERational operator *(
@@ -185,7 +188,9 @@ namespace PeterO.Numbers {
     /// arbitrary-precision rational number.</summary>
     /// <param name='dividend'>The dividend.</param>
     /// <param name='divisor'>The divisor.</param>
-    /// <returns>The remainder of the two numbers.</returns>
+    /// <returns>The remainder that would result when an
+    /// arbitrary-precision rational number is divided by another
+    /// arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter "otherValue"
     /// is null.</exception>
     public static ERational operator %(

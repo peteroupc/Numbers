@@ -60,7 +60,9 @@ namespace PeterO.Numbers {
     /// floating-point number.</param>
     /// <param name='otherValue'>The second arbitrary-precision binary
     /// floating-point number.</param>
-    /// <returns>The sum of the two objects.</returns>
+    /// <returns>The sum of the two numbers, that is, an
+    /// arbitrary-precision binary floating-point number plus another
+    /// arbitrary-precision binary floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> or <paramref name='otherValue'/> is
     /// null.</exception>
@@ -122,8 +124,9 @@ namespace PeterO.Numbers {
     /// and returns the result.</summary>
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
-    /// <returns>The product of the two binary floating-point
-    /// numbers.</returns>
+    /// <returns>The product of the two numbers, that is, an
+    /// arbitrary-precision binary floating-point number times another
+    /// arbitrary-precision binary floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='operand1'/> is null.</exception>
     public static EFloat operator *(
@@ -160,11 +163,19 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns the remainder that would result when an
     /// arbitrary-precision binary floating-point number is divided by
-    /// another arbitrary-precision binary floating-point number.</summary>
+    /// another arbitrary-precision binary floating-point number. The
+    /// remainder is the number that remains when the absolute value of an
+    /// arbitrary-precision binary floating-point number is divided (as
+    /// though by DivideToIntegerZeroScale) by the absolute value of the
+    /// other arbitrary-precision binary floating-point number; the
+    /// remainder has the same sign (positive or negative) as this
+    /// arbitrary-precision binary floating-point number.</summary>
     /// <param name='dividend'>The number that will be divided by the
     /// divisor.</param>
     /// <param name='divisor'>The number to divide by.</param>
-    /// <returns>The result of the operation.</returns>
+    /// <returns>The remainder that would result when an
+    /// arbitrary-precision binary floating-point number is divided by
+    /// another arbitrary-precision binary floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> is null.</exception>
     public static EFloat operator %(

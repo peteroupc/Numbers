@@ -7,6 +7,7 @@
     <Rule Action='None' Id='CA2234'/>
     <!--Return value of Uri methods rule disabled; these are often breaking changes -->
     <Rule Action='None' Id='CA1055'/>
+    <Rule Id='CA1200' Action='None'/>
     <Rule Id='CA1031' Action='None'/>
     <Rule Id='CA1707' Action='None'/>
   </Rules>

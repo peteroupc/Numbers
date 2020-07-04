@@ -1702,7 +1702,9 @@ namespace PeterO.Numbers {
     /// integer's exponent.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>The sum of the two objects.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number plus a 32-bit
+    /// signed integer.</returns>
     public EFloat Add(int intValue) {
       return this.Add(EFloat.FromInt32(intValue));
     }
@@ -1714,7 +1716,9 @@ namespace PeterO.Numbers {
     /// other 32-bit signed integer's exponent.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>The difference of the two objects.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number minus a 32-bit
+    /// signed integer.</returns>
     public EFloat Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
         this.Subtract(EFloat.FromInt32(intValue)) : this.Add(-intValue);
@@ -1727,7 +1731,9 @@ namespace PeterO.Numbers {
     /// integer's exponent.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number times a 32-bit
+    /// signed integer.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
     ///  .
@@ -1743,7 +1749,17 @@ namespace PeterO.Numbers {
     /// not desired, use DivideToExponent, or use the Divide overload that
     /// takes an EContext.</summary>
     /// <param name='intValue'>The divisor.</param>
-    /// <returns>The quotient of the two objects.</returns>
+    /// <returns>The result of dividing this arbitrary-precision binary
+    /// floating-point number by a 32-bit signed integer. Returns infinity
+    /// if the divisor (this arbitrary-precision binary floating-point
+    /// number) is 0 and the dividend (the other 32-bit signed integer) is
+    /// nonzero. Returns not-a-number (NaN) if the divisor and the dividend
+    /// are 0. Returns NaN if the result can't be exact because it would
+    /// have a nonterminating binary expansion (examples include 1 divided
+    /// by any multiple of 3, such as 1/3 or 1/12). If this is not desired,
+    /// use DivideToExponent instead, or use the Divide overload that takes
+    /// an <c>EContext</c> (such as <c>EContext.Binary64</c> )
+    /// instead.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
     public EFloat Divide(int intValue) {
@@ -1757,7 +1773,9 @@ namespace PeterO.Numbers {
     /// integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number plus a 64-bit
+    /// signed integer.</returns>
     public EFloat Add(long longValue) {
       return this.Add(EFloat.FromInt64(longValue));
     }
@@ -1769,7 +1787,9 @@ namespace PeterO.Numbers {
     /// other 64-bit signed integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The difference of the two objects.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number minus a 64-bit
+    /// signed integer.</returns>
     public EFloat Subtract(long longValue) {
       return this.Subtract(EFloat.FromInt64(longValue));
     }
@@ -1781,7 +1801,9 @@ namespace PeterO.Numbers {
     /// integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number times a 64-bit
+    /// signed integer.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200L);</code>
     ///  .
@@ -1798,7 +1820,17 @@ namespace PeterO.Numbers {
     /// takes an EContext.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The quotient of the two objects.</returns>
+    /// <returns>The result of dividing this arbitrary-precision binary
+    /// floating-point number by a 64-bit signed integer. Returns infinity
+    /// if the divisor (this arbitrary-precision binary floating-point
+    /// number) is 0 and the dividend (the other 64-bit signed integer) is
+    /// nonzero. Returns not-a-number (NaN) if the divisor and the dividend
+    /// are 0. Returns NaN if the result can't be exact because it would
+    /// have a nonterminating binary expansion (examples include 1 divided
+    /// by any multiple of 3, such as 1/3 or 1/12). If this is not desired,
+    /// use DivideToExponent instead, or use the Divide overload that takes
+    /// an <c>EContext</c> (such as <c>EContext.Binary64</c> )
+    /// instead.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
     public EFloat Divide(long longValue) {
@@ -1813,7 +1845,9 @@ namespace PeterO.Numbers {
     /// exponent.</summary>
     /// <param name='otherValue'>An arbitrary-precision binary
     /// floating-point number.</param>
-    /// <returns>The sum of the two objects.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number plus another
+    /// arbitrary-precision binary floating-point number.</returns>
     public EFloat Add(EFloat otherValue) {
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
@@ -1828,8 +1862,9 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number plus another
+    /// arbitrary-precision binary floating-point number.</returns>
     public EFloat Add(
       EFloat otherValue,
       EContext ctx) {
@@ -2268,12 +2303,18 @@ namespace PeterO.Numbers {
     /// 2/3, and so on); if this is not desired, use DivideToExponent, or
     /// use the Divide overload that takes an EContext.</summary>
     /// <param name='divisor'>The number to divide by.</param>
-    /// <returns>The quotient of the two numbers. Returns infinity if the
-    /// divisor is 0 and the dividend is nonzero. Returns not-a-number
-    /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
-    /// result can't be exact because it would have a nonterminating binary
-    /// expansion. If this is not desired, use DivideToExponent instead, or
-    /// use the Divide overload that takes an EContext instead.</returns>
+    /// <returns>The result of dividing this arbitrary-precision binary
+    /// floating-point number by another arbitrary-precision binary
+    /// floating-point number. Returns infinity if the divisor (this
+    /// arbitrary-precision binary floating-point number) is 0 and the
+    /// dividend (the other arbitrary-precision binary floating-point
+    /// number) is nonzero. Returns not-a-number (NaN) if the divisor and
+    /// the dividend are 0. Returns NaN if the result can't be exact
+    /// because it would have a nonterminating binary expansion (examples
+    /// include 1 divided by any multiple of 3, such as 1/3 or 1/12). If
+    /// this is not desired, use DivideToExponent instead, or use the
+    /// Divide overload that takes an <c>EContext</c> (such as
+    /// <c>EContext.Binary64</c> ) instead.</returns>
     public EFloat Divide(EFloat divisor) {
       return this.Divide(
           divisor,
@@ -2290,12 +2331,17 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
-    /// <returns>The quotient of the two objects. Signals FlagDivideByZero
-    /// and returns infinity if the divisor is 0 and the dividend is
-    /// nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
-    /// divisor and the dividend are 0; or, either <paramref name='ctx'/>
-    /// is null or <paramref name='ctx'/> 's precision is 0, and the result
-    /// would have a nonterminating binary expansion; or, the rounding mode
+    /// <returns>The result of dividing this arbitrary-precision binary
+    /// floating-point number by another arbitrary-precision binary
+    /// floating-point number. Signals FlagDivideByZero and returns
+    /// infinity if the divisor (this arbitrary-precision binary
+    /// floating-point number) is 0 and the dividend (the other
+    /// arbitrary-precision binary floating-point number) is nonzero.
+    /// Signals FlagInvalid and returns not-a-number (NaN) if the divisor
+    /// and the dividend are 0; or, either <paramref name='ctx'/> is null
+    /// or <paramref name='ctx'/> 's precision is 0, and the result would
+    /// have a nonterminating decimal expansion (examples include 1 divided
+    /// by any multiple of 3, such as 1/3 or 1/12); or, the rounding mode
     /// is ERounding.None and the result is not exact.</returns>
     public EFloat Divide(
       EFloat divisor,
@@ -2538,19 +2584,31 @@ namespace PeterO.Numbers {
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Calculates the quotient and remainder using the
-    /// DivideToIntegerNaturalScale and the formula in
-    /// RemainderNaturalScale.</summary>
+    /// <summary>Divides this arbitrary-precision binary floating-point
+    /// number by another arbitrary-precision binary floating-point number
+    /// and returns a two-item array containing the result of the division
+    /// and the remainder, in that order. The result of division is
+    /// calculated as though by <c>DivideToIntegerNaturalScale</c>, and
+    /// the remainder is calculated as though by
+    /// <c>RemainderNaturalScale</c>.</summary>
     /// <param name='divisor'>The number to divide by.</param>
-    /// <returns>A 2 element array consisting of the quotient and remainder
-    /// in that order.</returns>
+    /// <returns>An array of two items: the first is the result of the
+    /// division as an arbitrary-precision binary floating-point number,
+    /// and the second is the remainder as an arbitrary-precision binary
+    /// floating-point number. The result of division is the result of the
+    /// method on the two operands, and the remainder is the result of the
+    /// Remainder method on the two operands.</returns>
     public EFloat[] DivRemNaturalScale(EFloat divisor) {
       return this.DivRemNaturalScale(divisor, null);
     }
 
-    /// <summary>Calculates the quotient and remainder using the
-    /// DivideToIntegerNaturalScale and the formula in
-    /// RemainderNaturalScale.</summary>
+    /// <summary>Divides this arbitrary-precision binary floating-point
+    /// number by another arbitrary-precision binary floating-point number
+    /// and returns a two-item array containing the result of the division
+    /// and the remainder, in that order. The result of division is
+    /// calculated as though by <c>DivideToIntegerNaturalScale</c>, and
+    /// the remainder is calculated as though by
+    /// <c>RemainderNaturalScale</c>.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. This context
@@ -2562,8 +2620,12 @@ namespace PeterO.Numbers {
     /// and exponent range without rounding. Can be null, in which the
     /// precision is unlimited and no additional rounding, other than the
     /// rounding down to an integer after division, is needed.</param>
-    /// <returns>A 2 element array consisting of the quotient and remainder
-    /// in that order.</returns>
+    /// <returns>An array of two items: the first is the result of the
+    /// division as an arbitrary-precision binary floating-point number,
+    /// and the second is the remainder as an arbitrary-precision binary
+    /// floating-point number. The result of division is the result of the
+    /// method on the two operands, and the remainder is the result of the
+    /// Remainder method on the two operands.</returns>
     public EFloat[] DivRemNaturalScale(
       EFloat divisor,
       EContext ctx) {
@@ -3136,8 +3198,9 @@ namespace PeterO.Numbers {
     /// exponent.</summary>
     /// <param name='otherValue'>Another binary floating-point
     /// number.</param>
-    /// <returns>The product of the two binary floating-point
-    /// numbers.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number times another
+    /// arbitrary-precision binary floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EFloat Multiply(EFloat otherValue) {
@@ -3172,8 +3235,9 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number times another
+    /// arbitrary-precision binary floating-point number.</returns>
     public EFloat Multiply(
       EFloat op,
       EContext ctx) {
@@ -3605,14 +3669,26 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns the remainder that would result when this
     /// arbitrary-precision binary floating-point number is divided by
-    /// another arbitrary-precision binary floating-point number.</summary>
+    /// another arbitrary-precision binary floating-point number. The
+    /// remainder is the number that remains when the absolute value of
+    /// this arbitrary-precision binary floating-point number is divided
+    /// (as though by DivideToIntegerZeroScale) by the absolute value of
+    /// the other arbitrary-precision binary floating-point number; the
+    /// remainder has the same sign (positive or negative) as this
+    /// arbitrary-precision binary floating-point number.</summary>
     /// <param name='divisor'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <param name='ctx'>The parameter <paramref name='ctx'/> is an
     /// EContext object.</param>
-    /// <returns>The remainder of the two numbers. Signals FlagInvalid and
-    /// returns not-a-number (NaN) if the divisor is 0, or if the result
-    /// doesn't fit the given precision.</returns>
+    /// <returns>The remainder that would result when this
+    /// arbitrary-precision binary floating-point number is divided by
+    /// another arbitrary-precision binary floating-point number. Signals
+    /// FlagDivideByZero and returns infinity if the divisor (this
+    /// arbitrary-precision binary floating-point number) is 0 and the
+    /// dividend (the other arbitrary-precision binary floating-point
+    /// number) is nonzero. Signals FlagInvalid and returns not-a-number
+    /// (NaN) if the divisor and the dividend are 0, or if the result of
+    /// the division doesn't fit the given precision.</returns>
     public EFloat Remainder(
       EFloat divisor,
       EContext ctx) {
@@ -4109,7 +4185,9 @@ namespace PeterO.Numbers {
     /// exponent.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
-    /// <returns>The difference of the two objects.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number minus another
+    /// arbitrary-precision binary floating-point number.</returns>
     public EFloat Subtract(EFloat otherValue) {
       return this.Subtract(otherValue, null);
     }
@@ -4125,8 +4203,9 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
-    /// <returns>An arbitrary-precision binary floating-point
-    /// number.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision binary floating-point number minus another
+    /// arbitrary-precision binary floating-point number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EFloat Subtract(

@@ -29,7 +29,9 @@ namespace PeterO.Numbers {
     /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='bthis'>The first operand.</param>
     /// <param name='augend'>The second operand.</param>
-    /// <returns>The sum of the two objects.</returns>
+    /// <returns>The sum of the two numbers, that is, an
+    /// arbitrary-precision integer plus another arbitrary-precision
+    /// integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bthis'/> is null.</exception>
     public static EInteger operator +(EInteger bthis, EInteger augend) {
@@ -85,7 +87,9 @@ namespace PeterO.Numbers {
     /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='operand1'>The first operand.</param>
     /// <param name='operand2'>The second operand.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <returns>The product of the two numbers, that is, an
+    /// arbitrary-precision integer times another arbitrary-precision
+    /// integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='operand1'/> is null.</exception>
     public static EInteger operator *(
@@ -123,7 +127,9 @@ namespace PeterO.Numbers {
     /// this arbitrary-precision integer.</summary>
     /// <param name='dividend'>The first operand.</param>
     /// <param name='divisor'>The number to divide by.</param>
-    /// <returns>The remainder of the two numbers.</returns>
+    /// <returns>The remainder that would result when an
+    /// arbitrary-precision integer is divided by another
+    /// arbitrary-precision integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> is null.</exception>
     public static EInteger operator %(
@@ -422,8 +428,12 @@ namespace PeterO.Numbers {
     /// <param name='divisor'>The arbitrary-precision integer to divide
     /// by.</param>
     /// <param name='remainder'>An arbitrary-precision integer.</param>
-    /// <returns>An array of two arbitrary-precision integers: the first is
-    /// the quotient, and the second is the remainder.</returns>
+    /// <returns>An array of two items: the first is the result of the
+    /// division as an arbitrary-precision integer, and the second is the
+    /// remainder as an arbitrary-precision integer. The result of division
+    /// is the result of the Divide method on the two operands, and the
+    /// remainder is the result of the Remainder method on the two
+    /// operands.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='dividend'/> or <paramref name='divisor'/> is
     /// null.</exception>

@@ -86,8 +86,8 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[DivideToIntegerNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivideToIntegerNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Divides this object by another object, and returns the integer part of the result (which is initially rounded down), with the preferred exponent set to this value's exponent minus the divisor's exponent.
 * <code>[DivideToIntegerZeroScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivideToIntegerZeroScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Divides this object by another object, and returns the integer part of the result, with the exponent set to 0.
 * <code>[DivideToSameExponent(PeterO.Numbers.EFloat, PeterO.Numbers.ERounding)](#DivideToSameExponent_PeterO_Numbers_EFloat_PeterO_Numbers_ERounding)</code> - Divides this object by another binary floating-point number and returns a result with the same exponent as this object (the dividend).
-* <code>[DivRemNaturalScale(PeterO.Numbers.EFloat)](#DivRemNaturalScale_PeterO_Numbers_EFloat)</code> - Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
-* <code>[DivRemNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivRemNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
+* <code>[DivRemNaturalScale(PeterO.Numbers.EFloat)](#DivRemNaturalScale_PeterO_Numbers_EFloat)</code> - Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns a two-item array containing the result of the division and the remainder, in that order.
+* <code>[DivRemNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivRemNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns a two-item array containing the result of the division and the remainder, in that order.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object's significand, exponent, and properties are equal to those of another object and that other object is an arbitrary-precision binary floating-point number.
 * <code>[Equals(PeterO.Numbers.EFloat)](#Equals_PeterO_Numbers_EFloat)</code> - Determines whether this object's significand, exponent, and properties are equal to those of another object.
 * <code>[EqualsInternal(PeterO.Numbers.EFloat)](#EqualsInternal_PeterO_Numbers_EFloat)</code> - Determines whether this object's significand and exponent are equal to those of another object.
@@ -459,7 +459,7 @@ Adds this arbitrary-precision binary floating-point number and a 32-bit signed i
 
 <b>Return Value:</b>
 
-The sum of the two objects.
+The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus a 32-bit signed integer.
 
 <a id="Add_long"></a>
 ### Add
@@ -476,7 +476,7 @@ Adds this arbitrary-precision binary floating-point number and a 64-bit signed i
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus a 64-bit signed integer.
 
 <a id="Add_PeterO_Numbers_EFloat"></a>
 ### Add
@@ -492,7 +492,7 @@ Adds this arbitrary-precision binary floating-point number and another arbitrary
 
 <b>Return Value:</b>
 
-The sum of the two objects.
+The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus another arbitrary-precision binary floating-point number.
 
 <a id="Add_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Add
@@ -511,7 +511,7 @@ Adds this arbitrary-precision binary floating-point number and another arbitrary
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus another arbitrary-precision binary floating-point number.
 
 <a id="CompareTo_int"></a>
 ### CompareTo
@@ -1041,7 +1041,7 @@ Divides this arbitrary-precision binary floating-point number by a 32-bit signed
 
 <b>Return Value:</b>
 
-The quotient of the two objects.
+The result of dividing this arbitrary-precision binary floating-point number by a 32-bit signed integer. Returns infinity if the divisor (this arbitrary-precision binary floating-point number) is 0 and the dividend (the other 32-bit signed integer) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Binary64`  ) instead.
 
 <b>Exceptions:</b>
 
@@ -1063,7 +1063,7 @@ Divides this arbitrary-precision binary floating-point number by a 64-bit signed
 
 <b>Return Value:</b>
 
-The quotient of the two objects.
+The result of dividing this arbitrary-precision binary floating-point number by a 64-bit signed integer. Returns infinity if the divisor (this arbitrary-precision binary floating-point number) is 0 and the dividend (the other 64-bit signed integer) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Binary64`  ) instead.
 
 <b>Exceptions:</b>
 
@@ -1084,7 +1084,7 @@ Divides this arbitrary-precision binary floating-point number by another arbitra
 
 <b>Return Value:</b>
 
-The quotient of the two numbers. Returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion. If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.
+The result of dividing this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number. Returns infinity if the divisor (this arbitrary-precision binary floating-point number) is 0 and the dividend (the other arbitrary-precision binary floating-point number) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Binary64`  ) instead.
 
 <a id="Divide_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Divide
@@ -1103,9 +1103,9 @@ Divides this arbitrary-precision binary floating-point number by another arbitra
 
 <b>Return Value:</b>
 
-The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0; or, either  <i>ctx</i>
+The result of dividing this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number. Signals FlagDivideByZero and returns infinity if the divisor (this arbitrary-precision binary floating-point number) is 0 and the dividend (the other arbitrary-precision binary floating-point number) is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0; or, either  <i>ctx</i>
  is null or  <i>ctx</i>
- 's precision is 0, and the result would have a nonterminating binary expansion; or, the rounding mode is ERounding.None and the result is not exact.
+ 's precision is 0, and the result would have a nonterminating decimal expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12); or, the rounding mode is ERounding.None and the result is not exact.
 
 <a id="DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat"></a>
 ### DivideAndRemainderNaturalScale
@@ -1314,7 +1314,7 @@ The quotient of the two numbers. Signals FlagDivideByZero and returns infinity i
     public PeterO.Numbers.EFloat[] DivRemNaturalScale(
         PeterO.Numbers.EFloat divisor);
 
-Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
+Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by  `DivideToIntegerNaturalScale` , and the remainder is calculated as though by  `RemainderNaturalScale` .
 
 <b>Parameters:</b>
 
@@ -1322,7 +1322,7 @@ Calculates the quotient and remainder using the DivideToIntegerNaturalScale and 
 
 <b>Return Value:</b>
 
-A 2 element array consisting of the quotient and remainder in that order.
+An array of two items: the first is the result of the division as an arbitrary-precision binary floating-point number, and the second is the remainder as an arbitrary-precision binary floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.
 
 <a id="DivRemNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### DivRemNaturalScale
@@ -1331,7 +1331,7 @@ A 2 element array consisting of the quotient and remainder in that order.
         PeterO.Numbers.EFloat divisor,
         PeterO.Numbers.EContext ctx);
 
-Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
+Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by  `DivideToIntegerNaturalScale` , and the remainder is calculated as though by  `RemainderNaturalScale` .
 
 <b>Parameters:</b>
 
@@ -1341,7 +1341,7 @@ Calculates the quotient and remainder using the DivideToIntegerNaturalScale and 
 
 <b>Return Value:</b>
 
-A 2 element array consisting of the quotient and remainder in that order.
+An array of two items: the first is the result of the division as an arbitrary-precision binary floating-point number, and the second is the remainder as an arbitrary-precision binary floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.
 
 <a id="Equals_object"></a>
 ### Equals
@@ -2679,7 +2679,7 @@ Multiplies this arbitrary-precision binary floating-point number by a 32-bit sig
 
 <b>Return Value:</b>
 
-The product of the two numbers.
+The product of the two numbers, that is, this arbitrary-precision binary floating-point number times a 32-bit signed integer.
 
 <a id="Multiply_long"></a>
 ### Multiply
@@ -2700,7 +2700,7 @@ Multiplies this arbitrary-precision binary floating-point number by a 64-bit sig
 
 <b>Return Value:</b>
 
-The product of the two numbers.
+The product of the two numbers, that is, this arbitrary-precision binary floating-point number times a 64-bit signed integer.
 
 <a id="Multiply_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Multiply
@@ -2719,7 +2719,7 @@ Multiplies this arbitrary-precision binary floating-point number by another arbi
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+The product of the two numbers, that is, this arbitrary-precision binary floating-point number times another arbitrary-precision binary floating-point number.
 
 <a id="Multiply_PeterO_Numbers_EFloat"></a>
 ### Multiply
@@ -2735,7 +2735,7 @@ Multiplies this arbitrary-precision binary floating-point number by another arbi
 
 <b>Return Value:</b>
 
-The product of the two binary floating-point numbers.
+The product of the two numbers, that is, this arbitrary-precision binary floating-point number times another arbitrary-precision binary floating-point number.
 
 <b>Exceptions:</b>
 
@@ -2914,7 +2914,7 @@ Adds an arbitrary-precision binary floating-point number and another arbitrary-p
 
 <b>Return Value:</b>
 
-The sum of the two objects.
+The sum of the two numbers, that is, an arbitrary-precision binary floating-point number plus another arbitrary-precision binary floating-point number.
 
 <b>Exceptions:</b>
 
@@ -3507,7 +3507,7 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.EFloat dividend,
         PeterO.Numbers.EFloat divisor);
 
-Returns the remainder that would result when an arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number.
+Returns the remainder that would result when an arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number. The remainder is the number that remains when the absolute value of an arbitrary-precision binary floating-point number is divided (as though by DivideToIntegerZeroScale) by the absolute value of the other arbitrary-precision binary floating-point number; the remainder has the same sign (positive or negative) as this arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
 
@@ -3517,7 +3517,7 @@ Returns the remainder that would result when an arbitrary-precision binary float
 
 <b>Return Value:</b>
 
-The result of the operation.
+The remainder that would result when an arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number.
 
 <b>Exceptions:</b>
 
@@ -3542,7 +3542,7 @@ Multiplies an arbitrary-precision binary floating-point number by another arbitr
 
 <b>Return Value:</b>
 
-The product of the two binary floating-point numbers.
+The product of the two numbers, that is, an arbitrary-precision binary floating-point number times another arbitrary-precision binary floating-point number.
 
 <b>Exceptions:</b>
 
@@ -3837,7 +3837,7 @@ This value with trailing zeros removed. Note that if the result has a very high 
         PeterO.Numbers.EFloat divisor,
         PeterO.Numbers.EContext ctx);
 
-Returns the remainder that would result when this arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number.
+Returns the remainder that would result when this arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number. The remainder is the number that remains when the absolute value of this arbitrary-precision binary floating-point number is divided (as though by DivideToIntegerZeroScale) by the absolute value of the other arbitrary-precision binary floating-point number; the remainder has the same sign (positive or negative) as this arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
 
@@ -3848,7 +3848,7 @@ Returns the remainder that would result when this arbitrary-precision binary flo
 
 <b>Return Value:</b>
 
-The remainder of the two numbers. Signals FlagInvalid and returns not-a-number (NaN) if the divisor is 0, or if the result doesn't fit the given precision.
+The remainder that would result when this arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0, or if the result of the division doesn't fit the given precision.
 
 <a id="RemainderNaturalScale_PeterO_Numbers_EFloat"></a>
 ### RemainderNaturalScale
@@ -4244,7 +4244,7 @@ Subtracts a 32-bit signed integer from this arbitrary-precision binary floating-
 
 <b>Return Value:</b>
 
-The difference of the two objects.
+The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus a 32-bit signed integer.
 
 <a id="Subtract_long"></a>
 ### Subtract
@@ -4261,7 +4261,7 @@ Subtracts a 64-bit signed integer from this arbitrary-precision binary floating-
 
 <b>Return Value:</b>
 
-The difference of the two objects.
+The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus a 64-bit signed integer.
 
 <a id="Subtract_PeterO_Numbers_EFloat"></a>
 ### Subtract
@@ -4277,7 +4277,7 @@ Subtracts an arbitrary-precision binary floating-point number from this arbitrar
 
 <b>Return Value:</b>
 
-The difference of the two objects.
+The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus another arbitrary-precision binary floating-point number.
 
 <a id="Subtract_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Subtract
@@ -4296,7 +4296,7 @@ Subtracts an arbitrary-precision binary floating-point number from this arbitrar
 
 <b>Return Value:</b>
 
-An arbitrary-precision binary floating-point number.
+The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus another arbitrary-precision binary floating-point number.
 
 <b>Exceptions:</b>
 

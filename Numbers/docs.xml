@@ -943,7 +943,9 @@
             number's exponent.</summary>
             <param name='otherValue'>An arbitrary-precision decimal
             number.</param>
-            <returns>The sum of the two objects.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number plus another
+            arbitrary-precision decimal floating-point number.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
@@ -958,7 +960,9 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
             rounding is needed.</param>
-            <returns>The sum of thisValue and the other object.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number plus another
+            arbitrary-precision decimal floating-point number.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(System.Int32)">
@@ -970,7 +974,9 @@
             signed integer's exponent.</summary>
             <param name='intValue'>A 32-bit signed integer to add to this
             object.</param>
-            <returns>The sum of the two objects.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number plus a 32-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(System.Int64)">
@@ -982,7 +988,9 @@
             signed integer's exponent.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The sum of the two objects.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number plus a 64-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(PeterO.Numbers.EDecimal)">
@@ -1488,21 +1496,12 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivRemNaturalScale(PeterO.Numbers.EDecimal)">
 
-            <summary>Calculates the quotient and remainder using the
-            DivideToIntegerNaturalScale and the formula in
-            RemainderNaturalScale.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <returns>A 2 element array consisting of the quotient and remainder
-            in that order.</returns>
+            <summary>Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by <c>DivideToIntegerNaturalScale</c>, and the remainder is calculated as though by <c>RemainderNaturalScale</c>.</summary><param name='divisor'>The number to divide by.</param><returns>An array of two items: the first is the result of the division as an arbitrary-precision decimal floating-point number, and the second is the remainder as an arbitrary-precision decimal floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivRemNaturalScale(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Calculates the quotient and remainder using the
-            DivideToIntegerNaturalScale and the formula in
-            RemainderNaturalScale.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>An arithmetic context object to control the
+            <summary>Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by <c>DivideToIntegerNaturalScale</c>, and the remainder is calculated as though by <c>RemainderNaturalScale</c>.</summary><param name='divisor'>The number to divide by.</param><param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
@@ -1511,56 +1510,103 @@
             the integer part of the division result doesn't fit the precision
             and exponent range without rounding. Can be null, in which the
             precision is unlimited and no additional rounding, other than the
-            rounding down to an integer after division, is needed.</param>
-            <returns>A 2 element array consisting of the quotient and remainder
-            in that order.</returns>
+            rounding down to an integer after division, is needed.</param><returns>An array of two items: the first is the result of the division as an arbitrary-precision decimal floating-point number, and the second is the remainder as an arbitrary-precision decimal floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(PeterO.Numbers.EDecimal)">
 
-        <summary>Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='divisor'>The number to divide by.</param><returns>The quotient of the two numbers. Returns infinity if the
-            divisor is 0 and the dividend is nonzero. Returns not-a-number
-            (NaN) if the divisor and the dividend are 0. Returns NaN if the
-            result can't be exact because it would have a nonterminating
-            decimal expansion; examples include 1 divided by any multiple of 3,
-            such as 1/3 or 1/12.</returns>
+            <summary>Divides this arbitrary-precision decimal floating-point
+            number by another arbitrary-precision decimal floating-point number
+            and returns the result; returns NaN instead if the result would
+            have a nonterminating decimal expansion (including 1/3, 1/12, 1/7,
+            2/3, and so on); if this is not desired, use DivideToExponent, or
+            use the Divide overload that takes an EContext.</summary>
+            <param name='divisor'>The number to divide by.</param>
+            <returns>The result of dividing this arbitrary-precision decimal
+            floating-point number by another arbitrary-precision decimal
+            floating-point number. Returns infinity if the divisor (this
+            arbitrary-precision decimal floating-point number) is 0 and the
+            dividend (the other arbitrary-precision decimal floating-point
+            number) is nonzero. Returns not-a-number (NaN) if the divisor and
+            the dividend are 0. Returns NaN if the result can't be exact
+            because it would have a nonterminating binary expansion (examples
+            include 1 divided by any multiple of 3, such as 1/3 or 1/12). If
+            this is not desired, use DivideToExponent instead, or use the
+            Divide overload that takes an <c>EContext</c> (such as
+            <c>EContext.Decimal128</c> ) instead.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-        <summary>Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='divisor'>The number to divide by.</param><param name='ctx'>An arithmetic context to control the precision,
+            <summary>Divides this arbitrary-precision decimal floating-point
+            number by another arbitrary-precision decimal floating-point number
+            and returns the result.</summary>
+            <param name='divisor'>The number to divide by.</param>
+            <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
-            rounding is needed.</param><returns>The quotient of the two objects. Signals FlagDivideByZero
-            and returns infinity if the divisor is 0 and the dividend is
-            nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
-            divisor and the dividend are 0; or, either <paramref name='ctx'/>
-            is null or <paramref name='ctx'/> 's precision is 0, and the result
-            would have a nonterminating decimal expansion (examples include 1
-            divided by any multiple of 3, such as 1/3 or 1/12); or, the
-            rounding mode is ERounding.None and the result is not
-            exact.</returns>
+            rounding is needed.</param>
+            <returns>The result of dividing this arbitrary-precision decimal
+            floating-point number by another arbitrary-precision decimal
+            floating-point number. Signals FlagDivideByZero and returns
+            infinity if the divisor (this arbitrary-precision decimal
+            floating-point number) is 0 and the dividend (the other
+            arbitrary-precision decimal floating-point number) is nonzero.
+            Signals FlagInvalid and returns not-a-number (NaN) if the divisor
+            and the dividend are 0; or, either <paramref name='ctx'/> is null
+            or <paramref name='ctx'/> 's precision is 0, and the result would
+            have a nonterminating decimal expansion (examples include 1 divided
+            by any multiple of 3, such as 1/3 or 1/12); or, the rounding mode
+            is ERounding.None and the result is not exact.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(System.Int32)">
 
-        <summary>Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='intValue'>A 32-bit signed integer, the divisor, to
-            divide this object by.</param><returns>The quotient of the two numbers. Returns infinity if the
-            divisor is 0 and the dividend is nonzero. Returns not-a-number
-            (NaN) if the divisor and the dividend are 0. Returns NaN if the
-            result can't be exact because it would have a nonterminating
-            decimal expansion; examples include 1 divided by any multiple of 3,
-            such as 1/3 or 1/12.</returns>
+            <summary>Divides this arbitrary-precision decimal floating-point
+            number by a 32-bit signed integer and returns the result; returns
+            NaN instead if the result would have a nonterminating decimal
+            expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is
+            not desired, use DivideToExponent, or use the Divide overload that
+            takes an EContext.</summary>
+            <param name='intValue'>A 32-bit signed integer, the divisor, to
+            divide this object by.</param>
+            <returns>The result of dividing this arbitrary-precision decimal
+            floating-point number by a 32-bit signed integer. Returns infinity
+            if the divisor (this arbitrary-precision decimal floating-point
+            number) is 0 and the dividend (the other 32-bit signed integer) is
+            nonzero. Returns not-a-number (NaN) if the divisor and the dividend
+            are 0. Returns NaN if the result can't be exact because it would
+            have a nonterminating binary expansion (examples include 1 divided
+            by any multiple of 3, such as 1/3 or 1/12). If this is not desired,
+            use DivideToExponent instead, or use the Divide overload that takes
+            an <c>EContext</c> (such as <c>EContext.Decimal128</c> )
+            instead.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Divide(System.Int64)">
 
-        <summary>Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The quotient of the two numbers. Returns infinity if the
-            divisor is 0 and the dividend is nonzero. Returns not-a-number
-            (NaN) if the divisor and the dividend are 0. Returns NaN if the
-            result can't be exact because it would have a nonterminating
-            decimal expansion; examples include 1 divided by any multiple of 3,
-            such as 1/3 or 1/12.  If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.</returns>
+            <summary>Divides this arbitrary-precision decimal floating-point
+            number by a 64-bit signed integer and returns the result; returns
+            NaN instead if the result would have a nonterminating decimal
+            expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is
+            not desired, use DivideToExponent, or use the Divide overload that
+            takes an EContext.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The result of dividing this arbitrary-precision decimal
+            floating-point number by a 64-bit signed integer. Returns infinity
+            if the divisor (this arbitrary-precision decimal floating-point
+            number) is 0 and the dividend (the other 64-bit signed integer) is
+            nonzero. Returns not-a-number (NaN) if the divisor and the dividend
+            are 0. Returns NaN if the result can't be exact because it would
+            have a nonterminating binary expansion (examples include 1 divided
+            by any multiple of 3, such as 1/3 or 1/12). If this is not desired,
+            use DivideToExponent instead, or use the Divide overload that takes
+            an <c>EContext</c> (such as <c>EContext.Decimal128</c> )
+            instead.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)">
 
@@ -1905,6 +1951,23 @@
             context's Precision property is 0).</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.ExpM1(PeterO.Numbers.EContext)">
+
+            <summary>Finds e (the base of natural logarithms) raised to the
+            power of this object's value, and subtracts the result by 1 and
+            returns the final result, in a way that avoids loss of precision if
+            the true result is very close to 0.</summary>
+            <param name='ctx'>An arithmetic context to control the precision,
+            rounding, and exponent range of the result. If <c>HasFlags</c> of
+            the context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            <i>This parameter can't be null, as the exponential function's
+            results are generally not exact.</i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).</param>
+            <returns>Exponential of this object, minus 1. Signals FlagInvalid
+            and returns not-a-number (NaN) if the parameter <paramref name='ctx'/> is null or the precision is unlimited (the context's
+            Precision property is 0).</returns>
+
+</doc>
 <doc name="P:PeterO.Numbers.EDecimal.Exponent">
 
             <summary>Gets this object's exponent. This object's value will be
@@ -1984,7 +2047,7 @@
             <param name='dblBits'>The parameter <paramref name='dblBits'/> is a
             64-bit signed integer.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as <paramref name='value'/>.</returns>
+            as <paramref name='dblBits'/>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromEFloat(PeterO.Numbers.EFloat)">
@@ -2090,9 +2153,8 @@
             closest "float" to 0.1, not 0.1 exactly). To create an
             arbitrary-precision decimal number from a decimal value, use
             FromString instead in most cases.</summary>
-            <param name='value'>The parameter <paramref name='flt'/> is a
-            32-bit binary floating-point number encoded in the IEEE 754
-            binary32 format.</param>
+            <param name='value'>A 32-bit binary floating-point number encoded
+            in the IEEE 754 binary32 format.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as <paramref name='value'/>.</returns>
 
@@ -2593,6 +2655,29 @@
             context's Precision property is 0).</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EDecimal.Log1P(PeterO.Numbers.EContext)">
+
+            <summary>Adds 1 to this object's value and finds the natural
+            logarithm of the result, in a way that avoids loss of precision
+            when this object's value is between 0 and 1.</summary>
+            <param name='ctx'>An arithmetic context to control the precision,
+            rounding, and exponent range of the result. If <c>HasFlags</c> of
+            the context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            <i>This parameter can't be null, as the ln function's results are
+            generally not exact.</i> (Unlike in the General Decimal Arithmetic
+            Specification, any rounding mode is allowed.).</param>
+            <returns>Ln(1+(this object)). Signals the flag FlagInvalid and
+            returns NaN if this object is less than -1 (the result would be a
+            complex number with a real part equal to Ln of 1 plus this object's
+            absolute value and an imaginary part equal to pi, but the return
+            value is still NaN.). Signals FlagInvalid and returns not-a-number
+            (NaN) if the parameter <paramref name='ctx'/> is null or the
+            precision is unlimited (the context's Precision property is 0).
+            Signals no flags and returns negative infinity if this object's
+            value is 0.</returns>
+
+</doc>
 <doc name="M:PeterO.Numbers.EDecimal.LogN(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
             <summary>Finds the base-N logarithm of this object, that is, the
@@ -2874,7 +2959,9 @@
             the other arbitrary-precision decimal floating-point number's
             exponent.</summary>
             <param name='otherValue'>Another decimal number.</param>
-            <returns>The product of the two decimal numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number times another
+            arbitrary-precision decimal floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
@@ -2890,7 +2977,9 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>The product of the two decimal numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number times another
+            arbitrary-precision decimal floating-point number.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Multiply(System.Int32)">
@@ -2902,7 +2991,9 @@
             integer's exponent.</summary>
             <param name='intValue'>A 32-bit signed integer to multiply this
             object by.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number times a 32-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Multiply(System.Int64)">
@@ -2914,7 +3005,9 @@
             integer's exponent.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number times a 64-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.MultiplyAndAdd(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
@@ -3363,21 +3456,12 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Remainder(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Returns the remainder that would result when this
-            arbitrary-precision decimal floating-point number is divided by
-            another arbitrary-precision decimal floating-point
-            number.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>An arithmetic context object to control the
+        <summary>Returns the remainder that would result when this arbitrary-precision decimal floating-point number is divided by another arbitrary-precision decimal floating-point number. The remainder is the number that remains when the absolute value of this arbitrary-precision decimal floating-point number is divided (as though by DivideToIntegerZeroScale) by the absolute value of the other arbitrary-precision decimal floating-point number; the remainder has the same sign (positive or negative) as this arbitrary-precision decimal floating-point number.</summary><param name='divisor'>The number to divide by.</param><param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result, and of the
             intermediate integer division. If <c>HasFlags</c> of the context is
             true, will also store the flags resulting from the operation (the
             flags are in addition to the pre-existing flags). Can be null, in
-            which the precision is unlimited.</param>
-            <returns>The remainder of the two numbers. Signals FlagInvalid and
-            returns not-a-number (NaN) if the divisor is 0, or if the result
-            doesn't fit the given precision.</returns>
-
+            which the precision is unlimited.</param><returns>The remainder that would result when this arbitrary-precision decimal floating-point number is divided by another arbitrary-precision decimal floating-point number. Signals FlagDivideByZero and returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other arbitrary-precision decimal floating-point number) is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0, or if the result of the division doesn't fit the given precision.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RemainderNaturalScale(PeterO.Numbers.EDecimal)">
 
@@ -3908,7 +3992,9 @@
             exponent.</summary>
             <param name='otherValue'>The number to subtract from this
             instance's value.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision decimal floating-point number minus another
+            arbitrary-precision decimal floating-point number.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
@@ -3924,7 +4010,9 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
             rounding is needed.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision decimal floating-point number minus another
+            arbitrary-precision decimal floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
@@ -3937,7 +4025,9 @@
             the other 32-bit signed integer's exponent.</summary>
             <param name='intValue'>A 32-bit signed integer to subtract from
             this object.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision decimal floating-point number minus a 32-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(System.Int64)">
@@ -3949,7 +4039,9 @@
             the other 64-bit signed integer's exponent.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision decimal floating-point number minus a 64-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="F:PeterO.Numbers.EDecimal.Ten">
@@ -4132,20 +4224,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16Checked">
 
-        <summary>Converts this number's value to a 16-bit signed integer if
+            <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer after converting it to an
-            integer by discarding its fractional part.</summary><returns>This number's value, truncated to a 16-bit signed
-            integer.</returns><exception cref='OverflowException'>This value is infinity or
+            integer by discarding its fractional part.</summary>
+            <returns>This number's value, truncated to a 16-bit signed
+            integer.</returns>
+            <exception cref='OverflowException'>This value is infinity or
             not-a-number, or the number, once converted to an integer by
-            discarding its fractional part, is less than -32768 or greater than 32767.</exception>
+            discarding its fractional part, is less than -32768 or greater than
+            32767.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16IfExact">
 
-        <summary>Converts this number's value to a 16-bit signed integer if
+            <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer without rounding to a
-            different numerical value.</summary><returns>This number's value as a 16-bit signed integer.</returns><exception cref='ArithmeticException'>This value is infinity or
+            different numerical value.</summary>
+            <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='ArithmeticException'>This value is infinity or
             not-a-number, is not an exact integer, or is less than -32768 or
             greater than 32767.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16Unchecked">
 
@@ -4474,7 +4573,9 @@
             floating-point number.</param>
             <param name='otherValue'>The second decimal binary floating-point
             number.</param>
-            <returns>The sum of the two objects.</returns>
+            <returns>The sum of the two numbers, that is, an
+            arbitrary-precision decimal floating-point number plus another
+            arbitrary-precision decimal floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> or <paramref name='otherValue'/> is
             null.</exception>
 
@@ -4501,7 +4602,9 @@
             (NaN) if the divisor and the dividend are 0. Returns NaN if the
             result can't be exact because it would have a nonterminating
             decimal expansion; examples include 1 divided by any multiple of 3,
-            such as 1/3 or 1/12.  If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.</returns>
+            such as 1/3 or 1/12. If this is not desired, use DivideToExponent
+            instead, or use the Divide overload that takes an EContext
+            instead.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 
 </doc>
@@ -4572,14 +4675,19 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int16">
 
-        <summary>Converts an arbitrary-precision decimal number to a 16-bit
+            <summary>Converts an arbitrary-precision decimal number to a 16-bit
             signed integer if it can fit in a 16-bit signed integer after
             converting it to an integer by discarding its fractional
-            part.</summary><param name='input'>The number to convert as an arbitrary-precision
-            decimal number.</param><returns>The value of <paramref name='input'/>, truncated to a
-            16-bit signed integer.</returns><exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
+            part.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision
+            decimal number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a
+            16-bit signed integer.</returns>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
             converted to an integer by discarding its fractional part, is less
-            than -32768 or greater than 32767.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
+            than -32768 or greater than 32767.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Explicit(PeterO.Numbers.EDecimal)~System.Int32">
 
@@ -4822,15 +4930,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Modulus(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
 
-            <summary>Returns the remainder that would result when an
-            arbitrary-precision decimal floating-point number is divided by
-            another arbitrary-precision decimal floating-point
-            number.</summary>
-            <param name='dividend'>The number that will be divided by the
-            divisor.</param>
-            <param name='divisor'>The number to divide by.</param>
-            <returns>The result of the operation.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
+            <summary>Returns the remainder that would result when an arbitrary-precision decimal floating-point number is divided by another arbitrary-precision decimal floating-point number. The remainder is the number that remains when the absolute value of an arbitrary-precision decimal floating-point number is divided (as though by DivideToIntegerZeroScale) by the absolute value of the other arbitrary-precision decimal floating-point number; the remainder has the same sign (positive or negative) as this arbitrary-precision decimal floating-point number.</summary><param name='dividend'>The number that will be divided by the
+            divisor.</param><param name='divisor'>The number to divide by.</param><returns>The remainder that would result when an arbitrary-precision decimal floating-point number is divided by another arbitrary-precision decimal floating-point number.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.op_Multiply(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal)">
@@ -4840,7 +4941,9 @@
             and returns the result.</summary>
             <param name='operand1'>The first operand.</param>
             <param name='operand2'>The second operand.</param>
-            <returns>The product of the two decimal numbers.</returns>
+            <returns>The product of the two numbers, that is, an
+            arbitrary-precision decimal floating-point number times another
+            arbitrary-precision decimal floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='operand1'/> or <paramref name='operand2'/> is
             null.</exception>
 
@@ -5574,7 +5677,9 @@
             exponent.</summary>
             <param name='otherValue'>An arbitrary-precision binary
             floating-point number.</param>
-            <returns>The sum of the two objects.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision binary floating-point number plus another
+            arbitrary-precision binary floating-point number.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
@@ -5589,8 +5694,9 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
             rounding is needed.</param>
-            <returns>An arbitrary-precision binary floating-point
-            number.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision binary floating-point number plus another
+            arbitrary-precision binary floating-point number.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(System.Int32)">
@@ -5602,7 +5708,9 @@
             integer's exponent.</summary>
             <param name='intValue'>The parameter <paramref name='intValue'/> is
             a 32-bit signed integer.</param>
-            <returns>The sum of the two objects.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision binary floating-point number plus a 32-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(System.Int64)">
@@ -5614,7 +5722,9 @@
             integer's exponent.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The return value is not documented yet.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision binary floating-point number plus a 64-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
@@ -6125,21 +6235,12 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat)">
 
-            <summary>Calculates the quotient and remainder using the
-            DivideToIntegerNaturalScale and the formula in
-            RemainderNaturalScale.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <returns>A 2 element array consisting of the quotient and remainder
-            in that order.</returns>
+            <summary>Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by <c>DivideToIntegerNaturalScale</c>, and the remainder is calculated as though by <c>RemainderNaturalScale</c>.</summary><param name='divisor'>The number to divide by.</param><returns>An array of two items: the first is the result of the division as an arbitrary-precision binary floating-point number, and the second is the remainder as an arbitrary-precision binary floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.DivRemNaturalScale(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Calculates the quotient and remainder using the
-            DivideToIntegerNaturalScale and the formula in
-            RemainderNaturalScale.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <param name='ctx'>An arithmetic context object to control the
+            <summary>Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by <c>DivideToIntegerNaturalScale</c>, and the remainder is calculated as though by <c>RemainderNaturalScale</c>.</summary><param name='divisor'>The number to divide by.</param><param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
@@ -6148,44 +6249,106 @@
             the integer part of the division result doesn't fit the precision
             and exponent range without rounding. Can be null, in which the
             precision is unlimited and no additional rounding, other than the
-            rounding down to an integer after division, is needed.</param>
-            <returns>A 2 element array consisting of the quotient and remainder
-            in that order.</returns>
+            rounding down to an integer after division, is needed.</param><returns>An array of two items: the first is the result of the division as an arbitrary-precision binary floating-point number, and the second is the remainder as an arbitrary-precision binary floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat)">
 
-        <summary>Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='divisor'>The number to divide by.</param><returns>The quotient of the two numbers. Returns infinity if the
-            divisor is 0 and the dividend is nonzero. Returns not-a-number
-            (NaN) if the divisor and the dividend are 0. Returns NaN if the
-            result can't be exact because it would have a nonterminating binary
-            expansion.  If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.</returns>
+            <summary>Divides this arbitrary-precision binary floating-point
+            number by another arbitrary-precision binary floating-point number
+            and returns the result; returns NaN instead if the result would
+            have a nonterminating binary expansion (including 1/3, 1/12, 1/7,
+            2/3, and so on); if this is not desired, use DivideToExponent, or
+            use the Divide overload that takes an EContext.</summary>
+            <param name='divisor'>The number to divide by.</param>
+            <returns>The result of dividing this arbitrary-precision binary
+            floating-point number by another arbitrary-precision binary
+            floating-point number. Returns infinity if the divisor (this
+            arbitrary-precision binary floating-point number) is 0 and the
+            dividend (the other arbitrary-precision binary floating-point
+            number) is nonzero. Returns not-a-number (NaN) if the divisor and
+            the dividend are 0. Returns NaN if the result can't be exact
+            because it would have a nonterminating binary expansion (examples
+            include 1 divided by any multiple of 3, such as 1/3 or 1/12). If
+            this is not desired, use DivideToExponent instead, or use the
+            Divide overload that takes an <c>EContext</c> (such as
+            <c>EContext.Binary64</c> ) instead.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-        <summary>Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='divisor'>The number to divide by.</param><param name='ctx'>An arithmetic context to control the precision,
+            <summary>Divides this arbitrary-precision binary floating-point
+            number by another arbitrary-precision binary floating-point number
+            and returns the result.</summary>
+            <param name='divisor'>The number to divide by.</param>
+            <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
-            rounding is needed.</param><returns>The quotient of the two objects. Signals FlagDivideByZero
-            and returns infinity if the divisor is 0 and the dividend is
-            nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
-            divisor and the dividend are 0; or, either <paramref name='ctx'/>
-            is null or <paramref name='ctx'/> 's precision is 0, and the result
-            would have a nonterminating binary expansion; or, the rounding mode
+            rounding is needed.</param>
+            <returns>The result of dividing this arbitrary-precision binary
+            floating-point number by another arbitrary-precision binary
+            floating-point number. Signals FlagDivideByZero and returns
+            infinity if the divisor (this arbitrary-precision binary
+            floating-point number) is 0 and the dividend (the other
+            arbitrary-precision binary floating-point number) is nonzero.
+            Signals FlagInvalid and returns not-a-number (NaN) if the divisor
+            and the dividend are 0; or, either <paramref name='ctx'/> is null
+            or <paramref name='ctx'/> 's precision is 0, and the result would
+            have a nonterminating decimal expansion (examples include 1 divided
+            by any multiple of 3, such as 1/3 or 1/12); or, the rounding mode
             is ERounding.None and the result is not exact.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(System.Int32)">
 
-        <summary>Divides this arbitrary-precision binary floating-point number by a 32-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='intValue'>The divisor.</param><returns>The quotient of the two objects.</returns><exception cref='DivideByZeroException'>Attempted to divide by
+            <summary>Divides this arbitrary-precision binary floating-point
+            number by a 32-bit signed integer and returns the result; returns
+            NaN instead if the result would have a nonterminating binary
+            expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is
+            not desired, use DivideToExponent, or use the Divide overload that
+            takes an EContext.</summary>
+            <param name='intValue'>The divisor.</param>
+            <returns>The result of dividing this arbitrary-precision binary
+            floating-point number by a 32-bit signed integer. Returns infinity
+            if the divisor (this arbitrary-precision binary floating-point
+            number) is 0 and the dividend (the other 32-bit signed integer) is
+            nonzero. Returns not-a-number (NaN) if the divisor and the dividend
+            are 0. Returns NaN if the result can't be exact because it would
+            have a nonterminating binary expansion (examples include 1 divided
+            by any multiple of 3, such as 1/3 or 1/12). If this is not desired,
+            use DivideToExponent instead, or use the Divide overload that takes
+            an <c>EContext</c> (such as <c>EContext.Binary64</c> )
+            instead.</returns>
+            <exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Divide(System.Int64)">
 
-        <summary>Divides this arbitrary-precision binary floating-point number by a 64-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The quotient of the two objects.</returns><exception cref='DivideByZeroException'>Attempted to divide by
+            <summary>Divides this arbitrary-precision binary floating-point
+            number by a 64-bit signed integer and returns the result; returns
+            NaN instead if the result would have a nonterminating binary
+            expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is
+            not desired, use DivideToExponent, or use the Divide overload that
+            takes an EContext.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The result of dividing this arbitrary-precision binary
+            floating-point number by a 64-bit signed integer. Returns infinity
+            if the divisor (this arbitrary-precision binary floating-point
+            number) is 0 and the dividend (the other 64-bit signed integer) is
+            nonzero. Returns not-a-number (NaN) if the divisor and the dividend
+            are 0. Returns NaN if the result can't be exact because it would
+            have a nonterminating binary expansion (examples include 1 divided
+            by any multiple of 3, such as 1/3 or 1/12). If this is not desired,
+            use DivideToExponent instead, or use the Divide overload that takes
+            an <c>EContext</c> (such as <c>EContext.Binary64</c> )
+            instead.</returns>
+            <exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)">
 
@@ -6437,6 +6600,23 @@
             context's Precision property is 0).</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.ExpM1(PeterO.Numbers.EContext)">
+
+            <summary>Finds e (the base of natural logarithms) raised to the
+            power of this object's value, and subtracts the result by 1 and
+            returns the final result, in a way that avoids loss of precision if
+            the true result is very close to 0.</summary>
+            <param name='ctx'>An arithmetic context to control the precision,
+            rounding, and exponent range of the result. If <c>HasFlags</c> of
+            the context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            <i>This parameter can't be null, as the exponential function's
+            results are generally not exact.</i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).</param>
+            <returns>Exponential of this object, minus 1. Signals FlagInvalid
+            and returns not-a-number (NaN) if the parameter <paramref name='ctx'/> is null or the precision is unlimited (the context's
+            Precision property is 0).</returns>
+
+</doc>
 <doc name="P:PeterO.Numbers.EFloat.Exponent">
 
             <summary>Gets this object's exponent. This object's value will be
@@ -6487,7 +6667,7 @@
             <param name='dblBits'>The parameter <paramref name='dblBits'/> is a
             64-bit signed integer.</param>
             <returns>A binary floating-point number with the same value as the
-            floating-point number encoded in <paramref name='dbl'/>.</returns>
+            floating-point number encoded in <paramref name='dblBits'/>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromEInteger(PeterO.Numbers.EInteger)">
@@ -6562,7 +6742,7 @@
             <param name='value'>A 32-bit binary floating-point number encoded
             in the IEEE 754 binary32 format.</param>
             <returns>A binary floating-point number with the same
-            floating-point value as <paramref name='flt'/>.</returns>
+            floating-point value as <paramref name='value'/>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromString(System.Byte[])">
@@ -6614,9 +6794,6 @@
             portion of <paramref name='bytes'/> (but not more than <paramref name='bytes'/> 's length).</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
-            <exception cref=' T:System.ArgumentException'>Either <paramref name=' offset'/> or <paramref name=' length'/> is less than 0 or
-            greater than <paramref name='bytes'/> 's length, or <paramref name=' bytes'/> 's length minus <paramref name='offset'/> is less
-            than <paramref name='length'/>.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
             greater than <paramref name='bytes'/> 's length, or <paramref name='bytes'/> 's length minus <paramref name='offset'/> is less
@@ -6726,9 +6903,6 @@
             portion of <paramref name='chars'/> (but not more than <paramref name='chars'/> 's length).</param>
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
-            <exception cref=' T:System.ArgumentException'>Either <paramref name=' offset'/> or <paramref name=' length'/> is less than 0 or
-            greater than <paramref name='chars'/> 's length, or <paramref name=' chars'/> 's length minus <paramref name='offset'/> is less
-            than <paramref name='length'/>.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
             greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less
@@ -7062,6 +7236,29 @@
             context's Precision property is 0).</returns>
 
 </doc>
+<doc name="M:PeterO.Numbers.EFloat.Log1P(PeterO.Numbers.EContext)">
+
+            <summary>Adds 1 to this object's value and finds the natural
+            logarithm of the result, in a way that avoids loss of precision
+            when this object's value is between 0 and 1.</summary>
+            <param name='ctx'>An arithmetic context to control the precision,
+            rounding, and exponent range of the result. If <c>HasFlags</c> of
+            the context is true, will also store the flags resulting from the
+            operation (the flags are in addition to the pre-existing flags).
+            <i>This parameter can't be null, as the ln function's results are
+            generally not exact.</i> (Unlike in the General Decimal Arithmetic
+            Specification, any rounding mode is allowed.).</param>
+            <returns>Ln(1+(this object)). Signals the flag FlagInvalid and
+            returns NaN if this object is less than -1 (the result would be a
+            complex number with a real part equal to Ln of 1 plus this object's
+            absolute value and an imaginary part equal to pi, but the return
+            value is still NaN.). Signals FlagInvalid and returns not-a-number
+            (NaN) if the parameter <paramref name='ctx'/> is null or the
+            precision is unlimited (the context's Precision property is 0).
+            Signals no flags and returns negative infinity if this object's
+            value is 0.</returns>
+
+</doc>
 <doc name="M:PeterO.Numbers.EFloat.LogN(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
             <summary>Finds the base-N logarithm of this object, that is, the
@@ -7343,8 +7540,9 @@
             exponent.</summary>
             <param name='otherValue'>Another binary floating-point
             number.</param>
-            <returns>The product of the two binary floating-point
-            numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision binary floating-point number times another
+            arbitrary-precision binary floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
@@ -7360,8 +7558,9 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and rounding
             isn't needed.</param>
-            <returns>An arbitrary-precision binary floating-point
-            number.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision binary floating-point number times another
+            arbitrary-precision binary floating-point number.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Multiply(System.Int32)">
@@ -7373,7 +7572,9 @@
             integer's exponent.</summary>
             <param name='intValue'>The parameter <paramref name='intValue'/> is
             a 32-bit signed integer.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision binary floating-point number times a 32-bit
+            signed integer.</returns>
             <example><code>EInteger result = EInteger.FromString("5").Multiply(200);</code> .
             </example>
 
@@ -7387,7 +7588,9 @@
             integer's exponent.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision binary floating-point number times a 64-bit
+            signed integer.</returns>
             <example><code>EInteger result = EInteger.FromString("5").Multiply(200L);</code> .
             </example>
 
@@ -7817,17 +8020,9 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Remainder(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Returns the remainder that would result when this
-            arbitrary-precision binary floating-point number is divided by
-            another arbitrary-precision binary floating-point number.</summary>
-            <param name='divisor'>An arbitrary-precision binary floating-point
-            number.</param>
-            <param name='ctx'>The parameter <paramref name='ctx'/> is an
-            EContext object.</param>
-            <returns>The remainder of the two numbers. Signals FlagInvalid and
-            returns not-a-number (NaN) if the divisor is 0, or if the result
-            doesn't fit the given precision.</returns>
-
+        <summary>Returns the remainder that would result when this arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number. The remainder is the number that remains when the absolute value of this arbitrary-precision binary floating-point number is divided (as though by DivideToIntegerZeroScale) by the absolute value of the other arbitrary-precision binary floating-point number; the remainder has the same sign (positive or negative) as this arbitrary-precision binary floating-point number.</summary><param name='divisor'>An arbitrary-precision binary floating-point
+            number.</param><param name='ctx'>The parameter <paramref name='ctx'/> is an
+            EContext object.</param><returns>The remainder that would result when this arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number. Signals FlagDivideByZero and returns infinity if the divisor (this arbitrary-precision binary floating-point number) is 0 and the dividend (the other arbitrary-precision binary floating-point number) is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0, or if the result of the division doesn't fit the given precision.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat)">
 
@@ -8268,7 +8463,9 @@
             exponent.</summary>
             <param name='otherValue'>The number to subtract from this
             instance's value.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision binary floating-point number minus another
+            arbitrary-precision binary floating-point number.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
@@ -8284,8 +8481,9 @@
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
             rounding is needed.</param>
-            <returns>An arbitrary-precision binary floating-point
-            number.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision binary floating-point number minus another
+            arbitrary-precision binary floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
@@ -8298,7 +8496,9 @@
             other 32-bit signed integer's exponent.</summary>
             <param name='intValue'>The parameter <paramref name='intValue'/> is
             a 32-bit signed integer.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision binary floating-point number minus a 32-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(System.Int64)">
@@ -8310,7 +8510,9 @@
             other 64-bit signed integer's exponent.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision binary floating-point number minus a 64-bit
+            signed integer.</returns>
 
 </doc>
 <doc name="F:PeterO.Numbers.EFloat.Ten">
@@ -8452,20 +8654,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16Checked">
 
-        <summary>Converts this number's value to a 16-bit signed integer if
+            <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer after converting it to an
-            integer by discarding its fractional part.</summary><returns>This number's value, truncated to a 16-bit signed
-            integer.</returns><exception cref='OverflowException'>This value is infinity or
+            integer by discarding its fractional part.</summary>
+            <returns>This number's value, truncated to a 16-bit signed
+            integer.</returns>
+            <exception cref='OverflowException'>This value is infinity or
             not-a-number, or the number, once converted to an integer by
-            discarding its fractional part, is less than -32768 or greater than 32767.</exception>
+            discarding its fractional part, is less than -32768 or greater than
+            32767.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16IfExact">
 
-        <summary>Converts this number's value to a 16-bit signed integer if
+            <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer without rounding to a
-            different numerical value.</summary><returns>This number's value as a 16-bit signed integer.</returns><exception cref='ArithmeticException'>This value is infinity or
+            different numerical value.</summary>
+            <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='ArithmeticException'>This value is infinity or
             not-a-number, is not an exact integer, or is less than -32768 or
             greater than 32767.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16Unchecked">
 
@@ -8829,7 +9038,9 @@
             floating-point number.</param>
             <param name='otherValue'>The second arbitrary-precision binary
             floating-point number.</param>
-            <returns>The sum of the two objects.</returns>
+            <returns>The sum of the two numbers, that is, an
+            arbitrary-precision binary floating-point number plus another
+            arbitrary-precision binary floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> or <paramref name='otherValue'/> is
             null.</exception>
 
@@ -8857,7 +9068,8 @@
             divisor is 0 and the dividend is nonzero. Returns not-a-number
             (NaN) if the divisor and the dividend are 0. Returns NaN if the
             result can't be exact because it would have a nonterminating binary
-            expansion.  If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an EContext instead.</returns>
+            expansion. If this is not desired, use DivideToExponent instead, or
+            use the Divide overload that takes an EContext instead.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 
 </doc>
@@ -8915,14 +9127,19 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int16">
 
-        <summary>Converts an arbitrary-precision binary floating-point
+            <summary>Converts an arbitrary-precision binary floating-point
             number to a 16-bit signed integer if it can fit in a 16-bit signed
             integer after converting it to an integer by discarding its
-            fractional part.</summary><param name='input'>The number to convert as an arbitrary-precision
-            binary floating-point number.</param><returns>The value of <paramref name='input'/>, truncated to a
-            16-bit signed integer.</returns><exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
+            fractional part.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision
+            binary floating-point number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a
+            16-bit signed integer.</returns>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
             converted to an integer by discarding its fractional part, is less
-            than -32768 or greater than 32767.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
+            than -32768 or greater than 32767.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Explicit(PeterO.Numbers.EFloat)~System.Int32">
 
@@ -9181,14 +9398,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Modulus(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
 
-            <summary>Returns the remainder that would result when an
-            arbitrary-precision binary floating-point number is divided by
-            another arbitrary-precision binary floating-point number.</summary>
-            <param name='dividend'>The number that will be divided by the
-            divisor.</param>
-            <param name='divisor'>The number to divide by.</param>
-            <returns>The result of the operation.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
+            <summary>Returns the remainder that would result when an arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number. The remainder is the number that remains when the absolute value of an arbitrary-precision binary floating-point number is divided (as though by DivideToIntegerZeroScale) by the absolute value of the other arbitrary-precision binary floating-point number; the remainder has the same sign (positive or negative) as this arbitrary-precision binary floating-point number.</summary><param name='dividend'>The number that will be divided by the
+            divisor.</param><param name='divisor'>The number to divide by.</param><returns>The remainder that would result when an arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.op_Multiply(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat)">
@@ -9198,8 +9409,9 @@
             and returns the result.</summary>
             <param name='operand1'>The first operand.</param>
             <param name='operand2'>The second operand.</param>
-            <returns>The product of the two binary floating-point
-            numbers.</returns>
+            <returns>The product of the two numbers, that is, an
+            arbitrary-precision binary floating-point number times another
+            arbitrary-precision binary floating-point number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='operand1'/> is null.</exception>
 
 </doc>
@@ -9854,7 +10066,9 @@
             arbitrary-precision integer and returns the result.</summary>
             <param name='bigintAugend'>Another arbitrary-precision
             integer.</param>
-            <returns>The sum of the two objects.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision integer plus another arbitrary-precision
+            integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bigintAugend'/> is null.</exception>
 
 </doc>
@@ -9864,7 +10078,8 @@
             integer and returns the result.</summary>
             <param name='intValue'>The parameter <paramref name='intValue'/> is
             a 32-bit signed integer.</param>
-            <returns>An arbitrary-precision integer.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision integer plus a 32-bit signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Add(System.Int64)">
@@ -9873,7 +10088,8 @@
             integer and returns the result.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The return value is not documented yet.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision integer plus a 64-bit signed integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.And(PeterO.Numbers.EInteger)">
@@ -10034,88 +10250,25 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger)">
 
-            <summary>Divides this arbitrary-precision integer by another
-            arbitrary-precision integer and returns a two-item array containing
-            the result of the division and the remainder, in that order. The
-            result of the division is rounded down (the fractional part is
-            discarded). Except if the result of the division is 0, it will be
-            negative if this arbitrary-precision integer is positive and the
-            other arbitrary-precision integer is negative, or vice versa, and
-            will be positive if both are positive or both are negative. The
-            remainder is the number that remains when the absolute value of
-            this arbitrary-precision integer is divided by the absolute value
-            of the other arbitrary-precision integer; the remainder has the
-            same sign (positive or negative) as this arbitrary-precision
-            integer.</summary>
-            <param name='divisor'>The number to divide by.</param>
-            <returns>An array with two arbitrary-precision integers: the first
-            is the quotient, and the second is the remainder.</returns>
-            <exception cref='DivideByZeroException'>The parameter <paramref name='divisor'/> is 0.</exception>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='divisor'/> is null.</exception>
+            <summary>Divides this arbitrary-precision integer by another arbitrary-precision integer and returns a two-item array containing the result of the division and the remainder, in that order. The result of the division is rounded down (the fractional part is discarded). Except if the result of the division is 0, it will be negative if this arbitrary-precision integer is positive and the other arbitrary-precision integer is negative, or vice versa, and will be positive if both are positive or both are negative. The remainder is the number that remains when the absolute value of this arbitrary-precision integer is divided by the absolute value of the other arbitrary-precision integer; the remainder has the same sign (positive or negative) as this arbitrary-precision integer.</summary><param name='divisor'>The number to divide by.</param><returns>An array of two items: the first is the result of the division as an arbitrary-precision integer, and the second is the remainder as an arbitrary-precision integer. The result of division is the result of the Divide method on the two operands, and the remainder is the result of the Remainder method on the two operands.</returns><exception cref='DivideByZeroException'>The parameter <paramref name='divisor'/> is 0.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='divisor'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,PeterO.Numbers.EInteger@)">
 
-            <summary>Divides this arbitrary-precision integer by another
-            arbitrary-precision integer and returns a two-item array containing
-            the result of the division and the remainder, in that order. The
-            result of the division is rounded down (the fractional part is
-            discarded). Except if the result of the division is 0, it will be
-            negative if this arbitrary-precision integer is positive and the
-            other arbitrary-precision integer is negative, or vice versa, and
-            will be positive if both are positive or both are negative. The
-            remainder is the number that remains when the absolute value of
-            this arbitrary-precision integer is divided by the absolute value
-            of the other arbitrary-precision integer; the remainder has the
-            same sign (positive or negative) as this arbitrary-precision
-            integer.</summary>
-            <param name='dividend'>The arbitrary-precision integer to be
-            divided.</param>
-            <param name='divisor'>The arbitrary-precision integer to divide
-            by.</param>
-            <param name='remainder'>An arbitrary-precision integer.</param>
-            <returns>An array of two arbitrary-precision integers: the first is
-            the quotient, and the second is the remainder.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> or <paramref name='divisor'/> is
+            <summary>Divides this arbitrary-precision integer by another arbitrary-precision integer and returns a two-item array containing the result of the division and the remainder, in that order. The result of the division is rounded down (the fractional part is discarded). Except if the result of the division is 0, it will be negative if this arbitrary-precision integer is positive and the other arbitrary-precision integer is negative, or vice versa, and will be positive if both are positive or both are negative. The remainder is the number that remains when the absolute value of this arbitrary-precision integer is divided by the absolute value of the other arbitrary-precision integer; the remainder has the same sign (positive or negative) as this arbitrary-precision integer.</summary><param name='dividend'>The arbitrary-precision integer to be
+            divided.</param><param name='divisor'>The arbitrary-precision integer to divide
+            by.</param><param name='remainder'>An arbitrary-precision integer.</param><returns>An array of two items: the first is the result of the division as an arbitrary-precision integer, and the second is the remainder as an arbitrary-precision integer. The result of division is the result of the Divide method on the two operands, and the remainder is the result of the Remainder method on the two operands.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> or <paramref name='divisor'/> is
             null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(System.Int32)">
 
-            <summary>Divides this arbitrary-precision integer by a 32-bit
-            signed integer and returns a two-item array containing the result
-            of the division and the remainder, in that order. The result of the
-            division is rounded down (the fractional part is discarded). Except
-            if the result of the division is 0, it will be negative if this
-            arbitrary-precision integer is positive and the other 32-bit signed
-            integer is negative, or vice versa, and will be positive if both
-            are positive or both are negative. The remainder is the number that
-            remains when the absolute value of this arbitrary-precision integer
-            is divided by the absolute value of the other 32-bit signed
-            integer; the remainder has the same sign (positive or negative) as
-            this arbitrary-precision integer.</summary>
-            <param name='intDivisor'>The number to divide by.</param>
-            <returns>An array with two arbitrary-precision integers: the first
-            is the quotient, and the second is the remainder.</returns>
-            <exception cref='DivideByZeroException'>The parameter <paramref name='intDivisor'/> is 0.</exception>
+            <summary>Divides this arbitrary-precision integer by a 32-bit signed integer and returns a two-item array containing the result of the division and the remainder, in that order. The result of the division is rounded down (the fractional part is discarded). Except if the result of the division is 0, it will be negative if this arbitrary-precision integer is positive and the other 32-bit signed integer is negative, or vice versa, and will be positive if both are positive or both are negative. The remainder is the number that remains when the absolute value of this arbitrary-precision integer is divided by the absolute value of the other 32-bit signed integer; the remainder has the same sign (positive or negative) as this arbitrary-precision integer.</summary><param name='intDivisor'>The number to divide by.</param><returns>An array of two items: the first is the result of the division as an arbitrary-precision integer, and the second is the remainder as an arbitrary-precision integer. The result of division is the result of the Divide method on the two operands, and the remainder is the result of the Remainder method on the two operands.</returns><exception cref='DivideByZeroException'>The parameter <paramref name='intDivisor'/> is 0.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.DivRem(System.Int64)">
 
-            <summary>Divides this arbitrary-precision integer by a 64-bit
-            signed integer and returns a two-item array containing the result
-            of the division and the remainder, in that order. The result of the
-            division is rounded down (the fractional part is discarded). Except
-            if the result of the division is 0, it will be negative if this
-            arbitrary-precision integer is positive and the other 64-bit signed
-            integer is negative, or vice versa, and will be positive if both
-            are positive or both are negative. The remainder is the number that
-            remains when the absolute value of this arbitrary-precision integer
-            is divided by the absolute value of the other 64-bit signed
-            integer; the remainder has the same sign (positive or negative) as
-            this arbitrary-precision integer.</summary>
-            <param name='intDivisor'>The parameter <paramref name='intDivisor'/> is a 64-bit signed integer.</param>
-            <returns>The return value is not documented yet.</returns>
+            <summary>Divides this arbitrary-precision integer by a 64-bit signed integer and returns a two-item array containing the result of the division and the remainder, in that order. The result of the division is rounded down (the fractional part is discarded). Except if the result of the division is 0, it will be negative if this arbitrary-precision integer is positive and the other 64-bit signed integer is negative, or vice versa, and will be positive if both are positive or both are negative. The remainder is the number that remains when the absolute value of this arbitrary-precision integer is divided by the absolute value of the other 64-bit signed integer; the remainder has the same sign (positive or negative) as this arbitrary-precision integer.</summary><param name='intDivisor'>The parameter <paramref name='intDivisor'/> is a 64-bit signed integer.</param><returns>An array of two items: the first is the result of the division as an arbitrary-precision integer, and the second is the remainder as an arbitrary-precision integer. The result of division is the result of the Divide method on the two operands, and the remainder is the result of the Remainder method on the two operands.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Divide(PeterO.Numbers.EInteger)">
@@ -10128,7 +10281,13 @@
             arbitrary-precision integer is negative, or vice versa, and will be
             positive if both are positive or both are negative.</summary>
             <param name='bigintDivisor'>The divisor.</param>
-            <returns>The quotient of the two objects.</returns>
+            <returns>The result of dividing this arbitrary-precision integer by
+            another arbitrary-precision integer. The result of the division is
+            rounded down (the fractional part is discarded). Except if the
+            result of the division is 0, it will be negative if this
+            arbitrary-precision integer is positive and the other
+            arbitrary-precision integer is negative, or vice versa, and will be
+            positive if both are positive or both are negative.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bigintDivisor'/> is null.</exception>
             <exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
@@ -10144,7 +10303,13 @@
             integer is negative, or vice versa, and will be positive if both
             are positive or both are negative.</summary>
             <param name='intValue'>The divisor.</param>
-            <returns>The quotient of the two objects.</returns>
+            <returns>The result of dividing this arbitrary-precision integer by
+            a 32-bit signed integer. The result of the division is rounded down
+            (the fractional part is discarded). Except if the result of the
+            division is 0, it will be negative if this arbitrary-precision
+            integer is positive and the other 32-bit signed integer is
+            negative, or vice versa, and will be positive if both are positive
+            or both are negative.</returns>
             <exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
 
@@ -10160,7 +10325,13 @@
             are positive or both are negative.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The return value is not documented yet.</returns>
+            <returns>The result of dividing this arbitrary-precision integer by
+            a 64-bit signed integer. The result of the division is rounded down
+            (the fractional part is discarded). Except if the result of the
+            division is 0, it will be negative if this arbitrary-precision
+            integer is positive and the other 64-bit signed integer is
+            negative, or vice versa, and will be positive if both are positive
+            or both are negative.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Equals(PeterO.Numbers.EInteger)">
@@ -11008,7 +11179,9 @@
             arbitrary-precision integer and returns the result.</summary>
             <param name='bigintMult'>Another arbitrary-precision
             integer.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision integer times another arbitrary-precision
+            integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bigintMult'/> is null.</exception>
 
 </doc>
@@ -11018,7 +11191,9 @@
             signed integer and returns the result.</summary>
             <param name='intValue'>The parameter <paramref name='intValue'/> is
             a 32-bit signed integer.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision integer times a 32-bit signed
+            integer.</returns>
             <example><code>EInteger result = EInteger.FromString("5").Multiply(200);</code> .
             </example>
 
@@ -11029,7 +11204,9 @@
             signed integer and returns the result.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The return value is not documented yet.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision integer times a 64-bit signed
+            integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Negate">
@@ -11174,7 +11351,9 @@
             integer; the remainder has the same sign (positive or negative) as
             this arbitrary-precision integer.</summary>
             <param name='divisor'>The number to divide by.</param>
-            <returns>The remainder of the two numbers.</returns>
+            <returns>The remainder that would result when this
+            arbitrary-precision integer is divided by another
+            arbitrary-precision integer.</returns>
             <exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='divisor'/> is null.</exception>
@@ -11191,7 +11370,9 @@
             integer.</summary>
             <param name='intValue'>The parameter <paramref name='intValue'/> is
             a 32-bit signed integer.</param>
-            <returns>The remainder of the two numbers.</returns>
+            <returns>The remainder that would result when this
+            arbitrary-precision integer is divided by a 32-bit signed
+            integer.</returns>
             <exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='intValue'/> is null.</exception>
@@ -11208,7 +11389,59 @@
             integer.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The return value is not documented yet.</returns>
+            <returns>The remainder that would result when this
+            arbitrary-precision integer is divided by a 64-bit signed
+            integer.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Root(PeterO.Numbers.EInteger)">
+
+            <summary>Finds the nth root of this instance's value, rounded
+            down.</summary>
+            <param name='root'>The root to find; must be 1 or greater. If this
+            value is 2, this method finds the square root; if 3, the cube root,
+            and so on.</param>
+            <returns>The square root of this object's value. Returns 0 if this
+            value is 0 or less.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='root'/> is null.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Root(System.Int32)">
+
+            <summary>Finds the nth root of this instance's value, rounded
+            down.</summary>
+            <param name='root'>The root to find; must be 1 or greater. If this
+            value is 2, this method finds the square root; if 3, the cube root,
+            and so on.</param>
+            <returns>The square root of this object's value. Returns 0 if this
+            value is 0 or less.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.RootRem(PeterO.Numbers.EInteger)">
+
+            <summary>Calculates the nth root and the remainder.</summary>
+            <param name='root'>The root to find; must be 1 or greater. If this
+            value is 2, this method finds the square root; if 3, the cube root,
+            and so on.</param>
+            <returns>An array of two arbitrary-precision integers: the first
+            integer is the nth root, and the second is the difference between
+            this value and the nth power of the first integer. Returns two
+            zeros if this value is 0 or less, or one and zero if this value
+            equals 1.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='root'/> is null.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.RootRem(System.Int32)">
+
+            <summary>Calculates the nth root and the remainder.</summary>
+            <param name='root'>The root to find; must be 1 or greater. If this
+            value is 2, this method finds the square root; if 3, the cube root,
+            and so on.</param>
+            <returns>An array of two arbitrary-precision integers: the first
+            integer is the nth root, and the second is the difference between
+            this value and the nth power of the first integer. Returns two
+            zeros if this value is 0 or less, or one and zero if this value
+            equals 1.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ShiftLeft(PeterO.Numbers.EInteger)">
@@ -11296,7 +11529,9 @@
             arbitrary-precision integer and returns the result.</summary>
             <param name='subtrahend'>Another arbitrary-precision
             integer.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision integer minus another arbitrary-precision
+            integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='subtrahend'/> is null.</exception>
 
 </doc>
@@ -11306,7 +11541,9 @@
             arbitrary-precision integer and returns the result.</summary>
             <param name='intValue'>The parameter <paramref name='intValue'/> is
             a 32-bit signed integer.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision integer minus a 32-bit signed
+            integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Subtract(System.Int64)">
@@ -11315,7 +11552,9 @@
             arbitrary-precision integer and returns the result.</summary>
             <param name='longValue'>The parameter <paramref name='longValue'/>
             is a 64-bit signed integer.</param>
-            <returns>The return value is not documented yet.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision integer minus a 64-bit signed
+            integer.</returns>
 
 </doc>
 <doc name="P:PeterO.Numbers.EInteger.Ten">
@@ -11360,9 +11599,12 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToInt16Checked">
 
-        <summary>Converts this number's value to a 16-bit signed integer if
-            it can fit in a 16-bit signed integer.</summary><returns>This number's value as a 16-bit signed integer.</returns><exception cref='OverflowException'>This value is less than -32768
+            <summary>Converts this number's value to a 16-bit signed integer if
+            it can fit in a 16-bit signed integer.</summary>
+            <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='OverflowException'>This value is less than -32768
             or greater than 32767.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToInt16Unchecked">
 
@@ -11579,7 +11821,9 @@
             arbitrary-precision integer and returns the result.</summary>
             <param name='bthis'>The first operand.</param>
             <param name='augend'>The second operand.</param>
-            <returns>The sum of the two objects.</returns>
+            <returns>The sum of the two numbers, that is, an
+            arbitrary-precision integer plus another arbitrary-precision
+            integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bthis'/> is null.</exception>
 
 </doc>
@@ -11669,10 +11913,16 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int16">
 
-        <summary>Converts an arbitrary-precision integer to a 16-bit signed
-            integer if it can fit in a 16-bit signed integer.</summary><param name='input'>The number to convert as an arbitrary-precision
-            integer.</param><returns>The value of <paramref name='input'/> as a 16-bit signed
-            integer.</returns><exception cref='OverflowException'>The parameter <paramref name='input'/> is less than -32768 or greater than 32767.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
+            <summary>Converts an arbitrary-precision integer to a 16-bit signed
+            integer if it can fit in a 16-bit signed integer.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision
+            integer.</param>
+            <returns>The value of <paramref name='input'/> as a 16-bit signed
+            integer.</returns>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is less than -32768 or greater than
+            32767.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.op_Explicit(PeterO.Numbers.EInteger)~System.Int32">
 
@@ -11923,7 +12173,9 @@
             this arbitrary-precision integer.</summary>
             <param name='dividend'>The first operand.</param>
             <param name='divisor'>The number to divide by.</param>
-            <returns>The remainder of the two numbers.</returns>
+            <returns>The remainder that would result when an
+            arbitrary-precision integer is divided by another
+            arbitrary-precision integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='dividend'/> is null.</exception>
 
 </doc>
@@ -11933,7 +12185,9 @@
             arbitrary-precision integer and returns the result.</summary>
             <param name='operand1'>The first operand.</param>
             <param name='operand2'>The second operand.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, an
+            arbitrary-precision integer times another arbitrary-precision
+            integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='operand1'/> is null.</exception>
 
 </doc>
@@ -11987,7 +12241,10 @@
             <summary>Represents an arbitrary-precision rational number. This
             class can't be inherited. (The "E" stands for "extended", meaning
             that instances of this class can be values other than numbers
-            proper, such as infinity and not-a-number.)
+            proper, such as infinity and not-a-number.) In this class, a
+            rational number consists of a numerator and denominator, each an
+            arbitrary-precision integer (EInteger), and this class does not
+            automatically convert rational numbers to lowest terms.
             <para><b>Thread safety:</b> Instances of this class are immutable,
             so they are inherently safe for use by multiple threads. Multiple
             instances of this object with the same properties are
@@ -12025,8 +12282,9 @@
             result.</summary>
             <param name='otherValue'>Another arbitrary-precision rational
             number.</param>
-            <returns>The sum of the two numbers. Returns not-a-number (NaN) if
-            either operand is NaN.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision rational number plus another
+            arbitrary-precision rational number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
@@ -12035,8 +12293,9 @@
             <summary>Adds this arbitrary-precision rational number and a 32-bit
             signed integer and returns the result.</summary>
             <param name='v'>A 32-bit signed integer.</param>
-            <returns>The sum of the two numbers. Returns not-a-number (NaN) if
-            this object is NaN.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision rational number plus a 32-bit signed
+            integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Add(System.Int64)">
@@ -12044,8 +12303,9 @@
             <summary>Adds this arbitrary-precision rational number and a 64-bit
             signed integer and returns the result.</summary>
             <param name='v'>A 64-bit signed integer.</param>
-            <returns>The sum of the two numbers. Returns not-a-number (NaN) if
-            this object is NaN.</returns>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision rational number plus a 64-bit signed
+            integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.CompareTo(PeterO.Numbers.ERational)">
@@ -12269,6 +12529,8 @@
             <returns>An arbitrary-precision rational number.</returns>
             <exception cref='ArgumentException'>The denominator is
             zero.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='numerator'/> or <paramref name='denominator'/> is
+            null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Create(System.Int32,System.Int32)">
@@ -12345,7 +12607,8 @@
             result.</summary>
             <param name='otherValue'>An arbitrary-precision rational
             number.</param>
-            <returns>The quotient of the two objects.</returns>
+            <returns>The result of dividing this arbitrary-precision rational
+            number by another arbitrary-precision rational number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
@@ -12355,7 +12618,8 @@
             32-bit signed integer and returns the result.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 32-bit
             signed integer.</param>
-            <returns>The quotient of the two objects.</returns>
+            <returns>The result of dividing this arbitrary-precision rational
+            number by a 32-bit signed integer.</returns>
             <exception cref='ArithmeticException'>The parameter <paramref name='v'/> is zero.</exception>
 
 </doc>
@@ -12365,7 +12629,8 @@
             64-bit signed integer and returns the result.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 64-bit
             signed integer.</param>
-            <returns>The quotient of the two objects.</returns>
+            <returns>The result of dividing this arbitrary-precision rational
+            number by a 64-bit signed integer.</returns>
             <exception cref='ArithmeticException'>The parameter <paramref name='v'/> is zero.</exception>
 
 </doc>
@@ -12445,7 +12710,7 @@
             <param name='value'>A 64-bit integer encoded in the IEEE 754
             binary64 format.</param>
             <returns>A rational number with the same floating-point value as
-            <paramref name='flt'/>.</returns>
+            <paramref name='value'/>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromEDecimal(PeterO.Numbers.EDecimal)">
@@ -12557,7 +12822,7 @@
             <param name='value'>A 32-bit integer encoded in the IEEE 754
             binary32 format.</param>
             <returns>A rational number with the same floating-point value as
-            <paramref name='flt'/>.</returns>
+            <paramref name='value'/>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromString(System.Byte[])">
@@ -12895,7 +13160,9 @@
             result.</summary>
             <param name='otherValue'>An arbitrary-precision rational
             number.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision rational number times another
+            arbitrary-precision rational number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
@@ -12905,7 +13172,9 @@
             32-bit signed integer and returns the result.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 32-bit
             signed integer.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision rational number times a 32-bit signed
+            integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Multiply(System.Int64)">
@@ -12914,7 +13183,9 @@
             64-bit signed integer and returns the result.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 64-bit
             signed integer.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, this
+            arbitrary-precision rational number times a 64-bit signed
+            integer.</returns>
 
 </doc>
 <doc name="F:PeterO.Numbers.ERational.NaN">
@@ -12965,7 +13236,9 @@
             arbitrary-precision rational number.</summary>
             <param name='otherValue'>An arbitrary-precision rational
             number.</param>
-            <returns>The remainder of the two numbers.</returns>
+            <returns>The remainder that would result when this
+            arbitrary-precision rational number is divided by another
+            arbitrary-precision rational number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
@@ -12975,7 +13248,9 @@
             arbitrary-precision rational number is divided by a 32-bit signed
             integer.</summary>
             <param name='v'>The divisor.</param>
-            <returns>The remainder of the two numbers.</returns>
+            <returns>The remainder that would result when this
+            arbitrary-precision rational number is divided by a 32-bit signed
+            integer.</returns>
             <exception cref='ArgumentException'>The parameter <paramref name='v'/> is zero.</exception>
 
 </doc>
@@ -12985,7 +13260,9 @@
             arbitrary-precision rational number is divided by a 64-bit signed
             integer.</summary>
             <param name='v'>The divisor.</param>
-            <returns>The remainder of the two numbers.</returns>
+            <returns>The remainder that would result when this
+            arbitrary-precision rational number is divided by a 64-bit signed
+            integer.</returns>
             <exception cref='ArgumentException'>The parameter <paramref name='v'/> is zero.</exception>
 
 </doc>
@@ -13007,7 +13284,9 @@
             result.</summary>
             <param name='otherValue'>An arbitrary-precision rational
             number.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision rational number minus another
+            arbitrary-precision rational number.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
 
 </doc>
@@ -13018,7 +13297,9 @@
             result.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 32-bit
             signed integer.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision rational number minus a 32-bit signed
+            integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Subtract(System.Int64)">
@@ -13028,7 +13309,9 @@
             result.</summary>
             <param name='v'>The parameter <paramref name='v'/> is a 64-bit
             signed integer.</param>
-            <returns>The difference of the two objects.</returns>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision rational number minus a 64-bit signed
+            integer.</returns>
 
 </doc>
 <doc name="F:PeterO.Numbers.ERational.Ten">
@@ -13319,20 +13602,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16Checked">
 
-        <summary>Converts this number's value to a 16-bit signed integer if
+            <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer after converting it to an
-            integer by discarding its fractional part.</summary><returns>This number's value, truncated to a 16-bit signed
-            integer.</returns><exception cref='OverflowException'>This value is infinity or
+            integer by discarding its fractional part.</summary>
+            <returns>This number's value, truncated to a 16-bit signed
+            integer.</returns>
+            <exception cref='OverflowException'>This value is infinity or
             not-a-number, or the number, once converted to an integer by
-            discarding its fractional part, is less than -32768 or greater than 32767.</exception>
+            discarding its fractional part, is less than -32768 or greater than
+            32767.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16IfExact">
 
-        <summary>Converts this number's value to a 16-bit signed integer if
+            <summary>Converts this number's value to a 16-bit signed integer if
             it can fit in a 16-bit signed integer without rounding to a
-            different numerical value.</summary><returns>This number's value as a 16-bit signed integer.</returns><exception cref='ArithmeticException'>This value is infinity or
+            different numerical value.</summary>
+            <returns>This number's value as a 16-bit signed integer.</returns>
+            <exception cref='ArithmeticException'>This value is infinity or
             not-a-number, is not an exact integer, or is less than -32768 or
             greater than 32767.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16Unchecked">
 
@@ -13650,8 +13940,9 @@
             result.</summary>
             <param name='bthis'>The first operand.</param>
             <param name='augend'>The second operand.</param>
-            <returns>The sum of the two numbers. Returns not-a-number (NaN) if
-            either operand is NaN.</returns>
+            <returns>The sum of the two numbers, that is, an
+            arbitrary-precision rational number plus another
+            arbitrary-precision rational number.</returns>
             <exception cref='ArgumentNullException'>The parameter "otherValue"
             is null.</exception>
 
@@ -13739,14 +14030,19 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int16">
 
-        <summary>Converts an arbitrary-precision rational number to a
+            <summary>Converts an arbitrary-precision rational number to a
             16-bit signed integer if it can fit in a 16-bit signed integer
             after converting it to an integer by discarding its fractional
-            part.</summary><param name='input'>The number to convert as an arbitrary-precision
-            rational number.</param><returns>The value of <paramref name='input'/>, truncated to a
-            16-bit signed integer.</returns><exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
+            part.</summary>
+            <param name='input'>The number to convert as an arbitrary-precision
+            rational number.</param>
+            <returns>The value of <paramref name='input'/>, truncated to a
+            16-bit signed integer.</returns>
+            <exception cref='OverflowException'>The parameter <paramref name='input'/> is infinity or not-a-number, or the number, once
             converted to an integer by discarding its fractional part, is less
-            than -32768 or greater than 32767.</exception><exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
+            than -32768 or greater than 32767.</exception>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='input'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.op_Explicit(PeterO.Numbers.ERational)~System.Int32">
 
@@ -14020,7 +14316,9 @@
             arbitrary-precision rational number.</summary>
             <param name='dividend'>The dividend.</param>
             <param name='divisor'>The divisor.</param>
-            <returns>The remainder of the two numbers.</returns>
+            <returns>The remainder that would result when an
+            arbitrary-precision rational number is divided by another
+            arbitrary-precision rational number.</returns>
             <exception cref='ArgumentNullException'>The parameter "otherValue"
             is null.</exception>
 
@@ -14032,7 +14330,9 @@
             result.</summary>
             <param name='operand1'>The first operand.</param>
             <param name='operand2'>The second operand.</param>
-            <returns>The product of the two numbers.</returns>
+            <returns>The product of the two numbers, that is, an
+            arbitrary-precision rational number times another
+            arbitrary-precision rational number.</returns>
             <exception cref='ArgumentNullException'>The parameter "otherValue"
             is null.</exception>
 

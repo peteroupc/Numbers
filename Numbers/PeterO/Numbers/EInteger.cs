@@ -1286,7 +1286,9 @@ namespace PeterO.Numbers {
     /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='bigintAugend'>Another arbitrary-precision
     /// integer.</param>
-    /// <returns>The sum of the two objects.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision integer plus another arbitrary-precision
+    /// integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintAugend'/> is null.</exception>
     public EInteger Add(EInteger bigintAugend) {
@@ -1755,7 +1757,8 @@ namespace PeterO.Numbers {
     /// integer and returns the result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>An arbitrary-precision integer.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision integer plus a 32-bit signed integer.</returns>
     public EInteger Add(int intValue) {
       if (intValue == 0) {
         return this;
@@ -1826,7 +1829,9 @@ namespace PeterO.Numbers {
     /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>The difference of the two objects.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision integer minus a 32-bit signed
+    /// integer.</returns>
     public EInteger Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
         this.Subtract(EInteger.FromInt32(intValue)) : ((intValue == 0) ?
@@ -1837,7 +1842,9 @@ namespace PeterO.Numbers {
     /// signed integer and returns the result.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision integer times a 32-bit signed
+    /// integer.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
     ///  .
@@ -1854,7 +1861,13 @@ namespace PeterO.Numbers {
     /// integer is negative, or vice versa, and will be positive if both
     /// are positive or both are negative.</summary>
     /// <param name='intValue'>The divisor.</param>
-    /// <returns>The quotient of the two objects.</returns>
+    /// <returns>The result of dividing this arbitrary-precision integer by
+    /// a 32-bit signed integer. The result of the division is rounded down
+    /// (the fractional part is discarded). Except if the result of the
+    /// division is 0, it will be negative if this arbitrary-precision
+    /// integer is positive and the other 32-bit signed integer is
+    /// negative, or vice versa, and will be positive if both are positive
+    /// or both are negative.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
     public EInteger Divide(int intValue) {
@@ -1870,7 +1883,9 @@ namespace PeterO.Numbers {
     /// integer.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>The remainder of the two numbers.</returns>
+    /// <returns>The remainder that would result when this
+    /// arbitrary-precision integer is divided by a 32-bit signed
+    /// integer.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -1912,7 +1927,13 @@ namespace PeterO.Numbers {
     /// arbitrary-precision integer is negative, or vice versa, and will be
     /// positive if both are positive or both are negative.</summary>
     /// <param name='bigintDivisor'>The divisor.</param>
-    /// <returns>The quotient of the two objects.</returns>
+    /// <returns>The result of dividing this arbitrary-precision integer by
+    /// another arbitrary-precision integer. The result of the division is
+    /// rounded down (the fractional part is discarded). Except if the
+    /// result of the division is 0, it will be negative if this
+    /// arbitrary-precision integer is positive and the other
+    /// arbitrary-precision integer is negative, or vice versa, and will be
+    /// positive if both are positive or both are negative.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintDivisor'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
@@ -2908,8 +2929,12 @@ namespace PeterO.Numbers {
     /// integer; the remainder has the same sign (positive or negative) as
     /// this arbitrary-precision integer.</summary>
     /// <param name='intDivisor'>The number to divide by.</param>
-    /// <returns>An array with two arbitrary-precision integers: the first
-    /// is the quotient, and the second is the remainder.</returns>
+    /// <returns>An array of two items: the first is the result of the
+    /// division as an arbitrary-precision integer, and the second is the
+    /// remainder as an arbitrary-precision integer. The result of division
+    /// is the result of the Divide method on the two operands, and the
+    /// remainder is the result of the Remainder method on the two
+    /// operands.</returns>
     /// <exception cref='DivideByZeroException'>The parameter <paramref
     /// name='intDivisor'/> is 0.</exception>
     public EInteger[] DivRem(int intDivisor) {
@@ -2920,7 +2945,8 @@ namespace PeterO.Numbers {
     /// integer and returns the result.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision integer plus a 64-bit signed integer.</returns>
     public EInteger Add(long longValue) {
       return this.Add(EInteger.FromInt64(longValue));
     }
@@ -2929,7 +2955,9 @@ namespace PeterO.Numbers {
     /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision integer minus a 64-bit signed
+    /// integer.</returns>
     public EInteger Subtract(long longValue) {
       return this.Subtract(EInteger.FromInt64(longValue));
     }
@@ -2938,7 +2966,9 @@ namespace PeterO.Numbers {
     /// signed integer and returns the result.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision integer times a 64-bit signed
+    /// integer.</returns>
     public EInteger Multiply(long longValue) {
       return this.Multiply(EInteger.FromInt64(longValue));
     }
@@ -2952,7 +2982,13 @@ namespace PeterO.Numbers {
     /// are positive or both are negative.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <returns>The result of dividing this arbitrary-precision integer by
+    /// a 64-bit signed integer. The result of the division is rounded down
+    /// (the fractional part is discarded). Except if the result of the
+    /// division is 0, it will be negative if this arbitrary-precision
+    /// integer is positive and the other 64-bit signed integer is
+    /// negative, or vice versa, and will be positive if both are positive
+    /// or both are negative.</returns>
     public EInteger Divide(long longValue) {
       return this.Divide(EInteger.FromInt64(longValue));
     }
@@ -2966,7 +3002,9 @@ namespace PeterO.Numbers {
     /// integer.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <returns>The remainder that would result when this
+    /// arbitrary-precision integer is divided by a 64-bit signed
+    /// integer.</returns>
     public EInteger Remainder(long longValue) {
       return this.Remainder(EInteger.FromInt64(longValue));
     }
@@ -2993,7 +3031,12 @@ namespace PeterO.Numbers {
     /// this arbitrary-precision integer.</summary>
     /// <param name='intDivisor'>The parameter <paramref
     /// name='intDivisor'/> is a 64-bit signed integer.</param>
-    /// <returns>The return value is not documented yet.</returns>
+    /// <returns>An array of two items: the first is the result of the
+    /// division as an arbitrary-precision integer, and the second is the
+    /// remainder as an arbitrary-precision integer. The result of division
+    /// is the result of the Divide method on the two operands, and the
+    /// remainder is the result of the Remainder method on the two
+    /// operands.</returns>
     public EInteger[] DivRem(long intDivisor) {
       return this.DivRem(EInteger.FromInt64(intDivisor));
     }
@@ -3012,8 +3055,12 @@ namespace PeterO.Numbers {
     /// same sign (positive or negative) as this arbitrary-precision
     /// integer.</summary>
     /// <param name='divisor'>The number to divide by.</param>
-    /// <returns>An array with two arbitrary-precision integers: the first
-    /// is the quotient, and the second is the remainder.</returns>
+    /// <returns>An array of two items: the first is the result of the
+    /// division as an arbitrary-precision integer, and the second is the
+    /// remainder as an arbitrary-precision integer. The result of division
+    /// is the result of the Divide method on the two operands, and the
+    /// remainder is the result of the Remainder method on the two
+    /// operands.</returns>
     /// <exception cref='DivideByZeroException'>The parameter <paramref
     /// name='divisor'/> is 0.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -4122,7 +4169,9 @@ maxDigitEstimate : retval +
     /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='bigintMult'>Another arbitrary-precision
     /// integer.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision integer times another arbitrary-precision
+    /// integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintMult'/> is null.</exception>
     public EInteger Multiply(EInteger bigintMult) {
@@ -4717,7 +4766,9 @@ maxDigitEstimate : retval +
     /// integer; the remainder has the same sign (positive or negative) as
     /// this arbitrary-precision integer.</summary>
     /// <param name='divisor'>The number to divide by.</param>
-    /// <returns>The remainder of the two numbers.</returns>
+    /// <returns>The remainder that would result when this
+    /// arbitrary-precision integer is divided by another
+    /// arbitrary-precision integer.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -5669,7 +5720,9 @@ maxDigitEstimate : retval +
     /// arbitrary-precision integer and returns the result.</summary>
     /// <param name='subtrahend'>Another arbitrary-precision
     /// integer.</param>
-    /// <returns>The difference of the two objects.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision integer minus another arbitrary-precision
+    /// integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='subtrahend'/> is null.</exception>
     public EInteger Subtract(EInteger subtrahend) {

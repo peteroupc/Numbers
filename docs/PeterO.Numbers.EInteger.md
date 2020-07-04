@@ -291,7 +291,7 @@ Adds this arbitrary-precision integer and a 32-bit signed integer and returns th
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer.
+The sum of the two numbers, that is, this arbitrary-precision integer plus a 32-bit signed integer.
 
 <a id="Add_long"></a>
 ### Add
@@ -308,7 +308,7 @@ Adds this arbitrary-precision integer and a 64-bit signed integer and returns th
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The sum of the two numbers, that is, this arbitrary-precision integer plus a 64-bit signed integer.
 
 <a id="Add_PeterO_Numbers_EInteger"></a>
 ### Add
@@ -324,7 +324,7 @@ Adds this arbitrary-precision integer and another arbitrary-precision integer an
 
 <b>Return Value:</b>
 
-The sum of the two objects.
+The sum of the two numbers, that is, this arbitrary-precision integer plus another arbitrary-precision integer.
 
 <b>Exceptions:</b>
 
@@ -570,7 +570,7 @@ Divides this arbitrary-precision integer by a 32-bit signed integer and returns 
 
 <b>Return Value:</b>
 
-The quotient of the two objects.
+The result of dividing this arbitrary-precision integer by a 32-bit signed integer. The result of the division is rounded down (the fractional part is discarded). Except if the result of the division is 0, it will be negative if this arbitrary-precision integer is positive and the other 32-bit signed integer is negative, or vice versa, and will be positive if both are positive or both are negative.
 
 <b>Exceptions:</b>
 
@@ -592,7 +592,7 @@ Divides this arbitrary-precision integer by a 64-bit signed integer and returns 
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The result of dividing this arbitrary-precision integer by a 64-bit signed integer. The result of the division is rounded down (the fractional part is discarded). Except if the result of the division is 0, it will be negative if this arbitrary-precision integer is positive and the other 64-bit signed integer is negative, or vice versa, and will be positive if both are positive or both are negative.
 
 <a id="Divide_PeterO_Numbers_EInteger"></a>
 ### Divide
@@ -608,7 +608,7 @@ Divides this arbitrary-precision integer by another arbitrary-precision integer 
 
 <b>Return Value:</b>
 
-The quotient of the two objects.
+The result of dividing this arbitrary-precision integer by another arbitrary-precision integer. The result of the division is rounded down (the fractional part is discarded). Except if the result of the division is 0, it will be negative if this arbitrary-precision integer is positive and the other arbitrary-precision integer is negative, or vice versa, and will be positive if both are positive or both are negative.
 
 <b>Exceptions:</b>
 
@@ -633,7 +633,7 @@ Divides this arbitrary-precision integer by a 32-bit signed integer and returns 
 
 <b>Return Value:</b>
 
-An array with two arbitrary-precision integers: the first is the quotient, and the second is the remainder.
+An array of two items: the first is the result of the division as an arbitrary-precision integer, and the second is the remainder as an arbitrary-precision integer. The result of division is the result of the Divide method on the two operands, and the remainder is the result of the Remainder method on the two operands.
 
 <b>Exceptions:</b>
 
@@ -656,7 +656,7 @@ Divides this arbitrary-precision integer by a 64-bit signed integer and returns 
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+An array of two items: the first is the result of the division as an arbitrary-precision integer, and the second is the remainder as an arbitrary-precision integer. The result of division is the result of the Divide method on the two operands, and the remainder is the result of the Remainder method on the two operands.
 
 <a id="DivRem_PeterO_Numbers_EInteger"></a>
 ### DivRem
@@ -672,7 +672,7 @@ Divides this arbitrary-precision integer by another arbitrary-precision integer 
 
 <b>Return Value:</b>
 
-An array with two arbitrary-precision integers: the first is the quotient, and the second is the remainder.
+An array of two items: the first is the result of the division as an arbitrary-precision integer, and the second is the remainder as an arbitrary-precision integer. The result of division is the result of the Divide method on the two operands, and the remainder is the result of the Remainder method on the two operands.
 
 <b>Exceptions:</b>
 
@@ -706,7 +706,7 @@ Divides this arbitrary-precision integer by another arbitrary-precision integer 
 
 <b>Return Value:</b>
 
-An array of two arbitrary-precision integers: the first is the quotient, and the second is the remainder.
+An array of two items: the first is the result of the division as an arbitrary-precision integer, and the second is the remainder as an arbitrary-precision integer. The result of division is the result of the Divide method on the two operands, and the remainder is the result of the Remainder method on the two operands.
 
 <b>Exceptions:</b>
 
@@ -1879,7 +1879,7 @@ Multiplies this arbitrary-precision integer by a 32-bit signed integer and retur
 
 <b>Return Value:</b>
 
-The product of the two numbers.
+The product of the two numbers, that is, this arbitrary-precision integer times a 32-bit signed integer.
 
 <a id="Multiply_long"></a>
 ### Multiply
@@ -1896,7 +1896,7 @@ Multiplies this arbitrary-precision integer by a 64-bit signed integer and retur
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The product of the two numbers, that is, this arbitrary-precision integer times a 64-bit signed integer.
 
 <a id="Multiply_PeterO_Numbers_EInteger"></a>
 ### Multiply
@@ -1912,7 +1912,7 @@ Multiplies this arbitrary-precision integer by another arbitrary-precision integ
 
 <b>Return Value:</b>
 
-The product of the two numbers.
+The product of the two numbers, that is, this arbitrary-precision integer times another arbitrary-precision integer.
 
 <b>Exceptions:</b>
 
@@ -1981,7 +1981,7 @@ Adds an arbitrary-precision integer and another arbitrary-precision integer and 
 
 <b>Return Value:</b>
 
-The sum of the two objects.
+The sum of the two numbers, that is, an arbitrary-precision integer plus another arbitrary-precision integer.
 
 <b>Exceptions:</b>
 
@@ -2647,7 +2647,7 @@ Returns the remainder that would result when an arbitrary-precision integer is d
 
 <b>Return Value:</b>
 
-The remainder of the two numbers.
+The remainder that would result when an arbitrary-precision integer is divided by another arbitrary-precision integer.
 
 <b>Exceptions:</b>
 
@@ -2672,7 +2672,7 @@ Multiplies an arbitrary-precision integer by another arbitrary-precision integer
 
 <b>Return Value:</b>
 
-The product of the two numbers.
+The product of the two numbers, that is, an arbitrary-precision integer times another arbitrary-precision integer.
 
 <b>Exceptions:</b>
 
@@ -2938,7 +2938,7 @@ Returns the remainder that would result when this arbitrary-precision integer is
 
 <b>Return Value:</b>
 
-The remainder of the two numbers.
+The remainder that would result when this arbitrary-precision integer is divided by a 32-bit signed integer.
 
 <b>Exceptions:</b>
 
@@ -2964,7 +2964,7 @@ Returns the remainder that would result when this arbitrary-precision integer is
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The remainder that would result when this arbitrary-precision integer is divided by a 64-bit signed integer.
 
 <a id="Remainder_PeterO_Numbers_EInteger"></a>
 ### Remainder
@@ -2980,7 +2980,7 @@ Returns the remainder that would result when this arbitrary-precision integer is
 
 <b>Return Value:</b>
 
-The remainder of the two numbers.
+The remainder that would result when this arbitrary-precision integer is divided by another arbitrary-precision integer.
 
 <b>Exceptions:</b>
 
@@ -3180,7 +3180,7 @@ Subtracts a 32-bit signed integer from this arbitrary-precision integer and retu
 
 <b>Return Value:</b>
 
-The difference of the two objects.
+The difference between the two numbers, that is, this arbitrary-precision integer minus a 32-bit signed integer.
 
 <a id="Subtract_long"></a>
 ### Subtract
@@ -3197,7 +3197,7 @@ Subtracts a 64-bit signed integer from this arbitrary-precision integer and retu
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+The difference between the two numbers, that is, this arbitrary-precision integer minus a 64-bit signed integer.
 
 <a id="Subtract_PeterO_Numbers_EInteger"></a>
 ### Subtract
@@ -3213,7 +3213,7 @@ Subtracts an arbitrary-precision integer from this arbitrary-precision integer a
 
 <b>Return Value:</b>
 
-The difference of the two objects.
+The difference between the two numbers, that is, this arbitrary-precision integer minus another arbitrary-precision integer.
 
 <b>Exceptions:</b>
 

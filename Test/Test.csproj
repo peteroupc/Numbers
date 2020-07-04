@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
@@ -9,14 +9,14 @@
     <DebugType>none</DebugType>
     <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Numbers\Numbers.csproj" />
-  </ItemGroup>
+    <ProjectReference Include='..\Numbers\Numbers.csproj'/>
+  <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/></ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include='Resources.restext'><LogicalName>Resources.resources</LogicalName></EmbeddedResource>
   </ItemGroup>
       <ItemGroup>
-        <PackageReference Include="NUnit" Version="3.12.0" />
-        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0" />
-        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" />
+        <PackageReference Include='NUnit' Version='3.12.0'/>
+        <PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers' PrivateAssets='All' Version='3.0.0'/>
+        <PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.164'/>
       </ItemGroup>
 </Project>
