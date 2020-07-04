@@ -39,12 +39,12 @@ jobs:
         nuget install GitHubActionsTestLogger
         nuget restore ..\Numbers.sln
         msbuild /p:Configuration=Release
-        vstest.console bin\Release\Tests20.exe /Logger:GitHubActions
+        vstest.console bin\Release\Test20.exe /Logger:GitHubActions
     - name: Test40
       run: |
-        cd Test40
+        cd ..\Test40
         nuget install Microsoft.NET.Test.Sdk # Update is required for GitHubActionsTestLogger to print anything
         nuget install GitHubActionsTestLogger
         nuget restore ..\Numbers.sln
         msbuild /p:Configuration=Release
-        vstest.console bin\Release\Tests40.exe /Logger:GitHubActions
+        vstest.console bin\Release\Test40.exe /Logger:GitHubActions
