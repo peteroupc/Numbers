@@ -519,7 +519,7 @@ Compares an arbitrary-precision integer with this instance.
 
 <b>Parameters:</b>
 
- * <i>intValue</i>: The parameter  <i>intValue</i>
+ * <i>longValue</i>: The parameter  <i>longValue</i>
  is a 64-bit signed integer.
 
 <b>Return Value:</b>

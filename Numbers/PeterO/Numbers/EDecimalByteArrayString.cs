@@ -614,12 +614,11 @@ chars[i +
       }
       int de = digitEnd;
       int dde = decimalDigitEnd;
-      if (!haveExponent && haveDecimalPoint &&
-        (de - digitStart) + (dde - decimalDigitStart) <=
-        18) {
+      if (!haveExponent && haveDecimalPoint) {
         // No more than 18 digits
         long lv = 0L;
         int expo = -(dde - decimalDigitStart);
+        var digitCount = 0;
         if (mantInt <= MaxSafeInt) {
           lv = mantInt;
         } else {
@@ -632,6 +631,12 @@ chars[i +
                 "\u0020chvi<= '9'");
             }
             #endif
+            if (digitCount < 0 || digitCount >= 18) {
+               digitCount = -1;
+               break;
+            } else if (digitCount > 0 || chvi != '0') {
+              ++digitCount;
+            }
             lv = checked((lv * 10) + (int)(chvi - '0'));
           }
           for (vi = decimalDigitStart; vi < dde; ++vi) {
@@ -642,14 +647,19 @@ chars[i +
                 "\u0020chvi<= '9'");
             }
             #endif
-
+            if (digitCount < 0 || digitCount >= 18) {
+               digitCount = -1;
+               break;
+            } else if (digitCount > 0 || chvi != '0') {
+              ++digitCount;
+            }
             lv = checked((lv * 10) + (int)(chvi - '0'));
           }
         }
         if (negative) {
           lv = -lv;
         }
-        if (!negative || lv != 0) {
+        if (digitCount >= 0 && (!negative || lv != 0)) {
           ret = EDecimal.Create(lv, (long)expo);
           return ret;
         }
@@ -1065,41 +1075,52 @@ EDecimal.FromCache(-si)) : EDecimal.FromCache(si);
       // "decdigitRange="+decimalDigitStart+"-"+decimalDigitEnd);
       int de = digitEnd;
       int dde = decimalDigitEnd;
-      if (!haveExponent && haveDecimalPoint &&
-        (de - digitStart) + (dde - decimalDigitStart) <=
-        18 && newScale == null) {
+      if (!haveExponent && haveDecimalPoint && newScale == null) {
         // No more than 18 digits
         long lv = 0L;
         int expo = newScaleInt; // -(dde - decimalDigitStart);
+        var digitCount = 0;
         if (mantInt <= MaxSafeInt) {
           lv = mantInt;
         } else {
           var vi = 0;
           for (vi = digitStart; vi < de; ++vi) {
+            byte chvi = chars[vi];
             #if DEBUG
-            if (!(chars[vi] >= '0' && chars[vi] <= '9')) {
-              throw new ArgumentException("doesn't satisfy chars[vi]>= '0' &&" +
-                "\u0020str[vi]<= '9'");
+            if (!(chvi >= '0' && chvi <= '9')) {
+              throw new ArgumentException("doesn't satisfy chvi>= '0' &&" +
+                "\u0020chvi<= '9'");
             }
             #endif
-
-            lv = checked((lv * 10) + (int)(chars[vi] - '0'));
+            if (digitCount < 0 || digitCount >= 18) {
+               digitCount = -1;
+               break;
+            } else if (digitCount > 0 || chvi != '0') {
+              ++digitCount;
+            }
+            lv = checked((lv * 10) + (int)(chvi - '0'));
           }
           for (vi = decimalDigitStart; vi < dde; ++vi) {
+            byte chvi = chars[vi];
             #if DEBUG
-            if (!(chars[vi] >= '0' && chars[vi] <= '9')) {
-              throw new ArgumentException("doesn't satisfy chars[vi]>= '0' &&" +
-                "\u0020str[vi]<= '9'");
+            if (!(chvi >= '0' && chvi <= '9')) {
+              throw new ArgumentException("doesn't satisfy chvi>= '0' &&" +
+                "\u0020chvi<= '9'");
             }
             #endif
-
-            lv = checked((lv * 10) + (int)(chars[vi] - '0'));
+            if (digitCount < 0 || digitCount >= 18) {
+               digitCount = -1;
+               break;
+            } else if (digitCount > 0 || chvi != '0') {
+              ++digitCount;
+            }
+            lv = checked((lv * 10) + (int)(chvi - '0'));
           }
         }
         if (negative) {
           lv = -lv;
         }
-        if (!negative || lv != 0) {
+        if (digitCount >= 0 && (!negative || lv != 0)) {
           // DebugUtility.Log("lv="+lv+" expo="+expo);
           ret = EDecimal.Create(lv, (long)expo);
           if (ctx != null) {

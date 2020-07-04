@@ -10,6 +10,7 @@ using System.Text;
 /*
 TODO: In next major version, maybe convert EDecimal.One/Ten/Zero to fields
 rather than properties
+TODO: Move FromString(string,*) implementations into separate classes
 */
 namespace PeterO.Numbers {
   /// <summary>
