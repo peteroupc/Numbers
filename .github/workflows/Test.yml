@@ -2,7 +2,7 @@ name: Test
 
 on: [push, pull_request]
 jobs:
-  Test:
+  Core:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -20,3 +20,23 @@ jobs:
         dotnet add Test package Microsoft.NET.Test.Sdk # Update is required for GitHubActionsTestLogger to print anything
         dotnet add Test package GitHubActionsTestLogger
         dotnet test Test -c Release -l GitHubActions
+  Framework:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.2
+    - name: Setup MSBuild Path
+      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Setup VSTest Path
+      uses: darenm/Setup-VSTest@v1
+    - name: Test20
+      run: |
+        cd Tests20
+        nuget install Microsoft.NET.Test.Sdk # Update is required for GitHubActionsTestLogger to print anything
+        nuget install GitHubActionsTestLogger
+        nuget restore
+        msbuild /p:Configuration=Release
+        vstest bin/Release/Tests20.dll
