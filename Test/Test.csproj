@@ -1,6 +1,8 @@
 <Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+     <!--https://andrewlock.net/fixing-the-error-program-has-more-than-one-entry-point-defined-for-console-apps-containing-xunit-tests/-->
+    <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
   <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Debug|AnyCPU&apos; '>
     <DebugType>full</DebugType>
