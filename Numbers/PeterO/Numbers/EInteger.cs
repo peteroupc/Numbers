@@ -3011,7 +3011,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Compares an arbitrary-precision integer with this
     /// instance.</summary>
-    /// <param name='intValue'>The parameter <paramref name='intValue'/> is
+    /// <param name='longValue'>The parameter <paramref name='longValue'/> is
     /// a 64-bit signed integer.</param>
     /// <returns>Zero if the values are equal; a negative number if this
     /// instance is less, or a positive number if this instance is

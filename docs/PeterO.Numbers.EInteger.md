@@ -31,7 +31,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[CanFitInInt32()](#CanFitInInt32)</code> - Returns whether this object's value can fit in a 32-bit signed integer.
 * <code>[CanFitInInt64()](#CanFitInInt64)</code> - Returns whether this object's value can fit in a 64-bit signed integer.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares an arbitrary-precision integer with this instance.
-* <code>[CompareTo(long)](#CompareTo_long)</code> - Not documented yet.
+* <code>[CompareTo(long)](#CompareTo_long)</code> - Compares an arbitrary-precision integer with this instance.
 * <code>[CompareTo(PeterO.Numbers.EInteger)](#CompareTo_PeterO_Numbers_EInteger)</code> - Compares an arbitrary-precision integer with this instance.
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision integer.
 * <code>[Divide(int)](#Divide_int)</code> - Divides this arbitrary-precision integer by a 32-bit signed integer and returns the result.
@@ -515,16 +515,16 @@ Zero if the values are equal; a negative number if this instance is less, or a p
     public int CompareTo(
         long longValue);
 
-Not documented yet.
+Compares an arbitrary-precision integer with this instance.
 
 <b>Parameters:</b>
 
- * <i>longValue</i>: The parameter  <i>longValue</i>
+ * <i>intValue</i>: The parameter  <i>intValue</i>
  is a 64-bit signed integer.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+Zero if the values are equal; a negative number if this instance is less, or a positive number if this instance is greater.
 
 <a id="CompareTo_PeterO_Numbers_EInteger"></a>
 ### CompareTo

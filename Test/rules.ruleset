@@ -39,6 +39,7 @@
     <Rule Action='None' Id='SX1101'/>
     <Rule Action='None' Id='SX1309'/>
     <Rule Action='None' Id='SX1309S'/>
+    <Rule Action='None' Id='SX1825'/>
     <Rule Id='SA0001' Action='None'/>
   </Rules>
 </RuleSet>

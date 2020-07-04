@@ -3848,7 +3848,7 @@ Returns the remainder that would result when this arbitrary-precision binary flo
 
 <b>Return Value:</b>
 
-The remainder that would result when this arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0, or if the result of the division doesn't fit the given precision.
+The remainder that would result when this arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number. Signals FlagDivideByZero and returns infinity if the divisor (this arbitrary-precision binary floating-point number) is 0 and the dividend (the other arbitrary-precision binary floating-point number) is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0, or if the result of the division doesn't fit the given precision.
 
 <a id="RemainderNaturalScale_PeterO_Numbers_EFloat"></a>
 ### RemainderNaturalScale
