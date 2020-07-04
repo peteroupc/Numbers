@@ -47,4 +47,4 @@ jobs:
         cd ..\Test20
         msbuild /p:Configuration=Release
     - name: VSTest Test20
-      run: vstest.console bin\Release\Test20.exe /Logger:GitHubActions
+      run: vstest.console bin\Release\Test20.exe
