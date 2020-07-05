@@ -1,5 +1,9 @@
 <package
-><metadata><version>1.7.0</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.7.0
+><metadata><version>1.7.1</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.7.1
+
+- Fix bugs in new char[] and byte[] overloads of FromString
+
+Version 1.7.0
 
 - Added overloads to string-to-number methods that take char[] and byte[] arrays.
 - Added methods that convert EDecimal, EFloat, and ERational to and from raw bits that follow IEEE 754 binary floating-point formats (To/FromDoubleBits, To/FromSingleBits).

@@ -50,11 +50,11 @@ namespace Test {
         ++x;
         var context = new Dictionary<string, string>();
         var lowerF = DecTestUtil.ToLowerCaseAscii(f);
-        var isinput = lowerF.Contains(".input");
-        if (!lowerF.Contains(".input") &&
-          !lowerF.Contains(".txt") &&
-          !lowerF.Contains(".dectest") &&
-          !lowerF.Contains(".fptest")) {
+        var isinput = DecTestUtil.Contains(lowerF, ".input");
+        if (!DecTestUtil.Contains(lowerF, ".input") &&
+          !DecTestUtil.Contains(lowerF, ".txt") &&
+          !DecTestUtil.Contains(lowerF, ".dectest") &&
+          !DecTestUtil.Contains(lowerF, ".fptest")) {
           continue;
         }
         using (var w = new StreamReader(f)) {

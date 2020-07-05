@@ -333,10 +333,16 @@ namespace Test {
         "DivideByZero: " + str);
     }
 
-    private static bool Contains(string str, string sub) {
-      return (sub.Length == 1) ?
-        (str.IndexOf(sub[0], StringComparison.Ordinal) >= 0) :
-        (str.IndexOf(sub, StringComparison.Ordinal) >= 0);
+    public static bool Contains(string str, string sub) {
+      if (sub.Length == 1) {
+         for (var i = 0; i < str.Length; ++i) {
+            if (str[i] == sub[0]) {
+              return true;
+            }
+         }
+         return false;
+      }
+      return str.IndexOf(sub, StringComparison.Ordinal) >= 0;
     }
 
     private static bool StartsWith(string str, string sub) {
@@ -969,10 +975,16 @@ namespace Test {
 
     internal static int ParseLineInput(string ln) {
       if (ln.Length == 0) {
-        { return 0;
+        return 0;
+      }
+      int ix = -1;
+      for (var i = 0; i < ln.Length; ++i) {
+        if (ln[i] == '\u0020') {
+          // Space found
+          ix = i;
+          break;
         }
       }
-      int ix = ln.IndexOf(' ', StringComparison.Ordinal);
       // NOTE: ix < 2 includes cases where space is not found
       if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix - 1] != 's' &&
          ln[ix - 1] != 'q')) {
