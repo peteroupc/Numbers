@@ -19,5 +19,5 @@ jobs:
       run: |
         dotnet add Test package Microsoft.NET.Test.Sdk # Update is required for GitHubActionsTestLogger to print anything
         dotnet add Test package GitHubActionsTestLogger
-        dotnet add Test package NUnit.ConsoleRunner
+        dotnet add Test package NUnit.Console
         dotnet test Test -c Release -l GitHubActions
