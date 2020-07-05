@@ -2003,7 +2003,9 @@ namespace PeterO.Numbers {
     /// number.</param>
     /// <returns>The sum of the two numbers, that is, this
     /// arbitrary-precision decimal floating-point number plus another
-    /// arbitrary-precision decimal floating-point number.</returns>
+    /// arbitrary-precision decimal floating-point number. If this
+    /// arbitrary-precision decimal floating-point number is not-a-number
+    /// (NaN), returns NaN.</returns>
     public EDecimal Add(EDecimal otherValue) {
       if (this.IsFinite && otherValue != null && otherValue.IsFinite &&
         ((this.flags | otherValue.flags) & BigNumberFlags.FlagNegative) == 0 &&
@@ -2028,7 +2030,9 @@ namespace PeterO.Numbers {
     /// rounding is needed.</param>
     /// <returns>The sum of the two numbers, that is, this
     /// arbitrary-precision decimal floating-point number plus another
-    /// arbitrary-precision decimal floating-point number.</returns>
+    /// arbitrary-precision decimal floating-point number. If this
+    /// arbitrary-precision decimal floating-point number is not-a-number
+    /// (NaN), returns NaN.</returns>
     public EDecimal Add(
       EDecimal otherValue,
       EContext ctx) {
@@ -3745,7 +3749,8 @@ namespace PeterO.Numbers {
     /// is a 64-bit signed integer.</param>
     /// <returns>The sum of the two numbers, that is, this
     /// arbitrary-precision decimal floating-point number plus a 64-bit
-    /// signed integer.</returns>
+    /// signed integer. If this arbitrary-precision decimal floating-point
+    /// number is not-a-number (NaN), returns NaN.</returns>
     public EDecimal Add(long longValue) {
       return this.Add(EDecimal.FromInt64(longValue));
     }
@@ -3759,7 +3764,8 @@ namespace PeterO.Numbers {
     /// is a 64-bit signed integer.</param>
     /// <returns>The difference between the two numbers, that is, this
     /// arbitrary-precision decimal floating-point number minus a 64-bit
-    /// signed integer.</returns>
+    /// signed integer. If this arbitrary-precision decimal floating-point
+    /// number is not-a-number (NaN), returns NaN.</returns>
     public EDecimal Subtract(long longValue) {
       return this.Subtract(EDecimal.FromInt64(longValue));
     }
@@ -3810,7 +3816,8 @@ namespace PeterO.Numbers {
     /// object.</param>
     /// <returns>The sum of the two numbers, that is, this
     /// arbitrary-precision decimal floating-point number plus a 32-bit
-    /// signed integer.</returns>
+    /// signed integer. If this arbitrary-precision decimal floating-point
+    /// number is not-a-number (NaN), returns NaN.</returns>
     public EDecimal Add(int intValue) {
       return this.Add(EDecimal.FromInt32(intValue));
     }
@@ -3824,7 +3831,8 @@ namespace PeterO.Numbers {
     /// this object.</param>
     /// <returns>The difference between the two numbers, that is, this
     /// arbitrary-precision decimal floating-point number minus a 32-bit
-    /// signed integer.</returns>
+    /// signed integer. If this arbitrary-precision decimal floating-point
+    /// number is not-a-number (NaN), returns NaN.</returns>
     public EDecimal Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
         this.Subtract(EDecimal.FromInt32(intValue)) : this.Add(-intValue);
@@ -4963,7 +4971,9 @@ namespace PeterO.Numbers {
     /// instance's value.</param>
     /// <returns>The difference between the two numbers, that is, this
     /// arbitrary-precision decimal floating-point number minus another
-    /// arbitrary-precision decimal floating-point number.</returns>
+    /// arbitrary-precision decimal floating-point number. If this
+    /// arbitrary-precision decimal floating-point number is not-a-number
+    /// (NaN), returns NaN.</returns>
     public EDecimal Subtract(EDecimal otherValue) {
       return this.Subtract(otherValue, EContext.UnlimitedHalfEven);
     }
@@ -4981,7 +4991,9 @@ namespace PeterO.Numbers {
     /// rounding is needed.</param>
     /// <returns>The difference between the two numbers, that is, this
     /// arbitrary-precision decimal floating-point number minus another
-    /// arbitrary-precision decimal floating-point number.</returns>
+    /// arbitrary-precision decimal floating-point number. If this
+    /// arbitrary-precision decimal floating-point number is not-a-number
+    /// (NaN), returns NaN.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EDecimal Subtract(

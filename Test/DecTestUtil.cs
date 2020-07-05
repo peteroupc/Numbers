@@ -334,8 +334,14 @@ namespace Test {
     }
 
     public static bool Contains(string str, string sub) {
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      if (sub == null) {
+        throw new ArgumentNullException(nameof(sub));
+      }
       if (sub.Length == 1) {
-         for (var i = 0; i < str.Length; ++i) {
+        for (var i = 0; i < str.Length; ++i) {
             if (str[i] == sub[0]) {
               return true;
             }
@@ -977,7 +983,7 @@ namespace Test {
       if (ln.Length == 0) {
         return 0;
       }
-      int ix = -1;
+      var ix = -1;
       for (var i = 0; i < ln.Length; ++i) {
         if (ln[i] == '\u0020') {
           // Space found

@@ -1382,7 +1382,8 @@ namespace PeterO.Numbers {
     /// a 32-bit signed integer.</param>
     /// <returns>The sum of the two numbers, that is, this
     /// arbitrary-precision binary floating-point number plus a 32-bit
-    /// signed integer.</returns>
+    /// signed integer. If this arbitrary-precision binary floating-point
+    /// number is not-a-number (NaN), returns NaN.</returns>
     public EFloat Add(int intValue) {
       return this.Add(EFloat.FromInt32(intValue));
     }
@@ -1396,7 +1397,8 @@ namespace PeterO.Numbers {
     /// a 32-bit signed integer.</param>
     /// <returns>The difference between the two numbers, that is, this
     /// arbitrary-precision binary floating-point number minus a 32-bit
-    /// signed integer.</returns>
+    /// signed integer. If this arbitrary-precision binary floating-point
+    /// number is not-a-number (NaN), returns NaN.</returns>
     public EFloat Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
         this.Subtract(EFloat.FromInt32(intValue)) : this.Add(-intValue);
@@ -1453,7 +1455,8 @@ namespace PeterO.Numbers {
     /// is a 64-bit signed integer.</param>
     /// <returns>The sum of the two numbers, that is, this
     /// arbitrary-precision binary floating-point number plus a 64-bit
-    /// signed integer.</returns>
+    /// signed integer. If this arbitrary-precision binary floating-point
+    /// number is not-a-number (NaN), returns NaN.</returns>
     public EFloat Add(long longValue) {
       return this.Add(EFloat.FromInt64(longValue));
     }
@@ -1467,7 +1470,8 @@ namespace PeterO.Numbers {
     /// is a 64-bit signed integer.</param>
     /// <returns>The difference between the two numbers, that is, this
     /// arbitrary-precision binary floating-point number minus a 64-bit
-    /// signed integer.</returns>
+    /// signed integer. If this arbitrary-precision binary floating-point
+    /// number is not-a-number (NaN), returns NaN.</returns>
     public EFloat Subtract(long longValue) {
       return this.Subtract(EFloat.FromInt64(longValue));
     }
@@ -1525,7 +1529,9 @@ namespace PeterO.Numbers {
     /// floating-point number.</param>
     /// <returns>The sum of the two numbers, that is, this
     /// arbitrary-precision binary floating-point number plus another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// arbitrary-precision binary floating-point number. If this
+    /// arbitrary-precision binary floating-point number is not-a-number
+    /// (NaN), returns NaN.</returns>
     public EFloat Add(EFloat otherValue) {
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
@@ -1542,7 +1548,9 @@ namespace PeterO.Numbers {
     /// rounding is needed.</param>
     /// <returns>The sum of the two numbers, that is, this
     /// arbitrary-precision binary floating-point number plus another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// arbitrary-precision binary floating-point number. If this
+    /// arbitrary-precision binary floating-point number is not-a-number
+    /// (NaN), returns NaN.</returns>
     public EFloat Add(
       EFloat otherValue,
       EContext ctx) {
@@ -3865,7 +3873,9 @@ namespace PeterO.Numbers {
     /// instance's value.</param>
     /// <returns>The difference between the two numbers, that is, this
     /// arbitrary-precision binary floating-point number minus another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// arbitrary-precision binary floating-point number. If this
+    /// arbitrary-precision binary floating-point number is not-a-number
+    /// (NaN), returns NaN.</returns>
     public EFloat Subtract(EFloat otherValue) {
       return this.Subtract(otherValue, null);
     }
@@ -3883,7 +3893,9 @@ namespace PeterO.Numbers {
     /// rounding is needed.</param>
     /// <returns>The difference between the two numbers, that is, this
     /// arbitrary-precision binary floating-point number minus another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// arbitrary-precision binary floating-point number. If this
+    /// arbitrary-precision binary floating-point number is not-a-number
+    /// (NaN), returns NaN.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EFloat Subtract(
