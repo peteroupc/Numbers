@@ -743,279 +743,6 @@ namespace PeterO.Numbers {
       }
     }
 
-    private static EFloat DoubleEFloatFromString(
-      string str,
-      int offset,
-      int length,
-      EContext ctx) {
-      int tmpoffset = offset;
-      if (str == null) {
-        throw new ArgumentNullException(nameof(str));
-      }
-      if (length == 0) {
-        throw new FormatException();
-      }
-      int endStr = tmpoffset + length;
-      var negative = false;
-      var haveDecimalPoint = false;
-      var haveDigits = false;
-      var haveExponent = false;
-      var newScaleInt = 0;
-      var digitStart = 0;
-      int i = tmpoffset;
-      long mantissaLong = 0L;
-      // Ordinary number
-      if (str[i] == '+' || str[i] == '-') {
-        if (str[i] == '-') {
-          negative = true;
-        }
-        ++i;
-      }
-      digitStart = i;
-      int digitEnd = i;
-      int decimalDigitStart = i;
-      var haveNonzeroDigit = false;
-      var decimalPrec = 0;
-      int decimalDigitEnd = i;
-      var nonzeroBeyondMax = false;
-      var lastdigit = -1;
-      // 768 is maximum precision of a decimal
-      // half-ULP in double format
-      var maxDecimalPrec = 768;
-      if (length > 21) {
-        int eminInt = ctx.EMin.ToInt32Checked();
-        int emaxInt = ctx.EMax.ToInt32Checked();
-        int precInt = ctx.Precision.ToInt32Checked();
-        if (eminInt >= -14 && emaxInt <= 15) {
-          maxDecimalPrec = (precInt <= 11) ? 21 : 63;
-        } else if (eminInt >= -126 && emaxInt <= 127) {
-          maxDecimalPrec = (precInt <= 24) ? 113 : 142;
-        }
-      }
-      for (; i < endStr; ++i) {
-        char ch = str[i];
-        if (ch >= '0' && ch <= '9') {
-          var thisdigit = (int)(ch - '0');
-          haveDigits = true;
-          haveNonzeroDigit |= thisdigit != 0;
-          if (decimalPrec > maxDecimalPrec) {
-            if (thisdigit != 0) {
-              nonzeroBeyondMax = true;
-            }
-            if (!haveDecimalPoint) {
-              // NOTE: Absolute value will not be more than
-              // the string portion's length, so will fit comfortably
-              // in an 'int'.
-              newScaleInt = checked(newScaleInt + 1);
-            }
-            continue;
-          }
-          lastdigit = thisdigit;
-          if (haveNonzeroDigit) {
-            ++decimalPrec;
-          }
-          if (haveDecimalPoint) {
-            decimalDigitEnd = i + 1;
-          } else {
-            digitEnd = i + 1;
-          }
-          if (mantissaLong <= 922337203685477580L) {
-            mantissaLong *= 10;
-            mantissaLong += thisdigit;
-          } else {
-            mantissaLong = Int64.MaxValue;
-          }
-          if (haveDecimalPoint) {
-            // NOTE: Absolute value will not be more than
-            // the string portion's length, so will fit comfortably
-            // in an 'int'.
-            newScaleInt = checked(newScaleInt - 1);
-          }
-        } else if (ch == '.') {
-          if (haveDecimalPoint) {
-            throw new FormatException();
-          }
-          haveDecimalPoint = true;
-          decimalDigitStart = i + 1;
-          decimalDigitEnd = i + 1;
-        } else if (ch == 'E' || ch == 'e') {
-          haveExponent = true;
-          ++i;
-          break;
-        } else {
-          throw new FormatException();
-        }
-      }
-      if (!haveDigits) {
-        throw new FormatException();
-      }
-      var expInt = 0;
-      var expoffset = 1;
-      var expDigitStart = -1;
-      var expPrec = 0;
-      bool zeroMantissa = !haveNonzeroDigit;
-      haveNonzeroDigit = false;
-      EFloat ef1, ef2;
-      if (haveExponent) {
-        haveDigits = false;
-        if (i == endStr) {
-          throw new FormatException();
-        }
-        char ch = str[i];
-        if (ch == '+' || ch == '-') {
-          if (ch == '-') {
-            expoffset = -1;
-          }
-          ++i;
-        }
-        expDigitStart = i;
-        for (; i < endStr; ++i) {
-          ch = str[i];
-          if (ch >= '0' && ch <= '9') {
-            haveDigits = true;
-            var thisdigit = (int)(ch - '0');
-            haveNonzeroDigit |= thisdigit != 0;
-            if (haveNonzeroDigit) {
-              ++expPrec;
-            }
-            if (expInt <= 214748364) {
-              expInt *= 10;
-              expInt += thisdigit;
-            } else {
-              expInt = Int32.MaxValue;
-            }
-          } else {
-            throw new FormatException();
-          }
-        }
-        if (!haveDigits) {
-          throw new FormatException();
-        }
-        expInt *= expoffset;
-        if (expPrec > 12) {
-          // Exponent that can't be compensated by digit
-          // length without remaining beyond Int32 range
-          if (expoffset < 0) {
-            return SignalUnderflow(ctx, negative, zeroMantissa);
-          } else {
-            return SignalOverflow(ctx, negative, zeroMantissa);
-          }
-        }
-      }
-      if (i != endStr) {
-        throw new FormatException();
-      }
-      if (expInt != Int32.MaxValue && expInt > -Int32.MaxValue &&
-        mantissaLong != Int64.MaxValue && (ctx == null ||
-          !ctx.HasFlagsOrTraps)) {
-        if (mantissaLong == 0) {
-          EFloat ef = EFloat.Create(
-              EInteger.Zero,
-              EInteger.FromInt32(expInt));
-          if (negative) {
-            ef = ef.Negate();
-          }
-          return ef.RoundToPrecision(ctx);
-        }
-        var finalexp = (long)expInt + (long)newScaleInt;
-        long ml = mantissaLong;
-        if (finalexp >= -22 && finalexp <= 44) {
-          var iexp = (int)finalexp;
-          while (ml <= 900719925474099L && iexp > 22) {
-            ml *= 10;
-            --iexp;
-          }
-          int iabsexp = Math.Abs(iexp);
-          if (ml < 9007199254740992L && iabsexp == 0) {
-            return EFloat.FromInt64(negative ?
-                -mantissaLong : mantissaLong).RoundToPrecision(ctx);
-          } else if (ml < 9007199254740992L && iabsexp <= 22) {
-            EFloat efn =
-              EFloat.FromEInteger(NumberUtility.FindPowerOfTen(iabsexp));
-            if (negative) {
-              ml = -ml;
-            }
-            EFloat efml = EFloat.FromInt64(ml);
-            if (iexp < 0) {
-              return efml.Divide(efn, ctx);
-            } else {
-              return efml.Multiply(efn, ctx);
-            }
-          }
-        }
-        long adjexpUpperBound = finalexp + (decimalPrec - 1);
-        long adjexpLowerBound = finalexp;
-        if (adjexpUpperBound < -326) {
-          return SignalUnderflow(ctx, negative, zeroMantissa);
-        } else if (adjexpLowerBound > 309) {
-          return SignalOverflow(ctx, negative, zeroMantissa);
-        }
-        if (negative) {
-          mantissaLong = -mantissaLong;
-        }
-        long absfinalexp = Math.Abs(finalexp);
-        ef1 = EFloat.Create(mantissaLong, (int)0);
-        ef2 = EFloat.FromEInteger(NumberUtility.FindPowerOfTen(absfinalexp));
-        if (finalexp < 0) {
-          EFloat efret = ef1.Divide(ef2, ctx);
-          /* Console.WriteLine("div " + ef1 + "/" + ef2 + " -> " + (efret));
-          */ return efret;
-        } else {
-          return ef1.Multiply(ef2, ctx);
-        }
-      }
-      EInteger mant = null;
-      EInteger exp = (!haveExponent) ? EInteger.Zero :
-        EInteger.FromSubstring(str, expDigitStart, endStr);
-      if (expoffset < 0) {
-        exp = exp.Negate();
-      }
-      exp = exp.Add(newScaleInt);
-      if (nonzeroBeyondMax) {
-        exp = exp.Subtract(1);
-        ++decimalPrec;
-      }
-      EInteger adjExpUpperBound = exp.Add(decimalPrec).Subtract(1);
-      EInteger adjExpLowerBound = exp;
-      // DebugUtility.Log("exp=" + adjExpLowerBound + "~" + (adjExpUpperBound));
-      if (adjExpUpperBound.CompareTo(-326) < 0) {
-        return SignalUnderflow(ctx, negative, zeroMantissa);
-      } else if (adjExpLowerBound.CompareTo(309) > 0) {
-        return SignalOverflow(ctx, negative, zeroMantissa);
-      }
-      if (zeroMantissa) {
-        EFloat ef = EFloat.Create(
-            EInteger.Zero,
-            exp);
-        if (negative) {
-          ef = ef.Negate();
-        }
-        return ef.RoundToPrecision(ctx);
-      } else if (decimalDigitStart != decimalDigitEnd) {
-        if (digitEnd - digitStart == 1 && str[digitStart] == '0') {
-          mant = EInteger.FromSubstring(
-              str,
-              decimalDigitStart,
-              decimalDigitEnd);
-        } else {
-          string tmpstr = str.Substring(digitStart, digitEnd - digitStart) +
-            str.Substring(
-              decimalDigitStart,
-              decimalDigitEnd - decimalDigitStart);
-          mant = EInteger.FromString(tmpstr);
-        }
-      } else {
-        mant = EInteger.FromSubstring(str, digitStart, digitEnd);
-      }
-      if (nonzeroBeyondMax) {
-        mant = mant.Multiply(10).Add(1);
-      }
-      if (negative) {
-        mant = mant.Negate();
-      }
-      return EDecimal.Create(mant, exp).ToEFloat(ctx);
-    }
-
     /// <summary>Creates a binary floating-point number from a text string
     /// that represents a number. Note that if the string contains a
     /// negative exponent, the resulting value might not be exact, in which
@@ -1074,56 +801,7 @@ namespace PeterO.Numbers {
       int offset,
       int length,
       EContext ctx) {
-      if (str == null) {
-        throw new ArgumentNullException(nameof(str));
-      }
-      if (offset < 0) {
-        throw new FormatException("offset(" + offset + ") is not greater" +
-          "\u0020or equal to 0");
-      }
-      if (offset > str.Length) {
-        throw new FormatException("offset(" + offset + ") is not less or" +
-          "\u0020equal to " + str.Length);
-      }
-      if (length < 0) {
-        throw new FormatException("length(" + length + ") is not greater or" +
-          "\u0020equal to 0");
-      }
-      if (length > str.Length) {
-        throw new FormatException("length(" + length + ") is not less or" +
-          "\u0020equal to " + str.Length);
-      }
-      if (str.Length - offset < length) {
-        throw new FormatException("str's length minus " + offset + "(" +
-          (str.Length - offset) + ") is not greater or equal to " + length);
-      }
-      EContext b64 = EContext.Binary64;
-      if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
-        !ctx.IsSimplified && ctx.EMax.CompareTo(b64.EMax) <= 0 &&
-        ctx.EMin.CompareTo(b64.EMin) >= 0 &&
-        ctx.Precision.CompareTo(b64.Precision) <= 0) {
-        int tmpoffset = offset;
-        int endpos = offset + length;
-        if (length == 0) {
-          throw new FormatException();
-        }
-        if (str[tmpoffset] == '-' || str[tmpoffset] == '+') {
-          ++tmpoffset;
-        }
-        if (tmpoffset < endpos && ((str[tmpoffset] >= '0' &&
-              str[tmpoffset] <= '9') || str[tmpoffset] == '.')) {
-          EFloat ef = DoubleEFloatFromString(str, offset, length, ctx);
-          if (ef != null) {
-            return ef;
-          }
-        }
-      }
-      return EDecimal.FromString(
-          str,
-          offset,
-          length,
-          EContext.Unlimited.WithSimplified(ctx != null && ctx.IsSimplified))
-        .ToEFloat(ctx);
+      return EFloatTextString.FromString(str, offset, length, ctx);
     }
 
     /// <summary>Creates a binary floating-point number from a text string
@@ -1702,9 +1380,7 @@ namespace PeterO.Numbers {
     /// integer's exponent.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>The sum of the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number plus a 32-bit
-    /// signed integer.</returns>
+    /// <returns>The sum of the two objects.</returns>
     public EFloat Add(int intValue) {
       return this.Add(EFloat.FromInt32(intValue));
     }
@@ -1716,9 +1392,7 @@ namespace PeterO.Numbers {
     /// other 32-bit signed integer's exponent.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>The difference between the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number minus a 32-bit
-    /// signed integer.</returns>
+    /// <returns>The difference of the two objects.</returns>
     public EFloat Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
         this.Subtract(EFloat.FromInt32(intValue)) : this.Add(-intValue);
@@ -1731,9 +1405,7 @@ namespace PeterO.Numbers {
     /// integer's exponent.</summary>
     /// <param name='intValue'>The parameter <paramref name='intValue'/> is
     /// a 32-bit signed integer.</param>
-    /// <returns>The product of the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number times a 32-bit
-    /// signed integer.</returns>
+    /// <returns>The product of the two numbers.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
     ///  .
@@ -1749,17 +1421,7 @@ namespace PeterO.Numbers {
     /// not desired, use DivideToExponent, or use the Divide overload that
     /// takes an EContext.</summary>
     /// <param name='intValue'>The divisor.</param>
-    /// <returns>The result of dividing this arbitrary-precision binary
-    /// floating-point number by a 32-bit signed integer. Returns infinity
-    /// if the divisor (this arbitrary-precision binary floating-point
-    /// number) is 0 and the dividend (the other 32-bit signed integer) is
-    /// nonzero. Returns not-a-number (NaN) if the divisor and the dividend
-    /// are 0. Returns NaN if the result can't be exact because it would
-    /// have a nonterminating binary expansion (examples include 1 divided
-    /// by any multiple of 3, such as 1/3 or 1/12). If this is not desired,
-    /// use DivideToExponent instead, or use the Divide overload that takes
-    /// an <c>EContext</c> (such as <c>EContext.Binary64</c> )
-    /// instead.</returns>
+    /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
     public EFloat Divide(int intValue) {
@@ -1773,9 +1435,7 @@ namespace PeterO.Numbers {
     /// integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The sum of the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number plus a 64-bit
-    /// signed integer.</returns>
+    /// <returns>The return value is not documented yet.</returns>
     public EFloat Add(long longValue) {
       return this.Add(EFloat.FromInt64(longValue));
     }
@@ -1787,9 +1447,7 @@ namespace PeterO.Numbers {
     /// other 64-bit signed integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The difference between the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number minus a 64-bit
-    /// signed integer.</returns>
+    /// <returns>The difference of the two objects.</returns>
     public EFloat Subtract(long longValue) {
       return this.Subtract(EFloat.FromInt64(longValue));
     }
@@ -1801,9 +1459,7 @@ namespace PeterO.Numbers {
     /// integer's exponent.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The product of the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number times a 64-bit
-    /// signed integer.</returns>
+    /// <returns>The product of the two numbers.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200L);</code>
     ///  .
@@ -1820,17 +1476,7 @@ namespace PeterO.Numbers {
     /// takes an EContext.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
-    /// <returns>The result of dividing this arbitrary-precision binary
-    /// floating-point number by a 64-bit signed integer. Returns infinity
-    /// if the divisor (this arbitrary-precision binary floating-point
-    /// number) is 0 and the dividend (the other 64-bit signed integer) is
-    /// nonzero. Returns not-a-number (NaN) if the divisor and the dividend
-    /// are 0. Returns NaN if the result can't be exact because it would
-    /// have a nonterminating binary expansion (examples include 1 divided
-    /// by any multiple of 3, such as 1/3 or 1/12). If this is not desired,
-    /// use DivideToExponent instead, or use the Divide overload that takes
-    /// an <c>EContext</c> (such as <c>EContext.Binary64</c> )
-    /// instead.</returns>
+    /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
     public EFloat Divide(long longValue) {
@@ -1845,9 +1491,7 @@ namespace PeterO.Numbers {
     /// exponent.</summary>
     /// <param name='otherValue'>An arbitrary-precision binary
     /// floating-point number.</param>
-    /// <returns>The sum of the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number plus another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// <returns>The sum of the two objects.</returns>
     public EFloat Add(EFloat otherValue) {
       return this.Add(otherValue, EContext.UnlimitedHalfEven);
     }
@@ -1862,9 +1506,8 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
-    /// <returns>The sum of the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number plus another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// <returns>An arbitrary-precision binary floating-point
+    /// number.</returns>
     public EFloat Add(
       EFloat otherValue,
       EContext ctx) {
@@ -2303,18 +1946,12 @@ namespace PeterO.Numbers {
     /// 2/3, and so on); if this is not desired, use DivideToExponent, or
     /// use the Divide overload that takes an EContext.</summary>
     /// <param name='divisor'>The number to divide by.</param>
-    /// <returns>The result of dividing this arbitrary-precision binary
-    /// floating-point number by another arbitrary-precision binary
-    /// floating-point number. Returns infinity if the divisor (this
-    /// arbitrary-precision binary floating-point number) is 0 and the
-    /// dividend (the other arbitrary-precision binary floating-point
-    /// number) is nonzero. Returns not-a-number (NaN) if the divisor and
-    /// the dividend are 0. Returns NaN if the result can't be exact
-    /// because it would have a nonterminating binary expansion (examples
-    /// include 1 divided by any multiple of 3, such as 1/3 or 1/12). If
-    /// this is not desired, use DivideToExponent instead, or use the
-    /// Divide overload that takes an <c>EContext</c> (such as
-    /// <c>EContext.Binary64</c> ) instead.</returns>
+    /// <returns>The quotient of the two numbers. Returns infinity if the
+    /// divisor is 0 and the dividend is nonzero. Returns not-a-number
+    /// (NaN) if the divisor and the dividend are 0. Returns NaN if the
+    /// result can't be exact because it would have a nonterminating binary
+    /// expansion. If this is not desired, use DivideToExponent instead, or
+    /// use the Divide overload that takes an EContext instead.</returns>
     public EFloat Divide(EFloat divisor) {
       return this.Divide(
           divisor,
@@ -2331,17 +1968,12 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
-    /// <returns>The result of dividing this arbitrary-precision binary
-    /// floating-point number by another arbitrary-precision binary
-    /// floating-point number. Signals FlagDivideByZero and returns
-    /// infinity if the divisor (this arbitrary-precision binary
-    /// floating-point number) is 0 and the dividend (the other
-    /// arbitrary-precision binary floating-point number) is nonzero.
-    /// Signals FlagInvalid and returns not-a-number (NaN) if the divisor
-    /// and the dividend are 0; or, either <paramref name='ctx'/> is null
-    /// or <paramref name='ctx'/> 's precision is 0, and the result would
-    /// have a nonterminating decimal expansion (examples include 1 divided
-    /// by any multiple of 3, such as 1/3 or 1/12); or, the rounding mode
+    /// <returns>The quotient of the two objects. Signals FlagDivideByZero
+    /// and returns infinity if the divisor is 0 and the dividend is
+    /// nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the
+    /// divisor and the dividend are 0; or, either <paramref name='ctx'/>
+    /// is null or <paramref name='ctx'/> 's precision is 0, and the result
+    /// would have a nonterminating binary expansion; or, the rounding mode
     /// is ERounding.None and the result is not exact.</returns>
     public EFloat Divide(
       EFloat divisor,
@@ -2584,31 +2216,19 @@ namespace PeterO.Numbers {
           EContext.ForRounding(rounding));
     }
 
-    /// <summary>Divides this arbitrary-precision binary floating-point
-    /// number by another arbitrary-precision binary floating-point number
-    /// and returns a two-item array containing the result of the division
-    /// and the remainder, in that order. The result of division is
-    /// calculated as though by <c>DivideToIntegerNaturalScale</c>, and
-    /// the remainder is calculated as though by
-    /// <c>RemainderNaturalScale</c>.</summary>
+    /// <summary>Calculates the quotient and remainder using the
+    /// DivideToIntegerNaturalScale and the formula in
+    /// RemainderNaturalScale.</summary>
     /// <param name='divisor'>The number to divide by.</param>
-    /// <returns>An array of two items: the first is the result of the
-    /// division as an arbitrary-precision binary floating-point number,
-    /// and the second is the remainder as an arbitrary-precision binary
-    /// floating-point number. The result of division is the result of the
-    /// method on the two operands, and the remainder is the result of the
-    /// Remainder method on the two operands.</returns>
+    /// <returns>A 2 element array consisting of the quotient and remainder
+    /// in that order.</returns>
     public EFloat[] DivRemNaturalScale(EFloat divisor) {
       return this.DivRemNaturalScale(divisor, null);
     }
 
-    /// <summary>Divides this arbitrary-precision binary floating-point
-    /// number by another arbitrary-precision binary floating-point number
-    /// and returns a two-item array containing the result of the division
-    /// and the remainder, in that order. The result of division is
-    /// calculated as though by <c>DivideToIntegerNaturalScale</c>, and
-    /// the remainder is calculated as though by
-    /// <c>RemainderNaturalScale</c>.</summary>
+    /// <summary>Calculates the quotient and remainder using the
+    /// DivideToIntegerNaturalScale and the formula in
+    /// RemainderNaturalScale.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. This context
@@ -2620,12 +2240,8 @@ namespace PeterO.Numbers {
     /// and exponent range without rounding. Can be null, in which the
     /// precision is unlimited and no additional rounding, other than the
     /// rounding down to an integer after division, is needed.</param>
-    /// <returns>An array of two items: the first is the result of the
-    /// division as an arbitrary-precision binary floating-point number,
-    /// and the second is the remainder as an arbitrary-precision binary
-    /// floating-point number. The result of division is the result of the
-    /// method on the two operands, and the remainder is the result of the
-    /// Remainder method on the two operands.</returns>
+    /// <returns>A 2 element array consisting of the quotient and remainder
+    /// in that order.</returns>
     public EFloat[] DivRemNaturalScale(
       EFloat divisor,
       EContext ctx) {
@@ -3198,9 +2814,8 @@ namespace PeterO.Numbers {
     /// exponent.</summary>
     /// <param name='otherValue'>Another binary floating-point
     /// number.</param>
-    /// <returns>The product of the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number times another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// <returns>The product of the two binary floating-point
+    /// numbers.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EFloat Multiply(EFloat otherValue) {
@@ -3235,9 +2850,8 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and rounding
     /// isn't needed.</param>
-    /// <returns>The product of the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number times another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// <returns>An arbitrary-precision binary floating-point
+    /// number.</returns>
     public EFloat Multiply(
       EFloat op,
       EContext ctx) {
@@ -3669,26 +3283,14 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns the remainder that would result when this
     /// arbitrary-precision binary floating-point number is divided by
-    /// another arbitrary-precision binary floating-point number. The
-    /// remainder is the number that remains when the absolute value of
-    /// this arbitrary-precision binary floating-point number is divided
-    /// (as though by DivideToIntegerZeroScale) by the absolute value of
-    /// the other arbitrary-precision binary floating-point number; the
-    /// remainder has the same sign (positive or negative) as this
-    /// arbitrary-precision binary floating-point number.</summary>
+    /// another arbitrary-precision binary floating-point number.</summary>
     /// <param name='divisor'>An arbitrary-precision binary floating-point
     /// number.</param>
     /// <param name='ctx'>The parameter <paramref name='ctx'/> is an
     /// EContext object.</param>
-    /// <returns>The remainder that would result when this
-    /// arbitrary-precision binary floating-point number is divided by
-    /// another arbitrary-precision binary floating-point number. Signals
-    /// FlagDivideByZero and returns infinity if the divisor (this
-    /// arbitrary-precision binary floating-point number) is 0 and the
-    /// dividend (the other arbitrary-precision binary floating-point
-    /// number) is nonzero. Signals FlagInvalid and returns not-a-number
-    /// (NaN) if the divisor and the dividend are 0, or if the result of
-    /// the division doesn't fit the given precision.</returns>
+    /// <returns>The remainder of the two numbers. Signals FlagInvalid and
+    /// returns not-a-number (NaN) if the divisor is 0, or if the result
+    /// doesn't fit the given precision.</returns>
     public EFloat Remainder(
       EFloat divisor,
       EContext ctx) {
@@ -4185,9 +3787,7 @@ namespace PeterO.Numbers {
     /// exponent.</summary>
     /// <param name='otherValue'>The number to subtract from this
     /// instance's value.</param>
-    /// <returns>The difference between the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number minus another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// <returns>The difference of the two objects.</returns>
     public EFloat Subtract(EFloat otherValue) {
       return this.Subtract(otherValue, null);
     }
@@ -4203,9 +3803,8 @@ namespace PeterO.Numbers {
     /// operation (the flags are in addition to the pre-existing flags).
     /// Can be null, in which case the precision is unlimited and no
     /// rounding is needed.</param>
-    /// <returns>The difference between the two numbers, that is, this
-    /// arbitrary-precision binary floating-point number minus another
-    /// arbitrary-precision binary floating-point number.</returns>
+    /// <returns>An arbitrary-precision binary floating-point
+    /// number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public EFloat Subtract(

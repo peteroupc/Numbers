@@ -599,197 +599,7 @@ PositiveInfinity) : CreateNaN(
       string str,
       int offset,
       int length) {
-      int tmpoffset = offset;
-      if (str == null) {
-        throw new ArgumentNullException(nameof(str));
-      }
-      if (tmpoffset < 0) {
-        throw new FormatException("offset(" + tmpoffset + ") is less than " +
-          "0");
-      }
-      if (tmpoffset > str.Length) {
-        throw new FormatException("offset(" + tmpoffset + ") is more than " +
-          str.Length);
-      }
-      if (length < 0) {
-        throw new FormatException("length(" + length + ") is less than " +
-          "0");
-      }
-      if (length > str.Length) {
-        throw new FormatException("length(" + length + ") is more than " +
-          str.Length);
-      }
-      if (str.Length - tmpoffset < length) {
-        throw new FormatException("str's length minus " + tmpoffset + "(" +
-          (str.Length - tmpoffset) + ") is less than " + length);
-      }
-      if (length == 0) {
-        throw new FormatException();
-      }
-      var negative = false;
-      int endStr = tmpoffset + length;
-      if (str[tmpoffset] == '+' || str[tmpoffset] == '-') {
-        negative = str[tmpoffset] == '-';
-        ++tmpoffset;
-      }
-      var numerInt = 0;
-      EInteger numer = null;
-      var haveDigits = false;
-      var haveDenominator = false;
-      var ndenomInt = 0;
-      EInteger ndenom = null;
-      int i = tmpoffset;
-      if (i + 8 == endStr) {
-        if ((str[i] == 'I' || str[i] == 'i') &&
-          (str[i + 1] == 'N' || str[i + 1] == 'n') &&
-          (str[i + 2] == 'F' || str[i + 2] == 'f') &&
-          (str[i + 3] == 'I' || str[i + 3] == 'i') && (str[i + 4] == 'N' ||
-            str[i + 4] == 'n') && (str[i + 5] == 'I' || str[i + 5] == 'i') &&
-          (str[i + 6] == 'T' || str[i + 6] == 't') && (str[i + 7] == 'Y' ||
-            str[i + 7] == 'y')) {
-          return negative ? NegativeInfinity : PositiveInfinity;
-        }
-      }
-      if (i + 3 == endStr) {
-        if ((str[i] == 'I' || str[i] == 'i') &&
-          (str[i + 1] == 'N' || str[i + 1] == 'n') && (str[i + 2] == 'F' ||
-            str[i + 2] == 'f')) {
-          return negative ? NegativeInfinity : PositiveInfinity;
-        }
-      }
-      var numerStart = 0;
-      if (i + 3 <= endStr) {
-        // Quiet NaN
-        if ((str[i] == 'N' || str[i] == 'n') && (str[i + 1] == 'A' || str[i +
-              1] == 'a') && (str[i + 2] == 'N' || str[i + 2] == 'n')) {
-          if (i + 3 == endStr) {
-            return (!negative) ? NaN : NaN.Negate();
-          }
-          i += 3;
-          numerStart = i;
-          for (; i < endStr; ++i) {
-            if (str[i] >= '0' && str[i] <= '9') {
-              var thisdigit = (int)(str[i] - '0');
-              if (numerInt <= MaxSafeInt) {
-                numerInt *= 10;
-                numerInt += thisdigit;
-              }
-            } else {
-              throw new FormatException();
-            }
-          }
-          if (numerInt > MaxSafeInt) {
-            numer = EInteger.FromSubstring(str, numerStart, endStr);
-            return CreateNaN(numer, false, negative);
-          } else {
-            return CreateNaN(EInteger.FromInt32(numerInt), false, negative);
-          }
-        }
-      }
-      if (i + 4 <= endStr) {
-        // Signaling NaN
-        if ((str[i] == 'S' || str[i] == 's') && (str[i + 1] == 'N' || str[i +
-              1] == 'n') && (str[i + 2] == 'A' || str[i + 2] == 'a') &&
-          (str[i + 3] == 'N' || str[i + 3] == 'n')) {
-          if (i + 4 == endStr) {
-            return (!negative) ? SignalingNaN : SignalingNaN.Negate();
-          }
-          i += 4;
-          numerStart = i;
-          for (; i < endStr; ++i) {
-            if (str[i] >= '0' && str[i] <= '9') {
-              var thisdigit = (int)(str[i] - '0');
-              haveDigits = haveDigits || thisdigit != 0;
-              if (numerInt <= MaxSafeInt) {
-                numerInt *= 10;
-                numerInt += thisdigit;
-              }
-            } else {
-              throw new FormatException();
-            }
-          }
-          int flags3 = (negative ? BigNumberFlags.FlagNegative : 0) |
-            BigNumberFlags.FlagSignalingNaN;
-          if (numerInt > MaxSafeInt) {
-            numer = EInteger.FromSubstring(str, numerStart, endStr);
-            return CreateNaN(numer, true, negative);
-          } else {
-            return CreateNaN(EInteger.FromInt32(numerInt), true, negative);
-          }
-        }
-      }
-      // Ordinary number
-      numerStart = i;
-      int numerEnd = i;
-      for (; i < endStr; ++i) {
-        if (str[i] >= '0' && str[i] <= '9') {
-          var thisdigit = (int)(str[i] - '0');
-          numerEnd = i + 1;
-          if (numerInt <= MaxSafeInt) {
-            numerInt *= 10;
-            numerInt += thisdigit;
-          }
-          haveDigits = true;
-        } else if (str[i] == '/') {
-          haveDenominator = true;
-          ++i;
-          break;
-        } else {
-          throw new FormatException();
-        }
-      }
-      if (!haveDigits) {
-        throw new FormatException();
-      }
-      if (numerInt > MaxSafeInt) {
-        numer = EInteger.FromSubstring(str, numerStart, numerEnd);
-      }
-      if (haveDenominator) {
-        EInteger denom = null;
-        var denomInt = 0;
-        tmpoffset = 1;
-        haveDigits = false;
-        if (i == endStr) {
-          throw new FormatException();
-        }
-        numerStart = i;
-        for (; i < endStr; ++i) {
-          if (str[i] >= '0' && str[i] <= '9') {
-            haveDigits = true;
-            var thisdigit = (int)(str[i] - '0');
-            numerEnd = i + 1;
-            if (denomInt <= MaxSafeInt) {
-              denomInt *= 10;
-              denomInt += thisdigit;
-            }
-          } else {
-            throw new FormatException();
-          }
-        }
-        if (!haveDigits) {
-          throw new FormatException();
-        }
-        if (denomInt > MaxSafeInt) {
-          denom = EInteger.FromSubstring(str, numerStart, numerEnd);
-        }
-        if (denom == null) {
-          ndenomInt = denomInt;
-        } else {
-          ndenom = denom;
-        }
-      } else {
-        ndenomInt = 1;
-      }
-      if (i != endStr) {
-        throw new FormatException();
-      }
-      if (ndenom == null ? (ndenomInt == 0) : ndenom.IsZero) {
-        throw new FormatException();
-      }
-      ERational erat = Create(
-          numer == null ? (EInteger)numerInt : numer,
-          ndenom == null ? (EInteger)ndenomInt : ndenom);
-      return negative ? erat.Negate() : erat;
+       return ERationalTextString.FromString(str, offset, length);
     }
 
     /// <summary>Creates a rational number from a sequence of <c>char</c> s
@@ -1081,9 +891,8 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='otherValue'>Another arbitrary-precision rational
     /// number.</param>
-    /// <returns>The sum of the two numbers, that is, this
-    /// arbitrary-precision rational number plus another
-    /// arbitrary-precision rational number.</returns>
+    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
+    /// either operand is NaN.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Add(ERational otherValue) {
@@ -1710,8 +1519,7 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
-    /// <returns>The result of dividing this arbitrary-precision rational
-    /// number by another arbitrary-precision rational number.</returns>
+    /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Divide(ERational otherValue) {
@@ -1861,9 +1669,7 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
-    /// <returns>The product of the two numbers, that is, this
-    /// arbitrary-precision rational number times another
-    /// arbitrary-precision rational number.</returns>
+    /// <returns>The product of the two numbers.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Multiply(ERational otherValue) {
@@ -1915,9 +1721,7 @@ PositiveInfinity) : CreateNaN(
     /// arbitrary-precision rational number.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
-    /// <returns>The remainder that would result when this
-    /// arbitrary-precision rational number is divided by another
-    /// arbitrary-precision rational number.</returns>
+    /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Remainder(ERational otherValue) {
@@ -1969,9 +1773,7 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
-    /// <returns>The difference between the two numbers, that is, this
-    /// arbitrary-precision rational number minus another
-    /// arbitrary-precision rational number.</returns>
+    /// <returns>The difference of the two objects.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Subtract(ERational otherValue) {
@@ -2572,9 +2374,8 @@ PositiveInfinity) : CreateNaN(
     /// <summary>Adds this arbitrary-precision rational number and a 32-bit
     /// signed integer and returns the result.</summary>
     /// <param name='v'>A 32-bit signed integer.</param>
-    /// <returns>The sum of the two numbers, that is, this
-    /// arbitrary-precision rational number plus a 32-bit signed
-    /// integer.</returns>
+    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
+    /// this object is NaN.</returns>
     public ERational Add(int v) {
       return this.Add(FromInt32(v));
     }
@@ -2584,9 +2385,7 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
-    /// <returns>The difference between the two numbers, that is, this
-    /// arbitrary-precision rational number minus a 32-bit signed
-    /// integer.</returns>
+    /// <returns>The difference of the two objects.</returns>
     public ERational Subtract(int v) {
       return this.Subtract(FromInt32(v));
     }
@@ -2595,9 +2394,7 @@ PositiveInfinity) : CreateNaN(
     /// 32-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
-    /// <returns>The product of the two numbers, that is, this
-    /// arbitrary-precision rational number times a 32-bit signed
-    /// integer.</returns>
+    /// <returns>The product of the two numbers.</returns>
     public ERational Multiply(int v) {
       return this.Multiply(FromInt32(v));
     }
@@ -2606,8 +2403,7 @@ PositiveInfinity) : CreateNaN(
     /// 32-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
-    /// <returns>The result of dividing this arbitrary-precision rational
-    /// number by a 32-bit signed integer.</returns>
+    /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='ArithmeticException'>The parameter <paramref
     /// name='v'/> is zero.</exception>
     public ERational Divide(int v) {
@@ -2618,9 +2414,7 @@ PositiveInfinity) : CreateNaN(
     /// arbitrary-precision rational number is divided by a 32-bit signed
     /// integer.</summary>
     /// <param name='v'>The divisor.</param>
-    /// <returns>The remainder that would result when this
-    /// arbitrary-precision rational number is divided by a 32-bit signed
-    /// integer.</returns>
+    /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='v'/> is zero.</exception>
     public ERational Remainder(int v) {
@@ -2630,9 +2424,8 @@ PositiveInfinity) : CreateNaN(
     /// <summary>Adds this arbitrary-precision rational number and a 64-bit
     /// signed integer and returns the result.</summary>
     /// <param name='v'>A 64-bit signed integer.</param>
-    /// <returns>The sum of the two numbers, that is, this
-    /// arbitrary-precision rational number plus a 64-bit signed
-    /// integer.</returns>
+    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
+    /// this object is NaN.</returns>
     public ERational Add(long v) {
       return this.Add(FromInt64(v));
     }
@@ -2642,9 +2435,7 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
-    /// <returns>The difference between the two numbers, that is, this
-    /// arbitrary-precision rational number minus a 64-bit signed
-    /// integer.</returns>
+    /// <returns>The difference of the two objects.</returns>
     public ERational Subtract(long v) {
       return this.Subtract(FromInt64(v));
     }
@@ -2653,9 +2444,7 @@ PositiveInfinity) : CreateNaN(
     /// 64-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
-    /// <returns>The product of the two numbers, that is, this
-    /// arbitrary-precision rational number times a 64-bit signed
-    /// integer.</returns>
+    /// <returns>The product of the two numbers.</returns>
     public ERational Multiply(long v) {
       return this.Multiply(FromInt64(v));
     }
@@ -2664,8 +2453,7 @@ PositiveInfinity) : CreateNaN(
     /// 64-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
-    /// <returns>The result of dividing this arbitrary-precision rational
-    /// number by a 64-bit signed integer.</returns>
+    /// <returns>The quotient of the two objects.</returns>
     /// <exception cref='ArithmeticException'>The parameter <paramref
     /// name='v'/> is zero.</exception>
     public ERational Divide(long v) {
@@ -2676,9 +2464,7 @@ PositiveInfinity) : CreateNaN(
     /// arbitrary-precision rational number is divided by a 64-bit signed
     /// integer.</summary>
     /// <param name='v'>The divisor.</param>
-    /// <returns>The remainder that would result when this
-    /// arbitrary-precision rational number is divided by a 64-bit signed
-    /// integer.</returns>
+    /// <returns>The remainder of the two numbers.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='v'/> is zero.</exception>
     public ERational Remainder(long v) {

@@ -1572,6 +1572,8 @@ namespace Test {
           StringAndBigInt sabi = StringAndBigInt.Generate(fr, i);
           padding.Append('!');
           string sabiString = sabi.StringValue;
+          byte[] sabiBytes = StringToBytes(padding + sabiString);
+          char[] sabiChars = StringToChars(padding + sabiString);
           EInteger actualBigInt = EInteger.FromRadixSubstring(
               padding + sabiString,
               i,
@@ -1580,8 +1582,48 @@ namespace Test {
           Assert.AreEqual(
             sabi.BigIntValue,
             actualBigInt);
+          // Byte array overload
+          actualBigInt = EInteger.FromRadixSubstring(
+              sabiBytes,
+              i,
+              j + 1,
+              j + 1 + sabiString.Length);
+          Assert.AreEqual(
+            sabi.BigIntValue,
+            actualBigInt);
+          // Char array overload
+          actualBigInt = EInteger.FromRadixSubstring(
+              sabiChars,
+              i,
+              j + 1,
+              j + 1 + sabiString.Length);
+          Assert.AreEqual(
+            sabi.BigIntValue,
+            actualBigInt);
         }
       }
+    }
+    public static char[] StringToChars(string str) {
+       if (str == null) {
+         throw new ArgumentNullException(nameof(str));
+       }
+       var chars = new char[str.Length];
+       for (var i = 0; i < str.Length; ++i) {
+         char ch = str[i];
+         chars[i] = ch;
+       }
+       return chars;
+    }
+    public static byte[] StringToBytes(string str) {
+       if (str == null) {
+         throw new ArgumentNullException(nameof(str));
+       }
+       var bytes = new byte[str.Length];
+       for (var i = 0; i < str.Length; ++i) {
+         char ch = str[i];
+         bytes[i] = (byte)ch;
+       }
+       return bytes;
     }
     [Test]
     public void TestFromString() {

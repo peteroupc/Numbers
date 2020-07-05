@@ -2,11 +2,11 @@ using System;
 using System.Text;
 
 namespace PeterO.Numbers {
-  internal static class EIntegerByteArrayString {
+  internal static class EIntegerTextString {
     private const int ShortMask = 0xffff;
 
     public static EInteger FromRadixSubstringImpl(
-      byte[] cs,
+      string cs,
       int radix,
       int index,
       int endIndex) {
@@ -51,7 +51,7 @@ namespace PeterO.Numbers {
       }
       // Skip leading zeros
       for (; index < endIndex; ++index) {
-        byte c = cs[index];
+        char c = cs[index];
         if (c != 0x30) {
           break;
         }
@@ -77,7 +77,7 @@ namespace PeterO.Numbers {
           var extraWord = 0;
           for (int i = 0; i < leftover; ++i) {
             extraWord <<= 4;
-            byte c = cs[index + i];
+            char c = cs[index + i];
             int digit = (c >= 0x80) ? 36 : c2d[(int)c];
             if (digit >= 16) {
               throw new FormatException("Illegal character found");
@@ -95,7 +95,7 @@ namespace PeterO.Numbers {
         }
         #endif
         while (index < endIndex) {
-          byte c = cs[index + 3];
+          char c = cs[index + 3];
           int digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= 16) {
             throw new FormatException("Illegal character found");
@@ -145,7 +145,7 @@ namespace PeterO.Numbers {
           var extraWord = 0;
           for (int i = 0; i < leftover; ++i) {
             extraWord <<= 1;
-            byte c = cs[index + i];
+            char c = cs[index + i];
             int digit = (c == '0') ? 0 : ((c == '1') ? 1 : 2);
             if (digit >= 2) {
               throw new FormatException("Illegal character found");
@@ -160,7 +160,7 @@ namespace PeterO.Numbers {
           var word = 0;
           int idx = index + 15;
           for (var i = 0; i < 16; ++i) {
-            byte c = cs[idx];
+            char c = cs[idx];
             int digit = (c == '0') ? 0 : ((c == '1') ? 1 : 2);
             if (digit >= 2) {
               throw new FormatException("Illegal character found");
@@ -188,7 +188,7 @@ namespace PeterO.Numbers {
     }
 
     private static EInteger FromRadixSubstringGeneral(
-      byte[] cs,
+      string cs,
       int radix,
       int index,
       int endIndex,
@@ -235,7 +235,7 @@ namespace PeterO.Numbers {
     }
 
     private static EInteger FromRadixSubstringInner(
-      byte[] cs,
+      string cs,
       int radix,
       int index,
       int endIndex,
@@ -245,7 +245,7 @@ namespace PeterO.Numbers {
         var digitCount = 0;
         if (radix == 10) {
           for (int i = index; i < endIndex; ++i) {
-            byte c = cs[i];
+            char c = cs[i];
             var digit = (int)c - 0x30;
             if (digit >= radix || digit < 0) {
               throw new FormatException("Illegal character found");
@@ -264,7 +264,7 @@ namespace PeterO.Numbers {
           }
         } else {
           for (int i = index; i < endIndex; ++i) {
-            byte c = cs[i];
+            char c = cs[i];
             int digit = (c >= 0x80) ? 36 : ((int)c - 0x30);
             if (digit >= radix || digit < 0) {
               throw new FormatException("Illegal character found");
@@ -292,7 +292,7 @@ namespace PeterO.Numbers {
         long rv = 0;
         int ei = endIndex - index <= 18 ? endIndex : index + 18;
         for (int i = index; i < ei; ++i) {
-          byte c = cs[i];
+          char c = cs[i];
           var digit = (int)c - 0x30;
           if (digit >= radix || digit < 0) {
             throw new FormatException("Illegal character found");
@@ -332,7 +332,7 @@ namespace PeterO.Numbers {
             }
           } else {
             overf = 65526; // 2**16 minus radix 10
-            byte c = cs[i];
+            char c = cs[i];
             digit = (int)c - 0x30;
             if (digit >= 10 || digit < 0) {
               throw new FormatException("Illegal character found");
@@ -372,7 +372,7 @@ namespace PeterO.Numbers {
         int maxShortPlusOneMinusRadix = 65536 - radix;
         var smallInt = 0;
         for (int i = index; i < endIndex; ++i) {
-          byte c = cs[i];
+          char c = cs[i];
           int digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= radix) {
             throw new FormatException("Illegal character found");
