@@ -252,7 +252,7 @@ namespace PeterO.Numbers {
             }
             if (digitCount < 0 || digitCount >= 18) {
               digitCount = -1;
-               break;
+              break;
             } else if (digitCount > 0 || digit != 0) {
               ++digitCount;
             }
@@ -271,7 +271,7 @@ namespace PeterO.Numbers {
             }
             if (digitCount < 0 || digitCount >= 18) {
               digitCount = -1;
-               break;
+              break;
             } else if (digitCount > 0 || digit != 0) {
               ++digitCount;
             }

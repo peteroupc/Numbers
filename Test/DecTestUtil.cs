@@ -1379,7 +1379,7 @@ namespace Test {
       if (Contains(type, "!")) {
         return 0;
       }
-      if (op.Contains("cff")) {
+      if (Contains(op, "cff")) {
         // skip test cases for
         // conversion to another floating point format
         return 0;
@@ -1649,10 +1649,10 @@ namespace Test {
       if (ParseLine(ln) != 0) {
         return;
       }
-      if (ln.Contains("-- ")) {
+      if (Contains(ln, "-- ")) {
         ln = ln.Substring(0, ln.IndexOf("-- ", StringComparison.Ordinal));
       }
-      match = (!ln.Contains(":")) ? null : ValuePropertyLine.Match(ln);
+      match = (!Contains(ln, ":")) ? null : ValuePropertyLine.Match(ln);
       if (match != null && match.Success) {
         string paramName = ToLowerCaseAscii(
             match.Groups[1].ToString());
@@ -1699,15 +1699,15 @@ namespace Test {
             GetKeyOrDefault(context, "maxexponent", "9999"));
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
-        if (input1.Contains("#") ||
-                 input2.Contains("#") ||
-                 input3.Contains("#") ||
-                 output.Contains("#")) {
+        if (Contains(input1, "#") ||
+                 Contains(input2, "#") ||
+                 Contains(input3, "#") ||
+                 Contains(output, "#")) {
           return;
         }
-        if (!extended && (input1.Contains("sNaN") ||
-            input2.Contains("sNaN") || input3.Contains("sNaN") ||
-            output.Contains("sNaN"))) {
+        if (!extended && (Contains(input1, "sNaN") ||
+            Contains(input2, "sNaN") || Contains(input3, "sNaN") ||
+           Contains(output, "sNaN"))) {
           Console.WriteLine(ln);
         }
         if (name.Equals("S", StringComparison.Ordinal)) {
@@ -1806,10 +1806,10 @@ namespace Test {
             return;
           }
         }
-        if (input1.Contains("?")) {
+        if (Contains(input1, "?")) {
           return;
         }
-        if (flags.Contains("Invalid_context")) {
+        if (Contains(flags, "Invalid_context")) {
           return;
         }
 
@@ -2050,35 +2050,35 @@ namespace Test {
           }
         }
         flags = ToLowerCaseAscii(flags);
-        bool invalid = flags.Contains("division_impossible") ||
-          flags.Contains("division_undefined") ||
-          flags.Contains("invalid_operation");
-        bool divzero = flags.Contains("division_by_zero");
+        bool invalid = Contains(flags, "division_impossible") ||
+          Contains(flags, "division_undefined") ||
+          Contains(flags, "invalid_operation");
+        bool divzero = Contains(flags, "division_by_zero");
         var expectedFlags = 0;
-        if (flags.Contains("inexact")) {
+        if (Contains(flags, "inexact")) {
           expectedFlags |= EContext.FlagInexact;
         }
-        if (flags.Contains("subnormal")) {
+        if (Contains(flags, "subnormal")) {
           expectedFlags |= EContext.FlagSubnormal;
         }
-        if (flags.Contains("rounded")) {
+        if (Contains(flags, "rounded")) {
           expectedFlags |= EContext.FlagRounded;
         }
-        if (flags.Contains("underflow")) {
+        if (Contains(flags, "underflow")) {
           expectedFlags |= EContext.FlagUnderflow;
         }
-        if (flags.Contains("overflow")) {
+        if (Contains(flags, "overflow")) {
           expectedFlags |= EContext.FlagOverflow;
         }
-        if (flags.Contains("clamped")) {
+        if (Contains(flags, "clamped")) {
           if (extended || clamp) {
             expectedFlags |= EContext.FlagClamped;
           }
         }
-        if (flags.Contains("lost_digits")) {
+        if (Contains(flags, "lost_digits")) {
           expectedFlags |= EContext.FlagLostDigits;
         }
-        bool conversionError = flags.Contains("conversion_syntax");
+        bool conversionError = Contains(flags, "conversion_syntax");
         if (invalid) {
           expectedFlags |= EContext.FlagInvalid;
         }

@@ -1,6 +1,10 @@
 Release notes
 -------
 
+Version 1.7.1
+
+- Fix bugs in new char[] and byte[] overloads of FromString
+
 Version 1.7.0
 
 - Added overloads to string-to-number methods that take char[] and byte[] arrays.

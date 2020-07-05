@@ -366,7 +366,7 @@ Adds this arbitrary-precision rational number and a 32-bit signed integer and re
 
 <b>Return Value:</b>
 
-The sum of the two numbers, that is, this arbitrary-precision rational number plus a 32-bit signed integer.
+The sum of the two numbers. Returns not-a-number (NaN) if this object is NaN.
 
 <a id="Add_long"></a>
 ### Add
@@ -382,7 +382,7 @@ Adds this arbitrary-precision rational number and a 64-bit signed integer and re
 
 <b>Return Value:</b>
 
-The sum of the two numbers, that is, this arbitrary-precision rational number plus a 64-bit signed integer.
+The sum of the two numbers. Returns not-a-number (NaN) if this object is NaN.
 
 <a id="Add_PeterO_Numbers_ERational"></a>
 ### Add
@@ -398,7 +398,7 @@ Adds this arbitrary-precision rational number and another arbitrary-precision ra
 
 <b>Return Value:</b>
 
-The sum of the two numbers, that is, this arbitrary-precision rational number plus another arbitrary-precision rational number.
+The sum of the two numbers. Returns not-a-number (NaN) if either operand is NaN.
 
 <b>Exceptions:</b>
 
@@ -804,7 +804,7 @@ Divides this arbitrary-precision rational number by a 32-bit signed integer and 
 
 <b>Return Value:</b>
 
-The result of dividing this arbitrary-precision rational number by a 32-bit signed integer.
+The quotient of the two objects.
 
 <b>Exceptions:</b>
 
@@ -827,7 +827,7 @@ Divides this arbitrary-precision rational number by a 64-bit signed integer and 
 
 <b>Return Value:</b>
 
-The result of dividing this arbitrary-precision rational number by a 64-bit signed integer.
+The quotient of the two objects.
 
 <b>Exceptions:</b>
 
@@ -849,7 +849,7 @@ Divides this arbitrary-precision rational number by another arbitrary-precision 
 
 <b>Return Value:</b>
 
-The result of dividing this arbitrary-precision rational number by another arbitrary-precision rational number.
+The quotient of the two objects.
 
 <b>Exceptions:</b>
 
@@ -1677,7 +1677,7 @@ Multiplies this arbitrary-precision rational number by a 32-bit signed integer a
 
 <b>Return Value:</b>
 
-The product of the two numbers, that is, this arbitrary-precision rational number times a 32-bit signed integer.
+The product of the two numbers.
 
 <a id="Multiply_long"></a>
 ### Multiply
@@ -1694,7 +1694,7 @@ Multiplies this arbitrary-precision rational number by a 64-bit signed integer a
 
 <b>Return Value:</b>
 
-The product of the two numbers, that is, this arbitrary-precision rational number times a 64-bit signed integer.
+The product of the two numbers.
 
 <a id="Multiply_PeterO_Numbers_ERational"></a>
 ### Multiply
@@ -1710,7 +1710,7 @@ Multiplies this arbitrary-precision rational number by another arbitrary-precisi
 
 <b>Return Value:</b>
 
-The product of the two numbers, that is, this arbitrary-precision rational number times another arbitrary-precision rational number.
+The product of the two numbers.
 
 <b>Exceptions:</b>
 
@@ -2507,7 +2507,7 @@ Returns the remainder that would result when this arbitrary-precision rational n
 
 <b>Return Value:</b>
 
-The remainder that would result when this arbitrary-precision rational number is divided by a 32-bit signed integer.
+The remainder of the two numbers.
 
 <b>Exceptions:</b>
 
@@ -2529,7 +2529,7 @@ Returns the remainder that would result when this arbitrary-precision rational n
 
 <b>Return Value:</b>
 
-The remainder that would result when this arbitrary-precision rational number is divided by a 64-bit signed integer.
+The remainder of the two numbers.
 
 <b>Exceptions:</b>
 
@@ -2551,7 +2551,7 @@ Returns the remainder that would result when this arbitrary-precision rational n
 
 <b>Return Value:</b>
 
-The remainder that would result when this arbitrary-precision rational number is divided by another arbitrary-precision rational number.
+The remainder of the two numbers.
 
 <b>Exceptions:</b>
 
@@ -2574,7 +2574,7 @@ Subtracts a 32-bit signed integer from this arbitrary-precision rational number 
 
 <b>Return Value:</b>
 
-The difference between the two numbers, that is, this arbitrary-precision rational number minus a 32-bit signed integer.
+The difference of the two objects.
 
 <a id="Subtract_long"></a>
 ### Subtract
@@ -2591,7 +2591,7 @@ Subtracts a 64-bit signed integer from this arbitrary-precision rational number 
 
 <b>Return Value:</b>
 
-The difference between the two numbers, that is, this arbitrary-precision rational number minus a 64-bit signed integer.
+The difference of the two objects.
 
 <a id="Subtract_PeterO_Numbers_ERational"></a>
 ### Subtract
@@ -2607,7 +2607,7 @@ Subtracts an arbitrary-precision rational number from this arbitrary-precision r
 
 <b>Return Value:</b>
 
-The difference between the two numbers, that is, this arbitrary-precision rational number minus another arbitrary-precision rational number.
+The difference of the two objects.
 
 <b>Exceptions:</b>
 

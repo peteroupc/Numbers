@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.7.0</Version>
+    <Version>1.7.1</Version>
     <Owners>Peter Occil</Owners>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
     <Copyright>Written by Peter O.  Any copyright is released to the Public Domain.</Copyright>
@@ -14,6 +14,10 @@
     <PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>
+Version 1.7.1
+
+- Fix bugs in new char[] and byte[] overloads of FromString
+
 Version 1.7.0
 
 - Added overloads to string-to-number methods that take char[] and byte[] arrays.

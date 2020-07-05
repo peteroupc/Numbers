@@ -27,7 +27,6 @@ namespace PeterO.Numbers {
       Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
   public sealed partial class ERational : IComparable<ERational>,
     IEquatable<ERational> {
-    private const int MaxSafeInt = 214748363;
 
     /// <summary>A not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -891,8 +890,9 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='otherValue'>Another arbitrary-precision rational
     /// number.</param>
-    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
-    /// either operand is NaN.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision rational number plus another
+    /// arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Add(ERational otherValue) {
@@ -1519,7 +1519,8 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
-    /// <returns>The quotient of the two objects.</returns>
+    /// <returns>The result of dividing this arbitrary-precision rational
+    /// number by another arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Divide(ERational otherValue) {
@@ -1669,7 +1670,9 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision rational number times another
+    /// arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Multiply(ERational otherValue) {
@@ -1721,7 +1724,9 @@ PositiveInfinity) : CreateNaN(
     /// arbitrary-precision rational number.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
-    /// <returns>The remainder of the two numbers.</returns>
+    /// <returns>The remainder that would result when this
+    /// arbitrary-precision rational number is divided by another
+    /// arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Remainder(ERational otherValue) {
@@ -1773,7 +1778,9 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='otherValue'>An arbitrary-precision rational
     /// number.</param>
-    /// <returns>The difference of the two objects.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision rational number minus another
+    /// arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='otherValue'/> is null.</exception>
     public ERational Subtract(ERational otherValue) {
@@ -2374,8 +2381,9 @@ PositiveInfinity) : CreateNaN(
     /// <summary>Adds this arbitrary-precision rational number and a 32-bit
     /// signed integer and returns the result.</summary>
     /// <param name='v'>A 32-bit signed integer.</param>
-    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
-    /// this object is NaN.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision rational number plus a 32-bit signed
+    /// integer.</returns>
     public ERational Add(int v) {
       return this.Add(FromInt32(v));
     }
@@ -2385,7 +2393,9 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
-    /// <returns>The difference of the two objects.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision rational number minus a 32-bit signed
+    /// integer.</returns>
     public ERational Subtract(int v) {
       return this.Subtract(FromInt32(v));
     }
@@ -2394,7 +2404,9 @@ PositiveInfinity) : CreateNaN(
     /// 32-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision rational number times a 32-bit signed
+    /// integer.</returns>
     public ERational Multiply(int v) {
       return this.Multiply(FromInt32(v));
     }
@@ -2403,7 +2415,8 @@ PositiveInfinity) : CreateNaN(
     /// 32-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 32-bit
     /// signed integer.</param>
-    /// <returns>The quotient of the two objects.</returns>
+    /// <returns>The result of dividing this arbitrary-precision rational
+    /// number by a 32-bit signed integer.</returns>
     /// <exception cref='ArithmeticException'>The parameter <paramref
     /// name='v'/> is zero.</exception>
     public ERational Divide(int v) {
@@ -2414,7 +2427,9 @@ PositiveInfinity) : CreateNaN(
     /// arbitrary-precision rational number is divided by a 32-bit signed
     /// integer.</summary>
     /// <param name='v'>The divisor.</param>
-    /// <returns>The remainder of the two numbers.</returns>
+    /// <returns>The remainder that would result when this
+    /// arbitrary-precision rational number is divided by a 32-bit signed
+    /// integer.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='v'/> is zero.</exception>
     public ERational Remainder(int v) {
@@ -2424,8 +2439,9 @@ PositiveInfinity) : CreateNaN(
     /// <summary>Adds this arbitrary-precision rational number and a 64-bit
     /// signed integer and returns the result.</summary>
     /// <param name='v'>A 64-bit signed integer.</param>
-    /// <returns>The sum of the two numbers. Returns not-a-number (NaN) if
-    /// this object is NaN.</returns>
+    /// <returns>The sum of the two numbers, that is, this
+    /// arbitrary-precision rational number plus a 64-bit signed
+    /// integer.</returns>
     public ERational Add(long v) {
       return this.Add(FromInt64(v));
     }
@@ -2435,7 +2451,9 @@ PositiveInfinity) : CreateNaN(
     /// result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
-    /// <returns>The difference of the two objects.</returns>
+    /// <returns>The difference between the two numbers, that is, this
+    /// arbitrary-precision rational number minus a 64-bit signed
+    /// integer.</returns>
     public ERational Subtract(long v) {
       return this.Subtract(FromInt64(v));
     }
@@ -2444,7 +2462,9 @@ PositiveInfinity) : CreateNaN(
     /// 64-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
-    /// <returns>The product of the two numbers.</returns>
+    /// <returns>The product of the two numbers, that is, this
+    /// arbitrary-precision rational number times a 64-bit signed
+    /// integer.</returns>
     public ERational Multiply(long v) {
       return this.Multiply(FromInt64(v));
     }
@@ -2453,7 +2473,8 @@ PositiveInfinity) : CreateNaN(
     /// 64-bit signed integer and returns the result.</summary>
     /// <param name='v'>The parameter <paramref name='v'/> is a 64-bit
     /// signed integer.</param>
-    /// <returns>The quotient of the two objects.</returns>
+    /// <returns>The result of dividing this arbitrary-precision rational
+    /// number by a 64-bit signed integer.</returns>
     /// <exception cref='ArithmeticException'>The parameter <paramref
     /// name='v'/> is zero.</exception>
     public ERational Divide(long v) {
@@ -2464,7 +2485,9 @@ PositiveInfinity) : CreateNaN(
     /// arbitrary-precision rational number is divided by a 64-bit signed
     /// integer.</summary>
     /// <param name='v'>The divisor.</param>
-    /// <returns>The remainder of the two numbers.</returns>
+    /// <returns>The remainder that would result when this
+    /// arbitrary-precision rational number is divided by a 64-bit signed
+    /// integer.</returns>
     /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='v'/> is zero.</exception>
     public ERational Remainder(long v) {

@@ -1,3 +1,6 @@
+# NOTE by Peter O:
+# This file was contributed by GitHub user Happypig375
+# at: https://github.com/peteroupc/Numbers/pull/10
 name: Test
 
 on: [push, pull_request]
