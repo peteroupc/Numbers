@@ -334,7 +334,8 @@ namespace Test {
     }
 
     private static bool Contains(string str, string sub) {
-      return (sub.Length == 1) ? (str.IndexOf(sub[0]) >= 0) :
+      return (sub.Length == 1) ?
+        (str.IndexOf(sub[0], StringComparison.Ordinal) >= 0) :
         (str.IndexOf(sub, StringComparison.Ordinal) >= 0);
     }
 
@@ -971,7 +972,7 @@ namespace Test {
         { return 0;
         }
       }
-      int ix = ln.IndexOf(' ');
+      int ix = ln.IndexOf(' ', StringComparison.Ordinal);
       // NOTE: ix < 2 includes cases where space is not found
       if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix - 1] != 's' &&
          ln[ix - 1] != 'q')) {

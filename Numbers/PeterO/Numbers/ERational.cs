@@ -27,7 +27,6 @@ namespace PeterO.Numbers {
       Justification = "Awaiting advice at dotnet/dotnet-api-docs#2937.")]
   public sealed partial class ERational : IComparable<ERational>,
     IEquatable<ERational> {
-
     /// <summary>A not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
