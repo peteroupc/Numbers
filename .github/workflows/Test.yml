@@ -1,0 +1,23 @@
+name: Test
+
+on: [push, pull_request]
+jobs:
+  Core:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.301'
+    - name: Test
+      run: |
+        dotnet add Test package Microsoft.NET.Test.Sdk # Update is required for GitHubActionsTestLogger to print anything
+        dotnet add Test package GitHubActionsTestLogger
+        dotnet add Test package NUnit3TestAdapter
+        dotnet test Test -c Release -l GitHubActions
