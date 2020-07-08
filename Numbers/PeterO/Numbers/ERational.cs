@@ -2119,9 +2119,11 @@ PositiveInfinity) : CreateNaN(
       if (this.IsNegative && this.IsZero) {
         return EDecimal.NegativeZero;
       }
+      EInteger num = this.Numerator;
+      EInteger den = this.Denominator;
       EDecimal valueEdNum = (this.IsNegative && this.IsZero) ?
-        EDecimal.NegativeZero : EDecimal.FromEInteger(this.Numerator);
-      EDecimal valueEdDen = EDecimal.FromEInteger(this.Denominator);
+        EDecimal.NegativeZero : EDecimal.FromEInteger(num);
+      EDecimal valueEdDen = EDecimal.FromEInteger(den);
       EDecimal ed = valueEdNum.Divide(valueEdDen, null);
       if (ed.IsNaN()) {
         // Result would be inexact, try again using the precision context

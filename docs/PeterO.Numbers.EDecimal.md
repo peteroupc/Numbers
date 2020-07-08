@@ -582,7 +582,7 @@ Adds this arbitrary-precision decimal floating-point number and a 32-bit signed 
 
 <b>Return Value:</b>
 
-The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus a 32-bit signed integer.
+The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus a 32-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
 <a id="Add_long"></a>
 ### Add
@@ -599,7 +599,7 @@ Adds this arbitrary-precision decimal floating-point number and a 64-bit signed 
 
 <b>Return Value:</b>
 
-The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus a 64-bit signed integer.
+The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus a 64-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
 <a id="Add_PeterO_Numbers_EDecimal"></a>
 ### Add
@@ -615,7 +615,7 @@ Adds this arbitrary-precision decimal floating-point number and another arbitrar
 
 <b>Return Value:</b>
 
-The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus another arbitrary-precision decimal floating-point number.
+The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
 <a id="Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Add
@@ -634,7 +634,7 @@ Adds this arbitrary-precision decimal floating-point number and another arbitrar
 
 <b>Return Value:</b>
 
-The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus another arbitrary-precision decimal floating-point number.
+The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
 <a id="CompareTo_int"></a>
 ### CompareTo
@@ -4603,7 +4603,7 @@ Subtracts a 32-bit signed integer from this arbitrary-precision decimal floating
 
 <b>Return Value:</b>
 
-The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus a 32-bit signed integer.
+The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus a 32-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
 <a id="Subtract_long"></a>
 ### Subtract
@@ -4620,7 +4620,7 @@ Subtracts a 64-bit signed integer from this arbitrary-precision decimal floating
 
 <b>Return Value:</b>
 
-The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus a 64-bit signed integer.
+The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus a 64-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
 <a id="Subtract_PeterO_Numbers_EDecimal"></a>
 ### Subtract
@@ -4636,7 +4636,7 @@ Subtracts an arbitrary-precision decimal floating-point number from this arbitra
 
 <b>Return Value:</b>
 
-The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus another arbitrary-precision decimal floating-point number.
+The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
 <a id="Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Subtract
@@ -4655,7 +4655,7 @@ Subtracts an arbitrary-precision decimal floating-point number from this arbitra
 
 <b>Return Value:</b>
 
-The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus another arbitrary-precision decimal floating-point number.
+The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
 <b>Exceptions:</b>
 

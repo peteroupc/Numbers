@@ -3091,6 +3091,12 @@ namespace PeterO.Numbers {
       }
     }
 
+    // Calculated as floor(ln(i)*100/ln(2)), except the
+    // entry at i is 0.
+    private static readonly int[] BitsPerDigit = {
+      0, 0, 100, 158, 200, 232, 258, 280, 300, 316, 332,
+    };
+
     private static FastIntegerFixed RescaleByExponentDiff<TMath>(
       FastIntegerFixed mantissa,
       FastIntegerFixed fe1,
@@ -3099,14 +3105,23 @@ namespace PeterO.Numbers {
       if (mantissa.Sign == 0) {
         return FastIntegerFixed.FromInt32(0);
       }
+      // DebugUtility.Log("RescaleByExponentDiff "+fe1+" "+fe2);
       FastIntegerFixed eidiff = fe1.Subtract(fe2).Abs();
-      if (!eidiff.CanFitInInt32()) {
-        // NOTE: For radix 10, each digit fits less than 1 byte; the
-        // supported byte length is thus less than the maximum value
-        // of a 32-bit integer (2GB).
-        if (helper.GetRadix() != 10 || eidiff.CompareTo(mantissa) > 0) {
-          return null;
-        }
+      EInteger eiBitCount =
+mantissa.ToEInteger().GetUnsignedBitLengthAsEInteger();
+      EInteger eidiffBigInt = eidiff.ToEInteger();
+      // NOTE: For radix 10, each digit fits less than 1 byte; the
+      // supported byte length is thus less than the maximum value
+      // of a 32-bit integer (2GB).
+      if (helper.GetRadix() <= 10) {
+           int radix = helper.GetRadix();
+           eiBitCount =
+eiBitCount.Add(eidiffBigInt.Multiply(BitsPerDigit[radix])
+                    .Divide(100));
+           // DebugUtility.Log(""+eiBitCount);
+           if (eiBitCount.CompareTo(Int32.MaxValue) > 0) {
+             return null;
+           }
       }
       return helper.MultiplyByRadixPowerFastInt(mantissa, eidiff);
     }
@@ -3119,15 +3134,22 @@ namespace PeterO.Numbers {
       if (mantissa.Sign == 0) {
         return EInteger.Zero;
       }
+      // DebugUtility.Log("RescaleByExponentDiff "+e1+" "+e2);
       FastInteger diff = FastInteger.FromBig(e1).SubtractBig(e2).Abs();
-      if (!diff.CanFitInInt32()) {
-        // NOTE: For radix 10, each digit fits less than 1 byte; the
-        // supported byte length is thus less than the maximum value
-        // of a 32-bit integer (2GB).
-        FastInteger fastBI = FastInteger.FromBig(mantissa);
-        if (helper.GetRadix() != 10 || diff.CompareTo(fastBI) > 0) {
-          return null;
-        }
+      EInteger eiBitCount = mantissa.GetUnsignedBitLengthAsEInteger();
+      EInteger eidiffBigInt = diff.ToEInteger();
+      // NOTE: For radix 10, each digit fits less than 1 byte; the
+      // supported byte length is thus less than the maximum value
+      // of a 32-bit integer (2GB).
+      if (helper.GetRadix() <= 10) {
+           int radix = helper.GetRadix();
+           eiBitCount =
+eiBitCount.Add(eidiffBigInt.Multiply(BitsPerDigit[radix])
+                    .Divide(100));
+           // DebugUtility.Log(""+eiBitCount);
+           if (eiBitCount.CompareTo(Int32.MaxValue) > 0) {
+             return null;
+           }
       }
       return helper.MultiplyByRadixPower(mantissa, diff);
     }
@@ -3598,6 +3620,8 @@ namespace PeterO.Numbers {
         }
       }
       if (expcmp > 0) {
+        // DebugUtility.Log("expcmp>0 op2m="+op2Mantissa+" exps="+
+        // op1Exponent+"/"+op2Exponent);
         op1Mantissa = RescaleByExponentDiff(
             op1Mantissa,
             op1Exponent,
@@ -3617,7 +3641,7 @@ namespace PeterO.Numbers {
             ctx);
         // DebugUtility.Log("expcmp="+expcmp+" retval="+retval);
       } else {
-        // DebugUtility.Log("op2m="+op2Mantissa+" exps="+
+        // DebugUtility.Log("expcmp<= 0 op2m="+op2Mantissa+" exps="+
         // op1Exponent+"/"+op2Exponent);
         op2Mantissa = RescaleByExponentDiff(
             op2Mantissa,
@@ -3825,6 +3849,10 @@ this.helper.GetDigitLength(op2Mantissa.ToEInteger());
           op2Mantissa.ToEInteger(),
           helper,
           reportOOM);
+    }
+
+    private static string Chop(string str) {
+       return (str.Length < 100) ? str : (str.Substring(0, 100) + "...");
     }
 
     private T DivideInternal(
@@ -4822,7 +4850,7 @@ this.helper.GetDigitLength(op2Mantissa.ToEInteger());
         // Use the reciprocal for negative powers
         thisValue = this.Divide(one, thisValue, ctxdiv);
         // DebugUtility.Log("-->recip thisValue=" + thisValue +
-        //    " powInt=" + powIntBig + " flags=" + (ctxdiv == null ? -1 :
+        // " powInt=" + powIntBig + " flags=" + (ctxdiv == null ? -1 :
         // ctxdiv.Flags));
         if ((ctxdiv.Flags & EContext.FlagOverflow) != 0) {
           return this.SignalOverflow(ctx, retvalNeg);

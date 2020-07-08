@@ -935,27 +935,69 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(PeterO.Numbers.EDecimal)">
 
-        <summary>Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.</summary><param name='otherValue'>An arbitrary-precision decimal
-            number.</param><returns>The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Adds this arbitrary-precision decimal floating-point
+            number and another arbitrary-precision decimal floating-point
+            number and returns the result. The exponent for the result is the
+            lower of this arbitrary-precision decimal floating-point number's
+            exponent and the other arbitrary-precision decimal floating-point
+            number's exponent.</summary>
+            <param name='otherValue'>An arbitrary-precision decimal
+            number.</param>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number plus another
+            arbitrary-precision decimal floating-point number. If this
+            arbitrary-precision decimal floating-point number is not-a-number
+            (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-        <summary>Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result.</summary><param name='otherValue'>The number to add to.</param><param name='ctx'>An arithmetic context to control the precision,
+            <summary>Adds this arbitrary-precision decimal floating-point
+            number and another arbitrary-precision decimal floating-point
+            number and returns the result.</summary>
+            <param name='otherValue'>The number to add to.</param>
+            <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
-            rounding is needed.</param><returns>The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.</returns>
+            rounding is needed.</param>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number plus another
+            arbitrary-precision decimal floating-point number. If this
+            arbitrary-precision decimal floating-point number is not-a-number
+            (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(System.Int32)">
 
-        <summary>Adds this arbitrary-precision decimal floating-point number and a 32-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 32-bit signed integer's exponent.</summary><param name='intValue'>A 32-bit signed integer to add to this
-            object.</param><returns>The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus a 32-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Adds this arbitrary-precision decimal floating-point
+            number and a 32-bit signed integer and returns the result. The
+            exponent for the result is the lower of this arbitrary-precision
+            decimal floating-point number's exponent and the other 32-bit
+            signed integer's exponent.</summary>
+            <param name='intValue'>A 32-bit signed integer to add to this
+            object.</param>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number plus a 32-bit
+            signed integer. If this arbitrary-precision decimal floating-point
+            number is not-a-number (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Add(System.Int64)">
 
-        <summary>Adds this arbitrary-precision decimal floating-point number and a 64-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus a 64-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Adds this arbitrary-precision decimal floating-point
+            number and a 64-bit signed integer and returns the result. The
+            exponent for the result is the lower of this arbitrary-precision
+            decimal floating-point number's exponent and the other 64-bit
+            signed integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision decimal floating-point number plus a 64-bit
+            signed integer. If this arbitrary-precision decimal floating-point
+            number is not-a-number (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.CompareTo(PeterO.Numbers.EDecimal)">
 
@@ -3995,28 +4037,71 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(PeterO.Numbers.EDecimal)">
 
-        <summary>Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.</summary><param name='otherValue'>The number to subtract from this
-            instance's value.</param><returns>The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Subtracts an arbitrary-precision decimal floating-point
+            number from this arbitrary-precision decimal floating-point number
+            and returns the result. The exponent for the result is the lower of
+            this arbitrary-precision decimal floating-point number's exponent
+            and the other arbitrary-precision decimal floating-point number's
+            exponent.</summary>
+            <param name='otherValue'>The number to subtract from this
+            instance's value.</param>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision decimal floating-point number minus another
+            arbitrary-precision decimal floating-point number. If this
+            arbitrary-precision decimal floating-point number is not-a-number
+            (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-        <summary>Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result.</summary><param name='otherValue'>The number to subtract from this
-            instance's value.</param><param name='ctx'>An arithmetic context to control the precision,
+            <summary>Subtracts an arbitrary-precision decimal floating-point
+            number from this arbitrary-precision decimal floating-point number
+            and returns the result.</summary>
+            <param name='otherValue'>The number to subtract from this
+            instance's value.</param>
+            <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
-            rounding is needed.</param><returns>The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+            rounding is needed.</param>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision decimal floating-point number minus another
+            arbitrary-precision decimal floating-point number. If this
+            arbitrary-precision decimal floating-point number is not-a-number
+            (NaN), returns NaN.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(System.Int32)">
 
-        <summary>Subtracts a 32-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 32-bit signed integer's exponent.</summary><param name='intValue'>A 32-bit signed integer to subtract from
-            this object.</param><returns>The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus a 32-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Subtracts a 32-bit signed integer from this
+            arbitrary-precision decimal floating-point number and returns the
+            result. The exponent for the result is the lower of this
+            arbitrary-precision decimal floating-point number's exponent and
+            the other 32-bit signed integer's exponent.</summary>
+            <param name='intValue'>A 32-bit signed integer to subtract from
+            this object.</param>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision decimal floating-point number minus a 32-bit
+            signed integer. If this arbitrary-precision decimal floating-point
+            number is not-a-number (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Subtract(System.Int64)">
 
-        <summary>Subtracts a 64-bit signed integer from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus a 64-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Subtracts a 64-bit signed integer from this
+            arbitrary-precision decimal floating-point number and returns the
+            result. The exponent for the result is the lower of this
+            arbitrary-precision decimal floating-point number's exponent and
+            the other 64-bit signed integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision decimal floating-point number minus a 64-bit
+            signed integer. If this arbitrary-precision decimal floating-point
+            number is not-a-number (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.EDecimal.Ten">
 
@@ -5658,27 +5743,69 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat)">
 
-        <summary>Adds this arbitrary-precision binary floating-point number and another arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other arbitrary-precision binary floating-point number's exponent.</summary><param name='otherValue'>An arbitrary-precision binary
-            floating-point number.</param><returns>The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus another arbitrary-precision binary floating-point number. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Adds this arbitrary-precision binary floating-point number
+            and another arbitrary-precision binary floating-point number and
+            returns the result. The exponent for the result is the lower of
+            this arbitrary-precision binary floating-point number's exponent
+            and the other arbitrary-precision binary floating-point number's
+            exponent.</summary>
+            <param name='otherValue'>An arbitrary-precision binary
+            floating-point number.</param>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision binary floating-point number plus another
+            arbitrary-precision binary floating-point number. If this
+            arbitrary-precision binary floating-point number is not-a-number
+            (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-        <summary>Adds this arbitrary-precision binary floating-point number and another arbitrary-precision binary floating-point number and returns the result.</summary><param name='otherValue'>The number to add to.</param><param name='ctx'>An arithmetic context to control the precision,
+            <summary>Adds this arbitrary-precision binary floating-point number
+            and another arbitrary-precision binary floating-point number and
+            returns the result.</summary>
+            <param name='otherValue'>The number to add to.</param>
+            <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
-            rounding is needed.</param><returns>The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus another arbitrary-precision binary floating-point number. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.</returns>
+            rounding is needed.</param>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision binary floating-point number plus another
+            arbitrary-precision binary floating-point number. If this
+            arbitrary-precision binary floating-point number is not-a-number
+            (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(System.Int32)">
 
-        <summary>Adds this arbitrary-precision binary floating-point number and a 32-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other 32-bit signed integer's exponent.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is
-            a 32-bit signed integer.</param><returns>The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus a 32-bit signed integer. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Adds this arbitrary-precision binary floating-point number
+            and a 32-bit signed integer and returns the result. The exponent
+            for the result is the lower of this arbitrary-precision binary
+            floating-point number's exponent and the other 32-bit signed
+            integer's exponent.</summary>
+            <param name='intValue'>The parameter <paramref name='intValue'/> is
+            a 32-bit signed integer.</param>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision binary floating-point number plus a 32-bit
+            signed integer. If this arbitrary-precision binary floating-point
+            number is not-a-number (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Add(System.Int64)">
 
-        <summary>Adds this arbitrary-precision binary floating-point number and a 64-bit signed integer and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus a 64-bit signed integer. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Adds this arbitrary-precision binary floating-point number
+            and a 64-bit signed integer and returns the result. The exponent
+            for the result is the lower of this arbitrary-precision binary
+            floating-point number's exponent and the other 64-bit signed
+            integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The sum of the two numbers, that is, this
+            arbitrary-precision binary floating-point number plus a 64-bit
+            signed integer. If this arbitrary-precision binary floating-point
+            number is not-a-number (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.BinaryMathHelper.CreateNewWithFlags(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger,System.Int32)">
 
@@ -8455,28 +8582,71 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat)">
 
-        <summary>Subtracts an arbitrary-precision binary floating-point number from this arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other arbitrary-precision binary floating-point number's exponent.</summary><param name='otherValue'>The number to subtract from this
-            instance's value.</param><returns>The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus another arbitrary-precision binary floating-point number. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Subtracts an arbitrary-precision binary floating-point
+            number from this arbitrary-precision binary floating-point number
+            and returns the result. The exponent for the result is the lower of
+            this arbitrary-precision binary floating-point number's exponent
+            and the other arbitrary-precision binary floating-point number's
+            exponent.</summary>
+            <param name='otherValue'>The number to subtract from this
+            instance's value.</param>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision binary floating-point number minus another
+            arbitrary-precision binary floating-point number. If this
+            arbitrary-precision binary floating-point number is not-a-number
+            (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-        <summary>Subtracts an arbitrary-precision binary floating-point number from this arbitrary-precision binary floating-point number and returns the result.</summary><param name='otherValue'>The number to subtract from this
-            instance's value.</param><param name='ctx'>An arithmetic context to control the precision,
+            <summary>Subtracts an arbitrary-precision binary floating-point
+            number from this arbitrary-precision binary floating-point number
+            and returns the result.</summary>
+            <param name='otherValue'>The number to subtract from this
+            instance's value.</param>
+            <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
             operation (the flags are in addition to the pre-existing flags).
             Can be null, in which case the precision is unlimited and no
-            rounding is needed.</param><returns>The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus another arbitrary-precision binary floating-point number. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+            rounding is needed.</param>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision binary floating-point number minus another
+            arbitrary-precision binary floating-point number. If this
+            arbitrary-precision binary floating-point number is not-a-number
+            (NaN), returns NaN.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='otherValue'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(System.Int32)">
 
-        <summary>Subtracts a 32-bit signed integer from this arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other 32-bit signed integer's exponent.</summary><param name='intValue'>The parameter <paramref name='intValue'/> is
-            a 32-bit signed integer.</param><returns>The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus a 32-bit signed integer. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Subtracts a 32-bit signed integer from this
+            arbitrary-precision binary floating-point number and returns the
+            result. The exponent for the result is the lower of this
+            arbitrary-precision binary floating-point number's exponent and the
+            other 32-bit signed integer's exponent.</summary>
+            <param name='intValue'>The parameter <paramref name='intValue'/> is
+            a 32-bit signed integer.</param>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision binary floating-point number minus a 32-bit
+            signed integer. If this arbitrary-precision binary floating-point
+            number is not-a-number (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Subtract(System.Int64)">
 
-        <summary>Subtracts a 64-bit signed integer from this arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other 64-bit signed integer's exponent.</summary><param name='longValue'>The parameter <paramref name='longValue'/>
-            is a 64-bit signed integer.</param><returns>The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus a 64-bit signed integer. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.</returns>
+            <summary>Subtracts a 64-bit signed integer from this
+            arbitrary-precision binary floating-point number and returns the
+            result. The exponent for the result is the lower of this
+            arbitrary-precision binary floating-point number's exponent and the
+            other 64-bit signed integer's exponent.</summary>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
+            <returns>The difference between the two numbers, that is, this
+            arbitrary-precision binary floating-point number minus a 64-bit
+            signed integer. If this arbitrary-precision binary floating-point
+            number is not-a-number (NaN), returns NaN.</returns>
+
 </doc>
 <doc name="F:PeterO.Numbers.EFloat.Ten">
 
@@ -10194,7 +10364,7 @@
             <para>This implementation returns a positive number if <paramref name='other'/> is null, to conform to the.NET definition of
             CompareTo. This is the case even in the Java version of this
             library, for consistency's sake, even though implementations of
-            <c>Comparable.compareTo()</c> in Java ought to throw an exception
+            <c>Comparable.CompareTo()</c> in Java ought to throw an exception
             if they receive a null argument rather than treating null as less
             or greater than any object.</para>.</returns>
 

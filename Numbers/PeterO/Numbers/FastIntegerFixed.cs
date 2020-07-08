@@ -434,7 +434,8 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
     internal int CompareToInt64(long valLong) {
       switch (this.integerMode) {
         case 0:
-          return (valLong == this.smallValue) ? 0 : (this.smallValue < valLong ? -1 :
+          return (valLong == this.smallValue) ? 0 : (this.smallValue <
+valLong ? -1 :
               1);
         case 2:
           return this.largeValue.CompareTo(valLong);

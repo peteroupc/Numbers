@@ -1,13 +1,13 @@
 <Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net45</TargetFramework>
      <!--https://andrewlock.net/fixing-the-error-program-has-more-than-one-entry-point-defined-for-console-apps-containing-xunit-tests/-->
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
-  <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Debug|AnyCPU&apos; '>
+  <PropertyGroup Condition=' &apos;$(Configuration)&apos;==&apos;Debug&apos; '>
     <DebugType>full</DebugType>
     <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
-  <PropertyGroup Condition=' &apos;$(Configuration)|$(Platform)&apos; == &apos;Release|AnyCPU&apos; '>
+  <PropertyGroup Condition=' &apos;$(Configuration)&apos;==&apos;Release&apos; '>
     <DebugType>none</DebugType>
     <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <ItemGroup>

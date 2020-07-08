@@ -1,5 +1,5 @@
 <package
-><metadata><version>1.7.1</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.7.1
+><metadata><version>1.7.2-a0</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.7.1
 
 - Fix bugs in new char[] and byte[] overloads of FromString
 
