@@ -991,6 +991,14 @@ namespace Test {
       Assert.IsFalse(ERational.SignalingNaN.IsZero);
     }
     [Test]
+    public void TestToLowestTerms() {
+ERational er =
+ERational.FromString("108869257985025197791838272768387645128888345147555" +
+"1838663907953515213777772897669/734154292316019508508581520803142368" +
+"704146796235662433292652");
+Assert.AreEqual(er, er.ToLowestTerms());
+    }
+    [Test]
     public void TestMultiply() {
       // not implemented yet
     }

@@ -2897,9 +2897,8 @@ namespace PeterO.Numbers {
       if (thisValue.Equals(EInteger.One)) {
         return thisValue;
       }
-      if (thisValue.wordCount > 10 || bigintSecond.wordCount > 10) {
-      // if (thisValue.wordCount > 500 || bigintSecond.wordCount > 500) {
-         return SubquadraticGCD(thisValue, bigintSecond);
+      if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 250) {
+        return SubquadraticGCD(thisValue, bigintSecond);
       } else {
          return BaseGcd(thisValue, bigintSecond);
       }
@@ -3036,59 +3035,79 @@ namespace PeterO.Numbers {
  }
 
  private static void LSDivStep(long[] longam, long ls) {
+  #if DEBUG
+  ArgumentAssert.GreaterOrEqual(longam[0]);
+  ArgumentAssert.GreaterOrEqual(longam[1]);
+  #endif
+  checked {
   // a, b, m[0] ... m[3]
    if (longam[0] > longam[1]) {
      // a > b
      var divrem = new long[] { longam[0] / longam[1], longam[0] % longam[1] };
      if (LBL(divrem[1]) <= ls) {
-       divrem[0] = divrem[0] - 1;
-       divrem[1] = divrem[1] + longam[1];
+       --divrem[0];
+       divrem[1] += longam[1];
      }
-     longam[3] = longam[3] + (longam[2] * divrem[0]);
-     longam[5] = longam[5] + (longam[4] * divrem[0]);
+     longam[3] += longam[2] * divrem[0];
+     longam[5] += longam[4] * divrem[0];
      longam[0] = divrem[1];
    } else {
      // a <= b
      var divrem = new long[] { longam[1] / longam[0], longam[1] % longam[0] };
      if (LBL(divrem[1]) <= ls) {
-       divrem[0] = divrem[0] - 1;
-       divrem[1] = divrem[1] + longam[0];
+       --divrem[0];
+       divrem[1] += longam[0];
      }
-     longam[2] = longam[2] + (longam[3] * divrem[0]);
-     longam[4] = longam[4] + (longam[5] * divrem[0]);
+     longam[2] += longam[3] * divrem[0];
+     longam[4] += longam[5] * divrem[0];
      longam[1] = divrem[1];
+   }
    }
  }
 
  private static EInteger BL(EInteger eia) {
+if (eia.IsZero) {
+  return EInteger.Zero;
+}
   EInteger ret = eia.GetUnsignedBitLengthAsEInteger();
   return ret;
  }
 
  private static int LBL(long mantlong) {
-      return NumberUtility.BitLength(Math.Abs(mantlong));
+return (mantlong == 0) ? 0 : NumberUtility.BitLength(Math.Abs(mantlong));
  }
 
-private static long[] LHalfGCD(long longa, long longb) {
+ private static long[] LHalfGCD(long longa, long longb) {
        if (longa == 0 || longb == 0) {
-          return new long[] { 0, 0, 1, 0, 0, 1 };
+          // DebugUtility.Log("LHalfGCD failed");
+          return new long[] { longa, longb, 1, 0, 0, 1 };
        }
-       int ln = Math.Max(LBL(longa), LBL(longb));
-       int ls = (ln >> 1) + 1;
        var ret = new long[6];
+       // DebugUtility.Log("LHalfGCD "+longa+" "+longb);
+       checked {
+       int ln = Math.Max(LBL(longa), LBL(longb));
+       int lnmin = Math.Min(LBL(longa), LBL(longb));
+       int ls = (ln >> 1) + 1;
+       if (lnmin <= ls) {
+         // DebugUtility.Log("LHalfGCD failed: nmin<= s");
+          return new long[] { longa, longb, 1, 0, 0, 1 };
+       }
        if (Math.Min(LBL(longa), LBL(longb)) > ((ln * 3) >> 2) + 2) {
-          int p1 = ln >> 1;
-          long nhalfmask = (1L << p1) - 1;
-          long longah = longa >> p1;
-          long longal = longa & nhalfmask;
-          long longbh = longb >> p1;
-          long longbl = longb & nhalfmask;
-          long[] ret2 = LHalfGCD(longah, longbh);
+         int p1 = ln >> 1;
+         long nhalfmask = (1L << p1) - 1;
+         long longah = longa >> p1;
+         long longal = longa & nhalfmask;
+         long longbh = longb >> p1;
+         long longbl = longb & nhalfmask;
+         long[] ret2 = LHalfGCD(longah, longbh);
+         if (ret2 == null) {
+           return null;
+         }
           Array.Copy(ret2, 0, ret, 0, 6);
-          longa = longal*(ret2[5]) - (longbl*(ret2[3]));
-          longb = longbl*(ret2[2]) - (longal*(ret2[4]));
-          longa += ret2[0] << p1;
-          longb += ret2[1] << p1;
+        longa = (longal * ret2[5]) - (longbl* ret2[3]);
+        longb = (longbl * ret2[2]) - (longal* ret2[4]);
+        longa += ret2[0] << p1;
+        longb += ret2[1] << p1;
        } else {
           // Set M to identity
           ret = new long[6];
@@ -3099,11 +3118,14 @@ private static long[] LHalfGCD(long longa, long longb) {
        }
        ret[0] = longa;
        ret[1] = longb;
+       for (int k = 0; k < 6; ++k) {
+       // DebugUtility.Log("ret_afterloop1 "+k+"=" +
+       // EInteger.FromInt64(ret[k]).ToRadixString(16));
+       }
        while (Math.Max(LBL(ret[0]), LBL(ret[1])) > ((ln * 3) >> 2) + 1 &&
                 LBL(ret[0] - ret[1]) > ls) {
          if (ret[0] < 0 || ret[1] < 0) {
-            { throw new InvalidOperationException("Internal error");
-         }
+            throw new InvalidOperationException("Internal error");
            }
            LSDivStep(ret, ls);
        }
@@ -3118,14 +3140,16 @@ private static long[] LHalfGCD(long longa, long longb) {
           long longbh = longb >> p1;
           long longbl = longb & nhalfmask;
           long[] ret2 = LHalfGCD(longah, longbh);
+          if (ret2 == null) {
+            return null;
+          }
           longa = longal*(ret2[5]) - (longbl*(ret2[3]));
           longb = longbl*(ret2[2]) - (longal*(ret2[4]));
           longa += ret2[0] << p1;
           longb += ret2[1] << p1;
           if (longa < 0 || longb < 0) {
-             { throw new InvalidOperationException("Internal error");
+             throw new InvalidOperationException("Internal error");
           }
-}
           long ma, mb, mc, md;
           ma = ret[2]*(ret2[2]) + (ret[3]*(ret2[4]));
           mb = ret[2]*(ret2[3]) + (ret[3]*(ret2[5]));
@@ -3140,16 +3164,15 @@ private static long[] LHalfGCD(long longa, long longb) {
        ret[1] = longb;
        while (LBL(ret[0] - ret[1]) > ls) {
          if (ret[0] < 0 || ret[1] < 0) {
-            { throw new InvalidOperationException("Internal error");
-         }
+            throw new InvalidOperationException("Internal error");
            }
            LSDivStep(ret, ls);
        }
        if (ret[0] < 0 || ret[1] < 0) {
-          { throw new InvalidOperationException("Internal error");
+          throw new InvalidOperationException("Internal error");
        }
-}
-       // Verify det M == 1
+       #if DEBUG
+       // Verify det(M) == 1
        if (ret[2] < 0 || ret[3] < 0 || ret[4] < 0 ||
             ret[5] < 0) {
           { throw new InvalidOperationException("Internal error");
@@ -3161,34 +3184,42 @@ private static long[] LHalfGCD(long longa, long longb) {
        if (LBL(ret[0] - ret[1]) > ls) {
              throw new InvalidOperationException("Internal error");
        }
+       #endif
+       }
        return ret;
 }
 
  // Implements Niels Moeller's Half-GCD algorithm from 2008
  private static EInteger[] HalfGCD(EInteger eia, EInteger eib) {
        if (eia.IsZero || eib.IsZero) {
+          // DebugUtility.Log("HalfGCD failed");
           return new EInteger[] {
-            EInteger.Zero, EInteger.Zero,
-            EInteger.One, EInteger.Zero, EInteger.Zero, EInteger.One,
+            eia, eib, EInteger.One, EInteger.Zero,
+            EInteger.Zero, EInteger.One,
           };
        }
        var ret = new EInteger[6];
        if (eia.CanFitInInt64() && eib.CanFitInInt64()) {
           long[] lret = LHalfGCD(eia.ToInt64Checked(), eib.ToInt64Checked());
+          if (lret == null) {
+            return null;
+          }
           for (int i = 0; i < 6; ++i) {
             ret[i] = EInteger.FromInt64(lret[i]);
           }
           return ret;
        }
        EInteger ein = MaxBitLength(eia, eib);
+       EInteger einmin = MinBitLength(eia, eib);
        long ln = ein.CanFitInInt64() ? ein.ToInt64Checked() : -1;
-       /* DebugUtility.Log("hgcd eia["+thishgcd+"]="+eia.ToRadixString(16)+"
-bl="+BL(eia));
-       DebugUtility.Log("hgcd eib["+thishgcd+"]="+eib.ToRadixString(16)+"
-bl="+BL(eib));
-       DebugUtility.Log("hgcd
-nh["+thishgcd+"]="+n.Multiply(3).ShiftRight(2).Add(2));
-       */ EInteger eis = ein.ShiftRight(1).Add(1);
+       EInteger eis = ein.ShiftRight(1).Add(1);
+       /* // if (einmin.CompareTo(eis) <= 0) {
+          //DebugUtility.Log("HalfGCD failed: nmin<= s");
+          //return new EInteger[] {
+            eia, eib, EInteger.One, EInteger.Zero,
+            //EInteger.Zero, EInteger.One
+          };
+       //} */
        EInteger eiah, eial, eibh, eibl;
        if (MinBitLength(eia,
   eib).CompareTo(ein.Multiply(3).ShiftRight(2).Add(2)) > 0) {
@@ -3199,6 +3230,9 @@ nh["+thishgcd+"]="+n.Multiply(3).ShiftRight(2).Add(2));
           eibh = eib.ShiftRight(p1);
           eibl = eib.And(nhalfmask);
           EInteger[] ret2 = HalfGCD(eiah, eibh);
+          if (ret2 == null) {
+            return null;
+          }
           Array.Copy(ret2, 0, ret, 0, 6);
           eia = eial.Multiply(ret2[5]).Subtract(eibl.Multiply(ret2[3]));
           eib = eibl.Multiply(ret2[2]).Subtract(eial.Multiply(ret2[4]));
@@ -3214,38 +3248,25 @@ nh["+thishgcd+"]="+n.Multiply(3).ShiftRight(2).Add(2));
        }
        ret[0] = eia;
        ret[1] = eib;
-       // if (BL(eia.Subtract(eib)).CompareTo(ein.Multiply(3).ShiftRight(2).Add(2)) >
-       // 0) {
-       // throw new InvalidOperationException("Internal error");
-       // }
-       /* DebugUtility.Log("[1]eia="+ret[0].ToRadixString(16));
-       DebugUtility.Log("[1]eib="+ret[1].ToRadixString(16));
-       DebugUtility.Log("[1]mat="+Arrays.toString(new
-EInteger[] { ret[2], ret[3], ret[4], ret[5]}));
-       DebugUtility.Log("mbl="+MaxBitLength(ret[0],ret[1])+"
-nh="+n.Multiply(3).ShiftRight(2).Add(1));
-       DebugUtility.Log("absbl="+BL(ret[0].Subtract(ret[1]))+" s="+s);
-       */ while (MaxBitLength(ret[0], ret[1]).CompareTo(
+       for (int k = 0; k < 6; ++k) {
+       // DebugUtility.Log("ret_afterloop1["+k+"]=" +
+       // ret[k].ToRadixString(16));
+       }
+       while (MaxBitLength(ret[0], ret[1]).CompareTo(
                    ein.Multiply(3).ShiftRight(2).Add(1)) > 0 &&
                    BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0
 ) {
-           // DebugUtility.Log("[sdiv1]eia="+ret[0].ToRadixString(16)+"
-           // bl="+BL(ret[0])+", s="+eis);
-           // DebugUtility.Log("[sdiv1]eib="+ret[1].ToRadixString(16)+"
-           // bl="+BL(ret[1])+", s="+eis);
-if (ret[0].Sign < 0 || ret[1].Sign < 0) {
-              { throw new InvalidOperationException("Internal error");
-           }
+         if (ret[0].Sign < 0 || ret[1].Sign < 0) {
+             throw new InvalidOperationException("Internal error");
            }
            SDivStep(ret, eis);
-           // DebugUtility.Log("[sdiv1]ret="+Arrays.toString(ret));
+       }
+       for (int k = 0; k < 6; ++k) {
+       // DebugUtility.Log("ret_afterloop2["+k+"]=" +
+       // ret[k].ToRadixString(16));
        }
        eia = ret[0];
        eib = ret[1];
-       // if (MaxBitLength(eia, eib).CompareTo(n.Multiply(3).ShiftRight(2).Add(2)) >
-       // 0) {
-       // throw new InvalidOperationException("Internal error");
-       // }
        if (MinBitLength(eia, eib).CompareTo(eis.Add(2)) > 0) {
           ein = MaxBitLength(eia, eib);
           EInteger p1 = eis.Add(eis).Subtract(ein).Add(1);
@@ -3255,14 +3276,16 @@ if (ret[0].Sign < 0 || ret[1].Sign < 0) {
           eibh = eib.ShiftRight(p1);
           eibl = eib.And(nhalfmask);
           EInteger[] ret2 = HalfGCD(eiah, eibh);
+          if (ret2 == null) {
+            return null;
+          }
           eia = eial.Multiply(ret2[5]).Subtract(eibl.Multiply(ret2[3]));
           eib = eibl.Multiply(ret2[2]).Subtract(eial.Multiply(ret2[4]));
           eia = eia.Add(ret2[0].ShiftLeft(p1));
           eib = eib.Add(ret2[1].ShiftLeft(p1));
           if (eia.Sign < 0 || eib.Sign < 0) {
-             { throw new InvalidOperationException("Internal error");
+             throw new InvalidOperationException("Internal error");
           }
-}
           EInteger ma, mb, mc, md;
           // DebugUtility.Log("m "+Arrays.toString(new
           // EInteger[] { ret[2], ret[3], ret[4], ret[5]}));
@@ -3280,31 +3303,26 @@ if (ret[0].Sign < 0 || ret[1].Sign < 0) {
        }
        ret[0] = eia;
        ret[1] = eib;
-       // if (BL(eia.Subtract(eib)).CompareTo(s.Add(2)) > 0) {
-       // throw new InvalidOperationException("Internal error");
-       // }
-       // DebugUtility.Log("[2]eia="+ret[0].ToRadixString(16));
-       // DebugUtility.Log("[2]eib="+ret[1].ToRadixString(16));
+       for (int k = 0; k < 6; ++k) {
+       // DebugUtility.Log("ret_afterloop3["+k+"]=" +
+       // ret[k].ToRadixString(16));
+       }
        while (BL(ret[0].Subtract(ret[1])). CompareTo(eis) > 0) {
-           // DebugUtility.Log("[sdiv2]eia="+ret[0].ToRadixString(16)+"
-           // bl="+BL(ret[0])+", s="+s);
-           // DebugUtility.Log("[sdiv2]eib="+ret[1].ToRadixString(16)+"
-           // bl="+BL(ret[1])+", s="+s);
-if (ret[0].Sign < 0 || ret[1].Sign < 0) {
-              { throw new InvalidOperationException("Internal error");
-           }
+         if (ret[0].Sign < 0 || ret[1].Sign < 0) {
+              throw new InvalidOperationException("Internal error");
            }
            SDivStep(ret, eis);
            // DebugUtility.Log("[sdiv2]ret="+Arrays.toString(ret));
        }
-       // for (int i = 0; i < 6; ++i) {
-       // DebugUtility.Log("hgcd["+thishgcd+"]["+i+"]="+ret[i].ToRadixString(16));
-       // }
+       for (int k = 0; k < 6; ++k) {
+       // DebugUtility.Log("lhgcd["+k+"]=" + ret[k].ToRadixString(16));
+       }
+       #if DEBUG
        if (ret[0].Sign < 0 || ret[1].Sign < 0) {
           { throw new InvalidOperationException("Internal error");
        }
 }
-       // Verify det M == 1
+       // Verify det(M) == 1
        if (ret[2].Sign < 0 || ret[3].Sign < 0 || ret[4].Sign < 0 ||
             ret[5].Sign < 0) {
           { throw new InvalidOperationException("Internal error");
@@ -3318,6 +3336,7 @@ if (ret[0].Sign < 0 || ret[1].Sign < 0) {
        if (BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0) {
              throw new InvalidOperationException("Internal error");
        }
+       #endif
        return ret;
   }
 
@@ -3326,13 +3345,10 @@ if (ret[0].Sign < 0 || ret[1].Sign < 0) {
        var ret = new EInteger[] { eia, eib };
        for (int i = 0; i < 20; ++i) {
          if (ein.CompareTo(48) < 0) {
-            { break;
+           break;
          }
-}
-          // DebugUtility.Log("============");
-          // DebugUtility.Log("eia="+ret[0].ToRadixString(16));
-          // DebugUtility.Log("eib="+ret[1].ToRadixString(16));
-          // DebugUtility.Log("n="+ein);
+          // DebugUtility.Log("eia=" + ret[0].ToRadixString(16));
+          // DebugUtility.Log("eib=" + ret[1].ToRadixString(16));
           EInteger nhalf = ein.ShiftRight(1);
           EInteger nhalfmask =
           EInteger.FromInt32(1).ShiftLeft(nhalf).Subtract(1);
@@ -3340,22 +3356,32 @@ if (ret[0].Sign < 0 || ret[1].Sign < 0) {
         EInteger eial = ret[0].And(nhalfmask);
         EInteger eibh = ret[1].ShiftRight(nhalf);
         EInteger eibl = ret[1].And(nhalfmask);
-        EInteger[] hgcd = HalfGCD(eiah, eibh);
+        // DebugUtility.Log("eiah->" + eiah.ToRadixString(16));
+        // DebugUtility.Log("eibh->" + eibh.ToRadixString(16));
+      EInteger[] hgcd = HalfGCD(eiah, eibh);
+      if (hgcd == null) {
+           // DebugUtility.Log("hgcd failed");
+           break;
+        }
         eia = eial.Multiply(hgcd[5]).Subtract(eibl.Multiply(hgcd[3]));
         eib = eibl.Multiply(hgcd[2]).Subtract(eial.Multiply(hgcd[4]));
         eia = eia.Add(hgcd[0].ShiftLeft(nhalf));
         eib = eib.Add(hgcd[1].ShiftLeft(nhalf));
-        if (eia.Sign < 0 || eib.Sign < 0) {
-             { throw new InvalidOperationException("Internal error");
-          }
+        // DebugUtility.Log("eia->" + eia.ToRadixString(16));
+        // DebugUtility.Log("eib->" + eib.ToRadixString(16));
+      if (eia.Sign < 0 || eib.Sign < 0) {
+        for (int k = 0; k < 6; ++k) {
+             DebugUtility.Log("hgcd["+ k + "]=" + hgcd[k].ToRadixString(16));
+            }
+            throw new InvalidOperationException("Internal error");
           }
           ein = MaxBitLength(eia, eib);
           ret[0] = eia;
           ret[1] = eib;
        }
-       // DebugUtility.Log("eia final "+eia);
-       // DebugUtility.Log("eib final "+eib);
-       return BaseGcd(eia, eib);
+       // DebugUtility.Log("eia final "+eia.ToRadixString(16));
+       // DebugUtility.Log("eib final "+eib.ToRadixString(16));
+       return BaseGcd(ret[0], ret[1]);
   }
 
     /// <summary>Returns the number of decimal digits used by this integer,
@@ -3640,8 +3666,9 @@ maxDigitEstimate : retval +
     /// lowest set bit in the number's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
     /// ).).</summary>
-    /// <returns>The bit position of the lowest bit set in the number,
-    /// starting at 0. Returns -1 if this value is 0.</returns>
+    /// <returns>The bit position of the lowest bit set in the number's
+    /// absolute value, starting at 0. Returns -1 if this value is
+    /// 0.</returns>
     [Obsolete("This method may overflow. Use GetLowBitAsEInteger instead.")]
     public int GetLowBit() {
       return this.GetLowBitAsEInteger().ToInt32Checked();
@@ -3653,13 +3680,13 @@ maxDigitEstimate : retval +
     /// number's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
     /// ).).</summary>
-    /// <returns>The bit position of the lowest bit set in the number,
-    /// starting at 0. Returns -1 if this value is 0 or odd. Returns 2^63 -
-    /// 1 ( <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in Java)
-    /// if this number is other than zero but the lowest set bit is at 2^63
-    /// - 1 or greater. (Use <c>GetLowBitAsEInteger</c> instead if the
-    /// application relies on the exact value of the lowest set bit
-    /// position.).</returns>
+    /// <returns>The bit position of the lowest bit set in the number's
+    /// absolute value, starting at 0. Returns -1 if this value is 0 or
+    /// odd. Returns 2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or
+    /// <c>Long.MAX_VALUE</c> in Java) if this number is other than zero
+    /// but the lowest set bit is at 2^63 - 1 or greater. (Use
+    /// <c>GetLowBitAsEInteger</c> instead if the application relies on the
+    /// exact value of the lowest set bit position.).</returns>
     public long GetLowBitAsInt64() {
       // NOTE: Currently can't be 2^63-1 or greater, due to int32 word counts
       long retSetBitLong = 0;
@@ -3694,8 +3721,9 @@ maxDigitEstimate : retval +
     /// the number's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
     /// ).).</summary>
-    /// <returns>The bit position of the lowest bit set in the number,
-    /// starting at 0. Returns -1 if this value is 0 or odd.</returns>
+    /// <returns>The bit position of the lowest bit set in the number's
+    /// absolute value, starting at 0. Returns -1 if this value is 0 or
+    /// odd.</returns>
     public EInteger GetLowBitAsEInteger() {
       return EInteger.FromInt64(this.GetLowBitAsInt64());
     }
@@ -5656,7 +5684,8 @@ maxDigitEstimate : retval +
     /// significant bit of the number will be all ones. The resulting byte
     /// array can be passed to the <c>FromBytes()</c> method (with the same
     /// byte order) to reconstruct this integer's value.</summary>
-    /// <param name='littleEndian'>Either <c>true</c> or <c>false</c>.</param>
+    /// <param name='littleEndian'>See the 'littleEndian' parameter of the
+    /// <c>FromBytes()</c> method.</param>
     /// <returns>A byte array. If this value is 0, returns a byte array
     /// with the single element 0.</returns>
     public byte[] ToBytes(bool littleEndian) {
@@ -6099,9 +6128,10 @@ maxDigitEstimate : retval +
 
     /// <summary>Converts this object to a text string in base
     /// 10.</summary>
-    /// <returns>A string representation of this object. If negative, the
-    /// string will begin with a minus sign ("-", U+002D). The string will
-    /// use the basic digits 0 to 9 (U+0030 to U+0039).</returns>
+    /// <returns>A string representation of this object. If this value is
+    /// 0, returns "0". If negative, the string will begin with a minus
+    /// sign ("-", U+002D). The string will use the basic digits 0 to 9
+    /// (U+0030 to U+0039).</returns>
     public override string ToString() {
       if (this.IsZero) {
         return "0";

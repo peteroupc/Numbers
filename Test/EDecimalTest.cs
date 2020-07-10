@@ -3000,22 +3000,24 @@ namespace Test {
     [Test]
     [Timeout(20000)]
     public void TestAddSpecific() {
-       EDecimal ed1 = EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
+       EDecimal ed1 =
+EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
        EDecimal ed2 = EDecimal.FromString("162693755097376304199934012293120");
        // Should return NaN due to memory issues
-       ed1=ed1.Add(ed2);
+       ed1 = ed1.Add(ed2);
        Assert.IsTrue(!ed1.IsFinite);
     }
 
     [Test]
     [Timeout(20000)]
     public void TestAddSpecific2() {
-       string estr = "1.38142827576784791711343100763562342897471169437179108373895" +
+       string estr =
+"1.38142827576784791711343100763562342897471169437179108373895" +
            "E-1527495144586647199842075371956087247329299647091240949";
        EDecimal ed1 = EDecimal.FromString(estr);
        EDecimal ed2 = EDecimal.FromString("162693755097376304199934012293120");
        // Should return NaN due to memory issues
-       ed1=ed1.Add(ed2);
+       ed1 = ed1.Add(ed2);
        Assert.IsTrue(!ed1.IsFinite);
     }
 

@@ -1961,6 +1961,23 @@ namespace Test {
           "15",
           stringTemp);
       }
+      EInteger
+  ei1 =
+  EInteger.FromString("1088692579850251977918382727683876451288883451475551838663907953515213777772897669");
+      EInteger
+  ei2 =
+  EInteger.FromString("734154292316019508508581520803142368704146796235662433292652");
+      TestGcdPair(ei1, ei2, EInteger.One);
+
+  ei1 =
+  EInteger.FromString("390162357953126476870450846332252625209515327296852766");
+  ei2 = EInteger.FromString("854818964073568437308435317723736629914");
+      TestGcdPair(ei1, ei2, EInteger.FromInt32(2));
+    ei1 = EInteger.FromString("1669589419950395927580");
+
+  ei2 =
+  EInteger.FromString("1391147381889193092596558363578727285498500460445439101064428207862760");
+      TestGcdPair(ei1, ei2, EInteger.FromInt32(20));
       var prime = 0;
       var rand = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
@@ -1979,7 +1996,8 @@ namespace Test {
         ba *= (EInteger)bigprime;
         Assert.AreEqual(
           bigprime,
-          bigprime.Gcd(ba));
+          bigprime.Gcd(ba),
+          ba.ToString());
       }
       TestGcdPair((EInteger)(-1867), (EInteger)(-4456), EInteger.One);
       TestGcdPair((EInteger)4604, (EInteger)(-4516), (EInteger)4);
@@ -3368,8 +3386,15 @@ namespace Test {
       EInteger biggcd) {
       EInteger ba = biga.Gcd(bigb);
       EInteger bb = bigb.Gcd(biga);
-      Assert.AreEqual(ba, biggcd);
-      Assert.AreEqual(bb, biggcd);
+      if (!ba.Equals(biggcd)) {
+        Assert.AreEqual(biggcd, ba, biga+ " " + bigb);
+      }
+      if (!bb.Equals(biggcd)) {
+        Assert.AreEqual(biggcd, bb, biga+ " " + bigb);
+      }
+      Assert.AreEqual(biggcd, biga.Negate().Gcd(bigb));
+      Assert.AreEqual(biggcd, biga.Gcd(bigb.Negate()));
+      Assert.AreEqual(biggcd, biga.Negate().Gcd(bigb.Negate()));
     }
 
     private static string ToUpperCaseAscii(string str) {

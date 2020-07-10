@@ -1355,6 +1355,12 @@ An arbitrary-precision integer.
 The parameter  <i>bigintSecond</i>
  is null.
 
+ * System.ArgumentException:
+bigPower is negative; doesn't satisfy shiftBits&lt;16; doesn't satisfy sqroot.Sign&gt;= 0
+
+ * System.DivideByZeroException:
+Attempted to divide by zero.
+
 <a id="GetBits_int_int"></a>
 ### GetBits
 

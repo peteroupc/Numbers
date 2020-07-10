@@ -36,6 +36,7 @@ namespace Test {
     }
 
     [Test]
+    [Timeout(20000)]
     public void TestParser() {
       var errors = new List<string>();
       var dirfiles = new List<string>();
