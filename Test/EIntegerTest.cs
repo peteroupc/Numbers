@@ -2659,8 +2659,8 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        (EInteger.Zero - EInteger.One).PowBigIntVar (null);
-
+        EInteger ei = EInteger.Zero.Subtract(1);
+        ei.PowBigIntVar(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -2688,8 +2688,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        ((EInteger)13).Mod (null);
-
+        EInteger.FromInt32(13).Mod(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -2698,7 +2697,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        ((EInteger)13).Mod ((EInteger)(-4));
+        EInteger.FromInt32(13).Mod((EInteger)(-4));
 
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
@@ -2708,7 +2707,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        ((EInteger)(-13)).Mod ((EInteger)(-4));
+        EInteger.FromInt32(13).Mod((EInteger)(-4));
 
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
@@ -3391,10 +3390,10 @@ namespace Test {
       EInteger ba = biga.Gcd(bigb);
       EInteger bb = bigb.Gcd(biga);
       if (!ba.Equals(biggcd)) {
-        Assert.AreEqual(biggcd, ba, biga+ " " + bigb);
+        Assert.AreEqual(biggcd, ba, biga + " " + bigb);
       }
       if (!bb.Equals(biggcd)) {
-        Assert.AreEqual(biggcd, bb, biga+ " " + bigb);
+        Assert.AreEqual(biggcd, bb, biga + " " + bigb);
       }
       Assert.AreEqual(biggcd, biga.Negate().Gcd(bigb));
       Assert.AreEqual(biggcd, biga.Gcd(bigb.Negate()));

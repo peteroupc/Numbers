@@ -10,8 +10,8 @@ using System.Reflection;
 
 namespace PeterO {
   internal static class DebugUtility {
-    private static Action<string> writer = null;
     private static readonly object WriterLock = new Object();
+    private static Action<string> writer = null;
 
     [System.Diagnostics.Conditional("DEBUG")]
     public static void SetWriter(Action<string> wr) {

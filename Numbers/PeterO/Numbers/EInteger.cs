@@ -2869,15 +2869,14 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns the greatest common divisor of this integer and
     /// the given integer. The greatest common divisor (GCD) is also known
-    /// as the greatest common factor (GCF).</summary>
+    /// as the greatest common factor (GCF).  This method works even if
+    /// either or both integers are negative.</summary>
     /// <param name='bigintSecond'>Another arbitrary-precision
-    /// integer.</param>
-    /// <returns>An arbitrary-precision integer.</returns>
+    /// integer.  Can be negative.</param>
+    /// <returns>The greatest common divisor of this integer and
+    /// the given integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintSecond'/> is null.</exception>
-    /// <exception cref='ArgumentException'>bigPower is negative; doesn't
-    /// satisfy shiftBits&amp;lt;16; doesn't satisfy sqroot.Sign&amp;gt;=
-    /// 0</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
     public EInteger Gcd(EInteger bigintSecond) {
@@ -3051,7 +3050,7 @@ namespace PeterO.Numbers {
           // a > b
           long drem = longam[0] % longam[1];
           var divrem = new long[] {
-            longam[0] / longam[1], drem
+            longam[0] / longam[1], drem,
           };
           if (LBL(divrem[1]) <= ls) {
             --divrem[0];
@@ -3064,7 +3063,7 @@ namespace PeterO.Numbers {
           // a <= b
           long drem = longam[1] / longam[0];
           var divrem = new long[] {
-            longam[1] % longam[0], drem
+            longam[1] % longam[0], drem,
           };
           if (LBL(divrem[1]) <= ls) {
             --divrem[0];
@@ -3155,18 +3154,18 @@ namespace PeterO.Numbers {
           if (ret2 == null) {
             return null;
           }
-          longa = longal*(ret2[5]) - (longbl*(ret2[3]));
-          longb = longbl*(ret2[2]) - (longal*(ret2[4]));
+          longa = longal * ret2[5] - (longbl * ret2[3]);
+          longb = longbl * ret2[2] - (longal * ret2[4]);
           longa += ret2[0] << p1;
           longb += ret2[1] << p1;
           if (longa < 0 || longb < 0) {
             throw new InvalidOperationException("Internal error");
           }
           long ma, mb, mc, md;
-          ma = ret[2]*(ret2[2]) + (ret[3]*(ret2[4]));
-          mb = ret[2]*(ret2[3]) + (ret[3]*(ret2[5]));
-          mc = ret[4]*(ret2[2]) + (ret[5]*(ret2[4]));
-          md = ret[4]*(ret2[3]) + (ret[5]*(ret2[5]));
+          ma = ret[2] * ret2[2] + (ret[3] * ret2[4]);
+          mb = ret[2] * ret2[3] + (ret[3] * ret2[5]);
+          mc = ret[4] * ret2[2] + (ret[5] * ret2[4]);
+          md = ret[4] * ret2[3] + (ret[5] * ret2[5]);
           ret[2] = ma;
           ret[3] = mb;
           ret[4] = mc;
@@ -3190,7 +3189,7 @@ namespace PeterO.Numbers {
           { throw new InvalidOperationException("Internal error");
           }
         }
-        if (ret[2]*(ret[5]) - (ret[3]*(ret[4])) != 1) {
+        if (ret[2] * ret[5] - (ret[3] * ret[4]) != 1) {
           throw new InvalidOperationException("Internal error");
         }
         if (LBL(ret[0] - ret[1]) > ls) {
@@ -3319,7 +3318,7 @@ namespace PeterO.Numbers {
         // DebugUtility.Log("ret_afterloop3["+k+"]=" +
         // ret[k].ToRadixString(16));
       }
-      while (BL(ret[0].Subtract(ret[1])). CompareTo(eis) > 0) {
+      while (BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0) {
         if (ret[0].Sign < 0 || ret[1].Sign < 0) {
           throw new InvalidOperationException("Internal error");
         }
