@@ -20,6 +20,8 @@ using System.Text;
 // to return MaxValue on overflow
 // TODO: In next major version, perhaps change GetLowBit/GetDigitCount
 // to return MaxValue on overflow
+// TODO: Add overload to FromBytes to take a portion of a byte array
+// TODO: Add faster equivalent to And((1 << n)-1)
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision integer. (The "E" stands
   /// for "extended", and has this prefix to group it with the other
@@ -3035,10 +3037,8 @@ namespace PeterO.Numbers {
  }
 
  private static void LSDivStep(long[] longam, long ls) {
-  #if DEBUG
   ArgumentAssert.GreaterOrEqual(longam[0]);
   ArgumentAssert.GreaterOrEqual(longam[1]);
-  #endif
   checked {
   // a, b, m[0] ... m[3]
    if (longam[0] > longam[1]) {
@@ -3103,11 +3103,11 @@ return (mantlong == 0) ? 0 : NumberUtility.BitLength(Math.Abs(mantlong));
          if (ret2 == null) {
            return null;
          }
-          Array.Copy(ret2, 0, ret, 0, 6);
-        longa = (longal * ret2[5]) - (longbl* ret2[3]);
-        longb = (longbl * ret2[2]) - (longal* ret2[4]);
-        longa += ret2[0] << p1;
-        longb += ret2[1] << p1;
+         Array.Copy(ret2, 0, ret, 0, 6);
+       longa = (longal * ret2[5]) - (longbl * ret2[3]);
+       longb = (longbl * ret2[2]) - (longal * ret2[4]);
+       longa += ret2[0] << p1;
+       longb += ret2[1] << p1;
        } else {
           // Set M to identity
           ret = new long[6];
@@ -3371,7 +3371,7 @@ return (mantlong == 0) ? 0 : NumberUtility.BitLength(Math.Abs(mantlong));
         // DebugUtility.Log("eib->" + eib.ToRadixString(16));
       if (eia.Sign < 0 || eib.Sign < 0) {
         for (int k = 0; k < 6; ++k) {
-             DebugUtility.Log("hgcd["+ k + "]=" + hgcd[k].ToRadixString(16));
+             DebugUtility.Log("hgcd[" + k + "]=" + hgcd[k].ToRadixString(16));
             }
             throw new InvalidOperationException("Internal error");
           }
