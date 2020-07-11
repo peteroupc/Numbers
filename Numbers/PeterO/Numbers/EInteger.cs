@@ -3037,8 +3037,14 @@ namespace PeterO.Numbers {
  }
 
  private static void LSDivStep(long[] longam, long ls) {
-  ArgumentAssert.GreaterOrEqual(longam[0]);
-  ArgumentAssert.GreaterOrEqual(longam[1]);
+  if (longam[0] < 0) {
+    throw new ArgumentException("longam[0] (" + longam[0] + ") is not" +
+"\u0020greater or equal to 0");
+  }
+  if (longam[1] < 0) {
+    throw new ArgumentException("longam[1] (" + longam[1] + ") is not" +
+"\u0020greater or equal to 0");
+  }
   checked {
   // a, b, m[0] ... m[3]
    if (longam[0] > longam[1]) {
