@@ -3049,9 +3049,9 @@ namespace PeterO.Numbers {
         // a, b, m[0] ... m[3]
         if (longam[0] > longam[1]) {
           // a > b
+          long drem = longam[0] % longam[1];
           var divrem = new long[] {
-            longam[0] / longam[1], longam[0] %,
-            longam[1]
+            longam[0] / longam[1], drem
           };
           if (LBL(divrem[1]) <= ls) {
             --divrem[0];
@@ -3062,9 +3062,9 @@ namespace PeterO.Numbers {
           longam[0] = divrem[1];
         } else {
           // a <= b
+          long drem = longam[1] / longam[0];
           var divrem = new long[] {
-            longam[1] / longam[0], longam[1] %,
-            longam[0]
+            longam[1] % longam[0], drem
           };
           if (LBL(divrem[1]) <= ls) {
             --divrem[0];
