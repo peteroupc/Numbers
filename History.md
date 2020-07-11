@@ -1,5 +1,8 @@
 Release notes
 -------
+Version 1.7.2
+
+- Improve performance of EInteger's Gcd method for large integers
 
 Version 1.7.1
 

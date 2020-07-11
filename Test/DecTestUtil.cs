@@ -15,7 +15,8 @@ namespace Test {
       "^[\\'\\\"]|[\\'\\\"]$",
       RegexOptions.Compiled);
 
-    private const testLineRegex = "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)";
+    private const testLineRegex =
+  "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)";
 
     private static readonly Regex ValueTestLine = new Regex(
       testLineRegex,

@@ -2869,12 +2869,12 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns the greatest common divisor of this integer and
     /// the given integer. The greatest common divisor (GCD) is also known
-    /// as the greatest common factor (GCF).  This method works even if
+    /// as the greatest common factor (GCF). This method works even if
     /// either or both integers are negative.</summary>
-    /// <param name='bigintSecond'>Another arbitrary-precision
-    /// integer.  Can be negative.</param>
-    /// <returns>The greatest common divisor of this integer and
-    /// the given integer.</returns>
+    /// <param name='bigintSecond'>Another arbitrary-precision integer. Can
+    /// be negative.</param>
+    /// <returns>The greatest common divisor of this integer and the given
+    /// integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintSecond'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
@@ -3154,18 +3154,18 @@ namespace PeterO.Numbers {
           if (ret2 == null) {
             return null;
           }
-          longa = longal * ret2[5] - (longbl * ret2[3]);
-          longb = longbl * ret2[2] - (longal * ret2[4]);
+          longa = (longal * ret2[5]) - (longbl * ret2[3]);
+          longb = (longbl * ret2[2]) - (longal * ret2[4]);
           longa += ret2[0] << p1;
           longb += ret2[1] << p1;
           if (longa < 0 || longb < 0) {
             throw new InvalidOperationException("Internal error");
           }
           long ma, mb, mc, md;
-          ma = ret[2] * ret2[2] + (ret[3] * ret2[4]);
-          mb = ret[2] * ret2[3] + (ret[3] * ret2[5]);
-          mc = ret[4] * ret2[2] + (ret[5] * ret2[4]);
-          md = ret[4] * ret2[3] + (ret[5] * ret2[5]);
+          ma = (ret[2] * ret2[2]) + (ret[3] * ret2[4]);
+          mb = (ret[2] * ret2[3]) + (ret[3] * ret2[5]);
+          mc = (ret[4] * ret2[2]) + (ret[5] * ret2[4]);
+          md = (ret[4] * ret2[3]) + (ret[5] * ret2[5]);
           ret[2] = ma;
           ret[3] = mb;
           ret[4] = mc;
@@ -3189,7 +3189,7 @@ namespace PeterO.Numbers {
           { throw new InvalidOperationException("Internal error");
           }
         }
-        if (ret[2] * ret[5] - (ret[3] * ret[4]) != 1) {
+        if ((ret[2] * ret[5]) - (ret[3] * ret[4]) != 1) {
           throw new InvalidOperationException("Internal error");
         }
         if (LBL(ret[0] - ret[1]) > ls) {
