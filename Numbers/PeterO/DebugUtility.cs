@@ -11,11 +11,11 @@ using System.Reflection;
 namespace PeterO {
   internal static class DebugUtility {
     private static Action<string> writer = null;
-    internal static readonly object writerLock = new Object();
+    private static readonly object WriterLock = new Object();
 
     [System.Diagnostics.Conditional("DEBUG")]
     public static void SetWriter(Action<string> wr) {
-       lock (writerLock) {
+       lock (WriterLock) {
          writer = wr;
        }
     }
@@ -37,7 +37,7 @@ namespace PeterO {
       Type type = Type.GetType("System.Console");
       if (type == null) {
          Action<string> wr = null;
-         lock (writerLock) {
+         lock (WriterLock) {
            wr = writer;
          }
          if (wr != null) {

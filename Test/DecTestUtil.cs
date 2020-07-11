@@ -17,7 +17,7 @@ namespace Test {
 
     private static readonly Regex ValueTestLine = new Regex(
   "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)",
-  RegexOptions.Compiled);
+      RegexOptions.Compiled);
 
     public static string[] SplitAtFast(
       string str,
@@ -342,11 +342,11 @@ namespace Test {
       }
       if (sub.Length == 1) {
         for (var i = 0; i < str.Length; ++i) {
-            if (str[i] == sub[0]) {
-              return true;
-            }
-         }
-         return false;
+          if (str[i] == sub[0]) {
+            return true;
+          }
+        }
+        return false;
       }
       return str.IndexOf(sub, StringComparison.Ordinal) >= 0;
     }
@@ -993,7 +993,7 @@ namespace Test {
       }
       // NOTE: ix < 2 includes cases where space is not found
       if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix - 1] != 's' &&
-         ln[ix - 1] != 'q')) {
+          ln[ix - 1] != 'q')) {
         return 0;
       }
       string[] chunks = SplitAtSpaceRuns(ln);
@@ -1726,7 +1726,7 @@ namespace Test {
         }
         if (!extended && (Contains(input1, "sNaN") ||
             Contains(input2, "sNaN") || Contains(input3, "sNaN") ||
-           Contains(output, "sNaN"))) {
+            Contains(output, "sNaN"))) {
           Console.WriteLine(ln);
         }
         if (name.Equals("S", StringComparison.Ordinal)) {
@@ -2276,8 +2276,8 @@ namespace Test {
       string name) {
       if (((expected & flag) != 0) != ((actual & flag) != 0)) {
         string msg = name + ": " + FlagsToString(flag) +
-           "\nExpected flags: " + FlagsToString(expected) +
-           "\nActual flags..: " + FlagsToString(actual);
+          "\nExpected flags: " + FlagsToString(expected) +
+          "\nActual flags..: " + FlagsToString(actual);
         Assert.AreEqual(
           (expected & flag) != 0,
           (actual & flag) != 0,

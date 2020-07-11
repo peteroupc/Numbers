@@ -1442,7 +1442,7 @@ Gets the bit position of the lowest set bit in this number's absolute value. (Th
 
 <b>Return Value:</b>
 
-The bit position of the lowest bit set in the number, starting at 0. Returns -1 if this value is 0.
+The bit position of the lowest bit set in the number's absolute value, starting at 0. Returns -1 if this value is 0.
 
 <a id="GetLowBitAsEInteger"></a>
 ### GetLowBitAsEInteger
@@ -1453,7 +1453,7 @@ Gets the bit position of the lowest set bit in this number's absolute value, in 
 
 <b>Return Value:</b>
 
-The bit position of the lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd.
+The bit position of the lowest bit set in the number's absolute value, starting at 0. Returns -1 if this value is 0 or odd.
 
 <a id="GetLowBitAsInt64"></a>
 ### GetLowBitAsInt64
@@ -1464,7 +1464,7 @@ Gets the bit position of the lowest set bit in this number's absolute value, in 
 
 <b>Return Value:</b>
 
-The bit position of the lowest bit set in the number, starting at 0. Returns -1 if this value is 0 or odd. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if this number is other than zero but the lowest set bit is at 2^63 - 1 or greater. (Use  `GetLowBitAsEInteger`  instead if the application relies on the exact value of the lowest set bit position.).
+The bit position of the lowest bit set in the number's absolute value, starting at 0. Returns -1 if this value is 0 or odd. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if this number is other than zero but the lowest set bit is at 2^63 - 1 or greater. (Use  `GetLowBitAsEInteger`  instead if the application relies on the exact value of the lowest set bit position.).
 
 <a id="GetSignedBit_int"></a>
 ### GetSignedBit
@@ -3253,7 +3253,7 @@ Returns a byte array of this integer's value. The byte array will take the numbe
 
 <b>Parameters:</b>
 
- * <i>littleEndian</i>: Either  `true`  or  `false` .
+ * <i>littleEndian</i>: See the 'littleEndian' parameter of the  `FromBytes()`  method.
 
 <b>Return Value:</b>
 
@@ -3407,7 +3407,7 @@ Converts this object to a text string in base 10.
 
 <b>Return Value:</b>
 
-A string representation of this object. If negative, the string will begin with a minus sign ("-", U+002D). The string will use the basic digits 0 to 9 (U+0030 to U+0039).
+A string representation of this object. If this value is 0, returns "0". If negative, the string will begin with a minus sign ("-", U+002D). The string will use the basic digits 0 to 9 (U+0030 to U+0039).
 
 <a id="ToUInt16Checked"></a>
 ### ToUInt16Checked

@@ -1291,10 +1291,8 @@ namespace Test {
       if (littleEndian) {
         if (!(bytes.Length == 1 || (
               !(bytes[bytes.Length - 1] == 0x00 && ((int)bytes[bytes.Length
-- 2] &
-                0x80) == 0) && !(bytes[bytes.Length - 1] == (byte)0xff &&
-((int)bytes[bytes.Length -
-                2] & 0x80) != 0)))) {
+                - 2] & 0x80) == 0) && !(bytes[bytes.Length - 1] == (byte)0xff &&
+                ((int)bytes[bytes.Length - 2] & 0x80) != 0)))) {
           return false;
         }
       } else {
@@ -1604,26 +1602,26 @@ namespace Test {
       }
     }
     public static char[] StringToChars(string str) {
-       if (str == null) {
-         throw new ArgumentNullException(nameof(str));
-       }
-       var chars = new char[str.Length];
-       for (var i = 0; i < str.Length; ++i) {
-         char ch = str[i];
-         chars[i] = ch;
-       }
-       return chars;
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      var chars = new char[str.Length];
+      for (var i = 0; i < str.Length; ++i) {
+        char ch = str[i];
+        chars[i] = ch;
+      }
+      return chars;
     }
     public static byte[] StringToBytes(string str) {
-       if (str == null) {
-         throw new ArgumentNullException(nameof(str));
-       }
-       var bytes = new byte[str.Length];
-       for (var i = 0; i < str.Length; ++i) {
-         char ch = str[i];
-         bytes[i] = (byte)ch;
-       }
-       return bytes;
+      if (str == null) {
+        throw new ArgumentNullException(nameof(str));
+      }
+      var bytes = new byte[str.Length];
+      for (var i = 0; i < str.Length; ++i) {
+        char ch = str[i];
+        bytes[i] = (byte)ch;
+      }
+      return bytes;
     }
     [Test]
     public void TestFromString() {
@@ -1961,21 +1959,23 @@ namespace Test {
           "15",
           stringTemp);
       }
-      EInteger
-  ei1 =
+      EInteger ei1 =
+
   EInteger.FromString("1088692579850251977918382727683876451288883451475551838663907953515213777772897669");
-      EInteger
-  ei2 =
+      EInteger ei2 =
+
   EInteger.FromString("734154292316019508508581520803142368704146796235662433292652");
       TestGcdPair(ei1, ei2, EInteger.One);
 
-  ei1 =
-  EInteger.FromString("390162357953126476870450846332252625209515327296852766");
-  ei2 = EInteger.FromString("854818964073568437308435317723736629914");
-      TestGcdPair(ei1, ei2, EInteger.FromInt32(2));
-    ei1 = EInteger.FromString("1669589419950395927580");
+      ei1 =
 
-  ei2 =
+  EInteger.FromString("390162357953126476870450846332252625209515327296852766");
+      ei2 = EInteger.FromString("854818964073568437308435317723736629914");
+      TestGcdPair(ei1, ei2, EInteger.FromInt32(2));
+      ei1 = EInteger.FromString("1669589419950395927580");
+
+      ei2 =
+
   EInteger.FromString("1391147381889193092596558363578727285498500460445439101064428207862760");
       TestGcdPair(ei1, ei2, EInteger.FromInt32(20));
       var prime = 0;
@@ -2658,7 +2658,8 @@ namespace Test {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      try { (EInteger.Zero - EInteger.One).PowBigIntVar(null);
+      try {
+        (EInteger.Zero - EInteger.One).PowBigIntVar (null);
 
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
@@ -2686,7 +2687,8 @@ namespace Test {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      try { ((EInteger)13).Mod(null);
+      try {
+        ((EInteger)13).Mod (null);
 
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
@@ -2695,7 +2697,8 @@ namespace Test {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      try { ((EInteger)13).Mod((EInteger)(-4));
+      try {
+        ((EInteger)13).Mod ((EInteger)(-4));
 
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
@@ -2704,7 +2707,8 @@ namespace Test {
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
-      try { ((EInteger)(-13)).Mod((EInteger)(-4));
+      try {
+        ((EInteger)(-13)).Mod ((EInteger)(-4));
 
         Assert.Fail("Should have failed");
       } catch (ArithmeticException) {
@@ -3148,23 +3152,23 @@ namespace Test {
         }
       }
       try {
- EInteger.FromInt32(7).Root(0);
- Assert.Fail("Should have failed");
-} catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+        EInteger.FromInt32(7).Root(0);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
       try {
- EInteger.FromInt32(7).Root(-1);
- Assert.Fail("Should have failed");
-} catch (ArgumentException) {
-// NOTE: Intentionally empty
-} catch (Exception ex) {
- Assert.Fail(ex.ToString());
- throw new InvalidOperationException(String.Empty, ex);
-}
+        EInteger.FromInt32(7).Root(-1);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
     }
 
     [Test]
@@ -3459,7 +3463,7 @@ namespace Test {
           // If abs(b)>1 and abs(a)>1, abs(product) must be greater than abs(a) and
           // abs(b)
           if (bigintA.Abs().CompareTo(1) > 0 && bigintB.Abs().CompareTo(1) >
-0) {
+            0) {
             Assert.IsTrue(bigintC.Abs().CompareTo(bigintA.Abs()) > 0);
             Assert.IsTrue(bigintC.Abs().CompareTo(bigintB.Abs()) > 0);
           }
