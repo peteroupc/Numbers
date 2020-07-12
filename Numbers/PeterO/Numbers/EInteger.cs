@@ -3381,10 +3381,14 @@ namespace PeterO.Numbers {
         // DebugUtility.Log("eia->" + eia.ToRadixString(16));
         // DebugUtility.Log("eib->" + eib.ToRadixString(16));
         if (eia.Sign < 0 || eib.Sign < 0) {
-          for (int k = 0; k < 6; ++k) {
-            DebugUtility.Log("hgcd[" + k + "]=" + hgcd[k].ToRadixString(16));
+          StringBuilder sb = new StringBuilder();
+          sb.Append(ret[0] + "\n" + ret[1] + "\n");
+          for(int k=0;k<6;k++) {
+            sb.Append("hgcd_" + k + "=" + hgcd[k].ToRadixString(16));
+            sb.Append("\n");
           }
-          throw new InvalidOperationException("Internal error");
+          throw new InvalidOperationException(
+              "Internal error\n" + sb.ToString());
         }
         ein = MaxBitLength(eia, eib);
         ret[0] = eia;
