@@ -1282,34 +1282,39 @@ namespace Test {
     }
 
     public static bool TestEIntegerFromBytes(byte[] bytes, bool littleEndian) {
+       return TestEIntegerFromBytes(bytes, 0, bytes.Length, littleEndian);
+    }
+
+    public static bool TestEIntegerFromBytes(byte[] bytes, int offset, int length, bool littleEndian) {
       if (bytes == null) {
         throw new ArgumentNullException(nameof(bytes));
       }
-      if (bytes.Length == 0) {
+      if (length == 0) {
         return false;
       }
       if (littleEndian) {
-        if (!(bytes.Length == 1 || (
-              !(bytes[bytes.Length - 1] == 0x00 && ((int)bytes[bytes.Length
-                - 2] & 0x80) == 0) && !(bytes[bytes.Length - 1] == (byte)0xff &&
-                ((int)bytes[bytes.Length - 2] & 0x80) != 0)))) {
+        if (!(length == 1 || (
+              !(bytes[offset + length - 1] == 0x00 && ((int)bytes[offset + length
+                - 2] & 0x80) == 0) && !(bytes[offset + length - 1] == (byte)0xff &&
+                ((int)bytes[offset + length - 2] & 0x80) != 0)))) {
           return false;
         }
       } else {
-        if (!(bytes.Length == 1 || (
-              !(bytes[0] == 0x00 && ((int)bytes[1] & 0x80) == 0) &&
-              !(bytes[0] == (byte)0xff && ((int)bytes[1] & 0x80) != 0)
-))) {
+        if (!(length == 1 || (
+              !(bytes[offset] == 0x00 && ((int)bytes[offset + 1] & 0x80) == 0) &&
+              !(bytes[offset] == (byte)0xff && ((int)bytes[offset + 1] & 0x80) != 0)))) {
           return false;
         }
       }
       var negative = false;
-      negative = (!littleEndian) ? ((bytes[0] & 0x80) != 0) :
-        ((bytes[bytes.Length - 1] & 0x80) != 0);
-      EInteger ei = EInteger.FromBytes(bytes, littleEndian);
+      negative = (!littleEndian) ? ((bytes[offset] & 0x80) != 0) :
+        ((bytes[offset + length - 1] & 0x80) != 0);
+      EInteger ei = (offset==0 && length == bytes.Length) ?
+          EInteger.FromBytes(bytes, littleEndian) :
+          EInteger.FromBytes(bytes, offset, length, littleEndian);
       Assert.AreEqual(negative, ei.Sign < 0);
       byte[] ba = ei.ToBytes(littleEndian);
-      TestCommon.AssertByteArraysEqual(bytes, ba);
+      TestCommon.AssertByteArraysEqual(bytes, offset, length, ba);
       return true;
     }
 
@@ -1331,6 +1336,13 @@ namespace Test {
       for (var i = 0; i < 1000; ++i) {
         byte[] bytes = RandomObjects.RandomByteString(rg);
         TestEIntegerFromBytes(bytes, rg.UniformInt(2) == 0);
+        int offset1=rg.GetInt32(bytes.Length+1);
+        int offset2=rg.GetInt32(bytes.Length+1);
+        if (offset1!=offset2) {
+          int length=Math.Abs(offset1-offset2);
+          int offset=Math.Min(offset1, offset2);
+          TestEIntegerFromBytes(bytes, offset, length, rg.UniformInt(2) == 0);
+        }
       }
     }
     [Test]

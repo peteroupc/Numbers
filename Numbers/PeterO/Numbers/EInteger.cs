@@ -287,43 +287,70 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Initializes an arbitrary-precision integer from a portion
-    /// of an array of bytes.</summary>
-    /// <returns>An arbitrary-precision integer. Returns 0 if "length" is
-    /// 0.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bytes'/> is null.</exception>
-    /// <param name='offset'>Not documented yet.</param>
-    /// <param name='length'>Not documented yet.</param>
+    /// of an array of bytes. The portion of the byte array is encoded
+    /// using the following rules:
+    /// <list>
+    /// <item>Positive numbers have the first byte's highest bit cleared,
+    /// and negative numbers have the bit set.</item>
+    /// <item>The last byte contains the lowest 8-bits, the next-to-last
+    /// contains the next lowest 8 bits, and so on. For example, the number
+    /// 300 can be encoded as <c>0x01, 0x2C</c> and 200 as <c>0x00,
+    /// 0xC8</c>. (Note that the second example contains a set high bit in
+    /// <c>0xC8</c>, so an additional 0 is added at the start to ensure
+    /// it's interpreted as positive.)</item>
+    /// <item>To encode negative numbers, take the absolute value of the
+    /// number, subtract by 1, encode the number into bytes, and toggle
+    /// each bit of each byte. Any further bits that appear beyond the most
+    /// significant bit of the number will be all ones. For example, the
+    /// number -450 can be encoded as <c>0xfe, 0x70</c> and -52869 as
+    /// <c>0xff, 0x31, 0x7B</c>. (Note that the second example contains a
+    /// cleared high bit in <c>0x31, 0x7B</c>, so an additional 0xff is
+    /// added at the start to ensure it's interpreted as
+    /// negative.)</item></list>
+    /// <para>For little-endian, the byte order is reversed from the byte
+    /// order just discussed.</para></summary>
     /// <param name='bytes'>A byte array consisting of the two's-complement
     /// form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// the arbitrary-precision integer to create. The byte array is
     /// encoded using the rules given in the FromBytes(bytes, offset,
     /// length, littleEndian) overload.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='bytes'/> begins.</param>
+    /// <param name='length'>The length, in bytes, of the desired
+    /// portion of <paramref name='bytes'/> (but not more than <paramref
+    /// name='bytes'/> 's length).</param>
     /// <param name='littleEndian'>If true, the byte order is
     /// little-endian, or least-significant-byte first. If false, the byte
     /// order is big-endian, or most-significant-byte first.</param>
     /// <returns>An arbitrary-precision integer. Returns 0 if the byte
     /// array's length is 0.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='bytes'/> 's length, or <paramref
+    /// name='bytes'/> 's length minus <paramref name='offset'/> is less
+    /// than <paramref name='length'/>.</exception>
     public static EInteger FromBytes(
       byte[] bytes,
- int offset,
- int length,
- bool littleEndian) {
+      int offset,
+      int length,
+      bool littleEndian) {
       if (bytes == null) {
         throw new ArgumentNullException(nameof(bytes));
       }
       if (offset < 0) {
         throw new ArgumentException("offset (" + offset + ") is not greater" +
-"\u0020or equal to 0");
+           "\u0020or equal to 0");
       }
       if (offset > bytes.Length) {
         throw new ArgumentException("offset (" + offset + ") is not less or" +
-"\u0020equal to " + bytes.Length);
+           "\u0020equal to " + bytes.Length);
       }
       if (length < 0) {
-        throw new ArgumentException("length (" + length + ") is not greater or" +
-"\u0020equal to 0");
+        throw new ArgumentException("length (" + length + ") is not " +
+            "greater or equal to 0");
       }
       if (length > bytes.Length) {
         throw new ArgumentException("length (" + length + ") is not less or" +
@@ -331,7 +358,7 @@ namespace PeterO.Numbers {
       }
       if (bytes.Length - offset < length) {
         throw new ArgumentException("bytes's length minus " + offset + " (" +
-(bytes.Length - offset) + ") is not greater or equal to " + length);
+           (bytes.Length - offset) + ") is not greater or equal to " + length);
       }
       if (length == 0) {
         return EInteger.Zero;
@@ -1488,7 +1515,7 @@ FromInt32((int)bytes[offset]) :
     /// integer.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
-    ///  .
+    /// .
     /// </example>
     public EInteger Multiply(int intValue) {
       return this.Multiply(EInteger.FromInt32(intValue));
@@ -2912,6 +2939,9 @@ FromInt32((int)bytes[offset]) :
     /// name='bigintSecond'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
+    /// <exception cref='ArgumentException'>bigPower is negative; doesn't
+    /// satisfy shiftBits&amp;lt;16; doesn't satisfy sqroot.Sign&amp;gt;=
+    /// 0</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException(nameof(bigintSecond));
@@ -2931,7 +2961,8 @@ FromInt32((int)bytes[offset]) :
       if (thisValue.Equals(EInteger.One)) {
         return thisValue;
       }
-      if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 250) {
+      if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 12) {
+      // if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 250) {
         return SubquadraticGCD(thisValue, bigintSecond);
       } else {
         return BaseGcd(thisValue, bigintSecond);
@@ -3414,10 +3445,14 @@ FromInt32((int)bytes[offset]) :
         // DebugUtility.Log("eia->" + eia.ToRadixString(16));
         // DebugUtility.Log("eib->" + eib.ToRadixString(16));
         if (eia.Sign < 0 || eib.Sign < 0) {
+          StringBuilder sb = new StringBuilder();
+          sb.Append("eia="+ret[0] +"\n");
+          sb.Append("eib="+ret[0] +"\n");
           for (int k = 0; k < 6; ++k) {
-            DebugUtility.Log("hgcd[" + k + "]=" + hgcd[k].ToRadixString(16));
+            sb.Append("hgcd_" + k + "=" + hgcd[k].ToRadixString(16));
+            sb.Append("\n");
           }
-          throw new InvalidOperationException("Internal error");
+          throw new InvalidOperationException("Internal error\n" + sb);
         }
         ein = MaxBitLength(eia, eib);
         ret[0] = eia;

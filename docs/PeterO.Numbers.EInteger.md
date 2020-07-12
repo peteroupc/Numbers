@@ -56,7 +56,6 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision integer.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[FromBytes(byte[], bool)](#FromBytes_byte_bool)</code> - Initializes an arbitrary-precision integer from an array of bytes.
-* <code>[FromBytes(byte[], int, int, bool)](#FromBytes_byte_int_int_bool)</code> - Initializes an arbitrary-precision integer from a portion of an array of bytes.
 * <code>[FromInt16(short)](#FromInt16_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision integer.
 * <code>[FromInt32(int)](#FromInt32_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
@@ -817,34 +816,7 @@ Initializes an arbitrary-precision integer from an array of bytes.
 
 <b>Parameters:</b>
 
- * <i>bytes</i>: A byte array consisting of the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of the arbitrary-precision integer to create. The byte array is encoded using the rules given in the FromBytes(bytes, offset, length, littleEndian) overload.
-
- * <i>littleEndian</i>: If true, the byte order is little-endian, or least-significant-byte first. If false, the byte order is big-endian, or most-significant-byte first.
-
-<b>Return Value:</b>
-
-An arbitrary-precision integer. Returns 0 if the byte array's length is 0.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bytes</i>
- is null.
-
-<a id="FromBytes_byte_int_int_bool"></a>
-### FromBytes
-
-    public static PeterO.Numbers.EInteger FromBytes(
-        byte[] bytes,
-        int offset,
-        int length,
-        bool littleEndian);
-
-Initializes an arbitrary-precision integer from a portion of an array of bytes.
-
-<b>Parameters:</b>
-
- * <i>bytes</i>: A portion of a byte array consisting of the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of the arbitrary-precision integer to create. The byte array portion has to be encoded using the following rules:
+ * <i>bytes</i>: A byte array consisting of the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of the arbitrary-precision integer to create. The byte array is encoded using the following rules:
 
  * Positive numbers have the first byte's highest bit cleared, and negative numbers have the bit set.
 
@@ -861,7 +833,7 @@ For little-endian, the byte order is reversed from the byte order just discussed
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer. Returns 0 if "length" is 0.
+An arbitrary-precision integer. Returns 0 if the byte array's length is 0.
 
 <b>Exceptions:</b>
 
