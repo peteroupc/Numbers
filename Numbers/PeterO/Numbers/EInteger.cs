@@ -20,7 +20,7 @@ using System.Text;
 // to return MaxValue on overflow
 // TODO: In next major version, perhaps change GetLowBit/GetDigitCount
 // to return MaxValue on overflow
-// TODO: Add overload to FromBytes to take a portion of a byte array
+// TODO: Perhaps add overload to FromBytes to take a sign and magnitude
 // TODO: Add faster equivalent to And((1 << n)-1)
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision integer. (The "E" stands
@@ -270,27 +270,8 @@ namespace PeterO.Numbers {
     /// form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// the arbitrary-precision integer to create. The byte array is
-    /// encoded using the following rules:
-    /// <list>
-    /// <item>Positive numbers have the first byte's highest bit cleared,
-    /// and negative numbers have the bit set.</item>
-    /// <item>The last byte contains the lowest 8-bits, the next-to-last
-    /// contains the next lowest 8 bits, and so on. For example, the number
-    /// 300 can be encoded as <c>0x01, 0x2C</c> and 200 as <c>0x00,
-    /// 0xC8</c>. (Note that the second example contains a set high bit in
-    /// <c>0xC8</c>, so an additional 0 is added at the start to ensure
-    /// it's interpreted as positive.)</item>
-    /// <item>To encode negative numbers, take the absolute value of the
-    /// number, subtract by 1, encode the number into bytes, and toggle
-    /// each bit of each byte. Any further bits that appear beyond the most
-    /// significant bit of the number will be all ones. For example, the
-    /// number -450 can be encoded as <c>0xfe, 0x70</c> and -52869 as
-    /// <c>0xff, 0x31, 0x7B</c>. (Note that the second example contains a
-    /// cleared high bit in <c>0x31, 0x7B</c>, so an additional 0xff is
-    /// added at the start to ensure it's interpreted as
-    /// negative.)</item></list>
-    /// <para>For little-endian, the byte order is reversed from the byte
-    /// order just discussed.</para>.</param>
+    /// encoded using the rules given in the FromBytes(bytes, offset,
+    /// length, littleEndian) overload.</param>
     /// <param name='littleEndian'>If true, the byte order is
     /// little-endian, or least-significant-byte first. If false, the byte
     /// order is big-endian, or most-significant-byte first.</param>
@@ -302,13 +283,64 @@ namespace PeterO.Numbers {
       if (bytes == null) {
         throw new ArgumentNullException(nameof(bytes));
       }
-      if (bytes.Length == 0) {
-        return EInteger.Zero;
-      } else if (bytes.Length == 1) {
-        return (((int)bytes[0] & 0x80) == 0) ? FromInt32((int)bytes[0]) :
-          FromInt32(-1 - ((~bytes[0]) & 0x7f));
+      return FromBytes(bytes, 0, bytes.Length, littleEndian);
+    }
+
+    /// <summary>Initializes an arbitrary-precision integer from a portion
+    /// of an array of bytes.</summary>
+    /// <returns>An arbitrary-precision integer. Returns 0 if "length" is
+    /// 0.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
+    /// <param name='offset'>Not documented yet.</param>
+    /// <param name='length'>Not documented yet.</param>
+    /// <param name='bytes'>A byte array consisting of the two's-complement
+    /// form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
+    /// the arbitrary-precision integer to create. The byte array is
+    /// encoded using the rules given in the FromBytes(bytes, offset,
+    /// length, littleEndian) overload.</param>
+    /// <param name='littleEndian'>If true, the byte order is
+    /// little-endian, or least-significant-byte first. If false, the byte
+    /// order is big-endian, or most-significant-byte first.</param>
+    /// <returns>An arbitrary-precision integer. Returns 0 if the byte
+    /// array's length is 0.</returns>
+    public static EInteger FromBytes(
+      byte[] bytes,
+ int offset,
+ int length,
+ bool littleEndian) {
+      if (bytes == null) {
+        throw new ArgumentNullException(nameof(bytes));
       }
-      int len = bytes.Length;
+      if (offset < 0) {
+        throw new ArgumentException("offset (" + offset + ") is not greater" +
+"\u0020or equal to 0");
+      }
+      if (offset > bytes.Length) {
+        throw new ArgumentException("offset (" + offset + ") is not less or" +
+"\u0020equal to " + bytes.Length);
+      }
+      if (length < 0) {
+        throw new ArgumentException("length (" + length + ") is not greater or" +
+"\u0020equal to 0");
+      }
+      if (length > bytes.Length) {
+        throw new ArgumentException("length (" + length + ") is not less or" +
+"\u0020equal to " + bytes.Length);
+      }
+      if (bytes.Length - offset < length) {
+        throw new ArgumentException("bytes's length minus " + offset + " (" +
+(bytes.Length - offset) + ") is not greater or equal to " + length);
+      }
+      if (length == 0) {
+        return EInteger.Zero;
+      } else if (length == 1) {
+        return (((int)bytes[offset] & 0x80) == 0) ?
+FromInt32((int)bytes[offset]) :
+          FromInt32(-1 - ((~bytes[offset]) & 0x7f));
+      }
+      int len = length;
       int wordLength = (len >> 1) + (len & 1);
       var newreg = new short[wordLength];
       int valueJIndex = littleEndian ? len - 1 : 0;
@@ -319,27 +351,28 @@ namespace PeterO.Numbers {
       if (littleEndian) {
         for (var i = 0; i < evenedLen; i += 2, j++) {
           int index2 = i + 1;
-          int nrj = ((int)bytes[i]) & 0xff;
-          nrj |= ((int)bytes[i + 1]) << 8;
+          int nrj = ((int)bytes[offset + i]) & 0xff;
+          nrj |= ((int)bytes[offset + i + 1]) << 8;
           newreg[j] = unchecked((short)nrj);
         }
         if (odd) {
           newreg[evenedLen >> 1] =
-            unchecked((short)(((int)bytes[evenedLen]) & 0xff));
+            unchecked((short)(((int)bytes[offset + evenedLen]) & 0xff));
         }
-        numIsNegative = (bytes[len - 1] & 0x80) != 0;
+        numIsNegative = (bytes[offset + len - 1] & 0x80) != 0;
       } else {
         for (var i = 0; i < evenedLen; i += 2, j++) {
           int index = len - 1 - i;
           int index2 = len - 2 - i;
-          int nrj = ((int)bytes[index]) & 0xff;
-          nrj |= ((int)bytes[index2]) << 8;
+          int nrj = ((int)bytes[offset + index]) & 0xff;
+          nrj |= ((int)bytes[offset + index2]) << 8;
           newreg[j] = unchecked((short)nrj);
         }
         if (odd) {
-          newreg[evenedLen >> 1] = unchecked((short)(((int)bytes[0]) & 0xff));
+          newreg[evenedLen >> 1] = unchecked((short)(((int)bytes[offset]) &
+0xff));
         }
-        numIsNegative = (bytes[0] & 0x80) != 0;
+        numIsNegative = (bytes[offset] & 0x80) != 0;
       }
       if (numIsNegative) {
         // Sign extension and two's-complement
@@ -6185,48 +6218,6 @@ ShortMask) != 0) ? 9 :
         return u >> 16;
       }
     }
-
-    /*
-    // alt. implementation, but no performance advantage in testing
-    private static int AddInternalNew(
-      short[] c,
-      int cstart,
-      short[] words1,
-      int astart,
-      short[] words2,
-      int bstart,
-      int n) {
-     unchecked {
-       int carry;
-       const int SMask = ShortMask;
-       carry = 0;
-       long la, lb;
-       var i = 0;
-       while (n - i >= 3) {
-        la = (((long)words1[astart++]) & SMask);
-        la |= (((long)words1[astart++]) & SMask) << 16;
-        la |= (((long)words1[astart++]) & SMask) << 32;
-        lb = (((long)words2[bstart++]) & SMask);
-        lb |= (((long)words2[bstart++]) & SMask) << 16;
-        lb |= (((long)words2[bstart++]) & SMask) << 32;
-        la += lb + carry;
-        c[cstart++] = (short)la;
-        c[cstart++] = (short)(la >> 16);
-        c[cstart++] = (short)(la >> 32);
-        carry=(int)(la >> 48);
-        i+=3;
-       }
-       while (i < n) {
-         carry += (((int)words1[astart++]) & SMask) +
-           (((int)words2[bstart++]) & SMask);
-         c[cstart++] = (short)carry;
-         carry>>= 16;
-         ++i;
-       }
-       return carry;
-     }
-    }
-    */
 
     private static int AddUnevenSize(
       short[] c,

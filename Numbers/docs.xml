@@ -10384,8 +10384,8 @@
 
             <summary>Compares an arbitrary-precision integer with this
             instance.</summary>
-            <param name='longValue'>The parameter <paramref name='longValue'/> is
-            a 64-bit signed integer.</param>
+            <param name='longValue'>The parameter <paramref name='longValue'/>
+            is a 64-bit signed integer.</param>
             <returns>Zero if the values are equal; a negative number if this
             instance is less, or a positive number if this instance is
             greater.</returns>
@@ -10631,6 +10631,23 @@
             form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
             the arbitrary-precision integer to create. The byte array is
+            encoded using the rules given in the FromBytes(bytes, offset, length, littleEndian)
+            overload.</param>
+            <param name='littleEndian'>If true, the byte order is
+            little-endian, or least-significant-byte first. If false, the byte
+            order is big-endian, or most-significant-byte first.</param>
+            <returns>An arbitrary-precision integer. Returns 0 if the byte
+            array's length is 0.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Int32,System.Int32,System.Boolean)">
+<summary>Initializes an arbitrary-precision integer from a portion of an array
+            of bytes.</summary>
+            <param name='bytes'>A portion of a byte array consisting of the two's-complement
+            form (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
+            the arbitrary-precision integer to create. The byte array portion has to be
             encoded using the following rules:
             <list>
             <item>Positive numbers have the first byte's highest bit cleared,
@@ -10655,10 +10672,8 @@
             <param name='littleEndian'>If true, the byte order is
             little-endian, or least-significant-byte first. If false, the byte
             order is big-endian, or most-significant-byte first.</param>
-            <returns>An arbitrary-precision integer. Returns 0 if the byte
-            array's length is 0.</returns>
+            <returns>An arbitrary-precision integer. Returns 0 if "length" is 0.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromInt16(System.Int16)">
 
@@ -11013,11 +11028,15 @@
 
             <summary>Returns the greatest common divisor of this integer and
             the given integer. The greatest common divisor (GCD) is also known
-            as the greatest common factor (GCF).</summary>
-            <param name='bigintSecond'>Another arbitrary-precision
-            integer.</param>
-            <returns>An arbitrary-precision integer.</returns>
+            as the greatest common factor (GCF). This method works even if
+            either or both integers are negative.</summary>
+            <param name='bigintSecond'>Another arbitrary-precision integer. Can
+            be negative.</param>
+            <returns>The greatest common divisor of this integer and the given
+            integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bigintSecond'/> is null.</exception>
+            <exception cref='DivideByZeroException'>Attempted to divide by
+            zero.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)">
@@ -11077,8 +11096,9 @@
             lowest set bit in the number's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
             ).).</summary>
-            <returns>The bit position of the lowest bit set in the number,
-            starting at 0. Returns -1 if this value is 0.</returns>
+            <returns>The bit position of the lowest bit set in the number's
+            absolute value, starting at 0. Returns -1 if this value is
+            0.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetLowBitAsEInteger">
@@ -11089,8 +11109,9 @@
             the number's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
             ).).</summary>
-            <returns>The bit position of the lowest bit set in the number,
-            starting at 0. Returns -1 if this value is 0 or odd.</returns>
+            <returns>The bit position of the lowest bit set in the number's
+            absolute value, starting at 0. Returns -1 if this value is 0 or
+            odd.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetLowBitAsInt64">
@@ -11101,13 +11122,13 @@
             number's two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
             ).).</summary>
-            <returns>The bit position of the lowest bit set in the number,
-            starting at 0. Returns -1 if this value is 0 or odd. Returns 2^63 -
-            1 ( <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in Java)
-            if this number is other than zero but the lowest set bit is at 2^63
-            - 1 or greater. (Use <c>GetLowBitAsEInteger</c> instead if the
-            application relies on the exact value of the lowest set bit
-            position.).</returns>
+            <returns>The bit position of the lowest bit set in the number's
+            absolute value, starting at 0. Returns -1 if this value is 0 or
+            odd. Returns 2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or
+            <c>Long.MAX_VALUE</c> in Java) if this number is other than zero
+            but the lowest set bit is at 2^63 - 1 or greater. (Use
+            <c>GetLowBitAsEInteger</c> instead if the application relies on the
+            exact value of the lowest set bit position.).</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetSignedBit(PeterO.Numbers.EInteger)">
@@ -11822,7 +11843,8 @@
             significant bit of the number will be all ones. The resulting byte
             array can be passed to the <c>FromBytes()</c> method (with the same
             byte order) to reconstruct this integer's value.</summary>
-            <param name='littleEndian'>Either <c>true</c> or <c>false</c>.</param>
+            <param name='littleEndian'>See the 'littleEndian' parameter of the
+            <c>FromBytes()</c> method.</param>
             <returns>A byte array. If this value is 0, returns a byte array
             with the single element 0.</returns>
 
@@ -11922,9 +11944,10 @@
 
             <summary>Converts this object to a text string in base
             10.</summary>
-            <returns>A string representation of this object. If negative, the
-            string will begin with a minus sign ("-", U+002D). The string will
-            use the basic digits 0 to 9 (U+0030 to U+0039).</returns>
+            <returns>A string representation of this object. If this value is
+            0, returns "0". If negative, the string will begin with a minus
+            sign ("-", U+002D). The string will use the basic digits 0 to 9
+            (U+0030 to U+0039).</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.ToUInt16Checked">
