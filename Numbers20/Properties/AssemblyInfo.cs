@@ -1,7 +1,7 @@
 using System.Reflection;
 [assembly: System.CLSCompliant(true)]
-[assembly: AssemblyInformationalVersion("1.7.2-a0")]
-[assembly: AssemblyVersion("1.7.2")]
+[assembly: AssemblyInformationalVersion("1.7.2")]
+[assembly: AssemblyVersion("1.7.2.0")]
 [assembly: AssemblyFileVersion("1.7.2.0")]
 [assembly: AssemblyProduct("Arbitrary-Precision Number Library")]
 [assembly: AssemblyTitle("Arbitrary-Precision Number Library")]
