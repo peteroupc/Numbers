@@ -1283,33 +1283,38 @@ namespace Test {
 
     public static bool TestEIntegerFromBytes(byte[] bytes, bool littleEndian) {
       if (bytes == null) {
-        throw new ArgumentNullException(nameof(bytes));
+         throw new ArgumentNullException(nameof(bytes));
       }
-      if (bytes.Length == 0) {
+      int offset = 0;
+      int length = bytes.Length;
+      if (length == 0) {
         return false;
       }
       if (littleEndian) {
-        if (!(bytes.Length == 1 || (
-              !(bytes[bytes.Length - 1] == 0x00 && ((int)bytes[bytes.Length
-                - 2] & 0x80) == 0) && !(bytes[bytes.Length - 1] == (byte)0xff &&
-                ((int)bytes[bytes.Length - 2] & 0x80) != 0)))) {
+        if (!(length == 1 || (
+              !(bytes[offset + length - 1] == 0x00 && ((int)bytes[offset +
+length
+                - 2] & 0x80) == 0) && !(bytes[offset + length - 1] ==
+(byte)0xff &&
+                ((int)bytes[offset + length - 2] & 0x80) != 0)))) {
           return false;
         }
       } else {
-        if (!(bytes.Length == 1 || (
-              !(bytes[0] == 0x00 && ((int)bytes[1] & 0x80) == 0) &&
-              !(bytes[0] == (byte)0xff && ((int)bytes[1] & 0x80) != 0)
-))) {
+        if (!(length == 1 || (
+              !(bytes[offset] == 0x00 && ((int)bytes[offset + 1] & 0x80) ==
+0) &&
+              !(bytes[offset] == (byte)0xff && ((int)bytes[offset + 1] &
+0x80) != 0)))) {
           return false;
         }
       }
       var negative = false;
-      negative = (!littleEndian) ? ((bytes[0] & 0x80) != 0) :
-        ((bytes[bytes.Length - 1] & 0x80) != 0);
+      negative = (!littleEndian) ? ((bytes[offset] & 0x80) != 0) :
+        ((bytes[offset + length - 1] & 0x80) != 0);
       EInteger ei = EInteger.FromBytes(bytes, littleEndian);
       Assert.AreEqual(negative, ei.Sign < 0);
       byte[] ba = ei.ToBytes(littleEndian);
-      TestCommon.AssertByteArraysEqual(bytes, ba);
+      TestCommon.AssertByteArraysEqual(bytes, offset, length, ba);
       return true;
     }
 
@@ -1331,6 +1336,15 @@ namespace Test {
       for (var i = 0; i < 1000; ++i) {
         byte[] bytes = RandomObjects.RandomByteString(rg);
         TestEIntegerFromBytes(bytes, rg.UniformInt(2) == 0);
+        int offset1 = rg.GetInt32(bytes.Length + 1);
+        int offset2 = rg.GetInt32(bytes.Length + 1);
+        /*
+        if (offset1 != offset2) {
+          int length = Math.Abs(offset1 - offset2);
+          int offset = Math.Min(offset1, offset2);
+          TestEIntegerFromBytes(bytes, offset, length, rg.UniformInt(2) == 0);
+        }
+        */
       }
     }
     [Test]
@@ -2085,6 +2099,53 @@ namespace Test {
         Assert.AreEqual(ba, bb);
       }
     }
+
+ [Test]
+ public void TestGcdSpecific1() {
+  EInteger eia =
+  EInteger.FromString("31087445093332925259488531187214798679962746631365434956607825050983640030004626432697");
+  EInteger eib =
+  EInteger.FromString("634110413245973045752985332739706355633747812352917054306813756224650904");
+  EInteger gcd = EInteger.FromString("1");
+  TestGcdPair(eia, eib, gcd);
+ }
+
+ [Test]
+ public void TestGcdSpecific2() {
+  EInteger eia =
+  EInteger.FromString("34919464185156438130737093950000449414901433260046574365653671833127498045928977578356713");
+  EInteger eib =
+  EInteger.FromString("164193664625099565521863251759922447177022769597753704347721217067439342602815077739234");
+  EInteger gcd = EInteger.FromString("1");
+  TestGcdPair(eia, eib, gcd);
+ }
+ [Test]
+ public void TestGcdSpecific3() {
+  EInteger eia =
+  EInteger.FromString("103862788645466657156274316837043801135780275578563880187476945864288161266");
+  EInteger eib =
+  EInteger.FromString("49380347741774569630130462581871110923545066914152503189431047757");
+  EInteger gcd = EInteger.FromString("1");
+  TestGcdPair(eia, eib, gcd);
+ }
+ [Test]
+ public void TestGcdSpecific6() {
+  EInteger eia =
+  EInteger.FromString("4478588462902174856284550822841587751257736243593417026536878393910594570150960");
+  EInteger eib =
+  EInteger.FromString("200436597645961750509884674543137682538095599306199896499547606239076266894278634228");
+  EInteger gcd = EInteger.FromString("4");
+  TestGcdPair(eia, eib, gcd);
+ }
+ [Test]
+ public void TestGcdSpecific4() {
+  EInteger eia =
+  EInteger.FromString("479324527105721205395276387652685206399828597662080440776635747462472972671572622295");
+  EInteger eib =
+  EInteger.FromString("838212340549242323846978901107367041041509191230401720028242035196388222327176688904324510590144");
+  EInteger gcd = EInteger.FromString("11");
+  TestGcdPair(eia, eib, gcd);
+ }
 
     [Test]
     public void TestGetBits() {
