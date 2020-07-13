@@ -2891,9 +2891,6 @@ FromInt32((int)bytes[offset]) :
     /// name='bigintSecond'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <exception cref='ArgumentException'>bigPower is negative; doesn't
-    /// satisfy shiftBits&amp;lt;16; doesn't satisfy sqroot.Sign&amp;gt;=
-    /// 0</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException(nameof(bigintSecond));
@@ -3241,12 +3238,11 @@ FromInt32((int)bytes[offset]) :
           throw new InvalidOperationException("Internal error");
         }
         #if DEBUG
-        /*
-        long[] lret3=SlowSgcd(olonga, olongb);
-        if(ret[0] != lret3[0] || ret[1] != lret3[1] || 
+        /* long[] lret3 = SlowSgcd(olonga, olongb);
+        if (ret[0] != lret3[0] || ret[1] != lret3[1] ||
             ret[2] != lret3[2] || ret[3] != lret3[3] ||
             ret[4] != lret3[4] || ret[5] != lret3[5]) {
-           StringBuilder sb=new StringBuilder();
+           StringBuilder sb = new StringBuilder();
            sb.Append("eia1=" + olonga + "\n");
            sb.Append("eib1=" + olongb + "\n");
            for (int k = 0; k < 6; ++k) {
@@ -3276,19 +3272,21 @@ FromInt32((int)bytes[offset]) :
        var ret = new long[] { longa, longb, 1, 0, 0, 1 };
        int ls = Math.Max(LBL(longa), LBL(longb));
        ls = (ls >> 1) + 1;
-       while (LBL(ret[0]-ret[1]) > ls) {
-           LSDivStep(ret, ls);
+       while (LBL(ret[0] - ret[1]) > ls) {
+         LSDivStep(ret, ls);
        }
        return ret;
     }
 
     private static EInteger[] SlowSgcd(EInteger eia, EInteger eib) {
-       var ret = new EInteger[] { eia, eib, EInteger.One, EInteger.Zero,
-             EInteger.Zero, EInteger.One };
+       var ret = new EInteger[] {
+         eia, eib, EInteger.One, EInteger.Zero,
+         EInteger.Zero, EInteger.One,
+       };
        EInteger eis = EInteger.Max(BL(eia), BL(eib));
        eis = eis.ShiftRight(1).Add(1);
-       while (BL(ret[0].Subtract(ret[1])).CompareTo(eis)>0) {
-           SDivStep(ret, eis);
+       while (BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0) {
+         SDivStep(ret, eis);
        }
        return ret;
     }
@@ -3372,8 +3370,7 @@ FromInt32((int)bytes[offset]) :
         DebugUtility.Log("ret_afterloop1_"+ k + "=" +
            ret[k].ToRadixString(16));
       }
-      */
-      while (MaxBitLength(ret[0], ret[1]).CompareTo(
+      */ while (MaxBitLength(ret[0], ret[1]).CompareTo(
           ein.Multiply(3).ShiftRight(2).Add(1)) > 0 &&
         BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0) {
         if (ret[0].Sign < 0 || ret[1].Sign < 0) {
@@ -3388,7 +3385,7 @@ FromInt32((int)bytes[offset]) :
       }
       // for (int k = 0; k < 6; ++k) {
       //  DebugUtility.Log("ret_afterloop2_"+ k + "=" +
-      //    ret[k].ToRadixString(16));
+      // ret[k].ToRadixString(16));
       // }
       eia = ret[0];
       eib = ret[1];
@@ -3440,12 +3437,14 @@ FromInt32((int)bytes[offset]) :
         // DebugUtility.Log("[sdiv2]ret="+Arrays.toString(ret));
       }
       #if DEBUG
-      /*
-      EInteger[] ret3=SlowSgcd(oeia, oeib);
-      if(!ret[0].Equals(ret3[0]) || !ret[1].Equals(ret3[1]) || 
-          !ret[2].Equals(ret3[2]) || !ret[3].Equals(ret3[3]) ||
-          !ret[4].Equals(ret3[4]) || !ret[5].Equals(ret3[5])) {
-         StringBuilder sb=new StringBuilder();
+      /* EInteger[] ret3 = SlowSgcd(oeia, oeib);
+      if (!ret[0].Equals(ret3[0]) ||
+             !ret[1].Equals(ret3[1]) ||
+             !ret[2].Equals(ret3[2]) ||
+             !ret[3].Equals(ret3[3]) ||
+             !ret[4].Equals(ret3[4]) ||
+             !ret[5].Equals(ret3[5])) {
+         StringBuilder sb = new StringBuilder();
          sb.Append("eia1=" + oeia + "\n");
          sb.Append("eib1=" + oeib + "\n");
          for (int k = 0; k < 6; ++k) {
@@ -3478,7 +3477,7 @@ FromInt32((int)bytes[offset]) :
     private static EInteger SubquadraticGCD(EInteger eia, EInteger eib) {
       EInteger ein = MaxBitLength(eia, eib);
       var ret = new EInteger[] { eia, eib };
-      for (int i = 0; i < 20; ++i) {
+      while (true) {
         if (ein.CompareTo(48) < 0) {
           break;
         }
@@ -3513,6 +3512,10 @@ FromInt32((int)bytes[offset]) :
             sb.Append("\n");
           }
           throw new InvalidOperationException("Internal error\n" + sb);
+        }
+        if (ret[0].Equals(eia) && ret[1].Equals(eib)) {
+          // Didn't change
+          break;
         }
         ein = MaxBitLength(eia, eib);
         ret[0] = eia;

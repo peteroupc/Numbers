@@ -1,5 +1,9 @@
 Release notes
 -------
+Version 1.7.3
+
+- Fix regressions with EInteger's Gcd due to new implementation
+
 Version 1.7.2
 
 - Improve performance of EInteger's Gcd method for large integers
