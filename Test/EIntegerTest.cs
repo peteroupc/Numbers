@@ -109,6 +109,17 @@ namespace Test {
       4294967295L, 0L, 4294967296L, 32L, 4294967297L, 0,
     };
 
+    // Generates an EInteger of manageable size
+    private static EInteger RandomManageableEInteger(IRandomGenExtended rg) {
+       EInteger ei;
+       while (true) {
+         ei = RandomObjects.RandomEInteger(rg);
+         if (ei.GetUnsignedBitLengthAsInt64() <= 16 * 3000) {
+           return ei;
+         }
+       }
+    }
+
     public static void AssertAdd(EInteger bi, EInteger bi2, string s) {
       EIntegerTest.AssertBigIntegersEqual(s, bi + (EInteger)bi2);
       EIntegerTest.AssertBigIntegersEqual(s, bi2 + (EInteger)bi);
@@ -204,10 +215,13 @@ namespace Test {
       TestMultiplyDivideOne(bigintA, bigintB);
     }
 
-    public static void DoTestPow(string m1, int m2, string result) {
-      EInteger bigintA = EInteger.FromString(m1);
-      AssertBigIntegersEqual(result, bigintA.Pow(m2));
-      AssertBigIntegersEqual(result, bigintA.PowBigIntVar((EInteger)m2));
+    private static void DoTestPow(EInteger em1, int m2, EInteger eresult) {
+      TestCommon.CompareTestEqual(eresult, em1.Pow(m2), String.Empty + m2);
+      TestCommon.CompareTestEqual(eresult, em1.Pow(EInteger.FromInt32(m2)),
+  String.Empty + m2);
+      TestCommon.CompareTestEqual(eresult,
+  em1.PowBigIntVar(EInteger.FromInt32(m2)),
+  String.Empty + m2);
     }
 
     public static void DoTestRemainder(
@@ -2764,6 +2778,16 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
     }
+
+    public static void TestSimpleMultiply(int inta, int intb, int intresult) {
+       TestCommon.CompareTestEqual(
+            EInteger.FromInt32(intresult),
+            EInteger.FromInt32(inta).Multiply(EInteger.FromInt32(intb)));
+       TestCommon.CompareTestEqual(
+         EInteger.FromInt32(intresult),
+         EInteger.FromInt32(inta).Multiply(intb));
+    }
+
     [Test]
     public void TestMultiply() {
       try {
@@ -2776,8 +2800,17 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       var r = new RandomGenerator();
+      TestSimpleMultiply(1, 1, 1);
+      TestSimpleMultiply(1, -1, -1);
+      TestSimpleMultiply(-1, 1, -1);
+      TestSimpleMultiply(-1, -1, 1);
+      for (var i = 0; i < 20000; ++i) {
+        int inta = -20000 + r.GetInt32(40000);
+        int intb = -20000 + r.GetInt32(40000);
+        TestSimpleMultiply(inta, intb, inta * intb);
+      }
       for (var i = 0; i < 10000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomManageableEInteger(r);
         EInteger bigintB = bigintA + EInteger.One;
         EInteger bigintC = bigintA * (EInteger)bigintB;
         // Test near-squaring
@@ -3083,16 +3116,22 @@ namespace Test {
       var r = new RandomGenerator();
       for (var i = 0; i < 200; ++i) {
         int power = 1 + r.UniformInt(8);
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
-        while (bigintA.GetUnsignedBitLengthAsInt64() > 16 * 1000) {
-          bigintA = RandomObjects.RandomEInteger(r);
-        }
+        EInteger bigintA = RandomManageableEInteger(r);
         EInteger bigintB = bigintA;
         for (int j = 1; j < power; ++j) {
           bigintB *= bigintA;
         }
-        DoTestPow(bigintA.ToString(), power, bigintB.ToString());
+        DoTestPow(bigintA, power, bigintB);
       }
+      Console.WriteLine("-1/1/-1");
+      DoTestPow(EInteger.FromInt32(-1), 1, EInteger.FromInt32(-1));
+      DoTestPow(EInteger.FromInt32(-1), 2, EInteger.FromInt32(1));
+      DoTestPow(EInteger.FromInt32(-1), 3, EInteger.FromInt32(-1));
+      DoTestPow(EInteger.FromInt32(-1), 4, EInteger.FromInt32(1));
+      DoTestPow(EInteger.FromInt32(-4), 1, EInteger.FromInt32(-4));
+      DoTestPow(EInteger.FromInt32(-4), 2, EInteger.FromInt32(16));
+      DoTestPow(EInteger.FromInt32(-4), 3, EInteger.FromInt32(-64));
+      DoTestPow(EInteger.FromInt32(-4), 4, EInteger.FromInt32(256));
     }
     [Test]
     public void TestPowBigIntVar() {
@@ -3166,27 +3205,17 @@ namespace Test {
 
     [Test]
     public void TestRoot() {
+      TestCommon.CompareTestEqual(
+          EInteger.FromInt32(2),
+          EInteger.FromInt32(26).Root(3));
       var r = new RandomGenerator();
-      for (var i = 0; i < 20; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
-        while (bigintA.GetUnsignedBitLengthAsInt64() > 16 * 3000) {
-           bigintA = RandomObjects.RandomEInteger(r);
-        }
-        if (bigintA.Sign < 0) {
-          bigintA = -bigintA;
-        }
-        if (bigintA.Sign == 0) {
-          bigintA = EInteger.One;
-        }
-        EInteger sqr = bigintA.Multiply(bigintA).Multiply(bigintA);
-        EInteger sr = sqr.Root(3);
-        TestCommon.CompareTestEqual(bigintA, sr);
-      }
-      for (var i = 0; i < 10000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
-        while (bigintA.GetUnsignedBitLengthAsInt64() > 16 * 1000) {
-          bigintA = RandomObjects.RandomEInteger(r);
-        }
+      for (var i = 0; i < 1000; ++i) {
+        #if DEBUG
+        // if (i % 50 == 0) {
+        // Console.WriteLine("i=" + i + " " + DateTime.UtcNow);
+        // }
+        #endif
+        EInteger bigintA = RandomManageableEInteger(r);
         if (bigintA.Sign < 0) {
           bigintA = -bigintA;
         }
@@ -3205,6 +3234,18 @@ namespace Test {
           Assert.Fail(srsqr + " not greater than " + bigintA +
             " (TestRoot, root=" + sr + ")");
         }
+      }
+      for (var i = 0; i < 20; ++i) {
+        EInteger bigintA = RandomManageableEInteger(r);
+        if (bigintA.Sign < 0) {
+          bigintA = -bigintA;
+        }
+        if (bigintA.Sign == 0) {
+          bigintA = EInteger.One;
+        }
+        EInteger sqr = bigintA.Multiply(bigintA).Multiply(bigintA);
+        EInteger sr = sqr.Root(3);
+        TestCommon.CompareTestEqual(bigintA, sr);
       }
       try {
         EInteger.FromInt32(7).Root(0);
@@ -3230,7 +3271,7 @@ namespace Test {
     public void TestSqrt() {
       var r = new RandomGenerator();
       for (var i = 0; i < 20; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomManageableEInteger(r);
         if (bigintA.Sign < 0) {
           bigintA = -bigintA;
         }
@@ -3244,7 +3285,7 @@ namespace Test {
         TestCommon.CompareTestEqual(bigintA, sr);
       }
       for (var i = 0; i < 10000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomManageableEInteger(r);
         if (bigintA.Sign < 0) {
           bigintA = -bigintA;
         }
@@ -3384,7 +3425,7 @@ namespace Test {
       var r = new RandomGenerator();
       for (var radix = 2; radix < 36; ++radix) {
         for (var i = 0; i < 80; ++i) {
-          EInteger bigintA = RandomObjects.RandomEInteger(r);
+          EInteger bigintA = RandomManageableEInteger(r);
           String s = bigintA.ToRadixString(radix);
           EInteger big2 = EInteger.FromRadixString(s, radix);
           Assert.AreEqual(big2.ToRadixString(radix), s);

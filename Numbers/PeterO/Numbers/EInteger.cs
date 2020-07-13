@@ -3242,7 +3242,7 @@ FromInt32((int)bytes[offset]) :
         if (ret[0] != lret3[0] || ret[1] != lret3[1] ||
             ret[2] != lret3[2] || ret[3] != lret3[3] ||
             ret[4] != lret3[4] || ret[5] != lret3[5]) {
-           StringBuilder sb = new StringBuilder();
+           var sb = new StringBuilder();
            sb.Append("eia1=" + olonga + "\n");
            sb.Append("eib1=" + olongb + "\n");
            for (int k = 0; k < 6; ++k) {
@@ -3380,11 +3380,11 @@ FromInt32((int)bytes[offset]) :
         }
         SDivStep(ret, eis);
         // for (int k = 0; k < 6; ++k) {
-        //   DebugUtility.Log("ret_loop2_"+ k + "=" + ret[k].ToRadixString(16));
+        // DebugUtility.Log("ret_loop2_"+ k + "=" + ret[k].ToRadixString(16));
         // }
       }
       // for (int k = 0; k < 6; ++k) {
-      //  DebugUtility.Log("ret_afterloop2_"+ k + "=" +
+      // DebugUtility.Log("ret_afterloop2_"+ k + "=" +
       // ret[k].ToRadixString(16));
       // }
       eia = ret[0];
@@ -3444,7 +3444,7 @@ FromInt32((int)bytes[offset]) :
              !ret[3].Equals(ret3[3]) ||
              !ret[4].Equals(ret3[4]) ||
              !ret[5].Equals(ret3[5])) {
-         StringBuilder sb = new StringBuilder();
+         var sb = new StringBuilder();
          sb.Append("eia1=" + oeia + "\n");
          sb.Append("eib1=" + oeib + "\n");
          for (int k = 0; k < 6; ++k) {
@@ -4732,7 +4732,7 @@ ShortMask) != 0) ? 9 :
         return this;
       }
       if (this.CompareTo(-1) == 0) {
-        return this.IsEven ? EInteger.FromInt32(1) : this;
+        return bigPower.IsEven ? EInteger.FromInt32(1) : this;
       }
       EInteger bitLength = this.GetUnsignedBitLengthAsEInteger();
       if (!this.IsPowerOfTwo) {
@@ -4779,15 +4779,17 @@ ShortMask) != 0) ? 9 :
         return this;
       }
       if (this.CompareTo(-1) == 0) {
-        return this.IsEven ? EInteger.FromInt32(1) : this;
+        return (powerSmall & 1) == 0 ? EInteger.FromInt32(1) : this;
       }
       if (powerSmall == 2) {
-        return thisVar * (EInteger)thisVar;
+        return thisVar.Multiply(thisVar);
       }
       if (powerSmall == 3) {
-        return (thisVar * (EInteger)thisVar) * (EInteger)thisVar;
+        return thisVar.Multiply(thisVar).Multiply(thisVar);
       }
       EInteger r = EInteger.One;
+      // bool negatePower = (powerSmall & 1) != 0 && thisVar.Sign < 0;
+      // thisVar = thisVar.Abs();
       while (powerSmall != 0) {
         if ((powerSmall & 1) != 0) {
           r *= (EInteger)thisVar;
@@ -4797,7 +4799,7 @@ ShortMask) != 0) ? 9 :
           thisVar *= (EInteger)thisVar;
         }
       }
-      return r;
+      return r; // negatePower ? r.Negate() : r;
     }
 
     /// <summary>Raises an arbitrary-precision integer to a power, which is
@@ -4810,6 +4812,7 @@ ShortMask) != 0) ? 9 :
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='power'/> is null.</exception>
     public EInteger PowBigIntVar(EInteger power) {
+      // TODO: Deprecate in favor of Pow(EInteger)
       if (power == null) {
         throw new ArgumentNullException(nameof(power));
       }
@@ -4826,12 +4829,14 @@ ShortMask) != 0) ? 9 :
         return this;
       }
       if (power.wordCount == 1 && power.words[0] == 2) {
-        return thisVar * (EInteger)thisVar;
+        return thisVar.Multiply(thisVar);
       }
       if (power.wordCount == 1 && power.words[0] == 3) {
-        return (thisVar * (EInteger)thisVar) * (EInteger)thisVar;
+        return thisVar.Multiply(thisVar).Multiply(thisVar);
       }
       EInteger r = EInteger.One;
+      // bool negatePower = !power.IsEven && thisVar.Sign < 0;
+      // thisVar = thisVar.Abs();
       while (!power.IsZero) {
         if (!power.IsEven) {
           r *= (EInteger)thisVar;
@@ -4841,7 +4846,7 @@ ShortMask) != 0) ? 9 :
           thisVar *= (EInteger)thisVar;
         }
       }
-      return r;
+      return r; // negatePower ? r.Negate() : r;
     }
 
     /// <summary>Returns the remainder that would result when this
@@ -9547,15 +9552,34 @@ ShortMask) != 0) ? 9 :
       if (this.Equals(EInteger.One)) {
         return new[] { EInteger.One, EInteger.Zero };
       }
-      EInteger bl = this.GetUnsignedBitLengthAsEInteger();
+      /*
+      if (this.CanFitInInt64()) {
+         long v = this.ToInt64Checked();
+         int bl = NumberUtility.BitLength(v);
+      }
+      */ EInteger bl = this.GetUnsignedBitLengthAsEInteger();
       EInteger rm1 = root.Subtract(1);
-      EInteger shift = bl.Multiply(rm1).Divide(root);
+      EInteger shift = EInteger.Max(
+          EInteger.Zero,
+          bl.Multiply(rm1).Divide(root).Subtract(1));
       EInteger ret = this.ShiftRight(shift);
-      while (true) {
-        EInteger oldret = ret;
-        ret = this.Divide(ret.Pow(rm1)).Add(ret.Multiply(rm1)).Divide(root);
-        if (oldret.Equals(ret)) {
-          break;
+      // NOTE: ret is an upper bound of the root
+      if (ret.Sign > 0) {
+        // DebugUtility.Log("this->"+this+" initial->"+ret);
+        while (true) {
+          EInteger oldret = ret;
+          // DebugUtility.Log(" thiswc -> " + this.wordCount +
+          // " :: wc -> " + ret.wordCount + (ret.wordCount==1 ?
+          // ("=>"+this) : ""));
+          ret = this.Divide(ret.Pow(rm1)).Add(ret.Multiply(rm1)).Divide(root);
+          if (oldret.Equals(ret)) {
+            break;
+          }
+          if (ret.CompareTo(oldret) > 0) {
+            // Starting to vacillate; break
+            ret = oldret;
+            break;
+          }
         }
       }
       if (useRem) {

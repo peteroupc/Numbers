@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.7.2</Version>
+    <Version>1.7.3</Version>
     <Owners>Peter Occil</Owners>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
     <Copyright>Written by Peter O.  Any copyright is released to the Public Domain.</Copyright>
@@ -14,6 +14,10 @@
     <PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>
+Version 1.7.3
+
+- Fix bugs and regressions involving EInteger's Pow, Root, and new Gcd
+
 Version 1.7.2
 
 - Improve performance of EInteger's Gcd method for large integers

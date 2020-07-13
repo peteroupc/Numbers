@@ -2,7 +2,7 @@ Release notes
 -------
 Version 1.7.3
 
-- Fix regressions with EInteger's Gcd due to new implementation
+- Fix bugs and regressions involving EInteger's Pow, Root, and new Gcd
 
 Version 1.7.2
 
