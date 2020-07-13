@@ -314,12 +314,36 @@ namespace Test {
       return ed;
     }
 
+    private static EInteger RandomEIntegerAlt(IRandomGenExtended r) {
+      if (r == null) {
+        throw new ArgumentNullException(nameof(r));
+      }
+      int selection = r.GetInt32(100);
+      int count = r.GetInt32(60) + 1;
+      if (selection < 40) {
+        count = r.GetInt32(7) + 1;
+      }
+      if (selection < 50) {
+        count = r.GetInt32(15) + 1;
+      }
+      if (selection < 3) {
+        count = r.GetInt32(250) + 1;
+      }
+      var bytes = new byte[count];
+      for (var i = 0; i < count; ++i) {
+        bytes[i] = (byte)((int)r.GetInt32(256));
+      }
+      return EInteger.FromBytes(bytes, true);
+    }
+
     public static EInteger RandomEInteger(IRandomGenExtended r) {
       if (r == null) {
         throw new ArgumentNullException(nameof(r));
       }
       int selection = r.GetInt32(100);
-      if (selection < 10) {
+      if (selection == 0) {
+        return RandomEIntegerAlt(r);
+      } else if (selection < 10) {
         int count = r.GetInt32(MaxNumberLength);
         count = (int)(((long)count * r.GetInt32(MaxNumberLength)) /
             MaxNumberLength);
