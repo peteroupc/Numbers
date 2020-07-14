@@ -1,5 +1,9 @@
 <package
-><metadata><version>1.7.2</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.7.2
+><metadata><version>1.7.3</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.7.3
+
+- Fix bugs and regressions involving EInteger&apos;s Pow, Root, and new Gcd
+
+Version 1.7.2
 
 - Improve performance of EInteger&apos;s Gcd method for large integers
 
