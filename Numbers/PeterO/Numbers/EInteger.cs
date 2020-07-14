@@ -320,19 +320,12 @@ namespace PeterO.Numbers {
     /// <param name='length'>The length, in bytes, of the desired portion
     /// of <paramref name='bytes'/> (but not more than <paramref
     /// name='bytes'/> 's length).</param>
-    /// <param name='littleEndian'>If true, the byte order is
-    /// little-endian, or least-significant-byte first. If false, the byte
-    /// order is big-endian, or most-significant-byte first.</param>
-    /// <returns>An arbitrary-precision integer. Returns 0 if the byte
-    /// array's length is 0.</returns>
-    /// <exception cref='ArgumentNullException'>The parameter <paramref
-    /// name='bytes'/> is null.</exception>
     /// <exception cref='ArgumentException'>Either <paramref
     /// name='offset'/> or <paramref name='length'/> is less than 0 or
     /// greater than <paramref name='bytes'/> 's length, or <paramref
     /// name='bytes'/> 's length minus <paramref name='offset'/> is less
     /// than <paramref name='length'/>.</exception>
-    public static EInteger FromBytes(
+    private static EInteger FromBytes(
       byte[] bytes,
       int offset,
       int length,
@@ -3527,7 +3520,7 @@ FromInt32((int)bytes[offset]) :
     private static EInteger SubquadraticGCD(EInteger eia, EInteger eib) {
       EInteger ein = MaxBitLength(eia, eib);
       var ret = new EInteger[] { eia, eib };
-      for (int i = 0; i < 20; ++i) {
+      while (true) {
         if (ein.CompareTo(48) < 0) {
           break;
         }
@@ -3562,6 +3555,10 @@ FromInt32((int)bytes[offset]) :
             sb.Append("\n");
           }
           throw new InvalidOperationException("Internal error\n" + sb);
+        }
+        if (ret[0].Equals(eia) && ret[1].Equals(eib)) {
+          // Didn't change
+          break;
         }
         ein = MaxBitLength(eia, eib);
         ret[0] = eia;
@@ -4778,7 +4775,7 @@ ShortMask) != 0) ? 9 :
         return this;
       }
       if (this.CompareTo(-1) == 0) {
-        return this.IsEven ? EInteger.FromInt32(1) : this;
+        return bigPower.IsEven ? EInteger.FromInt32(1) : this;
       }
       EInteger bitLength = this.GetUnsignedBitLengthAsEInteger();
       if (!this.IsPowerOfTwo) {
@@ -4825,15 +4822,17 @@ ShortMask) != 0) ? 9 :
         return this;
       }
       if (this.CompareTo(-1) == 0) {
-        return this.IsEven ? EInteger.FromInt32(1) : this;
+        return (powerSmall & 1) == 0 ? EInteger.FromInt32(1) : this;
       }
       if (powerSmall == 2) {
-        return thisVar * (EInteger)thisVar;
+        return thisVar.Multiply(thisVar);
       }
       if (powerSmall == 3) {
-        return (thisVar * (EInteger)thisVar) * (EInteger)thisVar;
+        return thisVar.Multiply(thisVar).Multiply(thisVar);
       }
       EInteger r = EInteger.One;
+      // bool negatePower = (powerSmall & 1) != 0 && thisVar.Sign < 0;
+      // thisVar = thisVar.Abs();
       while (powerSmall != 0) {
         if ((powerSmall & 1) != 0) {
           r *= (EInteger)thisVar;
@@ -4843,7 +4842,7 @@ ShortMask) != 0) ? 9 :
           thisVar *= (EInteger)thisVar;
         }
       }
-      return r;
+      return r; // negatePower ? r.Negate() : r;
     }
 
     /// <summary>Raises an arbitrary-precision integer to a power, which is
@@ -4856,6 +4855,7 @@ ShortMask) != 0) ? 9 :
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='power'/> is null.</exception>
     public EInteger PowBigIntVar(EInteger power) {
+      // TODO: Deprecate in favor of Pow(EInteger)
       if (power == null) {
         throw new ArgumentNullException(nameof(power));
       }
@@ -4872,12 +4872,14 @@ ShortMask) != 0) ? 9 :
         return this;
       }
       if (power.wordCount == 1 && power.words[0] == 2) {
-        return thisVar * (EInteger)thisVar;
+        return thisVar.Multiply(thisVar);
       }
       if (power.wordCount == 1 && power.words[0] == 3) {
-        return (thisVar * (EInteger)thisVar) * (EInteger)thisVar;
+        return thisVar.Multiply(thisVar).Multiply(thisVar);
       }
       EInteger r = EInteger.One;
+      // bool negatePower = !power.IsEven && thisVar.Sign < 0;
+      // thisVar = thisVar.Abs();
       while (!power.IsZero) {
         if (!power.IsEven) {
           r *= (EInteger)thisVar;
@@ -4887,7 +4889,7 @@ ShortMask) != 0) ? 9 :
           thisVar *= (EInteger)thisVar;
         }
       }
-      return r;
+      return r; // negatePower ? r.Negate() : r;
     }
 
     /// <summary>Returns the remainder that would result when this
@@ -9593,15 +9595,33 @@ ShortMask) != 0) ? 9 :
       if (this.Equals(EInteger.One)) {
         return new[] { EInteger.One, EInteger.Zero };
       }
+      // if (this.CanFitInInt64()) {
+      // long v = this.ToInt64Checked();
+      // int bl = NumberUtility.BitLength(v);
+      // }
       EInteger bl = this.GetUnsignedBitLengthAsEInteger();
       EInteger rm1 = root.Subtract(1);
-      EInteger shift = bl.Multiply(rm1).Divide(root);
+      EInteger shift = EInteger.Max(
+          EInteger.Zero,
+          bl.Multiply(rm1).Divide(root).Subtract(1));
       EInteger ret = this.ShiftRight(shift);
-      while (true) {
-        EInteger oldret = ret;
-        ret = this.Divide(ret.Pow(rm1)).Add(ret.Multiply(rm1)).Divide(root);
-        if (oldret.Equals(ret)) {
-          break;
+      // NOTE: ret is an upper bound of the root
+      if (ret.Sign > 0) {
+        // DebugUtility.Log("this->"+this+" initial->"+ret);
+        while (true) {
+          EInteger oldret = ret;
+          // DebugUtility.Log(" thiswc -> " + this.wordCount +
+          // " :: wc -> " + ret.wordCount + (ret.wordCount==1 ?
+          // ("=>"+this) : ""));
+          ret = this.Divide(ret.Pow(rm1)).Add(ret.Multiply(rm1)).Divide(root);
+          if (oldret.Equals(ret)) {
+            break;
+          }
+          if (ret.CompareTo(oldret) > 0) {
+            // Starting to vacillate; break
+            ret = oldret;
+            break;
+          }
         }
       }
       if (useRem) {

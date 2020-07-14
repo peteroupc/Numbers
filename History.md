@@ -1,5 +1,9 @@
 Release notes
 -------
+Version 1.7.3
+
+- Fix bugs and regressions involving EInteger's Pow, Root, and new Gcd
+
 Version 1.7.2
 
 - Improve performance of EInteger's Gcd method for large integers
