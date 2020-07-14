@@ -320,12 +320,19 @@ namespace PeterO.Numbers {
     /// <param name='length'>The length, in bytes, of the desired portion
     /// of <paramref name='bytes'/> (but not more than <paramref
     /// name='bytes'/> 's length).</param>
+    /// <param name='littleEndian'>If true, the byte order is
+    /// little-endian, or least-significant-byte first. If false, the byte
+    /// order is big-endian, or most-significant-byte first.</param>
+    /// <returns>An arbitrary-precision integer. Returns 0 if the byte
+    /// array's length is 0.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
     /// <exception cref='ArgumentException'>Either <paramref
     /// name='offset'/> or <paramref name='length'/> is less than 0 or
     /// greater than <paramref name='bytes'/> 's length, or <paramref
     /// name='bytes'/> 's length minus <paramref name='offset'/> is less
     /// than <paramref name='length'/>.</exception>
-    private static EInteger FromBytes(
+    public static EInteger FromBytes(
       byte[] bytes,
       int offset,
       int length,
