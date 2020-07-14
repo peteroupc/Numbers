@@ -217,11 +217,14 @@ namespace Test {
 
     private static void DoTestPow(EInteger em1, int m2, EInteger eresult) {
       TestCommon.CompareTestEqual(eresult, em1.Pow(m2), String.Empty + m2);
-      TestCommon.CompareTestEqual(eresult, em1.Pow(EInteger.FromInt32(m2)),
-  String.Empty + m2);
-      TestCommon.CompareTestEqual(eresult,
-  em1.PowBigIntVar(EInteger.FromInt32(m2)),
-  String.Empty + m2);
+      TestCommon.CompareTestEqual(
+        eresult,
+        em1.Pow(EInteger.FromInt32(m2)),
+        String.Empty + m2);
+      TestCommon.CompareTestEqual(
+        eresult,
+        em1.PowBigIntVar(EInteger.FromInt32(m2)),
+        String.Empty + m2);
     }
 
     public static void DoTestRemainder(
@@ -3201,6 +3204,54 @@ namespace Test {
     [Test]
     public void TestSign() {
       // not implemented yet
+    }
+
+    [Test]
+    public void TestRootRem() {
+      TestCommon.CompareTestEqual(
+          EInteger.FromInt32(2),
+          EInteger.FromInt32(26).RootRem(3)[0]);
+      var r = new RandomGenerator();
+      for (var i = 0; i < 500; ++i) {
+        #if DEBUG
+        // if (i % 50 == 0) {
+        // Console.WriteLine("i=" + i + " " + DateTime.UtcNow);
+        // }
+        #endif
+        EInteger bigintA = RandomManageableEInteger(r);
+        if (bigintA.Sign < 0) {
+          bigintA = -bigintA;
+        }
+        if (bigintA.Sign == 0) {
+          bigintA = EInteger.One;
+        }
+        EInteger[] srr = bigintA.RootRem(3);
+        EInteger srsqr = srr[0].Multiply(srr[0]).Multiply(srr[0]);
+        if (srsqr.CompareTo(bigintA) > 0) {
+          Assert.Fail(srsqr + " not " + bigintA +
+            " or less (TestRoot, root=" + srr + ")");
+        }
+        EInteger srrem = bigintA.Subtract(srsqr);
+        TestCommon.CompareTestEqual(srrem, srr[1]);
+      }
+      try {
+        EInteger.FromInt32(7).RootRem(0);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
+      try {
+        EInteger.FromInt32(7).RootRem(-1);
+        Assert.Fail("Should have failed");
+      } catch (ArgumentException) {
+        // NOTE: Intentionally empty
+      } catch (Exception ex) {
+        Assert.Fail(ex.ToString());
+        throw new InvalidOperationException(String.Empty, ex);
+      }
     }
 
     [Test]
