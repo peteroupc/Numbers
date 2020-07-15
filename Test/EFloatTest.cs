@@ -2028,6 +2028,9 @@ namespace Test {
       }
       EInteger emant = efa.Mantissa;
       int mantBits = emant.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
+      if (mantBits > bitCount) {
+        throw new InvalidOperationException("Too many bits; expected double- or single-sized significand");
+      }
       bool fullPrecision = mantBits == bitCount;
       bool isSubnormal = EFloats.IsSubnormal(efa,
           dbl ? EContext.Binary64 : EContext.Binary32);

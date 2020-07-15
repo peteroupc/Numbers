@@ -2937,9 +2937,6 @@ FromInt32((int)bytes[offset]) :
     /// name='bigintSecond'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <exception cref='ArgumentException'>bigPower is negative; doesn't
-    /// satisfy shiftBits&amp;lt;16; doesn't satisfy sqroot.Sign&amp;gt;=
-    /// 0</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException(nameof(bigintSecond));
@@ -3170,7 +3167,7 @@ FromInt32((int)bytes[offset]) :
     private static int LBL(long mantlong) {
 #if DEBUG
       if (mantlong < Int64.MinValue + 1) {
-        throw new ArgumentException("\"mantlong\" (" + mantlong + ") is not" +
+        throw new InvalidOperationException("\"mantlong\" (" + mantlong + ") is not" +
 "\u0020greater or equal to " + Int64.MinValue + 1);
       }
 #endif
@@ -3181,11 +3178,11 @@ FromInt32((int)bytes[offset]) :
     private static long[] LHalfGCD(long longa, long longb) {
 #if DEBUG
       if (longa < 0) {
-        throw new ArgumentException("\"longa\" (" + longa + ") is not" +
+        throw new InvalidOperationException("\"longa\" (" + longa + ") is not" +
 "\u0020greater or equal to 0");
       }
       if (longb < 0) {
-        throw new ArgumentException("\"longb\" (" + longb + ") is not" +
+        throw new InvalidOperationException("\"longb\" (" + longb + ") is not" +
 "\u0020greater or equal to 0");
       }
 #endif
@@ -3343,15 +3340,12 @@ FromInt32((int)bytes[offset]) :
 
     // Implements Niels Moeller's Half-GCD algorithm from 2008
     private static EInteger[] HalfGCD(EInteger eia, EInteger eib) {
-#if DEBUG
       if (eia.Sign < 0) {
-        throw new ArgumentException("doesn't satisfy !eia.IsNegative");
+        throw new InvalidOperationException("doesn't satisfy !eia.IsNegative");
       }
       if (eib.Sign < 0) {
-        throw new ArgumentException("doesn't satisfy !eib.IsNegative");
+        throw new InvalidOperationException("doesn't satisfy !eib.IsNegative");
       }
-#endif
-
       EInteger oeia = eia;
       EInteger oeib = eib;
       if (eia.IsZero || eib.IsZero) {
