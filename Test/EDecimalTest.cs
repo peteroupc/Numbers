@@ -1320,6 +1320,16 @@ namespace Test {
     }
     [Test]
     public void TestEquals() {
+      Assert.IsFalse(EDecimal.One.Equals(null));
+      Assert.IsFalse(EDecimal.Zero.Equals(null));
+      Assert.IsFalse(EDecimal.One.Equals(EDecimal.Zero));
+      Assert.IsFalse(EDecimal.Zero.Equals(EDecimal.One));
+      Assert.AreEqual(
+        EDecimal.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609"),
+        EDecimal.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609"));
+      Assert.AreNotEqual(
+        EDecimal.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609"),
+        EDecimal.FromString("0.001809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474"));
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EDecimal bigintA = RandomObjects.RandomEDecimal(r);
