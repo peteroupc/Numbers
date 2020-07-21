@@ -1278,6 +1278,8 @@ namespace PeterO.Numbers {
           T two = this.helper.ValueOf(2);
           if (this.CompareTo(thisValue, hundred) >= 0 &&
                 this.helper.GetRadix() == 2) {
+            T half = this.Divide(this.helper.ValueOf(1),
+  this.helper.ValueOf(2), EContext.Unlimited);
             FastIntegerFixed fmant = this.helper.GetMantissaFastInt(thisValue);
             EInteger fexp =
 this.helper.GetExponentFastInt(thisValue).ToEInteger();
@@ -1298,31 +1300,26 @@ fmant.ToEInteger().GetUnsignedBitLengthAsEInteger();
                  0);
                adjbits = fexp.Add(fbits);
             }
-            T addval = adjbits.Sign < 0 ?
-                this.helper.CreateNewWithFlags(
+            T addval = adjbits.Sign < 0 ? this.helper.CreateNewWithFlags(
                   adjbits.Abs(),
                   EInteger.Zero,
-                  BigNumberFlags.FlagNegative) :
-                this.helper.CreateNewWithFlags(
+                BigNumberFlags.FlagNegative) : this.helper.CreateNewWithFlags(
                   adjbits.Abs(),
                   EInteger.Zero,
                   0);
             EInteger cprec = ctx.Precision.Add(10);
             ctxdiv = SetPrecisionIfLimited(ctx, cprec)
               .WithRounding(intermedRounding).WithBlankFlags();
-            if (this.CompareTo(reduced, one) >= 0) {
+            if (this.CompareTo(reduced, one) >= 0 ||
+                 this.CompareTo(reduced, half) < 0) {
               throw new InvalidOperationException(
                 "thisValue = " + thisValue + "\n" +
-                "fexp = " + fexp + "\n" +
-                "fbits = " + fbits + "\n" +
-                "adjval = " + adjval + "\n" +
-                "reduced = " + reduced + "\n");
+                "fexp = " + fexp + "\n" + "fbits = " + fbits + "\n" +
+                "adjval = " + adjval + "\n" + "reduced = " + reduced + "\n");
             }
             DebugUtility.Log("thisValue = " + thisValue + "\n" +
-                "fexp = " + fexp + "\n" +
-                "fbits = " + fbits + "\n" +
-                "adjval = " + adjval + "\n" +
-                "reduced = " + reduced + "\n");      
+                "fexp = " + fexp + "\n" + "fbits = " + fbits + "\n" +
+                "adjval = " + adjval + "\n" + "reduced = " + reduced + "\n");
             reduced = this.Ln(reduced, ctxdiv);
             thisValue = this.Add(this.Multiply(this.Ln(two, ctxdiv), addval,
   null),

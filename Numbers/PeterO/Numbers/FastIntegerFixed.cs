@@ -9,19 +9,24 @@ using System;
 
 namespace PeterO.Numbers {
   internal sealed class FastIntegerFixed : IComparable<FastIntegerFixed> {
+    // NOTE: Integer modes are mutually exclusive
+    private enum IntegerMode : byte {
+      SmallValue = 0,
+      LargeValue = 2,
+    }
     private const int CacheFirst = -24;
     private const int CacheLast = 128;
 
     private readonly int smallValue; // if integerMode is 0
     private readonly EInteger largeValue; // if integerMode is 2
-    private readonly byte integerMode;
+    private readonly IntegerMode integerMode;
 
     public static readonly FastIntegerFixed Zero = new FastIntegerFixed(
-      (byte)0,
+      IntegerMode.SmallValue,
       0,
       null);
     public static readonly FastIntegerFixed One = new FastIntegerFixed(
-      (byte)0,
+      IntegerMode.SmallValue,
       1,
       null);
 
@@ -57,14 +62,14 @@ for (int i = first; i <= last; ++i) {
   } else if (i == 1) {
     cache[i - first] = One;
   } else {
- cache[i - first] = new FastIntegerFixed((byte)0, i, null);
+ cache[i - first] = new FastIntegerFixed(IntegerMode.SmallValue, i, null);
 }
 }
 return cache;
     }
 
     private FastIntegerFixed(
-      byte integerMode,
+      IntegerMode integerMode,
       int smallValue,
       EInteger largeValue) {
       this.integerMode = integerMode;
@@ -73,31 +78,31 @@ return cache;
     }
 
     public override bool Equals(object obj) {
-      var fi = obj as FastIntegerFixed;
-      if (fi == null) {
+      if (!(obj is FastIntegerFixed fi)) {
         return false;
       }
       if (this.integerMode != fi.integerMode) {
         return false;
       }
-      if (this.integerMode == 0) {
-        if (this.smallValue != fi.smallValue) {
-          return false;
-        }
-      } else if (this.integerMode == 1) {
-        if (!this.largeValue.Equals(fi.largeValue)) {
-          return false;
-        }
+      switch (this.integerMode) {
+        case IntegerMode.SmallValue:
+          return this.smallValue == fi.smallValue;
+        case IntegerMode.LargeValue:
+          return this.largeValue.Equals(fi.largeValue);
+        default:
+          return true;
       }
-      return true;
     }
 
     public override int GetHashCode() {
-      int hash = unchecked(31 + this.integerMode);
-      if (this.integerMode == 0) {
-        hash = unchecked((hash * 31) + this.smallValue);
-      } else if (this.integerMode == 1) {
-        hash = unchecked((hash * 31) + this.largeValue.GetHashCode());
+      int hash = this.integerMode.GetHashCode();
+      switch (this.integerMode) {
+        case IntegerMode.SmallValue:
+          hash = unchecked((hash * 31) + this.smallValue);
+          break;
+        case IntegerMode.LargeValue:
+          hash = unchecked((hash * 31) + this.largeValue.GetHashCode());
+          break;
       }
       return hash;
     }
@@ -105,13 +110,13 @@ return cache;
     internal static FastIntegerFixed FromInt32(int intVal) {
 return (intVal >= CacheFirst && intVal <= CacheLast) ?
 Cache[intVal - CacheFirst] :
-      new FastIntegerFixed((byte)0, intVal, null);
+      new FastIntegerFixed(IntegerMode.SmallValue, intVal, null);
     }
 
     internal static FastIntegerFixed FromInt64(long longVal) {
       return (longVal >= Int32.MinValue && longVal <= Int32.MaxValue) ?
 FromInt32((int)longVal) : new FastIntegerFixed(
-          (byte)2,
+          IntegerMode.LargeValue,
           0,
           EInteger.FromInt64(longVal));
     }
@@ -119,11 +124,11 @@ FromInt32((int)longVal) : new FastIntegerFixed(
     internal static FastIntegerFixed FromBig(EInteger bigintVal) {
       return bigintVal.CanFitInInt32() ?
 FromInt32(bigintVal.ToInt32Unchecked()) : new
-        FastIntegerFixed((byte)2, 0, bigintVal);
+        FastIntegerFixed(IntegerMode.LargeValue, 0, bigintVal);
     }
 
     internal int ToInt32() {
-      return (this.integerMode == 0) ?
+      return (this.integerMode == IntegerMode.SmallValue) ?
         this.smallValue : this.largeValue.ToInt32Unchecked();
     }
 
@@ -136,7 +141,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
     }
 
     public FastInteger ToFastInteger() {
-      if (this.integerMode == 0) {
+      if (this.integerMode == IntegerMode.SmallValue) {
         return new FastInteger(this.smallValue);
       } else {
         return FastInteger.FromBig(this.largeValue);
@@ -144,7 +149,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
     }
 
     public FastIntegerFixed Increment() {
-      if (this.integerMode == 0 && this.smallValue != Int32.MaxValue) {
+      if (this.integerMode == IntegerMode.SmallValue && this.smallValue != Int32.MaxValue) {
         return FromInt32(this.smallValue + 1);
       } else {
         return Add(this, FastIntegerFixed.One);
@@ -155,7 +160,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
       if (value < 0) {
         throw new NotSupportedException();
       }
-      if (this.integerMode == 0 && this.smallValue >= 0) {
+      if (this.integerMode == IntegerMode.SmallValue && this.smallValue >= 0) {
         return this.smallValue % value;
       } else {
         EInteger retval = this.ToEInteger().Remainder(EInteger.FromInt32(
@@ -166,7 +171,8 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     public static FastIntegerFixed Add(FastIntegerFixed a,
       FastIntegerFixed b) {
-      if ((a.integerMode | b.integerMode) == 0) {
+      if (a.integerMode == IntegerMode.SmallValue &&
+           b.integerMode == IntegerMode.SmallValue) {
         if (a.smallValue == 0) {
           return b;
         }
@@ -190,7 +196,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
     public static FastIntegerFixed Subtract(
       FastIntegerFixed a,
       FastIntegerFixed b) {
-      if (a.integerMode == 0 && b.integerMode == 0) {
+      if (a.integerMode == IntegerMode.SmallValue && b.integerMode == IntegerMode.SmallValue) {
         if (b.smallValue == 0) {
           return a;
         }
@@ -208,7 +214,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     public FastIntegerFixed Add(int ib) {
       FastIntegerFixed a = this;
-      if (this.integerMode == 0) {
+      if (this.integerMode == IntegerMode.SmallValue) {
         if (ib == 0) {
           return this;
         }
@@ -232,7 +238,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
       if (ib == 0) {
         return this;
       }
-      if (this.integerMode == 0) {
+      if (this.integerMode == IntegerMode.SmallValue) {
         if (
           (ib < 0 && Int32.MaxValue + ib >= this.smallValue) ||
           (ib > 0 && Int32.MinValue + ib <= this.smallValue)) {
@@ -255,7 +261,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     public FastIntegerFixed Add(
       EInteger b) {
-      if (this.integerMode == 0 && b.CanFitInInt32()) {
+      if (this.integerMode == IntegerMode.SmallValue && b.CanFitInInt32()) {
         return this.Add(b.ToInt32Unchecked());
       } else {
         return FastIntegerFixed.FromBig(
@@ -265,7 +271,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     public FastIntegerFixed Subtract(
       EInteger b) {
-      if (this.integerMode == 0 && b.CanFitInInt32()) {
+      if (this.integerMode == IntegerMode.SmallValue && b.CanFitInInt32()) {
         return this.Subtract(b.ToInt32Unchecked());
       } else {
         return FastIntegerFixed.FromBig(
@@ -275,7 +281,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     public FastIntegerFixed Abs() {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           if (this.smallValue == Int32.MinValue) {
             return FastIntegerFixed.FromInt32(Int32.MaxValue).Increment();
           } else if (this.smallValue < 0) {
@@ -283,9 +289,9 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
           } else {
             return this;
           }
-        case 2:
+        case IntegerMode.LargeValue:
           return this.largeValue.Sign < 0 ? new
-            FastIntegerFixed((byte)2, 0, this.largeValue.Abs()) :
+            FastIntegerFixed(IntegerMode.LargeValue, 0, this.largeValue.Abs()) :
             this;
         default: throw new InvalidOperationException();
       }
@@ -293,23 +299,23 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     public FastIntegerFixed Negate() {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           if (this.smallValue == Int32.MinValue) {
             return FastIntegerFixed.FromInt32(Int32.MaxValue).Increment();
           } else {
             return FastIntegerFixed.FromInt32(-this.smallValue);
           }
-        case 2:
-          return new FastIntegerFixed((byte)2, 0, this.largeValue.Negate());
+        case IntegerMode.LargeValue:
+          return new FastIntegerFixed(IntegerMode.LargeValue, 0, this.largeValue.Negate());
         default: throw new InvalidOperationException();
       }
     }
 
     public int CompareTo(EInteger evalue) {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           return -evalue.CompareTo(this.smallValue);
-        case 2:
+        case IntegerMode.LargeValue:
           return this.largeValue.CompareTo(evalue);
         default: throw new InvalidOperationException();
       }
@@ -317,35 +323,37 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     public int CompareTo(FastInteger fint) {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           return -fint.CompareToInt(this.smallValue);
-        case 2:
+        case IntegerMode.LargeValue:
           return -fint.CompareTo(this.largeValue);
         default: throw new InvalidOperationException();
       }
     }
 
     public int CompareTo(FastIntegerFixed val) {
-      switch ((this.integerMode << 2) | val.integerMode) {
-        case (0 << 2) | 0: {
-          int vsv = val.smallValue;
-          return (this.smallValue == vsv) ? 0 : (this.smallValue < vsv ? -1 :
-              1);
-        }
-        case (0 << 2) | 2:
-          return -val.largeValue.CompareTo(this.smallValue);
-        case (2 << 2) | 0:
-        case (2 << 2) | 2:
+      switch (this.integerMode) {
+        case IntegerMode.SmallValue:
+          switch (val.integerMode) {
+            case IntegerMode.SmallValue:
+              int vsv = val.smallValue;
+              return (this.smallValue == vsv) ? 0 : (this.smallValue < vsv ? -1 :
+                  1);
+            case IntegerMode.LargeValue:
+              return -val.largeValue.CompareTo(this.smallValue);
+          }
+          break;
+        case IntegerMode.LargeValue:
           return this.largeValue.CompareTo(val.ToEInteger());
-        default: throw new InvalidOperationException();
       }
+      throw new InvalidOperationException();
     }
 
     internal FastIntegerFixed Copy() {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           return FromInt32(this.smallValue);
-        case 2:
+        case IntegerMode.LargeValue:
           return FastIntegerFixed.FromBig(this.largeValue);
         default: throw new InvalidOperationException();
       }
@@ -354,9 +362,9 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
     internal bool IsEvenNumber {
       get {
         switch (this.integerMode) {
-          case 0:
+          case IntegerMode.SmallValue:
             return (this.smallValue & 1) == 0;
-          case 2:
+          case IntegerMode.LargeValue:
             return this.largeValue.IsEven;
           default:
             throw new InvalidOperationException();
@@ -365,16 +373,16 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
     }
 
     internal bool CanFitInInt32() {
-      return this.integerMode == 0 || this.largeValue.CanFitInInt32();
+      return this.integerMode == IntegerMode.SmallValue || this.largeValue.CanFitInInt32();
     }
 
     /// <summary>This is an internal API.</summary>
     /// <returns>A text string.</returns>
     public override string ToString() {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           return FastInteger.IntToString(this.smallValue);
-        case 2:
+        case IntegerMode.LargeValue:
           return this.largeValue.ToString();
         default: return String.Empty;
       }
@@ -383,10 +391,10 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
     internal int Sign {
       get {
         switch (this.integerMode) {
-          case 0:
+          case IntegerMode.SmallValue:
             return (this.smallValue == 0) ? 0 : ((this.smallValue < 0) ? -1 :
                 1);
-          case 2:
+          case IntegerMode.LargeValue:
             return this.largeValue.Sign;
           default:
             return 0;
@@ -397,9 +405,9 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
     internal bool IsValueZero {
       get {
         switch (this.integerMode) {
-          case 0:
+          case IntegerMode.SmallValue:
             return this.smallValue == 0;
-          case 2:
+          case IntegerMode.LargeValue:
             return this.largeValue.IsZero;
           default:
             return false;
@@ -409,35 +417,33 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
 
     internal bool CanFitInInt64() {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           return true;
-        case 2:
+        case IntegerMode.LargeValue:
           return this.largeValue
             .CanFitInInt64();
-
         default: throw new InvalidOperationException();
       }
     }
 
     internal long ToInt64() {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           return (long)this.smallValue;
-        case 2:
+        case IntegerMode.LargeValue:
           return this.largeValue
             .ToInt64Unchecked();
-
         default: throw new InvalidOperationException();
       }
     }
 
     internal int CompareToInt64(long valLong) {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           return (valLong == this.smallValue) ? 0 : (this.smallValue <
 valLong ? -1 :
               1);
-        case 2:
+        case IntegerMode.LargeValue:
           return this.largeValue.CompareTo(valLong);
         default: return 0;
       }
@@ -445,10 +451,10 @@ valLong ? -1 :
 
     internal int CompareToInt(int val) {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           return (val == this.smallValue) ? 0 : (this.smallValue < val ? -1 :
               1);
-        case 2:
+        case IntegerMode.LargeValue:
           return this.largeValue.CompareTo((EInteger)val);
         default: return 0;
       }
@@ -456,9 +462,9 @@ valLong ? -1 :
 
     internal EInteger ToEInteger() {
       switch (this.integerMode) {
-        case 0:
+        case IntegerMode.SmallValue:
           return EInteger.FromInt32(this.smallValue);
-        case 2:
+        case IntegerMode.LargeValue:
           return this.largeValue;
         default: throw new InvalidOperationException();
       }

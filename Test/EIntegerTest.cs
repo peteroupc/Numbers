@@ -1117,6 +1117,17 @@ namespace Test {
       Assert.IsFalse(EInteger.Zero.Equals(null));
       Assert.IsFalse(EInteger.One.Equals(EInteger.Zero));
       Assert.IsFalse(EInteger.Zero.Equals(EInteger.One));
+      {
+        object objectTemp =
+  EInteger.FromString("9461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+        object objectTemp2 =
+  EInteger.FromString("9461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+      Assert.AreNotEqual(
+  EInteger.FromString("9461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609"),
+
+  EInteger.FromString("1809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474"));
       TestCommon.AssertEqualsHashCode(
         EInteger.Zero,
         EInteger.FromString("-0"));
