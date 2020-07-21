@@ -2242,8 +2242,8 @@
             <param name='bytes'>A sequence that represents a number.</param>
             <param name='offset'>An index starting at 0 showing where the
             desired portion of <paramref name='bytes'/> begins.</param>
-            <param name='length'>The length, in code units, of the desired
-            portion of <paramref name='bytes'/> (but not more than <paramref name='bytes'/> 's length).</param>
+            <param name='length'>The length, in bytes, of the desired portion
+            of <paramref name='bytes'/> (but not more than <paramref name='bytes'/> 's length).</param>
             <returns>An arbitrary-precision decimal number with the same value
             as the given sequence of bytes (interpreted as text).</returns>
             <exception cref='FormatException'>The parameter <paramref name='bytes'/> is not a correctly formatted number
@@ -10631,8 +10631,8 @@
             form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
             the arbitrary-precision integer to create. The byte array is
-            encoded using the rules given in the FromBytes(bytes, offset, length, littleEndian)
-            overload.</param>
+            encoded using the rules given in the FromBytes(bytes, offset,
+            length, littleEndian) overload.</param>
             <param name='littleEndian'>If true, the byte order is
             little-endian, or least-significant-byte first. If false, the byte
             order is big-endian, or most-significant-byte first.</param>
@@ -10642,13 +10642,10 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromBytes(System.Byte[],System.Int32,System.Int32,System.Boolean)">
-<summary>Initializes an arbitrary-precision integer from a portion of an array
-            of bytes.</summary>
-            <param name='bytes'>A portion of a byte array consisting of the two's-complement
-            form (see
-            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
-            the arbitrary-precision integer to create. The byte array portion has to be
-            encoded using the following rules:
+
+            <summary>Initializes an arbitrary-precision integer from a portion
+            of an array of bytes. The portion of the byte array is encoded
+            using the following rules:
             <list>
             <item>Positive numbers have the first byte's highest bit cleared,
             and negative numbers have the bit set.</item>
@@ -10668,12 +10665,27 @@
             added at the start to ensure it's interpreted as
             negative.)</item></list>
             <para>For little-endian, the byte order is reversed from the byte
-            order just discussed.</para>.</param>
+            order just discussed.</para></summary>
+            <param name='bytes'>A byte array consisting of the two's-complement
+            form (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
+            the arbitrary-precision integer to create. The byte array is
+            encoded using the rules given in the FromBytes(bytes, offset,
+            length, littleEndian) overload.</param>
+            <param name='offset'>An index starting at 0 showing where the
+            desired portion of <paramref name='bytes'/> begins.</param>
+            <param name='length'>The length, in bytes, of the desired portion
+            of <paramref name='bytes'/> (but not more than <paramref name='bytes'/> 's length).</param>
             <param name='littleEndian'>If true, the byte order is
             little-endian, or least-significant-byte first. If false, the byte
             order is big-endian, or most-significant-byte first.</param>
-            <returns>An arbitrary-precision integer. Returns 0 if "length" is 0.</returns>
+            <returns>An arbitrary-precision integer. Returns 0 if the byte
+            array's length is 0.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
+            <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
+            greater than <paramref name='bytes'/> 's length, or <paramref name='bytes'/> 's length minus <paramref name='offset'/> is less
+            than <paramref name='length'/>.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromInt16(System.Int16)">
 

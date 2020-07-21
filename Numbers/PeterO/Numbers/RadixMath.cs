@@ -1274,8 +1274,61 @@ namespace PeterO.Numbers {
           }
         } else {
           // Greater than 1
+          T hundred = this.helper.ValueOf(100);
           T two = this.helper.ValueOf(2);
-          if (this.CompareTo(thisValue, two) >= 0) {
+          if (this.CompareTo(thisValue, hundred) >= 0 &&
+                this.helper.GetRadix() == 2) {
+            FastIntegerFixed fmant = this.helper.GetMantissaFastInt(thisValue);
+            EInteger fexp =
+this.helper.GetExponentFastInt(thisValue).ToEInteger();
+            EInteger fbits =
+fmant.ToEInteger().GetUnsignedBitLengthAsEInteger();
+            EInteger adjval = EInteger.One;
+            adjval = fbits.Negate(); // fexp.Subtract(fbits.Add(fexp));
+            EInteger adjbits = EInteger.Zero;
+            T reduced = default(T);
+            if (fexp.Sign > 0) {
+               reduced = this.helper.CreateNewWithFlags(fmant.ToEInteger(),
+                 adjval,
+                 0);
+               adjbits = fexp.Add(fbits);
+            } else {
+               reduced = this.helper.CreateNewWithFlags(fmant.ToEInteger(),
+                 adjval,
+                 0);
+               adjbits = fexp.Add(fbits);
+            }
+            T addval = adjbits.Sign < 0 ?
+                this.helper.CreateNewWithFlags(
+                  adjbits.Abs(),
+                  EInteger.Zero,
+                  BigNumberFlags.FlagNegative) :
+                this.helper.CreateNewWithFlags(
+                  adjbits.Abs(),
+                  EInteger.Zero,
+                  0);
+            EInteger cprec = ctx.Precision.Add(10);
+            ctxdiv = SetPrecisionIfLimited(ctx, cprec)
+              .WithRounding(intermedRounding).WithBlankFlags();
+            if (this.CompareTo(reduced, one) >= 0) {
+              throw new InvalidOperationException(
+                "thisValue = " + thisValue + "\n" +
+                "fexp = " + fexp + "\n" +
+                "fbits = " + fbits + "\n" +
+                "adjval = " + adjval + "\n" +
+                "reduced = " + reduced + "\n");
+            }
+            DebugUtility.Log("thisValue = " + thisValue + "\n" +
+                "fexp = " + fexp + "\n" +
+                "fbits = " + fbits + "\n" +
+                "adjval = " + adjval + "\n" +
+                "reduced = " + reduced + "\n");      
+            reduced = this.Ln(reduced, ctxdiv);
+            thisValue = this.Add(this.Multiply(this.Ln(two, ctxdiv), addval,
+  null),
+ reduced,
+ ctxCopy);
+          } else if (this.CompareTo(thisValue, two) >= 0) {
             // 2 or greater
             var roots = new FastInteger(0);
             FastInteger error;

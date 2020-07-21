@@ -909,7 +909,71 @@ namespace Test {
    "17.718813892893447103915605111978948116302490234375");
  TestCommon.CompareTestEqual(ef2, ef);
       }
-    }
+
+}
+
+[Test]
+    public void TestLogExpSpecificA()
+
+{
+ EFloat efa = EFloat.Create(5094638944929121L, -43).ExpM1(EContext.Binary64);
+ EFloat efb = EFloat.Create(3411748882100003L, 784);
+ string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
+}
+[Test]
+    public void TestLogExpSpecificB()
+
+{
+ EFloat efa = EFloat.Create(1168389840651401L, 526).Log(EContext.Binary64);
+ EFloat efb = EFloat.Create(1756095199620111L, -42);
+ string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
+}
+[Test]
+    public void TestLogExpSpecificC()
+
+{
+ EFloat efa = EFloat.Create(-1184982539430741L, -52).Exp(EContext.Binary64);
+ EFloat efb = EFloat.Create(3461693826094423L, -52);
+ string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
+}
+[Test]
+    public void TestLogExpSpecificD()
+
+{
+ EFloat efa = EFloat.Create(6832986215039611L, -38).Log1P(EContext.Binary64);
+ EFloat efb = EFloat.Create(1424402087294909L, -47);
+ string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
+}
+[Test]
+    public void TestLogExpSpecificE()
+
+{
+ EFloat efa = EFloat.Create(5615046595603761L, -44).ExpM1(EContext.Binary64);
+ EFloat efb = EFloat.Create(195906767427969L, 413);
+ string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
+}
+[Test]
+    public void TestLogExpSpecificF()
+
+{
+EFloat efa = EFloat.Create(7894203448763243L, 790).Log(EContext.Binary64);
+EFloat efb = EFloat.Create(642324992820697L, -40);
+Assert.AreEqual(efb, efa);
+}
+[Test]
+    public void TestLogExpSpecificG()
+
+{
+ EFloat efa = EFloat.Create(4939846268124649L, -48).Log(EContext.Binary64);
+ EFloat efb = EFloat.Create(6451509911495955L, -51);
+ string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
+}
 
     [Test]
     public void TestExpM1() {
@@ -917,38 +981,45 @@ namespace Test {
         EFloat efa = EFloat.Create(1007123499737607L,
   -522).ExpM1(EContext.Binary64);
         EFloat efb = EFloat.Create(1007123499737607L, -522);
-        TestCommon.CompareTestEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(6580149561684505L,
   -1071).ExpM1(EContext.Binary64);
         EFloat efb = EFloat.Create(6580149561684505L, -1071);
-        TestCommon.CompareTestEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(-3676681081736271L,
   -81).ExpM1(EContext.Binary64);
         EFloat efb = EFloat.Create(-7353362157881635L, -82);
-        TestCommon.CompareTestEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(-969434867059159L,
   -66).ExpM1(EContext.Binary64);
         EFloat efb = EFloat.Create(-7755427989821553L, -69);
-        TestCommon.CompareTestEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(3153411279369011L,
   -70).ExpM1(EContext.Binary64);
         EFloat efb = EFloat.Create(6306830981643433L, -71);
-        TestCommon.CompareTestEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
       {
         EFloat efa = EFloat.Create(-1481872941857973L,
   -86).ExpM1(EContext.Binary64);
         EFloat efb = EFloat.Create(-740936470921891L, -85);
-        TestCommon.CompareTestEqual(efb, efa);
+        string str = OutputEF(efb) + "\n" + OutputEF(efa);
+        TestCommon.CompareTestEqual(efb, efa, str);
       }
+
     }
 
     public static string DebugStringLog1P(
