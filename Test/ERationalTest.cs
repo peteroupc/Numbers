@@ -419,6 +419,16 @@ namespace Test {
     }
     [Test]
     public void TestEquals() {
+      Assert.IsFalse(ERational.One.Equals(null));
+      Assert.IsFalse(ERational.Zero.Equals(null));
+      Assert.IsFalse(ERational.One.Equals(ERational.Zero));
+      Assert.IsFalse(ERational.Zero.Equals(ERational.One));
+      Assert.AreEqual(
+        ERational.FromString("12/24"),
+        ERational.FromString("12/24"));
+      Assert.AreNotEqual(
+        ERational.FromString("24/48"),
+        ERational.FromString("12/24"));
       ERational era = ERational.FromString("0/3920");
       ERational erb = ERational.FromString("0/3920");
       TestCommon.CompareTestEqualAndConsistent(
