@@ -88,7 +88,7 @@ return cache;
         case IntegerMode.SmallValue:
           return this.smallValue == fi.smallValue;
         case IntegerMode.LargeValue:
-          return this.largeValue.Equals(fi.smallValue);
+          return this.largeValue.Equals(fi.largeValue);
         default:
           return true;
       }
