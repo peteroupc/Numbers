@@ -317,15 +317,22 @@ namespace Test {
       Assert.IsFalse(EFloat.Zero.Equals(EFloat.One));
       {
         object objectTemp =
+
   EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
         object objectTemp2 =
+
   EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
         Assert.AreEqual(objectTemp, objectTemp2);
       }
-      Assert.AreNotEqual(
-  EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609"),
+      {
+        object objectTemp =
 
-  EFloat.FromString("0.001809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474"));
+  EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+        object objectTemp2 =
+
+  EFloat.FromString("0.001809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474");
+        Assert.AreNotEqual(objectTemp, objectTemp2);
+      }
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EFloat bigintA = RandomObjects.RandomEFloat(r);
@@ -963,15 +970,17 @@ namespace Test {
 }
 [Test]
     public void TestLogExpSpecificF() {
-EFloat efa = EFloat.Create(7894203448763243L, 790).Log(EContext.Binary64);
-EFloat efb = EFloat.Create(642324992820697L, -40);
-Assert.AreEqual(efb, efa);
+ EFloat efa = EFloat.Create(7894203448763243L, 790).Log(EContext.Binary64);
+ EFloat efb = EFloat.Create(642324992820697L, -40);
+ String str = OutputEF(efb) + "\n" + OutputEF(efa);
+ TestCommon.CompareTestEqual(efb, efa, str);
 }
 [Test]
     public void TestLogExpSpecificG() {
  EFloat efa = EFloat.Create(4939846268124649L, -48).Log(EContext.Binary64);
  EFloat efb = EFloat.Create(6451509911495955L, -51);
- string str = OutputEF(efb) + "\n" + OutputEF(efa);
+ string str = OutputEF(efb) + "\n" + OutputEF(efa) + "\nInput: " +
+        OutputEF(EFloat.Create(4939846268124649L, -48)) ;
  TestCommon.CompareTestEqual(efb, efa, str);
 }
 
@@ -2099,8 +2108,8 @@ Assert.AreEqual(efb, efa);
       EInteger emant = efa.Mantissa;
       int mantBits = emant.GetUnsignedBitLengthAsEInteger().ToInt32Checked();
       if (mantBits > bitCount) {
-        throw new InvalidOperationException("Too many bits; expected double-
-or single-sized significand");
+        throw new InvalidOperationException("Too many bits; expected double-" +
+"\u0020or single-sized significand");
       }
       bool fullPrecision = mantBits == bitCount;
       bool isSubnormal = EFloats.IsSubnormal(efa,

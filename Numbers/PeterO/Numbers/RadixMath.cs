@@ -1274,17 +1274,21 @@ namespace PeterO.Numbers {
           }
         } else {
           // Greater than 1
-          T hundred = this.helper.ValueOf(100);
+          // T hundred = this.helper.ValueOf(100);
           T two = this.helper.ValueOf(2);
-          if (this.CompareTo(thisValue, hundred) >= 0 &&
+          // DebugUtility.Log("thisValue=" + thisValue +
+          // " hundredcmp=" + this.CompareTo(thisValue, hundred) +
+          // " twocmp=" + this.CompareTo(thisValue, two));
+          if (this.CompareTo(thisValue, two) > 0 &&
                 this.helper.GetRadix() == 2) {
             T half = this.Divide(this.helper.ValueOf(1),
-  this.helper.ValueOf(2), EContext.Unlimited);
+             this.helper.ValueOf(2),
+           EContext.Unlimited);
             FastIntegerFixed fmant = this.helper.GetMantissaFastInt(thisValue);
             EInteger fexp =
-this.helper.GetExponentFastInt(thisValue).ToEInteger();
+               this.helper.GetExponentFastInt(thisValue).ToEInteger();
             EInteger fbits =
-fmant.ToEInteger().GetUnsignedBitLengthAsEInteger();
+               fmant.ToEInteger().GetUnsignedBitLengthAsEInteger();
             EInteger adjval = EInteger.One;
             adjval = fbits.Negate(); // fexp.Subtract(fbits.Add(fexp));
             EInteger adjbits = EInteger.Zero;
@@ -1303,13 +1307,14 @@ fmant.ToEInteger().GetUnsignedBitLengthAsEInteger();
             T addval = adjbits.Sign < 0 ? this.helper.CreateNewWithFlags(
                   adjbits.Abs(),
                   EInteger.Zero,
-                BigNumberFlags.FlagNegative) : this.helper.CreateNewWithFlags(
+                  BigNumberFlags.FlagNegative) : this.helper.CreateNewWithFlags(
                   adjbits.Abs(),
                   EInteger.Zero,
                   0);
             EInteger cprec = ctx.Precision.Add(10);
             ctxdiv = SetPrecisionIfLimited(ctx, cprec)
               .WithRounding(intermedRounding).WithBlankFlags();
+            #if DEBUG
             if (this.CompareTo(reduced, one) >= 0 ||
                  this.CompareTo(reduced, half) < 0) {
               throw new InvalidOperationException(
@@ -1317,14 +1322,16 @@ fmant.ToEInteger().GetUnsignedBitLengthAsEInteger();
                 "fexp = " + fexp + "\n" + "fbits = " + fbits + "\n" +
                 "adjval = " + adjval + "\n" + "reduced = " + reduced + "\n");
             }
-            DebugUtility.Log("thisValue = " + thisValue + "\n" +
-                "fexp = " + fexp + "\n" + "fbits = " + fbits + "\n" +
-                "adjval = " + adjval + "\n" + "reduced = " + reduced + "\n");
+            #endif
+            // DebugUtility.Log("thisValue = " + thisValue + "\n" +
+            // "fexp = " + fexp + "\n" + "fbits = " + fbits + "\n" +
+            // "adjval = " + adjval + "\n" + "reduced = " + reduced + "\n");
             reduced = this.Ln(reduced, ctxdiv);
-            thisValue = this.Add(this.Multiply(this.Ln(two, ctxdiv), addval,
-  null),
- reduced,
- ctxCopy);
+            thisValue = this.MultiplyAndAdd(
+              this.Ln(two, ctxdiv),
+              addval,
+              reduced,
+              ctxCopy);
           } else if (this.CompareTo(thisValue, two) >= 0) {
             // 2 or greater
             var roots = new FastInteger(0);
