@@ -111,13 +111,13 @@ namespace Test {
 
     // Generates an EInteger of manageable size
     private static EInteger RandomManageableEInteger(IRandomGenExtended rg) {
-       EInteger ei;
-       while (true) {
-         ei = RandomObjects.RandomEInteger(rg);
-         if (ei.GetUnsignedBitLengthAsInt64() <= 16 * 3000) {
-           return ei;
-         }
-       }
+      EInteger ei;
+      while (true) {
+        ei = RandomObjects.RandomEInteger(rg);
+        if (ei.GetUnsignedBitLengthAsInt64() <= 16 * 3000) {
+          return ei;
+        }
+      }
     }
 
     public static void AssertAdd(EInteger bi, EInteger bi2, string s) {
@@ -1296,10 +1296,10 @@ namespace Test {
     }
 
     public static bool TestEIntegerFromBytes(byte[] bytes, bool littleEndian) {
-       if (bytes == null) {
-         throw new ArgumentNullException(nameof(bytes));
-       }
-       return TestEIntegerFromBytes(bytes, 0, bytes.Length, littleEndian);
+      if (bytes == null) {
+        throw new ArgumentNullException(nameof(bytes));
+      }
+      return TestEIntegerFromBytes(bytes, 0, bytes.Length, littleEndian);
     }
 
     public static bool TestEIntegerFromBytes(
@@ -1316,18 +1316,16 @@ namespace Test {
       if (littleEndian) {
         if (!(length == 1 || (
               !(bytes[offset + length - 1] == 0x00 && ((int)bytes[offset +
-length
-                - 2] & 0x80) == 0) && !(bytes[offset + length - 1] ==
-(byte)0xff &&
+                length - 2] & 0x80) == 0) && !(bytes[offset + length - 1] ==
+                (byte)0xff &&
                 ((int)bytes[offset + length - 2] & 0x80) != 0)))) {
           return false;
         }
       } else {
         if (!(length == 1 || (
               !(bytes[offset] == 0x00 && ((int)bytes[offset + 1] & 0x80) ==
-0) &&
-              !(bytes[offset] == (byte)0xff && ((int)bytes[offset + 1] &
-0x80) != 0)))) {
+                0) && !(bytes[offset] == (byte)0xff && ((int)bytes[offset + 1] &
+                  0x80) != 0)))) {
           return false;
         }
       }
@@ -1335,8 +1333,8 @@ length
       negative = (!littleEndian) ? ((bytes[offset] & 0x80) != 0) :
         ((bytes[offset + length - 1] & 0x80) != 0);
       EInteger ei = (offset == 0 && length == bytes.Length) ?
-          EInteger.FromBytes(bytes, littleEndian) :
-          EInteger.FromBytes(bytes, offset, length, littleEndian);
+        EInteger.FromBytes(bytes, littleEndian) :
+        EInteger.FromBytes(bytes, offset, length, littleEndian);
       Assert.AreEqual(negative, ei.Sign < 0);
       byte[] ba = ei.ToBytes(littleEndian);
       TestCommon.AssertByteArraysEqual(bytes, offset, length, ba);
@@ -2123,62 +2121,62 @@ length
       }
     }
 
- [Test]
- public void TestGcdSpecific1() {
-  EInteger eia =
+    [Test]
+    public void TestGcdSpecific1() {
+      EInteger eia =
 
   EInteger.FromString("31087445093332925259488531187214798679962746631365434956607825050983640030004626432697");
-  EInteger eib =
+      EInteger eib =
 
   EInteger.FromString("634110413245973045752985332739706355633747812352917054306813756224650904");
-  EInteger gcd = EInteger.FromString("1");
-  TestGcdPair(eia, eib, gcd);
- }
+      EInteger gcd = EInteger.FromString("1");
+      TestGcdPair(eia, eib, gcd);
+    }
 
- [Test]
- public void TestGcdSpecific2() {
-  EInteger eia =
+    [Test]
+    public void TestGcdSpecific2() {
+      EInteger eia =
 
   EInteger.FromString("34919464185156438130737093950000449414901433260046574365653671833127498045928977578356713");
-  EInteger eib =
+      EInteger eib =
 
   EInteger.FromString("164193664625099565521863251759922447177022769597753704347721217067439342602815077739234");
-  EInteger gcd = EInteger.FromString("1");
-  TestGcdPair(eia, eib, gcd);
- }
- [Test]
- public void TestGcdSpecific3() {
-  EInteger eia =
+      EInteger gcd = EInteger.FromString("1");
+      TestGcdPair(eia, eib, gcd);
+    }
+    [Test]
+    public void TestGcdSpecific3() {
+      EInteger eia =
 
   EInteger.FromString("103862788645466657156274316837043801135780275578563880187476945864288161266");
-  EInteger eib =
+      EInteger eib =
 
   EInteger.FromString("49380347741774569630130462581871110923545066914152503189431047757");
-  EInteger gcd = EInteger.FromString("1");
-  TestGcdPair(eia, eib, gcd);
- }
- [Test]
- public void TestGcdSpecific6() {
-  EInteger eia =
+      EInteger gcd = EInteger.FromString("1");
+      TestGcdPair(eia, eib, gcd);
+    }
+    [Test]
+    public void TestGcdSpecific6() {
+      EInteger eia =
 
   EInteger.FromString("4478588462902174856284550822841587751257736243593417026536878393910594570150960");
-  EInteger eib =
+      EInteger eib =
 
   EInteger.FromString("200436597645961750509884674543137682538095599306199896499547606239076266894278634228");
-  EInteger gcd = EInteger.FromString("4");
-  TestGcdPair(eia, eib, gcd);
- }
- [Test]
- public void TestGcdSpecific4() {
-  EInteger eia =
+      EInteger gcd = EInteger.FromString("4");
+      TestGcdPair(eia, eib, gcd);
+    }
+    [Test]
+    public void TestGcdSpecific4() {
+      EInteger eia =
 
   EInteger.FromString("479324527105721205395276387652685206399828597662080440776635747462472972671572622295");
-  EInteger eib =
+      EInteger eib =
 
   EInteger.FromString("838212340549242323846978901107367041041509191230401720028242035196388222327176688904324510590144");
-  EInteger gcd = EInteger.FromString("11");
-  TestGcdPair(eia, eib, gcd);
- }
+      EInteger gcd = EInteger.FromString("11");
+      TestGcdPair(eia, eib, gcd);
+    }
 
     [Test]
     public void TestGetBits() {
@@ -2813,12 +2811,12 @@ length
     }
 
     public static void TestSimpleMultiply(int inta, int intb, int intresult) {
-       TestCommon.CompareTestEqual(
-            EInteger.FromInt32(intresult),
-            EInteger.FromInt32(inta).Multiply(EInteger.FromInt32(intb)));
-       TestCommon.CompareTestEqual(
-         EInteger.FromInt32(intresult),
-         EInteger.FromInt32(inta).Multiply(intb));
+      TestCommon.CompareTestEqual(
+        EInteger.FromInt32(intresult),
+        EInteger.FromInt32(inta).Multiply(EInteger.FromInt32(intb)));
+      TestCommon.CompareTestEqual(
+        EInteger.FromInt32(intresult),
+        EInteger.FromInt32(inta).Multiply(intb));
     }
 
     [Test]
@@ -3239,8 +3237,8 @@ length
     [Test]
     public void TestRootRem() {
       TestCommon.CompareTestEqual(
-          EInteger.FromInt32(2),
-          EInteger.FromInt32(26).RootRem(3)[0]);
+        EInteger.FromInt32(2),
+        EInteger.FromInt32(26).RootRem(3)[0]);
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EInteger bigintA = RandomManageableEInteger(r);
@@ -3282,8 +3280,8 @@ length
     [Test]
     public void TestRoot() {
       TestCommon.CompareTestEqual(
-          EInteger.FromInt32(2),
-          EInteger.FromInt32(26).Root(3));
+        EInteger.FromInt32(2),
+        EInteger.FromInt32(26).Root(3));
       var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         #if DEBUG
