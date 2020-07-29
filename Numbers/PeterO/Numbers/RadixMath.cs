@@ -1324,9 +1324,8 @@ return null;
         } else if (cmpOne < 0) {
           // Less than 1
           T half = this.Divide(one, this.helper.ValueOf(2), ctxCopy);
-          if (this.CompareTo(thisValue, half) >= 0 && this.helper.GetRadix()
-== 2 &&
-              ctx.Precision.CompareTo(53) <= 0) {
+          if (this.CompareTo(thisValue, half) >= 0 &&
+              this.helper.GetRadix() == 2 && ctx.Precision.CompareTo(53) <= 0) {
             if (thisValue is EFloat) {
               var ef = thisValue as EFloat;
               ef = FastLn(ef, ctxCopy);
