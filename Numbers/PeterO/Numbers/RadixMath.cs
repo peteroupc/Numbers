@@ -1128,7 +1128,7 @@ namespace PeterO.Numbers {
         // DebugUtility.Log("fracpart1=" + fracpart);
         EInteger workingPrec = ctxdiv.Precision;
         workingPrec = workingPrec.Add(
-            this.WorkingDigits(EInteger.FromInt32(20)));
+            this.WorkingDigits(EInteger.FromInt32(40)));
         // DebugUtility.Log("intpart=" + intpart + " wp=" + workingPrec);
         thisValue = this.ExpInternal(fracpart, workingPrec, ctxdiv);
         // DebugUtility.Log("thisValue=" + thisValue);
