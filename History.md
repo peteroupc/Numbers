@@ -1,5 +1,9 @@
 Release notes
 -------
+Version 1.7.4
+
+- A bug involving the Equals method was fixed
+
 Version 1.7.3
 
 - Fix bugs and regressions involving EInteger's Pow, Root, and new Gcd

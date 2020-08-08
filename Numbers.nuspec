@@ -1,5 +1,9 @@
 <package
-><metadata><version>1.7.3</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.7.3
+><metadata><version>1.7.4</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.7.4
+
+- A bug involving the Equals method was fixed
+
+Version 1.7.3
 
 - Fix bugs and regressions involving EInteger&apos;s Pow, Root, and new Gcd
 
