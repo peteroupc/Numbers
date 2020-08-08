@@ -56,6 +56,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision integer.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[FromBytes(byte[], bool)](#FromBytes_byte_bool)</code> - Initializes an arbitrary-precision integer from an array of bytes.
+* <code>[FromBytes(byte[], int, int, bool)](#FromBytes_byte_int_int_bool)</code> - Initializes an arbitrary-precision integer from a portion of an array of bytes.
 * <code>[FromInt16(short)](#FromInt16_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision integer.
 * <code>[FromInt32(int)](#FromInt32_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
@@ -829,6 +830,58 @@ An arbitrary-precision integer. Returns 0 if the byte array's length is 0.
  * System.ArgumentNullException:
 The parameter  <i>bytes</i>
  is null.
+
+<a id="FromBytes_byte_int_int_bool"></a>
+### FromBytes
+
+    public static PeterO.Numbers.EInteger FromBytes(
+        byte[] bytes,
+        int offset,
+        int length,
+        bool littleEndian);
+
+Initializes an arbitrary-precision integer from a portion of an array of bytes. The portion of the byte array is encoded using the following rules:
+
+ * Positive numbers have the first byte's highest bit cleared, and negative numbers have the bit set.
+
+ * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as  `0x01, 0x2C`  and 200 as  `0x00,
+            0xC8` . (Note that the second example contains a set high bit in  `0xC8` , so an additional 0 is added at the start to ensure it's interpreted as positive.)
+
+ * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as  `0xfe, 0x70`  and -52869 as  `0xff, 0x31, 0x7B` . (Note that the second example contains a cleared high bit in  `0x31, 0x7B` , so an additional 0xff is added at the start to ensure it's interpreted as negative.)
+
+For little-endian, the byte order is reversed from the byte order just discussed.
+
+<b>Parameters:</b>
+
+ * <i>bytes</i>: A byte array consisting of the two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of the arbitrary-precision integer to create. The byte array is encoded using the rules given in the FromBytes(bytes, offset, length, littleEndian) overload.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>bytes</i>
+ begins.
+
+ * <i>length</i>: The length, in bytes, of the desired portion of  <i>bytes</i>
+ (but not more than  <i>bytes</i>
+ 's length).
+
+ * <i>littleEndian</i>: If true, the byte order is little-endian, or least-significant-byte first. If false, the byte order is big-endian, or most-significant-byte first.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer. Returns 0 if the byte array's length is 0.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bytes</i>
+ is null.
+
+ * System.ArgumentException:
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>bytes</i>
+ 's length, or  <i>bytes</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
 
 <a id="FromInt16_short"></a>
 ### FromInt16

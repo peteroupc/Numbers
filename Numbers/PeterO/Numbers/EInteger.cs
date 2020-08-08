@@ -286,7 +286,53 @@ namespace PeterO.Numbers {
       return FromBytes(bytes, 0, bytes.Length, littleEndian);
     }
 
-    private static EInteger FromBytes(
+    /// <summary>Initializes an arbitrary-precision integer from a portion
+    /// of an array of bytes. The portion of the byte array is encoded
+    /// using the following rules:
+    /// <list>
+    /// <item>Positive numbers have the first byte's highest bit cleared,
+    /// and negative numbers have the bit set.</item>
+    /// <item>The last byte contains the lowest 8-bits, the next-to-last
+    /// contains the next lowest 8 bits, and so on. For example, the number
+    /// 300 can be encoded as <c>0x01, 0x2C</c> and 200 as <c>0x00,
+    /// 0xC8</c>. (Note that the second example contains a set high bit in
+    /// <c>0xC8</c>, so an additional 0 is added at the start to ensure
+    /// it's interpreted as positive.)</item>
+    /// <item>To encode negative numbers, take the absolute value of the
+    /// number, subtract by 1, encode the number into bytes, and toggle
+    /// each bit of each byte. Any further bits that appear beyond the most
+    /// significant bit of the number will be all ones. For example, the
+    /// number -450 can be encoded as <c>0xfe, 0x70</c> and -52869 as
+    /// <c>0xff, 0x31, 0x7B</c>. (Note that the second example contains a
+    /// cleared high bit in <c>0x31, 0x7B</c>, so an additional 0xff is
+    /// added at the start to ensure it's interpreted as
+    /// negative.)</item></list>
+    /// <para>For little-endian, the byte order is reversed from the byte
+    /// order just discussed.</para></summary>
+    /// <param name='bytes'>A byte array consisting of the two's-complement
+    /// form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
+    /// the arbitrary-precision integer to create. The byte array is
+    /// encoded using the rules given in the FromBytes(bytes, offset,
+    /// length, littleEndian) overload.</param>
+    /// <param name='offset'>An index starting at 0 showing where the
+    /// desired portion of <paramref name='bytes'/> begins.</param>
+    /// <param name='length'>The length, in bytes, of the desired portion
+    /// of <paramref name='bytes'/> (but not more than <paramref
+    /// name='bytes'/> 's length).</param>
+    /// <param name='littleEndian'>If true, the byte order is
+    /// little-endian, or least-significant-byte first. If false, the byte
+    /// order is big-endian, or most-significant-byte first.</param>
+    /// <returns>An arbitrary-precision integer. Returns 0 if the byte
+    /// array's length is 0.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bytes'/> is null.</exception>
+    /// <exception cref='ArgumentException'>Either <paramref
+    /// name='offset'/> or <paramref name='length'/> is less than 0 or
+    /// greater than <paramref name='bytes'/> 's length, or <paramref
+    /// name='bytes'/> 's length minus <paramref name='offset'/> is less
+    /// than <paramref name='length'/>.</exception>
+    public static EInteger FromBytes(
       byte[] bytes,
       int offset,
       int length,
@@ -2910,7 +2956,8 @@ FromInt32((int)bytes[offset]) :
       if (thisValue.Equals(EInteger.One)) {
         return thisValue;
       }
-      if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 250) {
+      if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 12) {
+      // if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 250) {
         return SubquadraticGCD(thisValue, bigintSecond);
       } else {
         return BaseGcd(thisValue, bigintSecond);
@@ -3120,7 +3167,7 @@ FromInt32((int)bytes[offset]) :
     private static int LBL(long mantlong) {
 #if DEBUG
       if (mantlong < Int64.MinValue + 1) {
-        throw new ArgumentException("\"mantlong\" (" + mantlong + ") is not" +
+        throw new InvalidOperationException("\"mantlong\" (" + mantlong + ") is not" +
 "\u0020greater or equal to " + Int64.MinValue + 1);
       }
 #endif
@@ -3131,11 +3178,11 @@ FromInt32((int)bytes[offset]) :
     private static long[] LHalfGCD(long longa, long longb) {
 #if DEBUG
       if (longa < 0) {
-        throw new ArgumentException("\"longa\" (" + longa + ") is not" +
+        throw new InvalidOperationException("\"longa\" (" + longa + ") is not" +
 "\u0020greater or equal to 0");
       }
       if (longb < 0) {
-        throw new ArgumentException("\"longb\" (" + longb + ") is not" +
+        throw new InvalidOperationException("\"longb\" (" + longb + ") is not" +
 "\u0020greater or equal to 0");
       }
 #endif
@@ -3293,15 +3340,12 @@ FromInt32((int)bytes[offset]) :
 
     // Implements Niels Moeller's Half-GCD algorithm from 2008
     private static EInteger[] HalfGCD(EInteger eia, EInteger eib) {
-#if DEBUG
       if (eia.Sign < 0) {
-        throw new ArgumentException("doesn't satisfy !eia.IsNegative");
+        throw new InvalidOperationException("doesn't satisfy !eia.IsNegative");
       }
       if (eib.Sign < 0) {
-        throw new ArgumentException("doesn't satisfy !eib.IsNegative");
+        throw new InvalidOperationException("doesn't satisfy !eib.IsNegative");
       }
-#endif
-
       EInteger oeia = eia;
       EInteger oeib = eib;
       if (eia.IsZero || eib.IsZero) {

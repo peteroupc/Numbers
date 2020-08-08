@@ -111,13 +111,13 @@ namespace Test {
 
     // Generates an EInteger of manageable size
     private static EInteger RandomManageableEInteger(IRandomGenExtended rg) {
-       EInteger ei;
-       while (true) {
-         ei = RandomObjects.RandomEInteger(rg);
-         if (ei.GetUnsignedBitLengthAsInt64() <= 16 * 3000) {
-           return ei;
-         }
-       }
+      EInteger ei;
+      while (true) {
+        ei = RandomObjects.RandomEInteger(rg);
+        if (ei.GetUnsignedBitLengthAsInt64() <= 16 * 3000) {
+          return ei;
+        }
+      }
     }
 
     public static void AssertAdd(EInteger bi, EInteger bi2, string s) {
@@ -1299,8 +1299,17 @@ namespace Test {
       if (bytes == null) {
         throw new ArgumentNullException(nameof(bytes));
       }
-      var offset = 0;
-      int length = bytes.Length;
+      return TestEIntegerFromBytes(bytes, 0, bytes.Length, littleEndian);
+    }
+
+    public static bool TestEIntegerFromBytes(
+      byte[] bytes,
+      int offset,
+      int length,
+      bool littleEndian) {
+      if (bytes == null) {
+        throw new ArgumentNullException(nameof(bytes));
+      }
       if (length == 0) {
         return false;
       }
@@ -1323,7 +1332,9 @@ namespace Test {
       var negative = false;
       negative = (!littleEndian) ? ((bytes[offset] & 0x80) != 0) :
         ((bytes[offset + length - 1] & 0x80) != 0);
-      EInteger ei = EInteger.FromBytes(bytes, littleEndian);
+      EInteger ei = (offset == 0 && length == bytes.Length) ?
+        EInteger.FromBytes(bytes, littleEndian) :
+        EInteger.FromBytes(bytes, offset, length, littleEndian);
       Assert.AreEqual(negative, ei.Sign < 0);
       byte[] ba = ei.ToBytes(littleEndian);
       TestCommon.AssertByteArraysEqual(bytes, offset, length, ba);
@@ -1350,12 +1361,11 @@ namespace Test {
         TestEIntegerFromBytes(bytes, rg.UniformInt(2) == 0);
         int offset1 = rg.GetInt32(bytes.Length + 1);
         int offset2 = rg.GetInt32(bytes.Length + 1);
-        /* if (offset1 != offset2) {
+        if (offset1 != offset2) {
           int length = Math.Abs(offset1 - offset2);
           int offset = Math.Min(offset1, offset2);
           TestEIntegerFromBytes(bytes, offset, length, rg.UniformInt(2) == 0);
         }
-        */
       }
     }
     [Test]
@@ -2801,12 +2811,12 @@ namespace Test {
     }
 
     public static void TestSimpleMultiply(int inta, int intb, int intresult) {
-       TestCommon.CompareTestEqual(
-            EInteger.FromInt32(intresult),
-            EInteger.FromInt32(inta).Multiply(EInteger.FromInt32(intb)));
-       TestCommon.CompareTestEqual(
-         EInteger.FromInt32(intresult),
-         EInteger.FromInt32(inta).Multiply(intb));
+      TestCommon.CompareTestEqual(
+        EInteger.FromInt32(intresult),
+        EInteger.FromInt32(inta).Multiply(EInteger.FromInt32(intb)));
+      TestCommon.CompareTestEqual(
+        EInteger.FromInt32(intresult),
+        EInteger.FromInt32(inta).Multiply(intb));
     }
 
     [Test]
@@ -3227,15 +3237,10 @@ namespace Test {
     [Test]
     public void TestRootRem() {
       TestCommon.CompareTestEqual(
-          EInteger.FromInt32(2),
-          EInteger.FromInt32(26).RootRem(3)[0]);
+        EInteger.FromInt32(2),
+        EInteger.FromInt32(26).RootRem(3)[0]);
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        #if DEBUG
-        // if (i % 50 == 0) {
-        // Console.WriteLine("i=" + i + " " + DateTime.UtcNow);
-        // }
-        #endif
         EInteger bigintA = RandomManageableEInteger(r);
         if (bigintA.Sign < 0) {
           bigintA = -bigintA;
@@ -3275,8 +3280,8 @@ namespace Test {
     [Test]
     public void TestRoot() {
       TestCommon.CompareTestEqual(
-          EInteger.FromInt32(2),
-          EInteger.FromInt32(26).Root(3));
+        EInteger.FromInt32(2),
+        EInteger.FromInt32(26).Root(3));
       var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
         #if DEBUG

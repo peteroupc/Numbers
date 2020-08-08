@@ -1398,8 +1398,8 @@ namespace PeterO.Numbers {
     /// <param name='bytes'>A sequence that represents a number.</param>
     /// <param name='offset'>An index starting at 0 showing where the
     /// desired portion of <paramref name='bytes'/> begins.</param>
-    /// <param name='length'>The length, in code units, of the desired
-    /// portion of <paramref name='bytes'/> (but not more than <paramref
+    /// <param name='length'>The length, in bytes, of the desired portion
+    /// of <paramref name='bytes'/> (but not more than <paramref
     /// name='bytes'/> 's length).</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as the given sequence of bytes (interpreted as text).</returns>

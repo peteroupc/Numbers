@@ -89,7 +89,8 @@ return cache;
           return this.smallValue == fi.smallValue;
         case IntegerMode.LargeValue:
           return this.largeValue.Equals(fi.largeValue);
-        default: return true;
+        default:
+          return true;
       }
     }
 
@@ -148,8 +149,7 @@ FromInt32(bigintVal.ToInt32Unchecked()) : new
     }
 
     public FastIntegerFixed Increment() {
-      if (this.integerMode == IntegerMode.SmallValue && this.smallValue !=
-Int32.MaxValue) {
+      if (this.integerMode == IntegerMode.SmallValue && this.smallValue != Int32.MaxValue) {
         return FromInt32(this.smallValue + 1);
       } else {
         return Add(this, FastIntegerFixed.One);

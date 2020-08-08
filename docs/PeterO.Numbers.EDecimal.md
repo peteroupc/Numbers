@@ -1933,7 +1933,7 @@ Creates an arbitrary-precision decimal number from a sequence of bytes (interpre
  * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>bytes</i>
  begins.
 
- * <i>length</i>: The length, in code units, of the desired portion of  <i>bytes</i>
+ * <i>length</i>: The length, in bytes, of the desired portion of  <i>bytes</i>
  (but not more than  <i>bytes</i>
  's length).
 
