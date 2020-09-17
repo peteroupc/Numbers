@@ -11038,18 +11038,13 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)">
 
-            <summary>Returns the greatest common divisor of this integer and
+        <summary>Returns the greatest common divisor of this integer and
             the given integer. The greatest common divisor (GCD) is also known
             as the greatest common factor (GCF). This method works even if
-            either or both integers are negative.</summary>
-            <param name='bigintSecond'>Another arbitrary-precision integer. Can
-            be negative.</param>
-            <returns>The greatest common divisor of this integer and the given
-            integer.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='bigintSecond'/> is null.</exception>
-            <exception cref='DivideByZeroException'>Attempted to divide by
+            either or both integers are negative.</summary><param name='bigintSecond'>Another arbitrary-precision integer. Can
+            be negative.</param><returns>The greatest common divisor of this integer and the given
+            integer.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='bigintSecond'/> is null.</exception><exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
-
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)">
 

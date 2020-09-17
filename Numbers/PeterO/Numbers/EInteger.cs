@@ -2937,6 +2937,9 @@ FromInt32((int)bytes[offset]) :
     /// name='bigintSecond'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
+    /// <exception cref='ArgumentException'>bigPower is negative; doesn't
+    /// satisfy shiftBits&amp;lt;16; doesn't satisfy sqroot.Sign&amp;gt;=
+    /// 0</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException(nameof(bigintSecond));
@@ -3167,7 +3170,8 @@ FromInt32((int)bytes[offset]) :
     private static int LBL(long mantlong) {
 #if DEBUG
       if (mantlong < Int64.MinValue + 1) {
-        throw new InvalidOperationException("\"mantlong\" (" + mantlong + ") is not" +
+        throw new InvalidOperationException("\"mantlong\" (" + mantlong + ")" +
+"\u0020is not" +
 "\u0020greater or equal to " + Int64.MinValue + 1);
       }
 #endif

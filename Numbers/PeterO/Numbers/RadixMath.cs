@@ -1330,7 +1330,10 @@ return null;
               var ef = thisValue as EFloat;
               ef = FastLn(ef, ctxCopy);
               if (ef != null) {
-                thisValue = (T)ef;
+                thisValue = this.helper.CreateNewWithFlags(
+                  ef.UnsignedMantissa,
+                  ef.Exponent,
+                  BigNumberFlags.FlagNegative);
                 if (ctx.HasFlags) {
                   ctx.Flags |= EContext.FlagInexact;
                   ctx.Flags |= EContext.FlagRounded;
