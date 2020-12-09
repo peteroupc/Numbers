@@ -8,7 +8,9 @@ Parts of the GCD function adapted by Peter O.
 from public domain GCD code by Christian
 Stigen Larsen (http://csl.sublevel3.org).
 
-Any copyright is dedicated to the Public Domain.
+Any copyright to this work is released to the Public Domain.
+In case this is not possible, this work is also
+licensed under Creative Commons Zero (CC0):
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
 at: http://peteroupc.github.io/
@@ -468,6 +470,24 @@ FromInt32((int)bytes[offset]) :
         }
       }
       return new EInteger(retwordcount, retreg, retnegative);
+    }
+
+    /// <summary>Converts an unsigned integer expressed as a 64-bit signed
+    /// integer to an arbitrary-precision integer.</summary>
+    /// <param name='longerValue'>A 64-bit signed integer. If this value is
+    /// 0 or greater, the return value will represent it. If this value is
+    /// less than 0, the return value will store 2^64 plus this value
+    /// instead.</param>
+    /// <returns>An arbitrary-precision integer. If <paramref
+    /// name='longerValue'/> is 0 or greater, the return value will
+    /// represent it. If <paramref name='longerValue'/> is less than 0, the
+    /// return value will store 2^64 plus this value instead.</returns>
+    public static EInteger FromInt64AsUnsigned(long longerValue) {
+      if (longerValue >= 0) {
+        return EInteger.FromInt64(longerValue);
+      } else {
+        return EInteger.FromInt32(1).ShiftLeft(64).Add(longerValue);
+      }
     }
 
     /// <summary>Converts a 64-bit signed integer to an arbitrary-precision
@@ -2939,7 +2959,7 @@ FromInt32((int)bytes[offset]) :
     /// zero.</exception>
     /// <exception cref='ArgumentException'>bigPower is negative; doesn't
     /// satisfy shiftBits&amp;lt;16; doesn't satisfy sqroot.Sign&amp;gt;=
-    /// 0</exception>
+    /// 0.</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException(nameof(bigintSecond));

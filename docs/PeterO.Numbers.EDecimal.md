@@ -233,6 +233,7 @@ The elements described above are in the same order as the order of each bit of e
 * <code>[FromInt16(short)](#FromInt16_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision decimal number.
 * <code>[FromInt32(int)](#FromInt32_int)</code> - Creates an arbitrary-precision decimal number from a 32-bit signed integer.
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Creates an arbitrary-precision decimal number from a 64-bit signed integer.
+* <code>[FromInt64AsUnsigned(long)](#FromInt64AsUnsigned_long)</code> - Converts an unsigned integer expressed as a 64-bit signed integer to an arbitrary-precision decimal number.
 * <code>[FromSByte(sbyte)](#FromSByte_sbyte)</code> - Converts an 8-bit signed integer to an arbitrary-precision decimal number.
 * <code>[FromSingle(float)](#FromSingle_float)</code> - Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number.
 * <code>[FromSingleBits(int)](#FromSingleBits_int)</code> - Creates an arbitrary-precision decimal number from a 32-bit binary floating-point number encoded in the IEEE 754 binary32 format.
@@ -1839,7 +1840,23 @@ Creates an arbitrary-precision decimal number from a 64-bit signed integer.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number with the exponent set to 0.
+This number's value as an arbitrary-precision decimal number with the exponent set to 0.
+
+<a id="FromInt64AsUnsigned_long"></a>
+### FromInt64AsUnsigned
+
+    public static PeterO.Numbers.EDecimal FromInt64AsUnsigned(
+        long longerValue);
+
+Converts an unsigned integer expressed as a 64-bit signed integer to an arbitrary-precision decimal number.
+
+<b>Parameters:</b>
+
+ * <i>longerValue</i>: A 64-bit signed integer. If this value is 0 or greater, the return value will represent it. If this value is less than 0, the return value will store 2^64 plus this value instead.
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number with the exponent set to 0. If "longerValue" is 0 or greater, the return value will represent it. If "longerValue" is less than 0, the return value will store 2^64 plus this value instead.
 
 <a id="FromSByte_sbyte"></a>
 ### FromSByte

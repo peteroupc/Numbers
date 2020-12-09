@@ -60,6 +60,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[FromInt16(short)](#FromInt16_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision integer.
 * <code>[FromInt32(int)](#FromInt32_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
+* <code>[FromInt64AsUnsigned(long)](#FromInt64AsUnsigned_long)</code> - Converts an unsigned integer expressed as a 64-bit signed integer to an arbitrary-precision integer.
 * <code>[FromRadixString(byte[], int)](#FromRadixString_byte_int)</code> - Converts a sequence of bytes (interpreted as text) to an arbitrary-precision integer in a given radix.
 * <code>[FromRadixString(char[], int)](#FromRadixString_char_int)</code> - Converts a sequence of char s to an arbitrary-precision integer in a given radix.
 * <code>[FromRadixString(string, int)](#FromRadixString_string_int)</code> - Converts a string to an arbitrary-precision integer in a given radix.
@@ -933,6 +934,22 @@ Converts a 64-bit signed integer to an arbitrary-precision integer.
 
 An arbitrary-precision integer with the same value as the 64-bit number.
 
+<a id="FromInt64AsUnsigned_long"></a>
+### FromInt64AsUnsigned
+
+    public static PeterO.Numbers.EInteger FromInt64AsUnsigned(
+        long longerValue);
+
+Converts an unsigned integer expressed as a 64-bit signed integer to an arbitrary-precision integer.
+
+<b>Parameters:</b>
+
+ * <i>longerValue</i>: A 64-bit signed integer. If this value is 0 or greater, the return value will represent it. If this value is less than 0, the return value will store 2^64 plus this value instead.
+
+<b>Return Value:</b>
+
+An arbitrary-precision integer. If "longerValue" is 0 or greater, the return value will represent it. If "longerValue" is less than 0, the return value will store 2^64 plus this value instead.
+
 <a id="FromRadixString_byte_int"></a>
 ### FromRadixString
 
@@ -1401,7 +1418,7 @@ The parameter  <i>bigintSecond</i>
 Attempted to divide by zero.
 
  * System.ArgumentException:
-bigPower is negative; doesn't satisfy shiftBits&lt;16; doesn't satisfy sqroot.Sign&gt;= 0
+bigPower is negative; doesn't satisfy shiftBits&lt;16; doesn't satisfy sqroot.Sign&gt;= 0.
 
 <a id="GetBits_int_int"></a>
 ### GetBits

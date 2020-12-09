@@ -1,6 +1,8 @@
 /*
 Written by Peter O.
-Any copyright is dedicated to the Public Domain.
+Any copyright to this work is released to the Public Domain.
+In case this is not possible, this work is also
+licensed under Creative Commons Zero (CC0):
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
 at: http://peteroupc.github.io/
@@ -192,6 +194,14 @@ namespace Test {
       }
       r &= ~0x7ff0000000000000L; // clear exponent
       r |= ((long)exponent) << 52; // set exponent
+      return BitConverter.ToDouble(BitConverter.GetBytes((long)r), 0);
+    }
+
+    public static double RandomFiniteDouble(IRandomGenExtended rand) {
+      long r = 0;
+      do {
+        r = RandomInt64(rand);
+      } while (((r >> 52) & 0x7ff) == 0x7ff);
       return BitConverter.ToDouble(BitConverter.GetBytes((long)r), 0);
     }
 
@@ -603,7 +613,7 @@ maxExc) {
       if (exponentCount > 0) {
         int rr = r.GetInt32(3);
         if (rr == 0) {
-          sb.Append("E");
+          sb.Append('E');
         } else if (rr == 1) {
           sb.Append("E+");
         } else if (rr == 2) {

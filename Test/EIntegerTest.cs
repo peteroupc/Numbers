@@ -3278,18 +3278,15 @@ namespace Test {
     }
 
     [Test]
+    [Timeout(40000)]
     public void TestRoot() {
       TestCommon.CompareTestEqual(
         EInteger.FromInt32(2),
         EInteger.FromInt32(26).Root(3));
       var r = new RandomGenerator();
-      for (var i = 0; i < 1000; ++i) {
-        #if DEBUG
-        // if (i % 50 == 0) {
-        // Console.WriteLine("i=" + i + " " + DateTime.UtcNow);
-        // }
-        #endif
-        EInteger bigintA = RandomManageableEInteger(r);
+      for (var i = 0; i < 1000 + 100; ++i) {
+        EInteger bigintA = (i < 100) ? EInteger.FromInt32(i) :
+RandomManageableEInteger(r);
         if (bigintA.Sign < 0) {
           bigintA = -bigintA;
         }
@@ -3342,6 +3339,7 @@ namespace Test {
     }
 
     [Test]
+    [Timeout(20000)]
     public void TestSqrt() {
       var r = new RandomGenerator();
       for (var i = 0; i < 20; ++i) {
@@ -3358,8 +3356,9 @@ namespace Test {
         sr = sqr.Root(2);
         TestCommon.CompareTestEqual(bigintA, sr);
       }
-      for (var i = 0; i < 10000; ++i) {
-        EInteger bigintA = RandomManageableEInteger(r);
+      for (var i = 0; i < 10000 + 100; ++i) {
+        EInteger bigintA = (i < 100) ? EInteger.FromInt32(i) :
+RandomManageableEInteger(r);
         if (bigintA.Sign < 0) {
           bigintA = -bigintA;
         }

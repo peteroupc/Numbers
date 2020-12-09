@@ -1324,12 +1324,24 @@ namespace Test {
       Assert.IsFalse(EDecimal.Zero.Equals(null));
       Assert.IsFalse(EDecimal.One.Equals(EDecimal.Zero));
       Assert.IsFalse(EDecimal.Zero.Equals(EDecimal.One));
-      Assert.AreEqual(
-        EDecimal.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609"),
-        EDecimal.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609"));
-      Assert.AreNotEqual(
-        EDecimal.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609"),
-        EDecimal.FromString("0.001809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474"));
+      {
+        object objectTemp =
+
+  EDecimal.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+        object objectTemp2 =
+
+  EDecimal.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+      {
+        object objectTemp =
+
+  EDecimal.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+        object objectTemp2 =
+
+  EDecimal.FromString("0.001809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474");
+        Assert.AreNotEqual(objectTemp, objectTemp2);
+      }
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
         EDecimal bigintA = RandomObjects.RandomEDecimal(r);
@@ -5784,6 +5796,32 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
         Assert.Fail(ex.ToString());
         throw new InvalidOperationException(String.Empty, ex);
       }
+    }
+
+    public static void TestUnsignedLongOne(long v, string expectedStr) {
+         EInteger ei = EInteger.FromInt64AsUnsigned(v);
+         Assert.AreEqual(
+           expectedStr,
+           DataUtilities.ToLowerCaseAscii(ei.ToRadixString(16)));
+         EDecimal ed = EDecimal.FromInt64AsUnsigned(v);
+         TestCommon.CompareTestEqual(EDecimal.FromEInteger(ei), ed);
+         EFloat ef = EDecimal.FromInt64AsUnsigned(v);
+         TestCommon.CompareTestEqual(EFloat.FromEInteger(ei), ef);
+         ERational er = EDecimal.FromInt64AsUnsigned(v);
+         TestCommon.CompareTestEqual(ERational.FromEInteger(ei), er);
+    }
+
+    [Test]
+    public void TestUnsignedLong() {
+       TestUnsignedLongOne(0x0L,"0");
+       TestUnsignedLongOne(0xFL,"f");
+       TestUnsignedLongOne(0xFFFFFFFFL,"ffffffff");
+       TestUnsignedLongOne(-1,"ffffffffffffffff");
+       TestUnsignedLongOne(-3,"fffffffffffffffd");
+       TestUnsignedLongOne(Int64.MaxValue,"7fffffffffffffff");
+       TestUnsignedLongOne(Int64.MaxValue-1,"7ffffffffffffffe");
+       TestUnsignedLongOne(Int64.MinValue,"8000000000000000");
+       TestUnsignedLongOne(Int64.MinValue+1,"8000000000000001");
     }
 
     [Test]

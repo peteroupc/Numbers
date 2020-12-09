@@ -1,6 +1,8 @@
 /*
 Written by Peter O.
-Any copyright is dedicated to the Public Domain.
+Any copyright to this work is released to the Public Domain.
+In case this is not possible, this work is also
+licensed under Creative Commons Zero (CC0):
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
 at: http://peteroupc.github.io/
@@ -1088,12 +1090,28 @@ namespace PeterO.Numbers {
       }
     }
 
+    /// <summary>Converts an unsigned integer expressed as a 64-bit signed
+    /// integer to an arbitrary-precision decimal number.</summary>
+    /// <param name='longerValue'>A 64-bit signed integer. If this value is
+    /// 0 or greater, the return value will represent it. If this value is
+    /// less than 0, the return value will store 2^64 plus this value
+    /// instead.</param>
+    /// <returns>An arbitrary-precision decimal number with the exponent
+    /// set to 0. If <paramref name='longerValue'/> is 0 or greater, the
+    /// return value will represent it. If <paramref name='longerValue'/>
+    /// is less than 0, the return value will store 2^64 plus this value
+    /// instead.</returns>
+    public static EDecimal FromInt64AsUnsigned(long longerValue) {
+      return longerValue >= 0 ? FromInt64(longerValue) :
+           FromEInteger(EInteger.FromInt64AsUnsigned(longerValue));
+    }
+
     /// <summary>Creates an arbitrary-precision decimal number from a
     /// 64-bit signed integer.</summary>
     /// <param name='valueSmall'>The parameter <paramref
     /// name='valueSmall'/> is a 64-bit signed integer.</param>
-    /// <returns>An arbitrary-precision decimal number with the exponent
-    /// set to 0.</returns>
+    /// <returns>This number's value as an arbitrary-precision decimal
+    /// number with the exponent set to 0.</returns>
     public static EDecimal FromInt64(long valueSmall) {
       if (valueSmall >= CacheFirst && valueSmall <= CacheLast) {
         return Cache[(int)(valueSmall - CacheFirst)];

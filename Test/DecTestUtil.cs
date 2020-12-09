@@ -8,6 +8,7 @@ using PeterO.Numbers;
 namespace Test {
   public static class DecTestUtil {
     private const string TestLineRegex =
+
   "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)";
 
     private static readonly Regex ValuePropertyLine = new Regex(

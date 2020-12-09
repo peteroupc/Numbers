@@ -6,7 +6,7 @@
     <Version>1.7.3</Version>
     <Owners>Peter Occil</Owners>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
-    <Copyright>Written by Peter O.  Any copyright is released to the Public Domain.</Copyright>
+    <Copyright>Written by Peter O.  Any copyright to this work is released to the Public Domain.</Copyright>
     <Authors>Peter Occil</Authors>
     <PackageId>PeterO.Numbers</PackageId>
     <Title>Arbitrary-Precision Number Library</Title>

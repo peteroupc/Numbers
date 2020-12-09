@@ -1,6 +1,8 @@
 /*
 Written in 2013-2018 by Peter O.
-Any copyright is dedicated to the Public Domain.
+Any copyright to this work is released to the Public Domain.
+In case this is not possible, this work is also
+licensed under Creative Commons Zero (CC0):
 http://creativecommons.org/publicdomain/zero/1.0/
 If you like this, you should donate to Peter O.
 at: http://peteroupc.github.io/
@@ -677,7 +679,8 @@ length);
       sb.Append("new byte[] { ");
       for (var i = 0; i < length; ++i) {
         if (i > 0) {
-          sb.Append(","); }
+          sb.Append(',');
+        }
         if ((bytes[offset + i] & 0x80) != 0) {
           sb.Append("(byte)0x");
         } else {
@@ -686,7 +689,7 @@ length);
         sb.Append(ValueHex[(bytes[offset + i] >> 4) & 0xf]);
         sb.Append(ValueHex[bytes[offset + i] & 0xf]);
       }
-      sb.Append("}");
+      sb.Append('}');
       return sb.ToString();
     }
 
