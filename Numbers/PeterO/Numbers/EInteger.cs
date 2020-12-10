@@ -478,10 +478,10 @@ FromInt32((int)bytes[offset]) :
     /// 0 or greater, the return value will represent it. If this value is
     /// less than 0, the return value will store 2^64 plus this value
     /// instead.</param>
-    /// <returns>An arbitrary-precision integer. If <paramref
-    /// name='longerValue'/> is 0 or greater, the return value will
-    /// represent it. If <paramref name='longerValue'/> is less than 0, the
-    /// return value will store 2^64 plus this value instead.</returns>
+    /// <returns>An arbitrary-precision integer. If "longerValue" is 0 or
+    /// greater, the return value will represent it. If "longerValue" is
+    /// less than 0, the return value will store 2^64 plus this value
+    /// instead.</returns>
     public static EInteger FromInt64AsUnsigned(long longerValue) {
       if (longerValue >= 0) {
         return EInteger.FromInt64(longerValue);
@@ -4055,11 +4055,11 @@ ShortMask) != 0) ? 9 :
     /// have a signed bit length of 63 or less, and all other integers have
     /// a signed bit length of greater than 63.</summary>
     /// <returns>The number of bits in this object's value, except for its
-    /// sign. Returns 0 if this object's value is 0 or negative 1. Returns
-    /// 2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in
-    /// Java) if the number of bits is 2^63 - 1 or greater. (Use
-    /// <c>GetUnsignedBitLengthAsEInteger</c> instead if the application
-    /// relies on the exact number of bits.).</returns>
+    /// sign. Returns 0 if this object's value is 0 or negative 1. If the
+    /// return value would be greater than 2^63 - 1 ( <c>Int64.MaxValue</c>
+    /// in.NET or <c>Long.MAX_VALUE</c> in Java), returns 2^63 - 1 instead.
+    /// (Use <c>GetSignedBitLengthAsEInteger</c> instead of this method if
+    /// the application relies on the exact number of bits.).</returns>
     public long GetSignedBitLengthAsInt64() {
       // NOTE: Currently can't be 2^63-1 or greater, due to int32 word counts
       int wc = this.wordCount;
@@ -4185,9 +4185,10 @@ ShortMask) != 0) ? 9 :
     /// and.NET's <c>long</c> type.</summary>
     /// <returns>The number of bits in this object's absolute value.
     /// Returns 0 if this object's value is 0, and returns 1 if the value
-    /// is negative 1. Returns 2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or
-    /// <c>Long.MAX_VALUE</c> in Java) if the number of bits is 2^63 - 1 or
-    /// greater. (Use <c>GetUnsignedBitLengthAsEInteger</c> instead if the
+    /// is negative 1. If the return value would be greater than 2^63 - 1(
+    /// <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in Java),
+    /// returns 2^63 - 1 instead. (Use
+    /// <c>GetUnsignedBitLengthAsEInteger</c> instead of this method if the
     /// application relies on the exact number of bits.).</returns>
     public long GetUnsignedBitLengthAsInt64() {
       // NOTE: Currently can't be 2^63-1 or greater, due to int32 word counts
