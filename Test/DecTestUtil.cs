@@ -2219,55 +2219,55 @@ namespace Test {
       var sb = new System.Text.StringBuilder();
       if ((flags & EContext.FlagInexact) != 0) {
         if (sb.Length > 0) {
-          sb.Append(" ");
+          sb.Append(' ');
         }
         sb.Append("Inexact");
       }
       if ((flags & EContext.FlagRounded) != 0) {
         if (sb.Length > 0) {
-          sb.Append(" ");
+          sb.Append(' ');
         }
         sb.Append("Rounded");
       }
       if ((flags & EContext.FlagSubnormal) != 0) {
         if (sb.Length > 0) {
-          sb.Append(" ");
+          sb.Append(' ');
         }
         sb.Append("Subnormal");
       }
       if ((flags & EContext.FlagOverflow) != 0) {
         if (sb.Length > 0) {
-          sb.Append(" ");
+          sb.Append(' ');
         }
         sb.Append("Overflow");
       }
       if ((flags & EContext.FlagUnderflow) != 0) {
         if (sb.Length > 0) {
-          sb.Append(" ");
+          sb.Append(' ');
         }
         sb.Append("Underflow");
       }
       if ((flags & EContext.FlagClamped) != 0) {
         if (sb.Length > 0) {
-          sb.Append(" ");
+          sb.Append(' ');
         }
         sb.Append("Clamped");
       }
       if ((flags & EContext.FlagInvalid) != 0) {
         if (sb.Length > 0) {
-          sb.Append(" ");
+          sb.Append(' ');
         }
         sb.Append("Invalid");
       }
       if ((flags & EContext.FlagDivideByZero) != 0) {
         if (sb.Length > 0) {
-          sb.Append(" ");
+          sb.Append(' ');
         }
         sb.Append("Divide_by_zero");
       }
       if ((flags & EContext.FlagLostDigits) != 0) {
         if (sb.Length > 0) {
-          sb.Append(" ");
+          sb.Append(' ');
         }
         sb.Append("Lost_digits");
       }
