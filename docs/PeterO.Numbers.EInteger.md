@@ -1601,7 +1601,7 @@ Finds the minimum number of bits needed to represent this object's value, except
 
 <b>Return Value:</b>
 
-The number of bits in this object's value, except for its sign. Returns 0 if this object's value is 0 or negative 1. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of bits is 2^63 - 1 or greater. (Use  `GetUnsignedBitLengthAsEInteger`  instead if the application relies on the exact number of bits.).
+The number of bits in this object's value, except for its sign. Returns 0 if this object's value is 0 or negative 1. If the return value would be greater than 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java), returns 2^63 - 1 instead. (Use  `GetSignedBitLengthAsEInteger`  instead of this method if the application relies on the exact number of bits.).
 
 <a id="GetUnsignedBit_int"></a>
 ### GetUnsignedBit
@@ -1679,7 +1679,7 @@ Finds the minimum number of bits needed to represent this number's absolute valu
 
 <b>Return Value:</b>
 
-The number of bits in this object's absolute value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1. Returns 2^63 - 1 (  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java) if the number of bits is 2^63 - 1 or greater. (Use  `GetUnsignedBitLengthAsEInteger`  instead if the application relies on the exact number of bits.).
+The number of bits in this object's absolute value. Returns 0 if this object's value is 0, and returns 1 if the value is negative 1. If the return value would be greater than 2^63 - 1(  `Int64.MaxValue`  in.NET or  `Long.MAX_VALUE`  in Java), returns 2^63 - 1 instead. (Use  `GetUnsignedBitLengthAsEInteger`  instead of this method if the application relies on the exact number of bits.).
 
 <a id="Imp_PeterO_Numbers_EInteger"></a>
 ### Imp

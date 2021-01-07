@@ -478,10 +478,10 @@ FromInt32((int)bytes[offset]) :
     /// 0 or greater, the return value will represent it. If this value is
     /// less than 0, the return value will store 2^64 plus this value
     /// instead.</param>
-    /// <returns>An arbitrary-precision integer. If "longerValue" is 0 or
-    /// greater, the return value will represent it. If "longerValue" is
-    /// less than 0, the return value will store 2^64 plus this value
-    /// instead.</returns>
+    /// <returns>An arbitrary-precision integer. If <paramref
+    /// name='longerValue'/> is 0 or greater, the return value will
+    /// represent it. If <paramref name='longerValue'/> is less than 0, the
+    /// return value will store 2^64 plus this value instead.</returns>
     public static EInteger FromInt64AsUnsigned(long longerValue) {
       if (longerValue >= 0) {
         return EInteger.FromInt64(longerValue);

@@ -1133,7 +1133,9 @@ Converts an unsigned integer expressed as a 64-bit signed integer to an arbitrar
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number. If "longerValue" is 0 or greater, the return value will represent it. If "longerValue" is less than 0, the return value will store 2^64 plus this value instead.
+An arbitrary-precision rational number. If  <i>longerValue</i>
+ is 0 or greater, the return value will represent it. If  <i>longerValue</i>
+ is less than 0, the return value will store 2^64 plus this value instead.
 
 <a id="FromSByte_sbyte"></a>
 ### FromSByte
