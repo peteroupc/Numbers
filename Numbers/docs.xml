@@ -10748,14 +10748,16 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromInt64AsUnsigned(System.Int64)">
 
-        <summary>Converts an unsigned integer expressed as a 64-bit signed
-            integer to an arbitrary-precision integer.</summary><param name='longerValue'>A 64-bit signed integer. If this value is
+            <summary>Converts an unsigned integer expressed as a 64-bit signed
+            integer to an arbitrary-precision integer.</summary>
+            <param name='longerValue'>A 64-bit signed integer. If this value is
             0 or greater, the return value will represent it. If this value is
             less than 0, the return value will store 2^64 plus this value
-            instead.</param><returns>An arbitrary-precision integer. If <paramref name='longerValue'/> is 0 or
-            greater, the return value will represent it. If <paramref name='longerValue'/> is
-            less than 0, the return value will store 2^64 plus this value
-            instead.</returns>
+            instead.</param>
+            <returns>An arbitrary-precision integer. If <paramref name='longerValue'/> is 0 or greater, the return value will
+            represent it. If <paramref name='longerValue'/> is less than 0, the
+            return value will store 2^64 plus this value instead.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.FromRadixString(System.Byte[],System.Int32)">
 
