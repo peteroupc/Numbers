@@ -4764,7 +4764,7 @@ Converts this number's value to a text string.
 
 <b>Return Value:</b>
 
-A string representation of this object. The value is converted to decimal and the decimal form of this number's value is returned. The text string will be in exponential notation (expressed as a number 1 or greater, but less than 10, times a power of 10) if the converted number's scale is positive or if the number's first nonzero decimal digit is more than five digits after the decimal point.
+A string representation of this object. The value is converted to a decimal number (using the EDecimal.FromEFloat method) and the decimal form of this number's value is returned. The text string will be in exponential notation (expressed as a number 1 or greater, but less than 10, times a power of 10) if the converted decimal number's exponent (EDecimal's Exponent property) is greater than 0 or if the number's first nonzero decimal digit is more than five digits after the decimal point.
 
 <a id="ToUInt16Checked"></a>
 ### ToUInt16Checked

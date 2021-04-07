@@ -5426,12 +5426,14 @@ namespace PeterO.Numbers {
       return BitConverter.ToSingle(BitConverter.GetBytes(sb), 0);
     }
 
-    /// <summary>Converts this value to a string. Returns a value
+    /// <summary>Converts this value to a text string. Returns a value
     /// compatible with this class's FromString method.</summary>
     /// <returns>A string representation of this object. The text string
-    /// will be in exponential notation if the exponent is greater than 0
-    /// or if the number's first nonzero digit is more than five digits
-    /// after the decimal point.</returns>
+    /// will be in exponential notation (expressed as a number 1 or
+    /// greater, but less than 10, times a power of 10) if this object's
+    /// Exponent property is greater than 0 or if the number's first
+    /// nonzero decimal digit is more than five digits after the decimal
+    /// point.</returns>
     public override string ToString() {
       return this.ToStringInternal(0);
     }
@@ -5964,6 +5966,7 @@ namespace PeterO.Numbers {
       }
     }
 
+    // TODO: Add option to always display exponential notation
     private string ToStringInternal(int mode) {
       bool negative = (this.flags & BigNumberFlags.FlagNegative) != 0;
       if (!this.IsFinite) {
