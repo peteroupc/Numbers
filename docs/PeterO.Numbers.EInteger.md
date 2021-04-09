@@ -89,13 +89,13 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[GetSignedBit(int)](#GetSignedBit_int)</code> - Returns whether a bit is set in the two's-complement form (see T:PeterO.
 * <code>[GetSignedBit(PeterO.Numbers.EInteger)](#GetSignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in the two's-complement form (see T:PeterO.
 * <code>[GetSignedBitLength()](#GetSignedBitLength)</code> - <b>Deprecated:</b> This method may overflow. Use GetSignedBitLengthAsEInteger instead.
-* <code>[GetSignedBitLengthAsEInteger()](#GetSignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of an arbitrary-precision integer.
-* <code>[GetSignedBitLengthAsInt64()](#GetSignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of a 64-bit signed integer.
+* <code>[GetSignedBitLengthAsEInteger()](#GetSignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, and returns that number of bits as an arbitrary-precision integer.
+* <code>[GetSignedBitLengthAsInt64()](#GetSignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, and returns that number of bits as a 64-bit signed integer.
 * <code>[GetUnsignedBit(int)](#GetUnsignedBit_int)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[GetUnsignedBit(PeterO.Numbers.EInteger)](#GetUnsignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - <b>Deprecated:</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
-* <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value, in the form of an arbitrary-precision integer.
-* <code>[GetUnsignedBitLengthAsInt64()](#GetUnsignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this number's absolute value, in the form of a 64-bit signed integer.
+* <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value, and returns that number of bits as an arbitrary-precision integer.
+* <code>[GetUnsignedBitLengthAsInt64()](#GetUnsignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this number's absolute value, and returns that number of bits as a 64-bit signed integer.
 * <code>[Imp(PeterO.Numbers.EInteger)](#Imp_PeterO_Numbers_EInteger)</code> - Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
 * <code>[implicit operator PeterO.Numbers.EInteger(byte)](#implicit_operator_PeterO_Numbers_EInteger_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(int)](#implicit_operator_PeterO_Numbers_EInteger_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
@@ -1588,7 +1588,7 @@ The return value would exceed the range of a 32-bit signed integer.
 
     public PeterO.Numbers.EInteger GetSignedBitLengthAsEInteger();
 
-Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of an arbitrary-precision integer. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1. For example, all integers in the interval [-(2^63), (2^63) - 1], which is the same as the range of integers in Java's and.NET's  `long`  type, have a signed bit length of 63 or less, and all other integers have a signed bit length of greater than 63.
+Finds the minimum number of bits needed to represent this object's value, except for its sign, and returns that number of bits as an arbitrary-precision integer. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1. For example, all integers in the interval [-(2^63), (2^63) - 1], which is the same as the range of integers in Java's and.NET's  `long`  type, have a signed bit length of 63 or less, and all other integers have a signed bit length of greater than 63.
 
 <b>Return Value:</b>
 
@@ -1599,7 +1599,7 @@ The number of bits in this object's value, except for its sign. Returns 0 if thi
 
     public long GetSignedBitLengthAsInt64();
 
-Finds the minimum number of bits needed to represent this object's value, except for its sign, in the form of a 64-bit signed integer. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1. For example, all integers in the interval [-(2^63), (2^63) - 1], which is the same as the range of integers in Java's and.NET's  `long`  type, have a signed bit length of 63 or less, and all other integers have a signed bit length of greater than 63.
+Finds the minimum number of bits needed to represent this object's value, except for its sign, and returns that number of bits as a 64-bit signed integer. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1. For example, all integers in the interval [-(2^63), (2^63) - 1], which is the same as the range of integers in Java's and.NET's  `long`  type, have a signed bit length of 63 or less, and all other integers have a signed bit length of greater than 63.
 
 <b>Return Value:</b>
 
@@ -1666,7 +1666,7 @@ The return value would exceed the range of a 32-bit signed integer.
 
     public PeterO.Numbers.EInteger GetUnsignedBitLengthAsEInteger();
 
-Finds the minimum number of bits needed to represent this number's absolute value, in the form of an arbitrary-precision integer. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
+Finds the minimum number of bits needed to represent this number's absolute value, and returns that number of bits as an arbitrary-precision integer. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
 
 <b>Return Value:</b>
 
@@ -1677,7 +1677,7 @@ The number of bits in this object's absolute value. Returns 0 if this object's v
 
     public long GetUnsignedBitLengthAsInt64();
 
-Finds the minimum number of bits needed to represent this number's absolute value, in the form of a 64-bit signed integer. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
+Finds the minimum number of bits needed to represent this number's absolute value, and returns that number of bits as a 64-bit signed integer. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
 
 <b>Return Value:</b>
 

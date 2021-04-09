@@ -4509,11 +4509,12 @@
 
             <summary>Converts this value to a text string. Returns a value
             compatible with this class's FromString method.</summary>
-            <returns>A string representation of this object. The text string will be in exponential notation
-            (expressed as a number 1 or greater, but less than 10, times a
-            power of 10) if this object's Exponent property is greater than 0 or if the
-            number's first nonzero decimal digit is more than five digits after
-            the decimal point.</returns>
+            <returns>A string representation of this object. The text string
+            will be in exponential notation (expressed as a number 1 or
+            greater, but less than 10, times a power of 10) if this object's
+            Exponent property is greater than 0 or if the number's first
+            nonzero decimal digit is more than five digits after the decimal
+            point.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToUInt16Checked">
@@ -9061,13 +9062,13 @@
 
             <summary>Converts this number's value to a text string.</summary>
             <returns>A string representation of this object. The value is
-            converted to a decimal number (using the EDecimal.FromEFloat method)
-            and the decimal form of this number's value is
-            returned. The text string will be in exponential notation
-            (expressed as a number 1 or greater, but less than 10, times a
-            power of 10) if the converted decimal number's exponent (EDecimal's Exponent property) is greater than 0 or if the
-            number's first nonzero decimal digit is more than five digits after
-            the decimal point.</returns>
+            converted to a decimal number (using the EDecimal.FromEFloat
+            method) and the decimal form of this number's value is returned.
+            The text string will be in exponential notation (expressed as a
+            number 1 or greater, but less than 10, times a power of 10) if the
+            converted decimal number's exponent (EDecimal's Exponent property)
+            is greater than 0 or if the number's first nonzero decimal digit is
+            more than five digits after the decimal point.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToUInt16Checked">
@@ -11234,14 +11235,14 @@
 <doc name="M:PeterO.Numbers.EInteger.GetSignedBitLengthAsEInteger">
 
             <summary>Finds the minimum number of bits needed to represent this
-            object's value, except for its sign, in the form of an
-            arbitrary-precision integer. If the value is negative, finds the
-            number of bits in the value equal to this object's absolute value
-            minus 1. For example, all integers in the interval [-(2^63), (2^63)
-            - 1], which is the same as the range of integers in Java's
-            and.NET's <c>long</c> type, have a signed bit length of 63 or less,
-            and all other integers have a signed bit length of greater than
-            63.</summary>
+            object's value, except for its sign, and returns that number of
+            bits as an arbitrary-precision integer. If the value is negative,
+            finds the number of bits in the value equal to this object's
+            absolute value minus 1. For example, all integers in the interval
+            [-(2^63), (2^63) - 1], which is the same as the range of integers
+            in Java's and.NET's <c>long</c> type, have a signed bit length of
+            63 or less, and all other integers have a signed bit length of
+            greater than 63.</summary>
             <returns>The number of bits in this object's value, except for its
             sign. Returns 0 if this object's value is 0 or negative
             1.</returns>
@@ -11250,13 +11251,14 @@
 <doc name="M:PeterO.Numbers.EInteger.GetSignedBitLengthAsInt64">
 
             <summary>Finds the minimum number of bits needed to represent this
-            object's value, except for its sign, in the form of a 64-bit signed
-            integer. If the value is negative, finds the number of bits in the
-            value equal to this object's absolute value minus 1. For example,
-            all integers in the interval [-(2^63), (2^63) - 1], which is the
-            same as the range of integers in Java's and.NET's <c>long</c> type,
-            have a signed bit length of 63 or less, and all other integers have
-            a signed bit length of greater than 63.</summary>
+            object's value, except for its sign, and returns that number of
+            bits as a 64-bit signed integer. If the value is negative, finds
+            the number of bits in the value equal to this object's absolute
+            value minus 1. For example, all integers in the interval [-(2^63),
+            (2^63) - 1], which is the same as the range of integers in Java's
+            and.NET's <c>long</c> type, have a signed bit length of 63 or less,
+            and all other integers have a signed bit length of greater than
+            63.</summary>
             <returns>The number of bits in this object's value, except for its
             sign. Returns 0 if this object's value is 0 or negative 1. If the
             return value would be greater than 2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or <c>Long.MAX_VALUE</c> in Java), returns 2^63 - 1 instead.
@@ -11305,12 +11307,12 @@
 <doc name="M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsEInteger">
 
             <summary>Finds the minimum number of bits needed to represent this
-            number's absolute value, in the form of an arbitrary-precision
-            integer. For example, all integers in the interval [-((2^63) - 1),
-            (2^63) - 1] have an unsigned bit length of 63 or less, and all
-            other integers have an unsigned bit length of greater than 63. This
-            interval is not the same as the range of integers in Java's
-            and.NET's <c>long</c> type.</summary>
+            number's absolute value, and returns that number of bits as an
+            arbitrary-precision integer. For example, all integers in the
+            interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of
+            63 or less, and all other integers have an unsigned bit length of
+            greater than 63. This interval is not the same as the range of
+            integers in Java's and.NET's <c>long</c> type.</summary>
             <returns>The number of bits in this object's absolute value.
             Returns 0 if this object's value is 0, and returns 1 if the value
             is negative 1.</returns>
@@ -11319,12 +11321,12 @@
 <doc name="M:PeterO.Numbers.EInteger.GetUnsignedBitLengthAsInt64">
 
             <summary>Finds the minimum number of bits needed to represent this
-            number's absolute value, in the form of a 64-bit signed integer.
-            For example, all integers in the interval [-((2^63) - 1), (2^63) -
-            1] have an unsigned bit length of 63 or less, and all other
-            integers have an unsigned bit length of greater than 63. This
-            interval is not the same as the range of integers in Java's
-            and.NET's <c>long</c> type.</summary>
+            number's absolute value, and returns that number of bits as a
+            64-bit signed integer. For example, all integers in the interval
+            [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or
+            less, and all other integers have an unsigned bit length of greater
+            than 63. This interval is not the same as the range of integers in
+            Java's and.NET's <c>long</c> type.</summary>
             <returns>The number of bits in this object's absolute value.
             Returns 0 if this object's value is 0, and returns 1 if the value
             is negative 1. If the return value would be greater than 2^63 - 1(
