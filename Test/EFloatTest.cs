@@ -984,7 +984,7 @@ namespace Test {
       EFloat efa = EFloat.Create(4939846268124649L, -48).Log(EContext.Binary64);
       EFloat efb = EFloat.Create(6451509911495955L, -51);
       string str = OutputEF(efb) + "\n" + OutputEF(efa) + "\nInput: " +
-        OutputEF(EFloat.Create(4939846268124649L, -48)) ;
+        OutputEF(EFloat.Create(4939846268124649L, -48));
       TestCommon.CompareTestEqual(efb, efa, str);
     }
 

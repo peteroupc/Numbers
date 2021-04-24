@@ -490,8 +490,9 @@ namespace Test {
         return Create(this.ed.Multiply(ToValue(b), ctx));
       }
 
-      public IExtendedNumber Divide(IExtendedNumber
-        b, EContext ctx) {
+      public IExtendedNumber Divide(
+        IExtendedNumber b,
+        EContext ctx) {
         return Create(this.ed.Divide(ToValue(b), ctx));
       }
 
@@ -900,8 +901,9 @@ namespace Test {
         return Create(this.ef.Multiply(ToValue(b), ctx));
       }
 
-      public IExtendedNumber Divide(IExtendedNumber
-        b, EContext ctx) {
+      public IExtendedNumber Divide(
+        IExtendedNumber b,
+        EContext ctx) {
         return Create(this.ef.Divide(ToValue(b), ctx));
       }
 

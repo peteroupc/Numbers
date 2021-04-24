@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.7.3</Version>
+    <Version>1.8.0</Version>
     <Owners>Peter Occil</Owners>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
     <Copyright>Written by Peter O.  Any copyright to this work is released to the Public Domain.</Copyright>
@@ -53,4 +53,4 @@ Version 1.7.0
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <ItemGroup>
 
-  <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.205'/><PackageReference Include='Microsoft.CodeAnalysis.FxCopAnalyzers' PrivateAssets='All' Version='3.3.0'/></ItemGroup></Project>
+  <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.333'/><PackageReference Include='Microsoft.CodeAnalysis.NetAnalyzers' PrivateAssets='All' Version='5.0.0'/></ItemGroup></Project>

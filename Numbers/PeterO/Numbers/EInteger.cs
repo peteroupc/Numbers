@@ -5160,6 +5160,117 @@ ShortMask) != 0) ? 9 :
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <param name='longBitCount'>Not documented yet.</param>
+    public EInteger LowBits(long longBitCount) {
+        return this.LowBits(EInteger.FromInt64(longBitCount));
+    }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <param name='bitCount'>Not documented yet.</param>
+    public EInteger LowBits(int bitCount) {
+        if (bitCount < 0) {
+          throw new ArgumentException("\"bitCount\" (" + bitCount + ") is" +
+"\u0020not greater or equal to 0");
+        }
+        if (bitCount == 0 || this.Sign == 0) {
+          return EInteger.Zero;
+        }
+        if (this.Sign > 0) {
+           long bits = this.GetUnsignedBitLengthAsInt64();
+           if (bits <= bitCount) {
+             return this;
+           }
+        }
+        if (!this.negative) {
+          long otherWordCount = BitsToWords(bitCount);
+          if (this.wordCount < otherWordCount) {
+            return this;
+          } else if (otherWordCount == 0) {
+            return EInteger.Zero;
+        } else {
+           int intOtherWordCount = checked((int)otherWordCount);
+           int bitRemainder = bitCount & 15;
+           int smallerCount = Math.Min(this.wordCount, intOtherWordCount);
+           var result = new short[intOtherWordCount];
+           if (bitRemainder == 0) {
+             Array.Copy(this.words, 0, result, 0, intOtherWordCount);
+           } else {
+           short shortMask = unchecked((short)((1 << bitRemainder) - 1));
+           // DebugUtility.Log("wc={0} bc={1} br={2}
+           // sm={3}",otherWordCount,bitCount,bitRemainder,shortMask);
+           Array.Copy(this.words, 0, result, 0, intOtherWordCount - 1);
+           result[intOtherWordCount - 1] = unchecked((short)(
+               this.words[intOtherWordCount - 1] & shortMask));
+           }
+           smallerCount = CountWords(result);
+           return (smallerCount == 0) ? EInteger.Zero : new
+             EInteger(smallerCount, result, false);
+        }
+      }
+      return this.And(EInteger.One.ShiftLeft(bitCount).Subtract(1));
+    }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <returns/>
+  /// <param name='bigBitCount'>Not documented yet.</param>
+  /// <exception cref='ArgumentNullException'>The parameter <paramref
+  /// name='bigBitCount'/> is null.</exception>
+    public EInteger LowBits(EInteger bigBitCount) {
+        if (bigBitCount == null) {
+          throw new ArgumentNullException(nameof(bigBitCount));
+        }
+        if (bigBitCount.Sign < 0) {
+          throw new ArgumentException("\"bigBitCount.Sign\" (" +
+bigBitCount.Sign + ") is not greater or equal to 0");
+        }
+        if (bigBitCount.Sign == 0 || this.Sign == 0) {
+          return EInteger.Zero;
+        }
+        if (this.Sign > 0) {
+           EInteger bigBits = this.GetUnsignedBitLengthAsEInteger();
+           if (bigBits.CompareTo(bigBitCount) <= 0) {
+             return this;
+           }
+        }
+        if (!this.negative) {
+          EInteger bigOtherWordCount = bigBitCount.Add(15).Divide(16);
+          if (
+            EInteger.FromInt32(this.wordCount).CompareTo(bigOtherWordCount)<
+0) {
+            return this;
+          }
+        long otherWordCount = bigOtherWordCount.ToInt32Checked();
+        if (otherWordCount == 0) {
+          return EInteger.Zero;
+        } else {
+           int intOtherWordCount = checked((int)otherWordCount);
+           int bitRemainder = bigBitCount.Remainder(16).ToInt32Checked();
+           int smallerCount = Math.Min(this.wordCount, intOtherWordCount);
+           var result = new short[intOtherWordCount];
+           if (bitRemainder == 0) {
+             Array.Copy(this.words, 0, result, 0, intOtherWordCount);
+           } else {
+           short shortMask = unchecked((short)((1 << bitRemainder) - 1));
+           // DebugUtility.Log("wc={0} bc={1} br={2} sm={3}
+           // big",otherWordCount,bigBitCount,bitRemainder,shortMask);
+           Array.Copy(this.words, 0, result, 0, intOtherWordCount - 1);
+           result[intOtherWordCount - 1] = unchecked((short)(
+               this.words[intOtherWordCount - 1] & shortMask));
+           }
+           smallerCount = CountWords(result);
+           return (smallerCount == 0) ? EInteger.Zero : new
+             EInteger(smallerCount, result, false);
+        }
+      }
+      return this.And(EInteger.One.ShiftLeft(bigBitCount).Subtract(1));
+    }
+
     /// <summary>Does an AND operation between this arbitrary-precision
     /// integer and another one.</summary>
     /// <param name='other'>Another arbitrary-precision integer that
@@ -7847,7 +7958,7 @@ ShortMask) != 0) ? 9 :
     }
 
     private static int BitsToWords(int bitCount) {
-      return (bitCount + 15) >> 4;
+      return ((bitCount & 0x0f) == 0) ? (bitCount >> 4) : (bitCount >> 4) + 1;
     }
 
     private static void ChunkedLinearMultiply(

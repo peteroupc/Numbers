@@ -404,6 +404,51 @@ namespace Test {
       AssertAdd(negLarge, negLarge, "-11111110");
     }
 
+    private static void LowBitsAssertEqual(
+      object o1,
+      object o2,
+      EInteger ei,
+      int intval,
+      string msg) {
+      if (!o1.Equals(o2)) {
+        Assert.AreEqual(o1, o2, ei+" "+intval+" "+msg);
+      }
+    }
+
+    [Test]
+    public void TestAnd() {
+       EInteger eiand = EInteger.One.ShiftLeft(1).Subtract(1);
+       EInteger ei1 = EInteger.FromInt32(102).And(eiand);
+       Assert.AreEqual(EInteger.Zero, ei1);
+    }
+
+    [Test]
+    public void TestLowBits() {
+       var r = new RandomGenerator();
+       int[] ints = {0, 1, 3, 5, 16, 32, 33, 37, 100, 1000, 10000, 100000 };
+       EInteger eia = EInteger.One.ShiftLeft(100);
+       EInteger eib = EInteger.One.ShiftLeft(1000);
+       EInteger eic = EInteger.One.ShiftLeft(10000);
+       for (var i = 0; i < 10000; ++i) {
+          EInteger ei = RandomObjects.RandomEInteger(r).Abs();
+          for (var j = 0; j < ints.Length; ++j) {
+             EInteger ei1 = ei.And(EInteger.One.ShiftLeft(ints[j]).Subtract(1));
+             EInteger ei2 = ei.LowBits(ints[j]);
+             EInteger ei3 = ei.LowBits(EInteger.FromInt32(ints[j]));
+             EInteger ei4 = ei.LowBits((long)ints[j]);
+             LowBitsAssertEqual(ei1, ei2, ei,ints[j],"ei2");
+             LowBitsAssertEqual(ei1, ei3, ei,ints[j],"ei3");
+             LowBitsAssertEqual(ei1, ei4, ei,ints[j],"ei4");
+             ei1 = ei.LowBits(eia);
+             LowBitsAssertEqual(ei, ei1, ei,ints[j],"eia");
+             ei1 = ei.LowBits(eib);
+             LowBitsAssertEqual(ei, ei1, ei,ints[j],"eib");
+             ei1 = ei.LowBits(eic);
+             LowBitsAssertEqual(ei, ei1, ei,ints[j],"eic");
+          }
+       }
+    }
+
     [Test]
     public void TestAddSubtract() {
       var r = new RandomGenerator();

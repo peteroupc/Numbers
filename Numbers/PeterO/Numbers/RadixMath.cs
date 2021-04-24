@@ -1159,126 +1159,125 @@ namespace PeterO.Numbers {
       return this.helper;
     }
 
-public static EFloat FastLn(EFloat x, EContext ctx) {
- /*
-#if DEBUG
-   if ((ef) == null) {
-     throw new ArgumentNullException(nameof(ef));
-   }
-   if ((ctx) == null) {
-     throw new ArgumentNullException(nameof(ctx));
-   }
-#endif
+    public static EFloat FastLn(EFloat x, EContext ctx) {
+      /* #if DEBUG
+        f ((ef) == null) {
+          throw new ArgumentNullException(nameof(ef));
+        }
+        if ((ctx) == null) {
+          throw new ArgumentNullException(nameof(ctx));
+        }
+      #endif
 
- */
-// Fast log for contexts of precision 53 bits or less
-if (x.CompareTo(EFloat.Create(32, -6)) >= 0 &&
-   x.CompareTo(EFloat.Create(36, -6)) < 0) {
-  return EFloat.Create(-7918475170148451L, -47)
-    .MultiplyAndAdd(x, EFloat.Create(5842854079153127L, -44), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-7855987447712801L, -43), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(3178826684731201L, -41), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-3446209805793071L, -41), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(5269250416501899L, -42), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-1456756048094669L, -41), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(589048828844673L, -41), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-5626160540257247L, -46), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(5306429958415307L, -48), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-8023390364436687L, -51), ctx);
-}
-if (x.CompareTo(EFloat.Create(36, -6)) >= 0 &&
-   x.CompareTo(EFloat.Create(40, -6)) < 0) {
-  return EFloat.Create(-649418159759275L, -45)
-    .MultiplyAndAdd(x, EFloat.Create(8569695812135613L, -46), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-3219836323271541L, -43), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(1456356315564023L, -41), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-7059686721514865L, -43), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(6033379619755303L, -43), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-7458850461699891L, -44), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(6743646686636803L, -45), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-281293242157611L, -42), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(4746007495118267L, -48), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-7772015102064253L, -51), ctx);
-}
-if (x.CompareTo(EFloat.Create(40, -6)) >= 0 &&
-   x.CompareTo(EFloat.Create(44, -6)) < 0) {
-  return EFloat.Create(5559026033201687L, -50)
-    .MultiplyAndAdd(x, EFloat.Create(-4617856151292203L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(54117074379353L, -39), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-6186785536082459L, -45), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(7306510509645715L, -45), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-2995764726321697L, -44), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(6986795845479189L, -46), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-5891564005530805L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(15091899246223L, -40), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-7320823715054069L, -51), ctx);
-}
-if (x.CompareTo(EFloat.Create(44, -6)) >= 0 &&
-   x.CompareTo(EFloat.Create(48, -6)) < 0) {
-  return EFloat.Create(612197579983455L, -48)
-    .MultiplyAndAdd(x, EFloat.Create(-1114006258063177L, -46), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(457577809503393L, -43), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-1790557502154387L, -44), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(4632494137994963L, -45), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-4161053891636247L, -45), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(2657563185521199L, -45), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-4909589327505907L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(7053693369648581L, -49), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-3557744849045649L, -50), ctx);
-}
-if (x.CompareTo(EFloat.Create(48, -6)) >= 0 &&
-   x.CompareTo(EFloat.Create(52, -6)) < 0) {
-  return EFloat.Create(577499201531193L, -49)
-    .MultiplyAndAdd(x, EFloat.Create(-1142306702241897L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(8160604872283537L, -48), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-4339153427527017L, -46), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(6101799781923291L, -46), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-5958127120148891L, -46), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(8273521206806363L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-4154027270256105L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(3244106922381301L, -48), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-13529886537447L, -42), ctx);
-}
-if (x.CompareTo(EFloat.Create(52, -6)) >= 0 &&
-   x.CompareTo(EFloat.Create(56, -6)) < 0) {
-  return EFloat.Create(1154075304800921L, -51)
-    .MultiplyAndAdd(x, EFloat.Create(-2465640916317121L, -49), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(74318910129327L, -42), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-85366471369779L, -41), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(259329022146413L, -42), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-4376322035869763L, -46), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(3282099616186431L, -46), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-3560066267427385L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(1501608713011209L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-26381046771207L, -43), ctx);
-}
-if (x.CompareTo(EFloat.Create(56, -6)) >= 0 &&
-   x.CompareTo(EFloat.Create(60, -6)) < 0) {
-  return EFloat.Create(37824989738239L, -47)
-    .MultiplyAndAdd(x, EFloat.Create(-43408559199581L, -44), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(2878790570900291L, -48), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-7105058961533699L, -48), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(5797162642745407L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-6569041813188869L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(661617942907567L, -44), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-6168232135736261L, -48), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(43675806283161L, -42), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-6591942829339363L, -51), ctx);
-}
-if (x.CompareTo(EFloat.Create(60, -6)) >= 0 &&
-   x.CompareTo(EFloat.Create(63, -6)) < 0) {
-  return EFloat.Create(-6156921697102261L, -55)
-    .MultiplyAndAdd(x, EFloat.Create(211488681190339L, -47), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-6644421976470021L, -50), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(7668093965389463L, -49), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-5761162710156971L, -48), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(369347589996043L, -44), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-8524061902531777L, -49), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(4683735041389899L, -49), ctx)
-    .MultiplyAndAdd(x, EFloat.Create(-6208425595264589L, -51), ctx);
-}
-return null;
-}
+      */
+      // Fast log for contexts of precision 53 bits or less
+      if (x.CompareTo(EFloat.Create(32, -6)) >= 0 &&
+        x.CompareTo(EFloat.Create(36, -6)) < 0) {
+        return EFloat.Create(-7918475170148451L, -47)
+          .MultiplyAndAdd(x, EFloat.Create(5842854079153127L, -44), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-7855987447712801L, -43), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(3178826684731201L, -41), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-3446209805793071L, -41), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(5269250416501899L, -42), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-1456756048094669L, -41), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(589048828844673L, -41), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-5626160540257247L, -46), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(5306429958415307L, -48), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-8023390364436687L, -51), ctx);
+      }
+      if (x.CompareTo(EFloat.Create(36, -6)) >= 0 &&
+        x.CompareTo(EFloat.Create(40, -6)) < 0) {
+        return EFloat.Create(-649418159759275L, -45)
+          .MultiplyAndAdd(x, EFloat.Create(8569695812135613L, -46), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-3219836323271541L, -43), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(1456356315564023L, -41), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-7059686721514865L, -43), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(6033379619755303L, -43), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-7458850461699891L, -44), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(6743646686636803L, -45), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-281293242157611L, -42), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(4746007495118267L, -48), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-7772015102064253L, -51), ctx);
+      }
+      if (x.CompareTo(EFloat.Create(40, -6)) >= 0 &&
+        x.CompareTo(EFloat.Create(44, -6)) < 0) {
+        return EFloat.Create(5559026033201687L, -50)
+          .MultiplyAndAdd(x, EFloat.Create(-4617856151292203L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(54117074379353L, -39), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-6186785536082459L, -45), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(7306510509645715L, -45), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-2995764726321697L, -44), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(6986795845479189L, -46), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-5891564005530805L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(15091899246223L, -40), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-7320823715054069L, -51), ctx);
+      }
+      if (x.CompareTo(EFloat.Create(44, -6)) >= 0 &&
+        x.CompareTo(EFloat.Create(48, -6)) < 0) {
+        return EFloat.Create(612197579983455L, -48)
+          .MultiplyAndAdd(x, EFloat.Create(-1114006258063177L, -46), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(457577809503393L, -43), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-1790557502154387L, -44), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(4632494137994963L, -45), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-4161053891636247L, -45), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(2657563185521199L, -45), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-4909589327505907L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(7053693369648581L, -49), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-3557744849045649L, -50), ctx);
+      }
+      if (x.CompareTo(EFloat.Create(48, -6)) >= 0 &&
+        x.CompareTo(EFloat.Create(52, -6)) < 0) {
+        return EFloat.Create(577499201531193L, -49)
+          .MultiplyAndAdd(x, EFloat.Create(-1142306702241897L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(8160604872283537L, -48), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-4339153427527017L, -46), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(6101799781923291L, -46), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-5958127120148891L, -46), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(8273521206806363L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-4154027270256105L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(3244106922381301L, -48), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-13529886537447L, -42), ctx);
+      }
+      if (x.CompareTo(EFloat.Create(52, -6)) >= 0 &&
+        x.CompareTo(EFloat.Create(56, -6)) < 0) {
+        return EFloat.Create(1154075304800921L, -51)
+          .MultiplyAndAdd(x, EFloat.Create(-2465640916317121L, -49), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(74318910129327L, -42), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-85366471369779L, -41), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(259329022146413L, -42), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-4376322035869763L, -46), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(3282099616186431L, -46), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-3560066267427385L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(1501608713011209L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-26381046771207L, -43), ctx);
+      }
+      if (x.CompareTo(EFloat.Create(56, -6)) >= 0 &&
+        x.CompareTo(EFloat.Create(60, -6)) < 0) {
+        return EFloat.Create(37824989738239L, -47)
+          .MultiplyAndAdd(x, EFloat.Create(-43408559199581L, -44), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(2878790570900291L, -48), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-7105058961533699L, -48), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(5797162642745407L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-6569041813188869L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(661617942907567L, -44), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-6168232135736261L, -48), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(43675806283161L, -42), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-6591942829339363L, -51), ctx);
+      }
+      if (x.CompareTo(EFloat.Create(60, -6)) >= 0 &&
+        x.CompareTo(EFloat.Create(63, -6)) < 0) {
+        return EFloat.Create(-6156921697102261L, -55)
+          .MultiplyAndAdd(x, EFloat.Create(211488681190339L, -47), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-6644421976470021L, -50), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(7668093965389463L, -49), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-5761162710156971L, -48), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(369347589996043L, -44), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-8524061902531777L, -49), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(4683735041389899L, -49), ctx)
+          .MultiplyAndAdd(x, EFloat.Create(-6208425595264589L, -51), ctx);
+      }
+      return null;
+    }
 
     public T Ln(T thisValue, EContext ctx) {
       if (ctx == null) {
@@ -1327,15 +1326,15 @@ return null;
           // Less than 1
           T half = this.Divide(one, this.helper.ValueOf(2), ctxCopy);
           if (this.CompareTo(thisValue, half) >= 0 &&
-              this.helper.GetRadix() == 2 && ctx.Precision.CompareTo(53) <= 0) {
+            this.helper.GetRadix() == 2 && ctx.Precision.CompareTo(53) <= 0) {
             if (thisValue is EFloat) {
               var ef = thisValue as EFloat;
               ef = FastLn(ef, ctxCopy);
               if (ef != null) {
                 thisValue = this.helper.CreateNewWithFlags(
-                  ef.UnsignedMantissa,
-                  ef.Exponent,
-                  BigNumberFlags.FlagNegative);
+                    ef.UnsignedMantissa,
+                    ef.Exponent,
+                    BigNumberFlags.FlagNegative);
                 if (ctx.HasFlags) {
                   ctx.Flags |= EContext.FlagInexact;
                   ctx.Flags |= EContext.FlagRounded;
@@ -1425,7 +1424,7 @@ return null;
             this.helper.GetRadix() == 2) {
             T half = this.Divide(this.helper.ValueOf(1),
                 this.helper.ValueOf(2),
-              EContext.Unlimited);
+                EContext.Unlimited);
             FastIntegerFixed fmant = this.helper.GetMantissaFastInt(thisValue);
             EInteger fexp =
               this.helper.GetExponentFastInt(thisValue).ToEInteger();
@@ -5929,11 +5928,11 @@ return null;
           FastIntegerFixed highExpBound = expfixed;
           highExpBound = highExpBound.Add(bounds[1]);
           FastIntegerFixed fpf =
-FastIntegerFixed.FromFastInteger(fastPrecision);
+            FastIntegerFixed.FromFastInteger(fastPrecision);
           /* string
-ch1=""+lowExpBound;ch1=ch1.Substring(0,Math.Min(12,ch1.Length));
+          ch1=""+lowExpBound;ch1=ch1.Substring(0,Math.Min(12,ch1.Length));
           string
-ch2=""+highExpBound;ch2=ch2.Substring(0,Math.Min(12,ch2.Length));
+          ch2=""+highExpBound;ch2=ch2.Substring(0,Math.Min(12,ch2.Length));
           DebugUtility.Log("exp="+expfixed);
           DebugUtility.Log("bounds="+ch1+"/"+ch2+"/"+fastEMax+
             " fpf="+fastPrecision + " highexp=" +highExpBound.Add(fpf).Add(4));
