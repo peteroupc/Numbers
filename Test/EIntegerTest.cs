@@ -411,7 +411,7 @@ namespace Test {
       int intval,
       string msg) {
       if (!o1.Equals(o2)) {
-        Assert.AreEqual(o1, o2, ei+" "+intval + " " + msg);
+        Assert.AreEqual(o1, o2, ei+ " " + intval + " " + msg);
       }
     }
 
@@ -3384,7 +3384,7 @@ RandomManageableEInteger(r);
     }
 
     [Test]
-    [Timeout(20000)]
+    [Timeout(30000)]
     public void TestSqrt() {
       var r = new RandomGenerator();
       for (var i = 0; i < 20; ++i) {
@@ -3402,6 +3402,9 @@ RandomManageableEInteger(r);
         TestCommon.CompareTestEqual(bigintA, sr);
       }
       for (var i = 0; i < 10000 + 100; ++i) {
+        if (i % 100 == 0) {
+          Console.WriteLine(i);
+        }
         EInteger bigintA = (i < 100) ? EInteger.FromInt32(i) :
 RandomManageableEInteger(r);
         if (bigintA.Sign < 0) {
