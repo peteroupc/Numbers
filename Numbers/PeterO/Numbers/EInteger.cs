@@ -3405,11 +3405,19 @@ FromInt32((int)bytes[offset]) :
       EInteger eiah, eial, eibh, eibl;
       if (einmin.CompareTo(ein.Multiply(3).ShiftRight(2).Add(2)) > 0) {
         EInteger p1 = ein.ShiftRight(1);
-        EInteger nhalfmask = EInteger.FromInt32(1).ShiftLeft(p1).Subtract(1);
+#if DEBUG
+        if (!(eia.Sign >= 0)) {
+          throw new ArgumentException("doesn't satisfy eia.Sign>= 0");
+        }
+        if (!(eib.Sign >= 0)) {
+          throw new ArgumentException("doesn't satisfy eib.Sign>= 0");
+        }
+#endif
+
         eiah = eia.ShiftRight(p1);
-        eial = eia.And(nhalfmask);
+        eial = eia.LowBits(p1);
         eibh = eib.ShiftRight(p1);
-        eibl = eib.And(nhalfmask);
+        eibl = eib.LowBits(p1);
         EInteger[] ret2 = HalfGCD(eiah, eibh);
         if (ret2 == null) {
           return null;
@@ -3426,10 +3434,8 @@ FromInt32((int)bytes[offset]) :
         }
       } else {
         // Set M to identity
-        ret[2] = EInteger.FromInt32(1);
-        ret[3] = EInteger.FromInt32(0);
-        ret[4] = EInteger.FromInt32(0);
-        ret[5] = EInteger.FromInt32(1);
+        ret[2] = ret[5] = EInteger.FromInt32(1);
+        ret[3] = ret[4] = EInteger.FromInt32(0);
       }
       ret[0] = eia;
       ret[1] = eib;
@@ -3460,11 +3466,10 @@ FromInt32((int)bytes[offset]) :
       if (MinBitLength(eia, eib).CompareTo(eis.Add(2)) > 0) {
         ein = MaxBitLength(eia, eib);
         EInteger p1 = eis.Add(eis).Subtract(ein).Add(1);
-        EInteger nhalfmask = EInteger.FromInt32(1).ShiftLeft(p1).Subtract(1);
         eiah = eia.ShiftRight(p1);
-        eial = eia.And(nhalfmask);
+        eial = eia.LowBits(p1);
         eibh = eib.ShiftRight(p1);
-        eibl = eib.And(nhalfmask);
+        eibl = eib.LowBits(p1);
         EInteger[] ret2 = HalfGCD(eiah, eibh);
         if (ret2 == null) {
           return null;
@@ -3552,12 +3557,10 @@ FromInt32((int)bytes[offset]) :
         // DebugUtility.Log("eia=" + ret[0].ToRadixString(16));
         // DebugUtility.Log("eib=" + ret[1].ToRadixString(16));
         EInteger nhalf = ein.ShiftRight(1);
-        EInteger nhalfmask =
-          EInteger.FromInt32(1).ShiftLeft(nhalf).Subtract(1);
         EInteger eiah = ret[0].ShiftRight(nhalf);
-        EInteger eial = ret[0].And(nhalfmask);
+        EInteger eial = ret[0].LowBits(nhalf);
         EInteger eibh = ret[1].ShiftRight(nhalf);
-        EInteger eibl = ret[1].And(nhalfmask);
+        EInteger eibl = ret[1].LowBits(nhalf);
         // DebugUtility.Log("eiah->" + eiah.ToRadixString(16));
         // DebugUtility.Log("eibh->" + eibh.ToRadixString(16));
         EInteger[] hgcd = HalfGCD(eiah, eibh);
@@ -5163,15 +5166,29 @@ ShortMask) != 0) ? 9 :
   /// <param name='longBitCount'>The parameter <paramref
   /// name='longBitCount'/> is a 64-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Not documented yet.</summary>
+  /// <summary>Extracts the lowest bits of this integer. This is
+  /// equivalent to <c>And(2^longBitCount - 1)</c>, but is more
+  /// efficient when this integer is non-negative and longBitCount's
+  /// value is large.</summary>
     public EInteger LowBits(long longBitCount) {
-        return this.LowBits(EInteger.FromInt64(longBitCount));
+        if (longBitCount < 0) {
+          throw new ArgumentException("\"longBitCount\" (" + longBitCount +
+") is" +
+"\u0020not greater or equal to 0");
+        }
+        return (
+          longBitCount <= Int32.MaxValue) ?
+(this.LowBits((int)longBitCount)) :
+this.LowBits(EInteger.FromInt64(longBitCount));
     }
 
   /// <param name='bitCount'>The parameter <paramref name='bitCount'/> is
   /// a 32-bit signed integer.</param>
   /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Not documented yet.</summary>
+  /// <summary>Extracts the lowest bits of this integer. This is
+  /// equivalent to <c>And(2^bitCount - 1)</c>, but is more efficient
+  /// when this integer is non-negative and bitCount's value is
+  /// large.</summary>
     public EInteger LowBits(int bitCount) {
         if (bitCount < 0) {
           throw new ArgumentException("\"bitCount\" (" + bitCount + ") is" +
@@ -5220,7 +5237,10 @@ ShortMask) != 0) ? 9 :
   /// <returns>The return value is not documented yet.</returns>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
   /// name='bigBitCount'/> is null.</exception>
-  /// <summary>Not documented yet.</summary>
+  /// <summary>Extracts the lowest bits of this integer. This is
+  /// equivalent to <c>And(2^bigBitCount - 1)</c>, but is more efficient
+  /// when this integer is non-negative and bigBitCount's value is
+  /// large.</summary>
     public EInteger LowBits(EInteger bigBitCount) {
         if (bigBitCount == null) {
           throw new ArgumentNullException(nameof(bigBitCount));
@@ -5236,6 +5256,9 @@ bigBitCount.Sign + ") is not greater or equal to 0");
            EInteger bigBits = this.GetUnsignedBitLengthAsEInteger();
            if (bigBits.CompareTo(bigBitCount) <= 0) {
              return this;
+           }
+           if (bigBitCount.CanFitInInt32()) {
+             return this.LowBits((int)bigBitCount.ToInt32Checked());
            }
         }
         if (!this.negative) {

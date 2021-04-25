@@ -6351,7 +6351,7 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
      string str = "precision: 34\nrounding: half_even\nminexponent: -6143\n" +
          "maxexponent: 6144\nextended:1\n" +
          "custom_power_1334 power 0.04749 -448.8 -> " +
-         "8.728634162796843910279804297263345E+593 Inexact Rounded\n";
+         "8.728634162796843910279804297263345E+593 Inexact Rounded\n" +
          "custom_power_16 power 0.07585 -756.0 -> " +
          "5.669929347251241273640310019664757E+846 Inexact Rounded";
      DecTestUtil.ParseDecTests(

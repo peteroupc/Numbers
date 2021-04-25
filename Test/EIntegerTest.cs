@@ -423,6 +423,12 @@ namespace Test {
     }
 
     [Test]
+    public void TestLowBitsSpecific1() {
+       EInteger ei1 = EInteger.FromInt32(123).LowBits(1);
+       Assert.AreEqual(EInteger.FromInt32(1), ei1);
+    }
+
+    [Test]
     public void TestLowBits() {
        var r = new RandomGenerator();
        int[] ints = {0, 1, 3, 5, 16, 32, 33, 37, 100, 1000, 10000, 100000 };
