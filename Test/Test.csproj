@@ -20,7 +20,7 @@
 <PackageReference Include='Microsoft.NET.Test.Sdk' Version='15.7.0'/>
         <PackageReference Include='NUnit' Version='3.12.0'/>
         <PackageReference Include='NUnit3TestAdapter' Version='3.16.1'/>
-        <PackageReference Include='Microsoft.CodeAnalysis.NetAnalyzers' PrivateAssets='All' Version='5.0.0'/>
+        <PackageReference Include='Microsoft.CodeAnalysis.NetAnalyzers' PrivateAssets='All' Version='5.0.3'/>
         <PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.333'/>
       </ItemGroup>
    </Project>

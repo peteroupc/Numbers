@@ -1161,7 +1161,7 @@ namespace PeterO.Numbers {
 
     public static EFloat FastLn(EFloat x, EContext ctx) {
       /* #if DEBUG
-        f ((ef) == null) {
+         ((ef) == null) {
           throw new ArgumentNullException(nameof(ef));
         }
         if ((ctx) == null) {

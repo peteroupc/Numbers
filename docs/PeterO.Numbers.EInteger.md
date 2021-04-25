@@ -109,6 +109,9 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[IsEven](#IsEven)</code> - Gets a value indicating whether this value is even.
 * <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two, and greater than 0.
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this value is 0.
+* <code>[LowBits(int)](#LowBits_int)</code> -
+* <code>[LowBits(long)](#LowBits_long)</code> -
+* <code>[LowBits(PeterO.Numbers.EInteger)](#LowBits_PeterO_Numbers_EInteger)</code> -
 * <code>[Max(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Max_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Returns the greater of two arbitrary-precision integers.
 * <code>[MaxMagnitude(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#MaxMagnitude_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Of two arbitrary-precision integers, returns the one with the greater absolute value.
 * <code>[Min(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Min_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Returns the smaller of two arbitrary-precision integers.
@@ -1419,9 +1422,6 @@ The parameter  <i>bigintSecond</i>
  * System.DivideByZeroException:
 Attempted to divide by zero.
 
- * System.ArgumentException:
-bigPower is negative; doesn't satisfy shiftBits&lt;16; doesn't satisfy sqroot.Sign&gt;= 0.
-
 <a id="GetBits_int_int"></a>
 ### GetBits
 
@@ -1717,6 +1717,57 @@ Returns one added to this arbitrary-precision integer.
 <b>Return Value:</b>
 
 The given arbitrary-precision integer plus one.
+
+<a id="LowBits_int"></a>
+### LowBits
+
+    public PeterO.Numbers.EInteger LowBits(
+        int bitCount);
+
+<b>Parameters:</b>
+
+ * <i>bitCount</i>: The parameter  <i>bitCount</i>
+ is a 32-bit signed integer.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
+<a id="LowBits_long"></a>
+### LowBits
+
+    public PeterO.Numbers.EInteger LowBits(
+        long longBitCount);
+
+<b>Parameters:</b>
+
+ * <i>longBitCount</i>: The parameter  <i>longBitCount</i>
+ is a 64-bit signed integer.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
+<a id="LowBits_PeterO_Numbers_EInteger"></a>
+### LowBits
+
+    public PeterO.Numbers.EInteger LowBits(
+        PeterO.Numbers.EInteger bigBitCount);
+
+<b>Parameters:</b>
+
+ * <i>bigBitCount</i>: The parameter  <i>bigBitCount</i>
+ is a Numbers.EInteger object.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bigBitCount</i>
+ is null.
 
 <a id="Max_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger"></a>
 ### Max

@@ -11084,13 +11084,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)">
 
-        <summary>Returns the greatest common divisor of this integer and
+            <summary>Returns the greatest common divisor of this integer and
             the given integer. The greatest common divisor (GCD) is also known
             as the greatest common factor (GCF). This method works even if
             either or both integers are negative.</summary><param name='bigintSecond'>Another arbitrary-precision integer. Can
             be negative.</param><returns>The greatest common divisor of this integer and the given
             integer.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='bigintSecond'/> is null.</exception><exception cref='DivideByZeroException'>Attempted to divide by
             zero.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)">
 
@@ -11384,6 +11385,21 @@
 
             <summary>Gets a value indicating whether this value is 0.</summary>
             <value><c>true</c> if this value is 0; otherwise, <c>false</c>.</value>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.LowBits(PeterO.Numbers.EInteger)">
+
+            <param name='bigBitCount'>The parameter <paramref name='bigBitCount'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='bigBitCount'/> is null.</exception>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.LowBits(System.Int32)">
+
+            <param name='bitCount'>The parameter <paramref name='bitCount'/> is a 32-bit signed integer.</param><returns>The return value is not documented yet.</returns>
+
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.LowBits(System.Int64)">
+
+            <param name='longBitCount'>The parameter <paramref name='longBitCount'/> is a 64-bit signed integer.</param><returns>The return value is not documented yet.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Max(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">

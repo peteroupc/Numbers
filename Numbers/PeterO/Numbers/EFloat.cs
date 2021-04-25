@@ -2420,7 +2420,7 @@ namespace PeterO.Numbers {
           int flags = ctx.Flags;
           ctx.Flags = flags | tmpctx.Flags;
         }
-        // Console.WriteLine("{0} {1} [{4} {5}] -> {2}
+        // DebugUtility.Log("{0} {1} [{4} {5}] -> {2}
         // [{3}]",value,baseValue,ret,ret.RoundToPrecision(ctx),
         // value.Quantize(value, ctx), baseValue.Quantize(baseValue, ctx));
         return ret.RoundToPrecision(ctx);
@@ -2437,6 +2437,7 @@ namespace PeterO.Numbers {
         int flags = ctx.Flags;
         EContext tmpctx = null;
         EFloat ret;
+        // DebugUtility.Log("value=" + (value));
         {
           EInteger prec = ctx.Precision.Add(3);
           tmpctx = ctx.WithBigPrecision(prec).WithBlankFlags();

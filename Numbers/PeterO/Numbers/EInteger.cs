@@ -5160,18 +5160,18 @@ ShortMask) != 0) ? 9 :
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
+  /// <param name='longBitCount'>The parameter <paramref
+  /// name='longBitCount'/> is a 64-bit signed integer.</param>
+  /// <returns>The return value is not documented yet.</returns>
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <returns/>
-  /// <param name='longBitCount'>Not documented yet.</param>
     public EInteger LowBits(long longBitCount) {
         return this.LowBits(EInteger.FromInt64(longBitCount));
     }
 
+  /// <param name='bitCount'>The parameter <paramref name='bitCount'/> is
+  /// a 32-bit signed integer.</param>
+  /// <returns>The return value is not documented yet.</returns>
   /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <returns/>
-  /// <param name='bitCount'>Not documented yet.</param>
     public EInteger LowBits(int bitCount) {
         if (bitCount < 0) {
           throw new ArgumentException("\"bitCount\" (" + bitCount + ") is" +
@@ -5215,12 +5215,12 @@ ShortMask) != 0) ? 9 :
       return this.And(EInteger.One.ShiftLeft(bitCount).Subtract(1));
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <returns/>
-  /// <param name='bigBitCount'>Not documented yet.</param>
+  /// <param name='bigBitCount'>The parameter <paramref
+  /// name='bigBitCount'/> is a Numbers.EInteger object.</param>
+  /// <returns>The return value is not documented yet.</returns>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
   /// name='bigBitCount'/> is null.</exception>
+  /// <summary>Not documented yet.</summary>
     public EInteger LowBits(EInteger bigBitCount) {
         if (bigBitCount == null) {
           throw new ArgumentNullException(nameof(bigBitCount));
@@ -5241,14 +5241,14 @@ bigBitCount.Sign + ") is not greater or equal to 0");
         if (!this.negative) {
           EInteger bigOtherWordCount = bigBitCount.Add(15).Divide(16);
           if (
-            EInteger.FromInt32(this.wordCount).CompareTo(bigOtherWordCount)<
+            EInteger.FromInt32(this.wordCount).CompareTo(bigOtherWordCount) <
 0) {
             return this;
           }
-        long otherWordCount = bigOtherWordCount.ToInt32Checked();
-        if (otherWordCount == 0) {
-          return EInteger.Zero;
-        } else {
+          long otherWordCount = bigOtherWordCount.ToInt32Checked();
+          if (otherWordCount == 0) {
+            return EInteger.Zero;
+          } else {
            int intOtherWordCount = checked((int)otherWordCount);
            int bitRemainder = bigBitCount.Remainder(16).ToInt32Checked();
            int smallerCount = Math.Min(this.wordCount, intOtherWordCount);

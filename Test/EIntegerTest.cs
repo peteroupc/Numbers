@@ -411,7 +411,7 @@ namespace Test {
       int intval,
       string msg) {
       if (!o1.Equals(o2)) {
-        Assert.AreEqual(o1, o2, ei+" "+intval+" "+msg);
+        Assert.AreEqual(o1, o2, ei+" "+intval + " " + msg);
       }
     }
 
@@ -436,15 +436,15 @@ namespace Test {
              EInteger ei2 = ei.LowBits(ints[j]);
              EInteger ei3 = ei.LowBits(EInteger.FromInt32(ints[j]));
              EInteger ei4 = ei.LowBits((long)ints[j]);
-             LowBitsAssertEqual(ei1, ei2, ei,ints[j],"ei2");
-             LowBitsAssertEqual(ei1, ei3, ei,ints[j],"ei3");
-             LowBitsAssertEqual(ei1, ei4, ei,ints[j],"ei4");
+             LowBitsAssertEqual(ei1, ei2, ei, ints[j], "ei2");
+             LowBitsAssertEqual(ei1, ei3, ei, ints[j], "ei3");
+             LowBitsAssertEqual(ei1, ei4, ei, ints[j], "ei4");
              ei1 = ei.LowBits(eia);
-             LowBitsAssertEqual(ei, ei1, ei,ints[j],"eia");
+             LowBitsAssertEqual(ei, ei1, ei, ints[j], "eia");
              ei1 = ei.LowBits(eib);
-             LowBitsAssertEqual(ei, ei1, ei,ints[j],"eib");
+             LowBitsAssertEqual(ei, ei1, ei, ints[j], "eib");
              ei1 = ei.LowBits(eic);
-             LowBitsAssertEqual(ei, ei1, ei,ints[j],"eic");
+             LowBitsAssertEqual(ei, ei1, ei, ints[j], "eic");
           }
        }
     }
