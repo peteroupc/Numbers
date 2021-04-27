@@ -38,7 +38,7 @@ namespace Test {
     }
 
     [Test]
-    [Timeout(20000)]
+    [Timeout(200000)]
     public void TestParser() {
       var errors = new List<string>();
       var dirfiles = new List<string>();
@@ -60,9 +60,13 @@ namespace Test {
           !DecTestUtil.Contains(lowerF, ".fptest")) {
           continue;
         }
+        int i=0;
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
             var ln = w.ReadLine();
+            if(i%40==0)
+               Console.WriteLine(ln);
+            i+=1;
             valueSwProcessing.Start();
             DecTestUtil.ParseDecTest(ln, context);
             valueSwProcessing.Stop();

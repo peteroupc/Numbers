@@ -2366,13 +2366,11 @@ namespace PeterO.Numbers {
       EInteger upperBoundInt = NumberUtility.IntegerDigitLengthUpperBound(
          this.helper,
          powInt);
-      EInteger guardDigits = this.WorkingDigits(EInteger.FromInt32(10));
+      EInteger guardDigits = this.WorkingDigits(EInteger.FromInt32(15));
       guardDigits = guardDigits.Add(upperBoundInt);
-      // /*
-      // DebugUtility.Log("guardDigits=" + guardDigits +
+      //DebugUtility.Log("guardDigits=" + guardDigits +
       // " upperBoundInt=" + upperBoundInt +
       // " powint=" + powInt);
-      // */
       EContext ctxdiv = SetPrecisionIfLimited(
           ctx,
           ctx.Precision + guardDigits);
