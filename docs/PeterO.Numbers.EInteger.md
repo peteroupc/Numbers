@@ -109,9 +109,9 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[IsEven](#IsEven)</code> - Gets a value indicating whether this value is even.
 * <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two, and greater than 0.
 * <code>[IsZero](#IsZero)</code> - Gets a value indicating whether this value is 0.
-* <code>[LowBits(int)](#LowBits_int)</code> -
-* <code>[LowBits(long)](#LowBits_long)</code> -
-* <code>[LowBits(PeterO.Numbers.EInteger)](#LowBits_PeterO_Numbers_EInteger)</code> -
+* <code>[LowBits(int)](#LowBits_int)</code> - Extracts the lowest bits of this integer.
+* <code>[LowBits(long)](#LowBits_long)</code> - Extracts the lowest bits of this integer.
+* <code>[LowBits(PeterO.Numbers.EInteger)](#LowBits_PeterO_Numbers_EInteger)</code> - Extracts the lowest bits of this integer.
 * <code>[Max(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Max_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Returns the greater of two arbitrary-precision integers.
 * <code>[MaxMagnitude(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#MaxMagnitude_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Of two arbitrary-precision integers, returns the one with the greater absolute value.
 * <code>[Min(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Min_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Returns the smaller of two arbitrary-precision integers.
@@ -149,8 +149,9 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Or(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
 * <code>[OrNot(PeterO.Numbers.EInteger)](#OrNot_PeterO_Numbers_EInteger)</code> - Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
 * <code>[Pow(int)](#Pow_int)</code> - Raises an arbitrary-precision integer to a power.
+* <code>[Pow(long)](#Pow_long)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Pow(PeterO.Numbers.EInteger)](#Pow_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power.
-* <code>[PowBigIntVar(PeterO.Numbers.EInteger)](#PowBigIntVar_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power, which is given as another arbitrary-precision integer.
+* <code>[PowBigIntVar(PeterO.Numbers.EInteger)](#PowBigIntVar_PeterO_Numbers_EInteger)</code> - <b>Deprecated:</b> Use Pow instead.
 * <code>[Remainder(int)](#Remainder_int)</code> - Returns the remainder that would result when this arbitrary-precision integer is divided by a 32-bit signed integer.
 * <code>[Remainder(long)](#Remainder_long)</code> - Returns the remainder that would result when this arbitrary-precision integer is divided by a 64-bit signed integer.
 * <code>[Remainder(PeterO.Numbers.EInteger)](#Remainder_PeterO_Numbers_EInteger)</code> - Returns the remainder that would result when this arbitrary-precision integer is divided by another arbitrary-precision integer.
@@ -1724,14 +1725,15 @@ The given arbitrary-precision integer plus one.
     public PeterO.Numbers.EInteger LowBits(
         int bitCount);
 
+Extracts the lowest bits of this integer. This is equivalent to  `And(2^bitCount - 1)` , but is more efficient when this integer is non-negative and bitCount's value is large.
+
 <b>Parameters:</b>
 
- * <i>bitCount</i>: The parameter  <i>bitCount</i>
- is a 32-bit signed integer.
+ * <i>bitCount</i>: The number of bits to extract from the lowest part of this integer.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+A value equivalent to  `And(2^bitCount - 1)` .
 
 <a id="LowBits_long"></a>
 ### LowBits
@@ -1739,14 +1741,15 @@ The return value is not documented yet.
     public PeterO.Numbers.EInteger LowBits(
         long longBitCount);
 
+Extracts the lowest bits of this integer. This is equivalent to  `And(2^longBitCount - 1)` , but is more efficient when this integer is non-negative and longBitCount's value is large.
+
 <b>Parameters:</b>
 
- * <i>longBitCount</i>: The parameter  <i>longBitCount</i>
- is a 64-bit signed integer.
+ * <i>longBitCount</i>: The number of bits to extract from the lowest part of this integer.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+A value equivalent to  `And(2^longBitCount - 1)` .
 
 <a id="LowBits_PeterO_Numbers_EInteger"></a>
 ### LowBits
@@ -1754,14 +1757,15 @@ The return value is not documented yet.
     public PeterO.Numbers.EInteger LowBits(
         PeterO.Numbers.EInteger bigBitCount);
 
+Extracts the lowest bits of this integer. This is equivalent to  `And(2^bigBitCount - 1)` , but is more efficient when this integer is non-negative and bigBitCount's value is large.
+
 <b>Parameters:</b>
 
- * <i>bigBitCount</i>: The parameter  <i>bigBitCount</i>
- is a Numbers.EInteger object.
+ * <i>bigBitCount</i>: The number of bits to extract from the lowest part of this integer.
 
 <b>Return Value:</b>
 
-The return value is not documented yet.
+A value equivalent to  `And(2^bigBitCount - 1)` .
 
 <b>Exceptions:</b>
 
@@ -2988,6 +2992,23 @@ Raises an arbitrary-precision integer to a power.
 The result. Returns 1 if  <i>powerSmall</i>
  is 0.
 
+<a id="Pow_long"></a>
+### Pow
+
+    public PeterO.Numbers.EInteger Pow(
+        long longPower);
+
+Raises an arbitrary-precision integer to a power.
+
+<b>Parameters:</b>
+
+ * <i>longPower</i>: The exponent to raise this integer to.
+
+<b>Return Value:</b>
+
+The result. Returns 1 if  <i>longPower</i>
+ is 0.
+
 <a id="Pow_PeterO_Numbers_EInteger"></a>
 ### Pow
 
@@ -3019,6 +3040,8 @@ BigPower is negative.
 
     public PeterO.Numbers.EInteger PowBigIntVar(
         PeterO.Numbers.EInteger power);
+
+<b>Deprecated.</b> Use Pow instead.
 
 Raises an arbitrary-precision integer to a power, which is given as another arbitrary-precision integer.
 

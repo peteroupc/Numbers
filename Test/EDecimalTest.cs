@@ -5504,9 +5504,9 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
         // and mantissa
         EInteger mantBig = RandomEIntegerShort(fr);
         EInteger expBig = RandomEIntegerShort(fr);
-        Console.WriteLine("i=" + i + " mant=" +
-          mantBig.GetUnsignedBitLengthAsInt64() + " expBig=" +
-          expBig.GetUnsignedBitLengthAsInt64());
+        //Console.WriteLine("i=" + i + " mant=" +
+        //  mantBig.GetUnsignedBitLengthAsInt64() + " expBig=" +
+        //  expBig.GetUnsignedBitLengthAsInt64());
         EDecimal dec = EDecimal.Create(mantBig, expBig);
         ExtraTest.TestStringEqualRoundTrip(dec);
       }
@@ -6346,14 +6346,23 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
         false);
     }
 
-    // TODO: Enable eventually
-    public void TestDecTestSpecificPower() {
+    [Test]
+    public void TestDecTestSpecificPower1() {
+     string str = "precision: 34\nrounding: half_even\nminexponent: -6143\n" +
+         "maxexponent: 6144\nextended:1\n" +
+         "custom_power_16 power 0.07585 -756.0 -> " +
+         "5.669929347251241273640310019664757E+846 Inexact Rounded";
+     DecTestUtil.ParseDecTests(
+       str,
+       false);
+    }
+
+    [Test]
+    public void TestDecTestSpecificPower2() {
      string str = "precision: 34\nrounding: half_even\nminexponent: -6143\n" +
          "maxexponent: 6144\nextended:1\n" +
          "custom_power_1334 power 0.04749 -448.8 -> " +
-         "8.728634162796843910279804297263345E+593 Inexact Rounded\n" +
-         "custom_power_16 power 0.07585 -756.0 -> " +
-         "5.669929347251241273640310019664757E+846 Inexact Rounded";
+         "8.728634162796843910279804297263345E+593 Inexact Rounded";
      DecTestUtil.ParseDecTests(
        str,
        false);
@@ -6487,10 +6496,12 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
     public static void TestStringContextEDecimal() {
       EContext[] econtexts = {
         EContext.Basic,
-        /* EContext.Basic.WithExponentRange(-95, 96),
-        EContext.Basic.WithAdjustExponent(false),
         EContext.Decimal32,
         EContext.Decimal32.WithAdjustExponent(false),
+        EContext.Decimal64,
+        EContext.Decimal64.WithAdjustExponent(false),
+        /* EContext.Basic.WithExponentRange(-95, 96),
+        EContext.Basic.WithAdjustExponent(false),
         EContext.Decimal32.WithExponentClamp(true),
         EContext.Decimal32.WithExponentClamp(true).WithAdjustExponent(false),
         EContext.BigDecimalJava,
@@ -6498,10 +6509,6 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
         EContext.BigDecimalJava.WithExponentClamp(true),
         EContext.BigDecimalJava.WithExponentClamp(true).WithAdjustExponent(
         false),
-        EContext.Decimal64,
-        EContext.Decimal64.WithAdjustExponent(false),
-        EContext.Decimal64,
-        EContext.Decimal64.WithAdjustExponent(false),
         EContext.Unlimited.WithExponentRange(-64, 64),
         */
       };

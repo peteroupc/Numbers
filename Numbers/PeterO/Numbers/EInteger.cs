@@ -23,7 +23,6 @@ using System.Text;
 // TODO: In next major version, perhaps change GetLowBit/GetDigitCount
 // to return MaxValue on overflow
 // TODO: Perhaps add overload to FromBytes to take a sign and magnitude
-// TODO: Add faster equivalent to And((1 << n)-1)
 namespace PeterO.Numbers {
   /// <summary>Represents an arbitrary-precision integer. (The "E" stands
   /// for "extended", and has this prefix to group it with the other
@@ -344,29 +343,29 @@ namespace PeterO.Numbers {
       }
       if (offset < 0) {
         throw new ArgumentException("offset (" + offset + ") is not greater" +
-           "\u0020or equal to 0");
+          "\u0020or equal to 0");
       }
       if (offset > bytes.Length) {
         throw new ArgumentException("offset (" + offset + ") is not less or" +
-           "\u0020equal to " + bytes.Length);
+          "\u0020equal to " + bytes.Length);
       }
       if (length < 0) {
         throw new ArgumentException("length (" + length + ") is not " +
-            "greater or equal to 0");
+          "greater or equal to 0");
       }
       if (length > bytes.Length) {
         throw new ArgumentException("length (" + length + ") is not less or" +
-"\u0020equal to " + bytes.Length);
+          "\u0020equal to " + bytes.Length);
       }
       if (bytes.Length - offset < length) {
         throw new ArgumentException("bytes's length minus " + offset + " (" +
-           (bytes.Length - offset) + ") is not greater or equal to " + length);
+          (bytes.Length - offset) + ") is not greater or equal to " + length);
       }
       if (length == 0) {
         return EInteger.Zero;
       } else if (length == 1) {
         return (((int)bytes[offset] & 0x80) == 0) ?
-FromInt32((int)bytes[offset]) :
+          FromInt32((int)bytes[offset]) :
           FromInt32(-1 - ((~bytes[offset]) & 0x7f));
       }
       int len = length;
@@ -399,7 +398,7 @@ FromInt32((int)bytes[offset]) :
         }
         if (odd) {
           newreg[evenedLen >> 1] = unchecked((short)(((int)bytes[offset]) &
-0xff));
+                0xff));
         }
         numIsNegative = (bytes[offset] & 0x80) != 0;
       }
@@ -2957,9 +2956,8 @@ FromInt32((int)bytes[offset]) :
     /// name='bigintSecond'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <exception cref='ArgumentException'>bigPower is negative; doesn't
-    /// satisfy shiftBits&amp;lt;16; doesn't satisfy sqroot.Sign&amp;gt;=
-    /// 0.</exception>
+    /// <exception cref='ArgumentException'>bigPower
+    /// is negative.</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException(nameof(bigintSecond));
@@ -2980,7 +2978,7 @@ FromInt32((int)bytes[offset]) :
         return thisValue;
       }
       if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 12) {
-      // if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 250) {
+        // if (Math.Max(thisValue.wordCount, bigintSecond.wordCount) > 250) {
         return SubquadraticGCD(thisValue, bigintSecond);
       } else {
         return BaseGcd(thisValue, bigintSecond);
@@ -3188,28 +3186,27 @@ FromInt32((int)bytes[offset]) :
     }
 
     private static int LBL(long mantlong) {
-#if DEBUG
+      #if DEBUG
       if (mantlong < Int64.MinValue + 1) {
         throw new InvalidOperationException("\"mantlong\" (" + mantlong + ")" +
-"\u0020is not" +
-"\u0020greater or equal to " + Int64.MinValue + 1);
+          "\u0020is not" + "\u0020greater or equal to " + Int64.MinValue + 1);
       }
-#endif
+      #endif
 
       return (mantlong == 0) ? 0 : NumberUtility.BitLength(Math.Abs(mantlong));
     }
 
     private static long[] LHalfGCD(long longa, long longb) {
-#if DEBUG
+      #if DEBUG
       if (longa < 0) {
         throw new InvalidOperationException("\"longa\" (" + longa + ") is not" +
-"\u0020greater or equal to 0");
+          "\u0020greater or equal to 0");
       }
       if (longb < 0) {
         throw new InvalidOperationException("\"longb\" (" + longb + ") is not" +
-"\u0020greater or equal to 0");
+          "\u0020greater or equal to 0");
       }
-#endif
+      #endif
 
       if (longa == 0 || longb == 0) {
         // DebugUtility.Log("LHalfGCD failed");
@@ -3340,26 +3337,26 @@ FromInt32((int)bytes[offset]) :
     }
 
     private static long[] SlowSgcd(long longa, long longb) {
-       var ret = new long[] { longa, longb, 1, 0, 0, 1 };
-       int ls = Math.Max(LBL(longa), LBL(longb));
-       ls = (ls >> 1) + 1;
-       while (LBL(ret[0] - ret[1]) > ls) {
-         LSDivStep(ret, ls);
-       }
-       return ret;
+      var ret = new long[] { longa, longb, 1, 0, 0, 1 };
+      int ls = Math.Max(LBL(longa), LBL(longb));
+      ls = (ls >> 1) + 1;
+      while (LBL(ret[0] - ret[1]) > ls) {
+        LSDivStep(ret, ls);
+      }
+      return ret;
     }
 
     private static EInteger[] SlowSgcd(EInteger eia, EInteger eib) {
-       var ret = new EInteger[] {
-         eia, eib, EInteger.One, EInteger.Zero,
-         EInteger.Zero, EInteger.One,
-       };
-       EInteger eis = EInteger.Max(BL(eia), BL(eib));
-       eis = eis.ShiftRight(1).Add(1);
-       while (BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0) {
-         SDivStep(ret, eis);
-       }
-       return ret;
+      var ret = new EInteger[] {
+        eia, eib, EInteger.One, EInteger.Zero,
+        EInteger.Zero, EInteger.One,
+      };
+      EInteger eis = EInteger.Max(BL(eia), BL(eib));
+      eis = eis.ShiftRight(1).Add(1);
+      while (BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0) {
+        SDivStep(ret, eis);
+      }
+      return ret;
     }
 
     // Implements Niels Moeller's Half-GCD algorithm from 2008
@@ -3396,23 +3393,23 @@ FromInt32((int)bytes[offset]) :
       long ln = ein.CanFitInInt64() ? ein.ToInt64Checked() : -1;
       EInteger eis = ein.ShiftRight(1).Add(1);
       if (einmin.CompareTo(eis) <= 0) {
-         // DebugUtility.Log("HalfGCD failed: nmin<= s");
-         return new EInteger[] {
-           eia, eib, EInteger.One, EInteger.Zero,
-           EInteger.Zero, EInteger.One,
-         };
+        // DebugUtility.Log("HalfGCD failed: nmin<= s");
+        return new EInteger[] {
+          eia, eib, EInteger.One, EInteger.Zero,
+          EInteger.Zero, EInteger.One,
+        };
       }
       EInteger eiah, eial, eibh, eibl;
       if (einmin.CompareTo(ein.Multiply(3).ShiftRight(2).Add(2)) > 0) {
         EInteger p1 = ein.ShiftRight(1);
-#if DEBUG
+        #if DEBUG
         if (!(eia.Sign >= 0)) {
           throw new ArgumentException("doesn't satisfy eia.Sign>= 0");
         }
         if (!(eib.Sign >= 0)) {
           throw new ArgumentException("doesn't satisfy eib.Sign>= 0");
         }
-#endif
+        #endif
 
         eiah = eia.ShiftRight(p1);
         eial = eia.LowBits(p1);
@@ -3430,7 +3427,7 @@ FromInt32((int)bytes[offset]) :
         if (eia.Sign < 0 || eib.Sign < 0) {
           throw new InvalidOperationException(
             "Internal error: oeia=" + oeia + " oeib=" +
-              oeib + " eiah=" + eiah + " eibh=" + eibh);
+            oeib + " eiah=" + eiah + " eibh=" + eibh);
         }
       } else {
         // Set M to identity
@@ -3450,7 +3447,7 @@ FromInt32((int)bytes[offset]) :
         if (ret[0].Sign < 0 || ret[1].Sign < 0) {
           throw new InvalidOperationException(
             "Internal error: eia=" + oeia + " oeib=" +
-              oeib);
+            oeib);
         }
         SDivStep(ret, eis);
         // for (int k = 0; k < 6; ++k) {
@@ -3499,8 +3496,8 @@ FromInt32((int)bytes[offset]) :
       ret[0] = eia;
       ret[1] = eib;
       // for (int k = 0; k < 6; ++k) {
-        // DebugUtility.Log("ret_afterloop3["+k+"]=" +
-        // ret[k].ToRadixString(16));
+      // DebugUtility.Log("ret_afterloop3["+k+"]=" +
+      // ret[k].ToRadixString(16));
       // }
       while (BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0) {
         if (ret[0].Sign < 0 || ret[1].Sign < 0) {
@@ -3659,7 +3656,8 @@ FromInt32((int)bytes[offset]) :
                     ((value >= 100000000000000L) ? 15 : ((value
                           >= 10000000000000L) ?
                         14 : ((value >= 1000000000000L) ? 13 : ((value
-                >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
+                              >= 100000000000L) ? 12 : ((value >=
+10000000000L) ?
                               11 : ((value >= 1000000000L) ? 10 : 9)))))))));
           } else {
             var v2 = (int)value;
@@ -3809,7 +3807,8 @@ FromInt32((int)bytes[offset]) :
                     int maxDigitEstimate = maxDigits + 4;
                     int minDigitEstimate = minDigits + 4;
                     retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                minDigitEstimate)) >= 0 ? retval + maxDigitEstimate : retval +
+                          minDigitEstimate)) >= 0 ? retval +
+maxDigitEstimate : retval +
                       minDigitEstimate;
                     done = true;
                     break;
@@ -3913,15 +3912,12 @@ FromInt32((int)bytes[offset]) :
                         0xffff) != 0) ? 4 : ((((c << 10) & ShortMask) != 0) ?
                       5 : ((((c << 9) & ShortMask) != 0) ? 6 : ((((c <<
                                 8) & ShortMask) != 0) ? 7 : ((((c << 7) &
-                                ShortMask) != 0) ? 8 : ((((c << 6) &
-ShortMask) != 0) ? 9 :
+                ShortMask) != 0) ? 8 : ((((c << 6) & ShortMask) != 0) ? 9 :
                               ((((c << 5) & ShortMask) != 0) ? 10 : ((((c <<
-                                        4) & ShortMask) != 0) ? 11 : ((((c <<
-3) &
+                4) & ShortMask) != 0) ? 11 : ((((c << 3) &
                                         0xffff) != 0) ? 12 : ((((c << 2) &
                                           0xffff) != 0) ? 13 : ((((c << 1) &
-                                            ShortMask) != 0) ? 14 :
-15))))))))))))));
+                ShortMask) != 0) ? 14 : 15))))))))))))));
           retSetBitLong += rsb;
           return retSetBitLong;
         }
@@ -4779,6 +4775,25 @@ ShortMask) != 0) ? 9 :
 
     /// <summary>Raises an arbitrary-precision integer to a
     /// power.</summary>
+    /// <param name='longPower'>The exponent to raise this integer
+    /// to.</param>
+    /// <returns>The result. Returns 1 if <paramref name='longPower'/> is
+    /// 0.</returns>
+    /// <exception cref='ArgumentException'>bigPower is
+    /// negative.</exception>
+    public EInteger Pow(long longPower) {
+      if (longPower < 0) {
+        throw new ArgumentException("bigPower is negative");
+      }
+      if (longPower == 0) {
+        return EInteger.One;
+      }
+      return (longPower < Int32.MaxValue) ? this.Pow((int)longPower) :
+this.Pow(EInteger.FromInt64(longPower));
+    }
+
+    /// <summary>Raises an arbitrary-precision integer to a
+    /// power.</summary>
     /// <param name='bigPower'>The exponent to raise this integer
     /// to.</param>
     /// <returns>The result. Returns 1 if <paramref name='bigPower'/> is
@@ -4884,42 +4899,12 @@ ShortMask) != 0) ? 9 :
     /// name='power'/> is less than 0.</exception>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='power'/> is null.</exception>
+    [Obsolete("Use Pow instead.")]
     public EInteger PowBigIntVar(EInteger power) {
-      // TODO: Deprecate in favor of Pow(EInteger)
       if (power == null) {
         throw new ArgumentNullException(nameof(power));
       }
-      int sign = power.Sign;
-      if (sign < 0) {
-        throw new ArgumentException(
-          "sign (" + sign + ") is less than 0");
-      }
-      EInteger thisVar = this;
-      if (sign == 0) {
-        return EInteger.One;
-      }
-      if (power.Equals(EInteger.One)) {
-        return this;
-      }
-      if (power.wordCount == 1 && power.words[0] == 2) {
-        return thisVar.Multiply(thisVar);
-      }
-      if (power.wordCount == 1 && power.words[0] == 3) {
-        return thisVar.Multiply(thisVar).Multiply(thisVar);
-      }
-      EInteger r = EInteger.One;
-      // bool negatePower = !power.IsEven && thisVar.Sign < 0;
-      // thisVar = thisVar.Abs();
-      while (!power.IsZero) {
-        if (!power.IsEven) {
-          r *= (EInteger)thisVar;
-        }
-        power >>= 1;
-        if (!power.IsZero) {
-          thisVar *= (EInteger)thisVar;
-        }
-      }
-      return r; // negatePower ? r.Negate() : r;
+      return this.Pow(power);
     }
 
     /// <summary>Returns the remainder that would result when this
@@ -5163,132 +5148,130 @@ ShortMask) != 0) ? 9 :
         EInteger(valueXaWordCount, valueXaReg, valueXaNegative);
     }
 
-  /// <param name='longBitCount'>The parameter <paramref
-  /// name='longBitCount'/> is a 64-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Extracts the lowest bits of this integer. This is
-  /// equivalent to <c>And(2^longBitCount - 1)</c>, but is more
-  /// efficient when this integer is non-negative and longBitCount's
-  /// value is large.</summary>
+    /// <summary>Extracts the lowest bits of this integer. This is
+    /// equivalent to <c>And(2^longBitCount - 1)</c>, but is more
+    /// efficient when this integer is non-negative and longBitCount's
+    /// value is large.</summary>
+    /// <param name='longBitCount'>The number of bits to extract from the
+    /// lowest part of this integer.</param>
+    /// <returns>A value equivalent to <c>And(2^longBitCount - 1)</c>.</returns>
     public EInteger LowBits(long longBitCount) {
-        if (longBitCount < 0) {
-          throw new ArgumentException("\"longBitCount\" (" + longBitCount +
-") is" +
-"\u0020not greater or equal to 0");
-        }
-        return (
-          longBitCount <= Int32.MaxValue) ?
-(this.LowBits((int)longBitCount)) :
-this.LowBits(EInteger.FromInt64(longBitCount));
+      if (longBitCount < 0) {
+        throw new ArgumentException("\"longBitCount\" (" + longBitCount +
+          ") is" + "\u0020not greater or equal to 0");
+      }
+      return (longBitCount <= Int32.MaxValue) ?
+        this.LowBits((int)longBitCount) :
+        this.LowBits(EInteger.FromInt64(longBitCount));
     }
 
-  /// <param name='bitCount'>The parameter <paramref name='bitCount'/> is
-  /// a 32-bit signed integer.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <summary>Extracts the lowest bits of this integer. This is
-  /// equivalent to <c>And(2^bitCount - 1)</c>, but is more efficient
-  /// when this integer is non-negative and bitCount's value is
-  /// large.</summary>
+    /// <summary>Extracts the lowest bits of this integer. This is
+    /// equivalent to <c>And(2^bitCount - 1)</c>, but is more efficient
+    /// when this integer is non-negative and bitCount's value is
+    /// large.</summary>
+    /// <param name='bitCount'>The number of bits to extract from the
+    /// lowest part of this integer.</param>
+    /// <returns>A value equivalent to <c>And(2^bitCount - 1)</c>.</returns>
     public EInteger LowBits(int bitCount) {
-        if (bitCount < 0) {
-          throw new ArgumentException("\"bitCount\" (" + bitCount + ") is" +
-"\u0020not greater or equal to 0");
+      if (bitCount < 0) {
+        throw new ArgumentException("\"bitCount\" (" + bitCount + ") is" +
+          "\u0020not greater or equal to 0");
+      }
+      if (bitCount == 0 || this.Sign == 0) {
+        return EInteger.Zero;
+      }
+      if (this.Sign > 0) {
+        long bits = this.GetUnsignedBitLengthAsInt64();
+        if (bits <= bitCount) {
+          return this;
         }
-        if (bitCount == 0 || this.Sign == 0) {
+      }
+      if (!this.negative) {
+        long otherWordCount = BitsToWords(bitCount);
+        if (this.wordCount < otherWordCount) {
+          return this;
+        } else if (otherWordCount == 0) {
           return EInteger.Zero;
-        }
-        if (this.Sign > 0) {
-           long bits = this.GetUnsignedBitLengthAsInt64();
-           if (bits <= bitCount) {
-             return this;
-           }
-        }
-        if (!this.negative) {
-          long otherWordCount = BitsToWords(bitCount);
-          if (this.wordCount < otherWordCount) {
-            return this;
-          } else if (otherWordCount == 0) {
-            return EInteger.Zero;
         } else {
-           int intOtherWordCount = checked((int)otherWordCount);
-           int bitRemainder = bitCount & 15;
-           int smallerCount = Math.Min(this.wordCount, intOtherWordCount);
-           var result = new short[intOtherWordCount];
-           if (bitRemainder == 0) {
-             Array.Copy(this.words, 0, result, 0, intOtherWordCount);
-           } else {
-           short shortMask = unchecked((short)((1 << bitRemainder) - 1));
-           // DebugUtility.Log("wc={0} bc={1} br={2}
-           // sm={3}",otherWordCount,bitCount,bitRemainder,shortMask);
-           Array.Copy(this.words, 0, result, 0, intOtherWordCount - 1);
-           result[intOtherWordCount - 1] = unchecked((short)(
-               this.words[intOtherWordCount - 1] & shortMask));
-           }
-           smallerCount = CountWords(result);
-           return (smallerCount == 0) ? EInteger.Zero : new
-             EInteger(smallerCount, result, false);
+          int intOtherWordCount = checked((int)otherWordCount);
+          int bitRemainder = bitCount & 15;
+          int smallerCount = Math.Min(this.wordCount, intOtherWordCount);
+          var result = new short[intOtherWordCount];
+          if (bitRemainder == 0) {
+            Array.Copy(this.words, 0, result, 0, intOtherWordCount);
+          } else {
+            short shortMask = unchecked((short)((1 << bitRemainder) - 1));
+            // DebugUtility.Log("wc={0} bc={1} br={2}
+            // sm={3}",otherWordCount,bitCount,bitRemainder,shortMask);
+            Array.Copy(this.words, 0, result, 0, intOtherWordCount - 1);
+            result[intOtherWordCount - 1] = unchecked((short)(
+                  this.words[intOtherWordCount - 1] & shortMask));
+          }
+          smallerCount = CountWords(result);
+          return (smallerCount == 0) ? EInteger.Zero : new
+            EInteger(smallerCount, result, false);
         }
       }
       return this.And(EInteger.One.ShiftLeft(bitCount).Subtract(1));
     }
 
-  /// <param name='bigBitCount'>The parameter <paramref
-  /// name='bigBitCount'/> is a Numbers.EInteger object.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <exception cref='ArgumentNullException'>The parameter <paramref
-  /// name='bigBitCount'/> is null.</exception>
-  /// <summary>Extracts the lowest bits of this integer. This is
-  /// equivalent to <c>And(2^bigBitCount - 1)</c>, but is more efficient
-  /// when this integer is non-negative and bigBitCount's value is
-  /// large.</summary>
+    /// <summary>Extracts the lowest bits of this integer. This is
+    /// equivalent to <c>And(2^bigBitCount - 1)</c>, but is more efficient
+    /// when this integer is non-negative and bigBitCount's value is
+    /// large.</summary>
+    /// <param name='bigBitCount'>The number of bits to extract from the
+    /// lowest part of this integer.</param>
+    /// <returns>A value equivalent to <c>And(2^bigBitCount - 1)</c>.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='bigBitCount'/> is null.</exception>
     public EInteger LowBits(EInteger bigBitCount) {
-        if (bigBitCount == null) {
-          throw new ArgumentNullException(nameof(bigBitCount));
+      if (bigBitCount == null) {
+        throw new ArgumentNullException(nameof(bigBitCount));
+      }
+      if (bigBitCount.Sign < 0) {
+        throw new ArgumentException("\"bigBitCount.Sign\" (" +
+          bigBitCount.Sign + ") is not greater or equal to 0");
+      }
+      if (bigBitCount.Sign == 0 || this.Sign == 0) {
+        return EInteger.Zero;
+      }
+      if (this.Sign > 0) {
+        EInteger bigBits = this.GetUnsignedBitLengthAsEInteger();
+        if (bigBits.CompareTo(bigBitCount) <= 0) {
+          return this;
         }
-        if (bigBitCount.Sign < 0) {
-          throw new ArgumentException("\"bigBitCount.Sign\" (" +
-bigBitCount.Sign + ") is not greater or equal to 0");
+        if (bigBitCount.CanFitInInt32()) {
+          return this.LowBits((int)bigBitCount.ToInt32Checked());
         }
-        if (bigBitCount.Sign == 0 || this.Sign == 0) {
+      }
+      if (!this.negative) {
+        EInteger bigOtherWordCount = bigBitCount.Add(15).Divide(16);
+        if (
+          EInteger.FromInt32(this.wordCount).CompareTo(bigOtherWordCount) <
+          0) {
+          return this;
+        }
+        long otherWordCount = bigOtherWordCount.ToInt32Checked();
+        if (otherWordCount == 0) {
           return EInteger.Zero;
-        }
-        if (this.Sign > 0) {
-           EInteger bigBits = this.GetUnsignedBitLengthAsEInteger();
-           if (bigBits.CompareTo(bigBitCount) <= 0) {
-             return this;
-           }
-           if (bigBitCount.CanFitInInt32()) {
-             return this.LowBits((int)bigBitCount.ToInt32Checked());
-           }
-        }
-        if (!this.negative) {
-          EInteger bigOtherWordCount = bigBitCount.Add(15).Divide(16);
-          if (
-            EInteger.FromInt32(this.wordCount).CompareTo(bigOtherWordCount) <
-0) {
-            return this;
-          }
-          long otherWordCount = bigOtherWordCount.ToInt32Checked();
-          if (otherWordCount == 0) {
-            return EInteger.Zero;
+        } else {
+          int intOtherWordCount = checked((int)otherWordCount);
+          int bitRemainder = bigBitCount.Remainder(16).ToInt32Checked();
+          int smallerCount = Math.Min(this.wordCount, intOtherWordCount);
+          var result = new short[intOtherWordCount];
+          if (bitRemainder == 0) {
+            Array.Copy(this.words, 0, result, 0, intOtherWordCount);
           } else {
-           int intOtherWordCount = checked((int)otherWordCount);
-           int bitRemainder = bigBitCount.Remainder(16).ToInt32Checked();
-           int smallerCount = Math.Min(this.wordCount, intOtherWordCount);
-           var result = new short[intOtherWordCount];
-           if (bitRemainder == 0) {
-             Array.Copy(this.words, 0, result, 0, intOtherWordCount);
-           } else {
-           short shortMask = unchecked((short)((1 << bitRemainder) - 1));
-           // DebugUtility.Log("wc={0} bc={1} br={2} sm={3}
-           // big",otherWordCount,bigBitCount,bitRemainder,shortMask);
-           Array.Copy(this.words, 0, result, 0, intOtherWordCount - 1);
-           result[intOtherWordCount - 1] = unchecked((short)(
-               this.words[intOtherWordCount - 1] & shortMask));
-           }
-           smallerCount = CountWords(result);
-           return (smallerCount == 0) ? EInteger.Zero : new
-             EInteger(smallerCount, result, false);
+            short shortMask = unchecked((short)((1 << bitRemainder) - 1));
+            // DebugUtility.Log("wc={0} bc={1} br={2} sm={3}
+            // big",otherWordCount,bigBitCount,bitRemainder,shortMask);
+            Array.Copy(this.words, 0, result, 0, intOtherWordCount - 1);
+            result[intOtherWordCount - 1] = unchecked((short)(
+                  this.words[intOtherWordCount - 1] & shortMask));
+          }
+          smallerCount = CountWords(result);
+          return (smallerCount == 0) ? EInteger.Zero : new
+            EInteger(smallerCount, result, false);
         }
       }
       return this.And(EInteger.One.ShiftLeft(bigBitCount).Subtract(1));

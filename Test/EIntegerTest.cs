@@ -223,7 +223,7 @@ namespace Test {
         String.Empty + m2);
       TestCommon.CompareTestEqual(
         eresult,
-        em1.PowBigIntVar(EInteger.FromInt32(m2)),
+        em1.Pow(EInteger.FromInt32(m2)),
         String.Empty + m2);
     }
 
@@ -411,7 +411,7 @@ namespace Test {
       int intval,
       string msg) {
       if (!o1.Equals(o2)) {
-        Assert.AreEqual(o1, o2, ei+ " " + intval + " " + msg);
+        Assert.AreEqual(o1, o2, ei + " " + intval + " " + msg);
       }
     }
 
@@ -2784,7 +2784,7 @@ namespace Test {
         throw new InvalidOperationException(String.Empty, ex);
       }
       try {
-        EInteger.One.PowBigIntVar(null);
+        EInteger.One.Pow(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -2803,7 +2803,7 @@ namespace Test {
       }
       try {
         EInteger ei = EInteger.Zero.Subtract(1);
-        ei.PowBigIntVar(null);
+        ei.Pow(null);
         Assert.Fail("Should have failed");
       } catch (ArgumentNullException) {
         // NOTE: Intentionally empty
@@ -3214,10 +3214,6 @@ namespace Test {
       DoTestPow(EInteger.FromInt32(-4), 2, EInteger.FromInt32(16));
       DoTestPow(EInteger.FromInt32(-4), 3, EInteger.FromInt32(-64));
       DoTestPow(EInteger.FromInt32(-4), 4, EInteger.FromInt32(256));
-    }
-    [Test]
-    public void TestPowBigIntVar() {
-      // not implemented yet
     }
     [Test]
     public void TestRemainder() {

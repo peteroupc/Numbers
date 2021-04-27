@@ -1567,7 +1567,9 @@ PositiveInfinity) : CreateNaN(
     /// and properties are equal to those of another object and that other
     /// object is an arbitrary-precision rational number. Not-a-number
     /// values are considered equal if the rest of their properties are
-    /// equal.</summary>
+    /// equal.  This is not the same as value equality.  Notably, two ERationals
+    /// with the same value, but of which one is in lowest terms and the other
+    /// is not, are compared as unequal by this method (example: 1/2 vs. 5/10).</summary>
     /// <param name='obj'>The parameter <paramref name='obj'/> is an
     /// arbitrary object.</param>
     /// <returns><c>true</c> if the objects are equal; otherwise,

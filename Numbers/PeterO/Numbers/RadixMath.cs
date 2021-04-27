@@ -2240,7 +2240,7 @@ namespace PeterO.Numbers {
           !ctx.HasMaxPrecision)) {
         // TODO: In next major version, support the case when:
         // - ctx is null or has unlimited precision, and
-        // - thisValue is greater than 0.
+        // - thisValue is less than 0.
         // This case is trivial: divide 1 by thisValue^abs(pow).
         const string ValueOutputMessage =
           "ctx is null or has unlimited precision, " +
@@ -2364,7 +2364,16 @@ namespace PeterO.Numbers {
           return thisValue;
         }
       }
-      EInteger guardDigits = this.WorkingDigits(EInteger.FromInt32(17));
+      EInteger upperBoundInt = NumberUtility.IntegerDigitLengthUpperBound(
+         this.helper,
+         powInt);
+      EInteger guardDigits = this.WorkingDigits(EInteger.FromInt32(10));
+      guardDigits.Add(upperBoundInt);
+      // /*
+      DebugUtility.Log("guardDigits=" + guardDigits +
+        " upperBoundInt=" + upperBoundInt +
+        " powint=" + powInt);
+      //*/
       EContext ctxdiv = SetPrecisionIfLimited(
           ctx,
           ctx.Precision + guardDigits);
@@ -2377,15 +2386,15 @@ namespace PeterO.Numbers {
           .WithBlankFlags();
       }
       T lnresult = this.Ln(thisValue, ctxdiv);
-      // DebugUtility.Log("rounding="+ctxdiv.Rounding);
-      // DebugUtility.Log("before mul="+lnresult);
+      //DebugUtility.Log("rounding="+ctxdiv.Rounding);
+      //DebugUtility.Log("before mul="+lnresult);
       lnresult = this.Multiply(lnresult, pow, ctxdiv);
       EInteger workingPrecision = ctxdiv.Precision;
       // Now use original precision and rounding mode
       ctxdiv = ctx.WithBlankFlags();
-      // DebugUtility.Log("before exp="+lnresult);
+      //DebugUtility.Log("before exp="+lnresult);
       lnresult = this.Exp(lnresult, ctxdiv);
-      // DebugUtility.Log("after exp.="+lnresult);
+      //DebugUtility.Log("after exp.="+lnresult);
       if ((ctxdiv.Flags & (EContext.FlagClamped |
             EContext.FlagOverflow)) != 0) {
         if (!this.IsWithinExponentRangeForPow(thisValue, ctx)) {
