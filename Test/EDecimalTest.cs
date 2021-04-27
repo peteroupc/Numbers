@@ -5505,8 +5505,8 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
         EInteger mantBig = RandomEIntegerShort(fr);
         EInteger expBig = RandomEIntegerShort(fr);
         //Console.WriteLine("i=" + i + " mant=" +
-        //  mantBig.GetUnsignedBitLengthAsInt64() + " expBig=" +
-        //  expBig.GetUnsignedBitLengthAsInt64());
+        // mantBig.GetUnsignedBitLengthAsInt64() + " expBig=" +
+        // expBig.GetUnsignedBitLengthAsInt64());
         EDecimal dec = EDecimal.Create(mantBig, expBig);
         ExtraTest.TestStringEqualRoundTrip(dec);
       }
@@ -6334,6 +6334,24 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
     }
 
     [Test]
+    public void TestPowerOneExpNegativeInteger() {
+       // Under the General Decimal Arithmetic Specification,
+       // power(1.0, -integer) should act the same as power(1/1.0, integer) {
+     string str="precision: 16\nrounding: half_even\nminexponent:" +
+"\u0020-383\nmaxexponent: 384\nextended: 1\n" +
+        "custom_power_12767 power 1.0 -6290 -> 1 ";
+     DecTestUtil.ParseDecTests(str, false);
+     }
+    {
+     string str="precision: 16\nrounding: half_even\nminexponent:" +
+"\u0020-383\nmaxexponent: 384\nextended: 1\ncustom_power_1330 power 1.000" +
+"\u0020-9287 ->" +
+"\u00201 # 1";
+     DecTestUtil.ParseDecTests(str, false);
+    }
+    }
+
+    [Test]
     public void TestPowerOneExpNonInteger() {
       // In the General Decimal Arithmetic Specification, power(1, noninteger)
       // is specified as inexact, perhaps due to an oversight
@@ -6344,6 +6362,50 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
       DecTestUtil.ParseDecTests(
         str,
         false);
+    }
+    [Test]
+    public void TestDecTestSpecificPower5() {
+     string str="precision: 34\nrounding: half_even\nminexponent:" +
+"\u0020-6143\nmaxexponent: 6144\nextended: 1\ncustom_power_9740 power 3.724" +
+"\u0020-6856" +
+"\u0020-> 1.437760829269881315895729920406088E-3915 Inexact Rounded #" +
+"\u00201.4377608292698813158957299204060875000448219E-3915";
+     DecTestUtil.ParseDecTests(str, false);
+    }
+
+    [Test]
+    public void TestDecTestSpecificPower6() {
+     string str="precision: 34\nrounding: half_even\nminexponent:" +
+"\u0020-6143\nmaxexponent: 6144\nextended: 1\ncustom_power_17409 power" +
+"\u00200.009326" +
+"\u0020-75.59 -> 2.956132346267103882996614250892197E + 153 Inexact Rounded #" +
+"\u00202.9561323462671038829966142508921974999579417E+153";
+     DecTestUtil.ParseDecTests(str, false);
+    }
+    [Test]
+    public void TestDecTestSpecificPower7() {
+     string str="precision: 34\nrounding: half_even\nminexponent:" +
+"\u0020-6143\nmaxexponent: 6144\nextended: 1\ncustom_power_19421 power" +
+"\u00201.6026491E-8" +
+"\u0020-91.7 -> 6.551106896440510811119799436358778E + 714 Inexact Rounded #" +
+"\u00206.5511068964405108111197994363587784994316246E+714";
+     DecTestUtil.ParseDecTests(str, false);
+    }
+    [Test]
+    public void TestDecTestSpecificPower8() {
+     string str="precision: 16\nrounding: half_even\nminexponent:" +
+"\u0020-383\nmaxexponent: 384\nextended: 1\ncustom_power_14214 power -0.05304" +
+"\u0020-7.000 -> -846789359.6071463 Inexact Rounded";
+     DecTestUtil.ParseDecTests(str, false);
+    }
+    [Test]
+    public void TestDecTestSpecificPower9() {
+     string str="precision: 34\nrounding: half_even\nminexponent:" +
+"\u0020-6143\nmaxexponent: 6144\nextended: 1\ncustom_power_18478 power" +
+"\u00200.007432" +
+"\u0020-66.89 -> 2.521968518855321930003285016375665E + 142 Inexact Rounded #" +
+"\u00202.5219685188553219300032850163756645000465660E+142";
+     DecTestUtil.ParseDecTests(str, false);
     }
 
     [Test]
@@ -6359,6 +6421,17 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
 
     [Test]
     public void TestDecTestSpecificPower2() {
+     string str = "precision: 34\nrounding: half_even\nminexponent: -6143\n" +
+         "maxexponent: 6144\nextended:1\n" +
+         "custom_power_16 power 0.0060351448 -472.9 -> " +
+         "3.256786372719241448264997647923555E+1049 Inexact Rounded";
+     DecTestUtil.ParseDecTests(
+       str,
+       false);
+    }
+
+    [Test]
+    public void TestDecTestSpecificPower3() {
      string str = "precision: 34\nrounding: half_even\nminexponent: -6143\n" +
          "maxexponent: 6144\nextended:1\n" +
          "custom_power_1334 power 0.04749 -448.8 -> " +

@@ -1160,8 +1160,7 @@ namespace PeterO.Numbers {
     }
 
     public static EFloat FastLn(EFloat x, EContext ctx) {
-      /* #if DEBUG
-         ((ef) == null) {
+      /* #if DEBUG ((ef) == null) {
           throw new ArgumentNullException(nameof(ef));
         }
         if ((ctx) == null) {
@@ -2368,12 +2367,12 @@ namespace PeterO.Numbers {
          this.helper,
          powInt);
       EInteger guardDigits = this.WorkingDigits(EInteger.FromInt32(10));
-      guardDigits.Add(upperBoundInt);
+      guardDigits = guardDigits.Add(upperBoundInt);
       // /*
-      DebugUtility.Log("guardDigits=" + guardDigits +
-        " upperBoundInt=" + upperBoundInt +
-        " powint=" + powInt);
-      //*/
+      // DebugUtility.Log("guardDigits=" + guardDigits +
+      // " upperBoundInt=" + upperBoundInt +
+      // " powint=" + powInt);
+      // */
       EContext ctxdiv = SetPrecisionIfLimited(
           ctx,
           ctx.Precision + guardDigits);
@@ -2386,15 +2385,15 @@ namespace PeterO.Numbers {
           .WithBlankFlags();
       }
       T lnresult = this.Ln(thisValue, ctxdiv);
-      //DebugUtility.Log("rounding="+ctxdiv.Rounding);
-      //DebugUtility.Log("before mul="+lnresult);
+      // DebugUtility.Log("rounding="+ctxdiv.Rounding);
+      // DebugUtility.Log("before mul="+lnresult);
       lnresult = this.Multiply(lnresult, pow, ctxdiv);
       EInteger workingPrecision = ctxdiv.Precision;
       // Now use original precision and rounding mode
       ctxdiv = ctx.WithBlankFlags();
-      //DebugUtility.Log("before exp="+lnresult);
+      // DebugUtility.Log("before exp="+lnresult);
       lnresult = this.Exp(lnresult, ctxdiv);
-      //DebugUtility.Log("after exp.="+lnresult);
+      // DebugUtility.Log("after exp.="+lnresult);
       if ((ctxdiv.Flags & (EContext.FlagClamped |
             EContext.FlagOverflow)) != 0) {
         if (!this.IsWithinExponentRangeForPow(thisValue, ctx)) {
