@@ -1423,6 +1423,9 @@ The parameter  <i>bigintSecond</i>
  * System.DivideByZeroException:
 Attempted to divide by zero.
 
+ * System.ArgumentException:
+bigPower is negative.
+
 <a id="GetBits_int_int"></a>
 ### GetBits
 
@@ -3008,6 +3011,11 @@ Raises an arbitrary-precision integer to a power.
 
 The result. Returns 1 if  <i>longPower</i>
  is 0.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+bigPower is negative.
 
 <a id="Pow_PeterO_Numbers_EInteger"></a>
 ### Pow

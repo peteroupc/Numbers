@@ -1496,7 +1496,7 @@ namespace PeterO.Numbers {
             EInteger cprec = EInteger.Max(bounds[1].ToEInteger(), ctx.Precision)
               .Add(bigError);
             // DebugUtility.Log("cprec prec " + (// ctx.Precision) + " bounds " +
-            //(bounds[1].ToEInteger()));
+            // (bounds[1].ToEInteger()));
             ctxdiv = SetPrecisionIfLimited(ctx, cprec)
               .WithRounding(intermedRounding).WithBlankFlags();
             T oldThisValue = thisValue;

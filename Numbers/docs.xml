@@ -9009,7 +9009,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToSingleBits">
 
-            <summary>Converts this value to its closest equivalent as 32-bit
+            <summary>Converts this value to its closest equivalent as a32-bit
             floating-point number, expressed as an integer in the IEEE 754
             binary32 format. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 32-bit
@@ -11090,7 +11090,8 @@
             either or both integers are negative.</summary><param name='bigintSecond'>Another arbitrary-precision integer. Can
             be negative.</param><returns>The greatest common divisor of this integer and the given
             integer.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='bigintSecond'/> is null.</exception><exception cref='DivideByZeroException'>Attempted to divide by
-            zero.</exception>
+            zero.</exception><exception cref='ArgumentException'>BigPower
+            is negative.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.GetBits(System.Int32,System.Int32)">
 
@@ -11388,24 +11389,37 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.LowBits(PeterO.Numbers.EInteger)">
 
-        <summary>Extracts the lowest bits of this integer. This is
+            <summary>Extracts the lowest bits of this integer. This is
             equivalent to <c>And(2^bigBitCount - 1)</c>, but is more efficient
             when this integer is non-negative and bigBitCount's value is
-            large.</summary><param name='bigBitCount'>The number of bits to extract from the lowest part of this integer.</param><returns>A value equivalent to <c>And(2^bigBitCount - 1)</c>.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='bigBitCount'/> is null.</exception>
+            large.</summary>
+            <param name='bigBitCount'>The number of bits to extract from the
+            lowest part of this integer.</param>
+            <returns>A value equivalent to <c>And(2^bigBitCount - 1)</c>.</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='bigBitCount'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.LowBits(System.Int32)">
 
-        <summary>Extracts the lowest bits of this integer. This is
+            <summary>Extracts the lowest bits of this integer. This is
             equivalent to <c>And(2^bitCount - 1)</c>, but is more efficient
             when this integer is non-negative and bitCount's value is
-            large.</summary><param name='bitCount'>The number of bits to extract from the lowest part of this integer.</param><returns>A value equivalent to <c>And(2^bitCount - 1)</c>.</returns>
+            large.</summary>
+            <param name='bitCount'>The number of bits to extract from the
+            lowest part of this integer.</param>
+            <returns>A value equivalent to <c>And(2^bitCount - 1)</c>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.LowBits(System.Int64)">
 
-        <summary>Extracts the lowest bits of this integer. This is
+            <summary>Extracts the lowest bits of this integer. This is
             equivalent to <c>And(2^longBitCount - 1)</c>, but is more
             efficient when this integer is non-negative and longBitCount's
-            value is large.</summary><param name='longBitCount'>The number of bits to extract from the lowest part of this integer.</param><returns>A value equivalent to <c>And(2^longBitCount - 1)</c>.</returns>
+            value is large.</summary>
+            <param name='longBitCount'>The number of bits to extract from the
+            lowest part of this integer.</param>
+            <returns>A value equivalent to <c>And(2^longBitCount - 1)</c>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Max(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
@@ -11655,6 +11669,13 @@
             <returns>The result. Returns 1 if <paramref name='powerSmall'/> is
             0.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Pow(System.Int64)">
+<summary>Raises an arbitrary-precision integer to a
+            power.</summary><param name='longPower'>The exponent to raise this integer
+            to.</param><returns>The result. Returns 1 if <paramref name='longPower'/> is
+            0.</returns><exception cref='ArgumentException'>BigPower is
+            negative.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.PowBigIntVar(PeterO.Numbers.EInteger)">
 
@@ -12979,7 +13000,9 @@
             and properties are equal to those of another object and that other
             object is an arbitrary-precision rational number. Not-a-number
             values are considered equal if the rest of their properties are
-            equal.</summary>
+            equal.  This is not the same as value equality.  Notably, two ERationals
+            with the same value, but of which one is in lowest terms and the other
+            is not, are compared as unequal by this method (example: 1/2 vs. 5/10).</summary>
             <param name='obj'>The parameter <paramref name='obj'/> is an
             arbitrary object.</param>
             <returns><c>true</c> if the objects are equal; otherwise, <c>false</c>. In this method, two objects are not equal if they
@@ -14099,7 +14122,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToSingleBits">
 
-            <summary>Converts this value to its closest equivalent as 32-bit
+            <summary>Converts this value to its closest equivalent as a32-bit
             floating-point number, expressed as an integer in the IEEE 754
             binary32 format. The half-even rounding mode is used.
             <para>If this value is a NaN, sets the high bit of the 32-bit

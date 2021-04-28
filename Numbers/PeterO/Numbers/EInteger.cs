@@ -2956,8 +2956,8 @@ namespace PeterO.Numbers {
     /// name='bigintSecond'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <exception cref='ArgumentException'>bigPower
-    /// is negative.</exception>
+    /// <exception cref='ArgumentException'>BigPower is
+    /// negative.</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
         throw new ArgumentNullException(nameof(bigintSecond));
@@ -4779,7 +4779,7 @@ maxDigitEstimate : retval +
     /// to.</param>
     /// <returns>The result. Returns 1 if <paramref name='longPower'/> is
     /// 0.</returns>
-    /// <exception cref='ArgumentException'>bigPower is
+    /// <exception cref='ArgumentException'>BigPower is
     /// negative.</exception>
     public EInteger Pow(long longPower) {
       if (longPower < 0) {
