@@ -1393,6 +1393,7 @@ namespace PeterO.Numbers {
               error.AddInt(6);
               error.AddBig(ctx.Precision);
               bigError = error.ToEInteger();
+              // DebugUtility.Log("LnInternalCloseToOne error="+error);
               // DebugUtility.Log("LnInternalCloseToOne B " +(thisValue as
               // EDecimal)?.ToDouble());
               thisValue = this.LnInternalCloseToOne2(
@@ -1494,13 +1495,10 @@ namespace PeterO.Numbers {
             bigError = error.ToEInteger();
             EInteger cprec = EInteger.Max(bounds[1].ToEInteger(), ctx.Precision)
               .Add(bigError);
+            // DebugUtility.Log("cprec prec " + (// ctx.Precision) + " bounds " +
+            //(bounds[1].ToEInteger()));
             ctxdiv = SetPrecisionIfLimited(ctx, cprec)
               .WithRounding(intermedRounding).WithBlankFlags();
-            T smallfrac = (ctxdiv.Precision.CompareTo(400) > 0) ?
-              this.Divide(one, this.helper.ValueOf(1000000), ctxdiv) :
-              this.Divide(one, this.helper.ValueOf(200), ctxdiv);
-            T closeToOne = this.Add(one, smallfrac, null);
-            // DebugUtility.Log("Before Ln " +thisValue);
             T oldThisValue = thisValue;
             // Take square root until this value
             // is close to 1
@@ -1508,10 +1506,15 @@ namespace PeterO.Numbers {
               thisValue = this.SquareRoot(
                   thisValue,
                   ctxdiv.WithUnlimitedExponents());
-              // DebugUtility.Log("--> " +thisValue);
               roots.Increment();
             }
-            for (int i = 0; i < 8; ++i) {
+            var iterCount = 8;
+            if (this.helper.GetRadix() == 2 && cprec.CompareTo(300) > 0) {
+              iterCount = 36;
+            } else if (this.helper.GetRadix() > 2 && cprec.CompareTo(100) > 0) {
+              iterCount = 36;
+            }
+            for (int i = 0; i < iterCount; ++i) {
               thisValue = this.SquareRoot(
                   thisValue,
                   ctxdiv.WithUnlimitedExponents());
@@ -1520,9 +1523,15 @@ namespace PeterO.Numbers {
             }
             // DebugUtility.Log("rootcount="+roots);
             // Find -Ln(1/thisValue)
-            // DebugUtility.Log("LnInternalCloseToOne C " + thisValue);
-            thisValue = this.Divide(one, thisValue, ctxdiv);
-            // DebugUtility.Log("LnInternalCloseToOne C " + thisValue);
+            /*if (thisValue is EDecimal) {
+   DebugUtility.Log("LnInternalCloseToOne C " + ((thisValue as
+EDecimal)?.ToDouble()));
+ } else {
+ DebugUtility.Log("LnInternalCloseToOne C " + ((thisValue as
+EFloat)?.ToDouble()));
+}
+            */ thisValue = this.Divide(one, thisValue, ctxdiv);
+            // DebugUtility.Log("LnInternalCloseToOne C prec " + ctxdiv.Precision);
             thisValue = this.LnInternalCloseToOne2(
                 thisValue,
                 ctxdiv.Precision,
@@ -2366,12 +2375,13 @@ namespace PeterO.Numbers {
       EInteger upperBoundInt = NumberUtility.IntegerDigitLengthUpperBound(
          this.helper,
          powInt);
+      upperBoundInt = EInteger.Min(EInteger.FromInt32(50), upperBoundInt);
       EInteger guardDigits = this.WorkingDigits(EInteger.FromInt32(15));
       guardDigits = guardDigits.Add(upperBoundInt);
-      //DebugUtility.Log("guardDigits=" + guardDigits +
-      // " upperBoundInt=" + upperBoundInt +
-      // " powint=" + powInt);
-      EContext ctxdiv = SetPrecisionIfLimited(
+      /*if (upperBoundInt.CompareTo(50) > 0) {
+      DebugUtility.Log("guardDigits=" + guardDigits +
+        " upperBoundInt=" + upperBoundInt + " powint=" + powInt);
+      }*/ EContext ctxdiv = SetPrecisionIfLimited(
           ctx,
           ctx.Precision + guardDigits);
       if (ctx.Rounding != ERounding.Ceiling &&
@@ -4779,7 +4789,7 @@ namespace PeterO.Numbers {
       var vacillations = 0;
       string dbg = String.Empty;
       // if (thisValue is EDecimal) {
-      // dbg="" + ((EDecimal)thisValue).ToDouble();
+      // dbg="" + (thisValue as EDecimal)?.ToDouble();
       // }
       // DebugUtility.Log("workingprec=" + workingPrecision);
       EContext ctxdiv = SetPrecisionIfLimited(

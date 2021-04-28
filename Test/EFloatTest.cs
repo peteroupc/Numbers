@@ -982,9 +982,12 @@ namespace Test {
     }
     [Test]
     public void TestLogExpSpecificF() {
-      EFloat efa = EFloat.Create(7894203448763243L, 790).Log(EContext.Binary64);
+      EFloat efaa = EFloat.Create(7894203448763243L, 790);
+      EFloat efa = efaa.Log(EContext.Binary64);
+      EInteger mant = efa.Mantissa;
+      Assert.IsTrue(mant.Abs().GetUnsignedBitLengthAsInt64() <= 53);
       EFloat efb = EFloat.Create(642324992820697L, -40);
-      String str = OutputEF(efb) + "\n" + OutputEF(efa);
+      String str = OutputEF(efb) + "\n" + OutputEF(efa) + "\n" + efaa;
       TestCommon.CompareTestEqual(efb, efa, str);
     }
     [Test]

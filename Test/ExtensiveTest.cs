@@ -38,10 +38,11 @@ namespace Test {
     }
 
     [Test]
-    [Timeout(200000)]
+    [Timeout(300000)]
     public void TestParser() {
       var errors = new List<string>();
       var dirfiles = new List<string>();
+      var slowlines = new List<string>();
       var sw = new System.Diagnostics.Stopwatch();
       sw.Start();
       var valueSwProcessing = new System.Diagnostics.Stopwatch();
@@ -49,7 +50,6 @@ namespace Test {
       var x = 0;
       dirfiles.AddRange(GetTestFiles());
       foreach (var f in dirfiles) {
-        Console.WriteLine((sw.ElapsedMilliseconds / 1000.0) + " " + f);
         ++x;
         var context = new Dictionary<string, string>();
         var lowerF = DecTestUtil.ToLowerCaseAscii(f);
@@ -60,16 +60,26 @@ namespace Test {
           !DecTestUtil.Contains(lowerF, ".fptest")) {
           continue;
         }
-        int i=0;
+        Console.WriteLine((sw.ElapsedMilliseconds / 1000.0) + " " + f);
+        var i = 0;
         using (var w = new StreamReader(f)) {
           while (!w.EndOfStream) {
             var ln = w.ReadLine();
-            if(i%40==0)
-               Console.WriteLine(ln);
-            i+=1;
+            ++i;
+            double em = sw.ElapsedMilliseconds / 1000.0;
             valueSwProcessing.Start();
             DecTestUtil.ParseDecTest(ln, context);
             valueSwProcessing.Stop();
+            double em2 = sw.ElapsedMilliseconds / 1000.0;
+            if (em2 - em > 1) {
+              foreach (var k in context.Keys) {
+                  slowlines.Add(k + ": " + context[k]);
+                }
+                slowlines.Add(ln);
+              Console.WriteLine(
+                  ln.Substring(0, Math.Min(ln.Length, 200)));
+                Console.WriteLine("Processing time: " + (em2 - em) + " s");
+            }
           }
         }
       }
@@ -82,6 +92,7 @@ namespace Test {
       // Ratio of number processing time to total running time
       Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *
           100.0 / sw.ElapsedMilliseconds) + "%");
+      // System.IO.File.WriteAllLines("slow.dectest",slowlines.ToArray());
     }
   }
 }
