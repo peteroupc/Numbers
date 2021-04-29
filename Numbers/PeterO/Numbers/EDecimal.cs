@@ -1103,7 +1103,7 @@ namespace PeterO.Numbers {
     /// instead.</returns>
     public static EDecimal FromInt64AsUnsigned(long longerValue) {
       return longerValue >= 0 ? FromInt64(longerValue) :
-           FromEInteger(EInteger.FromInt64AsUnsigned(longerValue));
+        FromEInteger(EInteger.FromInt64AsUnsigned(longerValue));
     }
 
     /// <summary>Creates an arbitrary-precision decimal number from a
@@ -1363,7 +1363,12 @@ namespace PeterO.Numbers {
       if (chars == null) {
         throw new ArgumentNullException(nameof(chars));
       }
-      return EDecimalCharArrayString.FromString(chars, offset, length, ctx);
+      return EDecimalCharArrayString.FromString(
+          chars,
+          offset,
+          length,
+          ctx,
+          true);
     }
 
     /// <summary>Creates an arbitrary-precision decimal number from a
@@ -1499,7 +1504,12 @@ namespace PeterO.Numbers {
       if (bytes == null) {
         throw new ArgumentNullException(nameof(bytes));
       }
-      return EDecimalByteArrayString.FromString(bytes, offset, length, ctx);
+      return EDecimalByteArrayString.FromString(
+          bytes,
+          offset,
+          length,
+          ctx,
+          true);
     }
 
     /// <summary>Creates an arbitrary-precision decimal number from a text
@@ -1632,7 +1642,7 @@ namespace PeterO.Numbers {
       if (str == null) {
         throw new ArgumentNullException(nameof(str));
       }
-      return EDecimalTextString.FromString(str, offset, length, ctx);
+      return EDecimalTextString.FromString(str, offset, length, ctx, true);
     }
 
     internal static EDecimal SignalUnderflow(EContext ec, bool negative, bool

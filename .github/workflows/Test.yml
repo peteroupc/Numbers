@@ -1,5 +1,5 @@
 # NOTE by Peter O:
-# This file was contributed by GitHub user Happypig375
+# Modified from a file that was contributed by GitHub user Happypig375
 # at: https://github.com/peteroupc/Numbers/pull/10
 name: Test
 
@@ -17,10 +17,10 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.301'
+        dotnet-version: '2.2.402'
     - name: Test
       run: |
         dotnet add Test package Microsoft.NET.Test.Sdk # Update is required for GitHubActionsTestLogger to print anything
         dotnet add Test package GitHubActionsTestLogger
         dotnet add Test package NUnit3TestAdapter
-        dotnet test Test -c Release -l GitHubActions
+        dotnet test Test -c Release

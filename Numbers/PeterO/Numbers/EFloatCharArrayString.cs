@@ -7,29 +7,50 @@ namespace PeterO.Numbers {
       char[] chars,
       int offset,
       int length,
-      EContext ctx) {
+      EContext ctx,
+      bool throwException) {
       if (chars == null) {
-        throw new ArgumentNullException(nameof(chars));
+        if (!throwException) {
+          return null;
+        } else {
+          throw new ArgumentNullException(nameof(chars));
+        }
       }
       if (offset < 0) {
-        throw new FormatException("offset(" + offset + ") is not greater" +
-          "\u0020or equal to 0");
+        if (!throwException) {
+          return null;
+        } else { throw new FormatException("offset(" + offset + ") is not" +
+"\u0020greater" + "\u0020or equal to 0");
+}
       }
       if (offset > chars.Length) {
-        throw new FormatException("offset(" + offset + ") is not less or" +
-          "\u0020equal to " + chars.Length);
+        if (!throwException) {
+          return null;
+        } else { throw new FormatException("offset(" + offset + ") is not" +
+"\u0020less" + "\u0020or" + "\u0020equal to " + chars.Length);
+}
       }
       if (length < 0) {
-        throw new FormatException("length(" + length + ") is not greater or" +
-          "\u0020equal to 0");
+        if (!throwException) {
+          return null;
+        } else { throw new FormatException("length(" + length + ") is not" +
+"\u0020greater or" + "\u0020equal to 0");
+}
       }
       if (length > chars.Length) {
-        throw new FormatException("length(" + length + ") is not less or" +
-          "\u0020equal to " + chars.Length);
+        if (!throwException) {
+          return null;
+        } else { throw new FormatException("length(" + length + ") is not" +
+"\u0020less" + "\u0020or" + "\u0020equal to " + chars.Length);
+}
       }
       if (chars.Length - offset < length) {
-        throw new FormatException("str's length minus " + offset + "(" +
-          (chars.Length - offset) + ") is not greater or equal to " + length);
+        if (!throwException) {
+          return null;
+        } else {
+  throw new FormatException("str's length minus " + offset + "(" +
+(chars.Length - offset) + ") is not greater or equal to " + length);
+ }
       }
       EContext b64 = EContext.Binary64;
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
@@ -39,14 +60,23 @@ namespace PeterO.Numbers {
         int tmpoffset = offset;
         int endpos = offset + length;
         if (length == 0) {
-          throw new FormatException();
+          if (!throwException) {
+            return null;
+          } else {
+            throw new FormatException();
+          }
         }
         if (chars[tmpoffset] == '-' || chars[tmpoffset] == '+') {
           ++tmpoffset;
         }
         if (tmpoffset < endpos && ((chars[tmpoffset] >= '0' &&
               chars[tmpoffset] <= '9') || chars[tmpoffset] == '.')) {
-          EFloat ef = DoubleEFloatFromString(chars, offset, length, ctx);
+          EFloat ef = DoubleEFloatFromString(
+            chars,
+            offset,
+            length,
+            ctx,
+            throwException);
           if (ef != null) {
             return ef;
           }
@@ -64,13 +94,22 @@ namespace PeterO.Numbers {
       char[] chars,
       int offset,
       int length,
-      EContext ctx) {
+      EContext ctx,
+      bool throwException) {
       int tmpoffset = offset;
       if (chars == null) {
-        throw new ArgumentNullException(nameof(chars));
+        if (!throwException) {
+          return null;
+        } else {
+          throw new ArgumentNullException(nameof(chars));
+        }
       }
       if (length == 0) {
-        throw new FormatException();
+        if (!throwException) {
+          return null;
+        } else {
+          throw new FormatException();
+        }
       }
       int endStr = tmpoffset + length;
       var negative = false;
@@ -150,7 +189,11 @@ namespace PeterO.Numbers {
           }
         } else if (ch == '.') {
           if (haveDecimalPoint) {
-            throw new FormatException();
+            if (!throwException) {
+              return null;
+            } else {
+              throw new FormatException();
+            }
           }
           haveDecimalPoint = true;
           decimalDigitStart = i + 1;
@@ -160,11 +203,19 @@ namespace PeterO.Numbers {
           ++i;
           break;
         } else {
-          throw new FormatException();
+          if (!throwException) {
+            return null;
+          } else {
+            throw new FormatException();
+          }
         }
       }
       if (!haveDigits) {
-        throw new FormatException();
+        if (!throwException) {
+          return null;
+        } else {
+          throw new FormatException();
+        }
       }
       var expInt = 0;
       var expoffset = 1;
@@ -176,7 +227,11 @@ namespace PeterO.Numbers {
       if (haveExponent) {
         haveDigits = false;
         if (i == endStr) {
-          throw new FormatException();
+          if (!throwException) {
+            return null;
+          } else {
+            throw new FormatException();
+          }
         }
         char ch = chars[i];
         if (ch == '+' || ch == '-') {
@@ -202,11 +257,19 @@ namespace PeterO.Numbers {
               expInt = Int32.MaxValue;
             }
           } else {
-            throw new FormatException();
+            if (!throwException) {
+              return null;
+            } else {
+              throw new FormatException();
+            }
           }
         }
         if (!haveDigits) {
-          throw new FormatException();
+          if (!throwException) {
+            return null;
+          } else {
+            throw new FormatException();
+          }
         }
         expInt *= expoffset;
         if (expPrec > 12) {
@@ -220,7 +283,11 @@ namespace PeterO.Numbers {
         }
       }
       if (i != endStr) {
-        throw new FormatException();
+        if (!throwException) {
+          return null;
+        } else {
+          throw new FormatException();
+        }
       }
       if (expInt != Int32.MaxValue && expInt > -Int32.MaxValue &&
         mantissaLong != Int64.MaxValue && (ctx == null ||
@@ -315,14 +382,14 @@ namespace PeterO.Numbers {
               decimalDigitStart,
               decimalDigitEnd);
         } else {
-        char[] ctmpstr = Extras.CharsConcat(
-          chars,
-          digitStart,
-          digitEnd - digitStart,
-          chars,
-          decimalDigitStart,
-          decimalDigitEnd - decimalDigitStart);
-        mant = EInteger.FromString(ctmpstr);
+          char[] ctmpstr = Extras.CharsConcat(
+              chars,
+              digitStart,
+              digitEnd - digitStart,
+              chars,
+              decimalDigitStart,
+              decimalDigitEnd - decimalDigitStart);
+          mant = EInteger.FromString(ctmpstr);
         }
       } else {
         mant = EInteger.FromSubstring(chars, digitStart, digitEnd);

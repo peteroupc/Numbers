@@ -1496,7 +1496,7 @@ namespace PeterO.Numbers {
             EInteger cprec = EInteger.Max(bounds[1].ToEInteger(), ctx.Precision)
               .Add(bigError);
             // DebugUtility.Log("cprec prec " + (// ctx.Precision) + " bounds " +
-            //(bounds[1].ToEInteger()));
+            // (bounds[1].ToEInteger()));
             ctxdiv = SetPrecisionIfLimited(ctx, cprec)
               .WithRounding(intermedRounding).WithBlankFlags();
             T oldThisValue = thisValue;
@@ -2297,13 +2297,12 @@ EFloat)?.ToDouble()));
               return this.SignalInvalid(ctx);
             }
             signedMant = this.helper.GetMantissa(powInt).Abs();
-            // Use this line rather than commented line because in this case, where
-            // thisValue is 1 and power is a negative integer, the reciprocal of 1
-            // is used, which will have an exponent of 0, according to the
-            // General Decimal Arithmetic Specification
             if (powSign < 0) {
-               return this.PowerIntegral(this.helper.ValueOf(1), signedMant,
-  ctx);
+               // Use this line because in this case, where
+               // thisValue is 1 and power is a negative integer, the reciprocal of 1
+               // is used, which will have an exponent of 0, according to the
+               // General Decimal Arithmetic Specification
+               return this.PowerIntegral(this.helper.ValueOf(1), signedMant, ctx);
             } else {
                return this.PowerIntegral(thisValue, signedMant, ctx);
             }

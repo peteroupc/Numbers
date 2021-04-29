@@ -627,7 +627,8 @@ namespace PeterO.Numbers {
           str,
           radix,
           index,
-          endIndex);
+          endIndex,
+          true);
     }
 
     /// <summary>Converts a portion of a sequence of <c>char</c> s to an
@@ -757,7 +758,8 @@ namespace PeterO.Numbers {
           cs,
           radix,
           index,
-          endIndex);
+          endIndex,
+          true);
     }
 
     /// <summary>Converts a portion of a sequence of bytes (interpreted as
@@ -897,7 +899,8 @@ namespace PeterO.Numbers {
           bytes,
           radix,
           index,
-          endIndex);
+          endIndex,
+          true);
     }
 
     /// <summary>Converts a string to an arbitrary-precision

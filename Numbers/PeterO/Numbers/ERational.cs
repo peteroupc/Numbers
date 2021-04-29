@@ -599,7 +599,7 @@ PositiveInfinity) : CreateNaN(
       string str,
       int offset,
       int length) {
-       return ERationalTextString.FromString(str, offset, length);
+       return ERationalTextString.FromString(str, offset, length, true);
     }
 
     /// <summary>Creates a rational number from a sequence of <c>char</c> s
@@ -662,7 +662,7 @@ PositiveInfinity) : CreateNaN(
       char[] chars,
       int offset,
       int length) {
-       return ERationalCharArrayString.FromString(chars, offset, length);
+       return ERationalCharArrayString.FromString(chars, offset, length, true);
     }
 
     /// <summary>Creates a rational number from a sequence of bytes that
@@ -725,7 +725,7 @@ PositiveInfinity) : CreateNaN(
       byte[] bytes,
       int offset,
       int length) {
-       return ERationalByteArrayString.FromString(bytes, offset, length);
+       return ERationalByteArrayString.FromString(bytes, offset, length, true);
     }
 
     /// <summary>Compares the absolute values of this object and another
@@ -1567,9 +1567,10 @@ PositiveInfinity) : CreateNaN(
     /// and properties are equal to those of another object and that other
     /// object is an arbitrary-precision rational number. Not-a-number
     /// values are considered equal if the rest of their properties are
-    /// equal.  This is not the same as value equality.  Notably, two ERationals
-    /// with the same value, but of which one is in lowest terms and the other
-    /// is not, are compared as unequal by this method (example: 1/2 vs. 5/10).</summary>
+    /// equal. This is not the same as value equality. Notably, two
+    /// ERationals with the same value, but of which one is in lowest terms
+    /// and the other is not, are compared as unequal by this method
+    /// (example: 1/2 vs. 5/10).</summary>
     /// <param name='obj'>The parameter <paramref name='obj'/> is an
     /// arbitrary object.</param>
     /// <returns><c>true</c> if the objects are equal; otherwise,

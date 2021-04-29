@@ -9,43 +9,75 @@ namespace PeterO.Numbers {
       byte[] cs,
       int radix,
       int index,
-      int endIndex) {
+      int endIndex,
+      bool throwException) {
       if (radix < 2) {
-        throw new ArgumentException("radix(" + radix +
-          ") is less than 2");
+        if (!throwException) {
+          return null;
+        } else {
+  throw new ArgumentException("radix(" + radix + ") is less than 2");
+ }
       }
       if (radix > 36) {
-        throw new ArgumentException("radix(" + radix +
-          ") is more than 36");
+        if (!throwException) {
+          return null;
+        } else {
+  throw new ArgumentException("radix(" + radix + ") is more than 36");
+ }
       }
       if (index < 0) {
-        throw new ArgumentException("index(" + index + ") is less than " +
-          "0");
+        if (!throwException) {
+          return null;
+        } else {
+  throw new ArgumentException("index(" + index + ") is less than " + "0");
+ }
       }
       if (index > cs.Length) {
-        throw new ArgumentException("index(" + index + ") is more than " +
-          cs.Length);
+        if (!throwException) {
+          return null;
+        } else {
+  throw new ArgumentException("index(" + index + ") is more than " + cs.Length);
+ }
       }
       if (endIndex < 0) {
-        throw new ArgumentException("endIndex(" + endIndex +
-          ") is less than 0");
+        if (!throwException) {
+          return null;
+        } else {
+  throw new ArgumentException("endIndex(" + endIndex + ") is less than 0");
+ }
       }
       if (endIndex > cs.Length) {
-        throw new ArgumentException("endIndex(" + endIndex +
-          ") is more than " + cs.Length);
+        if (!throwException) {
+          return null;
+        } else {
+  throw new ArgumentException("endIndex(" + endIndex + ") is more than " +
+cs.Length);
+ }
       }
       if (endIndex < index) {
-        throw new ArgumentException("endIndex(" + endIndex +
-          ") is less than " + index);
+        if (!throwException) {
+          return null;
+        } else {
+  throw new ArgumentException("endIndex(" + endIndex + ") is less than " +
+index);
+ }
       }
       if (index == endIndex) {
-        throw new FormatException("No digits");
+        if (!throwException) {
+          return null;
+        } else {
+          throw new FormatException("No digits");
+        }
       }
       var negative = false;
       if (cs[index] == '-') {
         ++index;
         if (index == endIndex) {
-          throw new FormatException("No digits");
+          if (!throwException) {
+            return null;
+          } else {
+            throw new FormatException("No digits");
+          }
         }
         negative = true;
       }
@@ -80,7 +112,11 @@ namespace PeterO.Numbers {
             byte c = cs[index + i];
             int digit = (c >= 0x80) ? 36 : c2d[(int)c];
             if (digit >= 16) {
-              throw new FormatException("Illegal character found");
+              if (!throwException) {
+                return null;
+              } else {
+                throw new FormatException("Illegal character found");
+              }
             }
             extraWord |= digit;
           }
@@ -90,35 +126,55 @@ namespace PeterO.Numbers {
         }
         #if DEBUG
         if ((endIndex - index) % 4 != 0) {
-          throw new InvalidOperationException(
-            "doesn't satisfy (endIndex - index) % 4 == 0");
+          if (!throwException) {
+            return null;
+          } else {
+  throw new InvalidOperationException("doesn't satisfy (endIndex - index) %" +
+"\u00204 == 0");
+ }
         }
         #endif
         while (index < endIndex) {
           byte c = cs[index + 3];
           int digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= 16) {
-            throw new FormatException("Illegal character found");
+            if (!throwException) {
+              return null;
+            } else {
+              throw new FormatException("Illegal character found");
+            }
           }
           int word = digit;
           c = cs[index + 2];
           digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= 16) {
-            throw new FormatException("Illegal character found");
+            if (!throwException) {
+              return null;
+            } else {
+              throw new FormatException("Illegal character found");
+            }
           }
 
           word |= digit << 4;
           c = cs[index + 1];
           digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= 16) {
-            throw new FormatException("Illegal character found");
+            if (!throwException) {
+              return null;
+            } else {
+              throw new FormatException("Illegal character found");
+            }
           }
 
           word |= digit << 8;
           c = cs[index];
           digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= 16) {
-            throw new FormatException("Illegal character found");
+            if (!throwException) {
+              return null;
+            } else {
+              throw new FormatException("Illegal character found");
+            }
           }
           word |= digit << 12;
           index += 4;
@@ -148,7 +204,11 @@ namespace PeterO.Numbers {
             byte c = cs[index + i];
             int digit = (c == '0') ? 0 : ((c == '1') ? 1 : 2);
             if (digit >= 2) {
-              throw new FormatException("Illegal character found");
+              if (!throwException) {
+                return null;
+              } else {
+                throw new FormatException("Illegal character found");
+              }
             }
             extraWord |= digit;
           }
@@ -163,7 +223,11 @@ namespace PeterO.Numbers {
             byte c = cs[idx];
             int digit = (c == '0') ? 0 : ((c == '1') ? 1 : 2);
             if (digit >= 2) {
-              throw new FormatException("Illegal character found");
+              if (!throwException) {
+                return null;
+              } else {
+                throw new FormatException("Illegal character found");
+              }
             }
             --idx;
             word |= digit << i;
@@ -179,11 +243,12 @@ namespace PeterO.Numbers {
             negative);
       } else {
         return FromRadixSubstringGeneral(
-            cs,
-            radix,
-            index,
-            endIndex,
-            negative);
+          cs,
+          radix,
+          index,
+          endIndex,
+          negative,
+          throwException);
       }
     }
 
@@ -192,22 +257,25 @@ namespace PeterO.Numbers {
       int radix,
       int index,
       int endIndex,
-      bool negative) {
+      bool negative,
+      bool throwException) {
       if (endIndex - index > 72) {
         int midIndex = index + ((endIndex - index) / 2);
         EInteger eia = FromRadixSubstringGeneral(
-            cs,
-            radix,
-            index,
-            midIndex,
-            false);
+          cs,
+          radix,
+          index,
+          midIndex,
+          false,
+          throwException);
         // DebugUtility.Log("eia="+eia);
         EInteger eib = FromRadixSubstringGeneral(
-            cs,
-            radix,
-            midIndex,
-            endIndex,
-            false);
+          cs,
+          radix,
+          midIndex,
+          endIndex,
+          false,
+          throwException);
         // DebugUtility.Log("eib="+eib);
         EInteger mult = null;
         int intpow = endIndex - midIndex;
@@ -230,7 +298,13 @@ namespace PeterO.Numbers {
         // DebugUtility.Log("eia now="+eia);
         return eia;
       } else {
-        return FromRadixSubstringInner(cs, radix, index, endIndex, negative);
+        return FromRadixSubstringInner(
+          cs,
+          radix,
+          index,
+          endIndex,
+          negative,
+          throwException);
       }
     }
 
@@ -239,7 +313,8 @@ namespace PeterO.Numbers {
       int radix,
       int index,
       int endIndex,
-      bool negative) {
+      bool negative,
+      bool throwException) {
       if (radix <= 10) {
         long rv = 0;
         var digitCount = 0;
@@ -248,7 +323,11 @@ namespace PeterO.Numbers {
             byte c = cs[i];
             var digit = (int)c - 0x30;
             if (digit >= radix || digit < 0) {
-              throw new FormatException("Illegal character found");
+              if (!throwException) {
+                return null;
+              } else {
+                throw new FormatException("Illegal character found");
+              }
             }
             if (digitCount < 0 || digitCount >= 18) {
               digitCount = -1;
@@ -267,7 +346,11 @@ namespace PeterO.Numbers {
             byte c = cs[i];
             int digit = (c >= 0x80) ? 36 : ((int)c - 0x30);
             if (digit >= radix || digit < 0) {
-              throw new FormatException("Illegal character found");
+              if (!throwException) {
+                return null;
+              } else {
+                throw new FormatException("Illegal character found");
+              }
             }
             if (digitCount < 0 || digitCount >= 18) {
               digitCount = -1;
@@ -295,7 +378,11 @@ namespace PeterO.Numbers {
           byte c = cs[i];
           var digit = (int)c - 0x30;
           if (digit >= radix || digit < 0) {
-            throw new FormatException("Illegal character found");
+            if (!throwException) {
+              return null;
+            } else {
+              throw new FormatException("Illegal character found");
+            }
           }
           rv = (rv * 10) + digit;
         }
@@ -317,14 +404,18 @@ namespace PeterO.Numbers {
             i += 3;
             if (d1 >= 10 || d1 < 0 || d2 >= 10 || d2 < 0 || d3 >= 10 ||
               d3 < 0 || d4 >= 10 || d4 < 0) {
-              throw new FormatException("Illegal character found");
+              if (!throwException) {
+                return null;
+              } else {
+                throw new FormatException("Illegal character found");
+              }
             }
             digit = (d1 * 1000) + (d2 * 100) + (d3 * 10) + d4;
             // Multiply by 10**4
             for (int j = 0; j < bn; ++j) {
               int p;
               p = unchecked((((int)bigint[j]) & ShortMask) *
-10000);
+                  10000);
               int p2 = ((int)carry) & ShortMask;
               p = unchecked(p + p2);
               bigint[j] = unchecked((short)p);
@@ -335,7 +426,11 @@ namespace PeterO.Numbers {
             byte c = cs[i];
             digit = (int)c - 0x30;
             if (digit >= 10 || digit < 0) {
-              throw new FormatException("Illegal character found");
+              if (!throwException) {
+                return null;
+              } else {
+                throw new FormatException("Illegal character found");
+              }
             }
             // Multiply by 10
             for (int j = 0; j < bn; ++j) {
@@ -375,16 +470,20 @@ namespace PeterO.Numbers {
           byte c = cs[i];
           int digit = (c >= 0x80) ? 36 : c2d[(int)c];
           if (digit >= radix) {
-            throw new FormatException("Illegal character found");
+            if (!throwException) {
+              return null;
+            } else {
+              throw new FormatException("Illegal character found");
+            }
           }
           if (haveSmallInt && smallInt < maxSafeInt) {
             smallInt = (smallInt * radix) + digit;
           } else {
             if (haveSmallInt) {
               bigint[0] = unchecked((short)(smallInt &
-ShortMask));
+                    ShortMask));
               bigint[1] = unchecked((short)((smallInt >> 16) &
-ShortMask));
+                    ShortMask));
               haveSmallInt = false;
             }
             // Multiply by the radix
@@ -393,7 +492,7 @@ ShortMask));
             for (int j = 0; j < n; ++j) {
               int p;
               p = unchecked((((int)bigint[j]) & ShortMask) *
-radix);
+                  radix);
               int p2 = ((int)carry) & ShortMask;
               p = unchecked(p + p2);
               bigint[j] = unchecked((short)p);
@@ -420,7 +519,7 @@ radix);
         if (haveSmallInt) {
           bigint[0] = unchecked((short)(smallInt & ShortMask));
           bigint[1] = unchecked((short)((smallInt >> 16) &
-ShortMask));
+                ShortMask));
         }
       }
       int count = EInteger.CountWords(bigint);
@@ -429,5 +528,5 @@ ShortMask));
           bigint,
           negative);
     }
-}
+  }
 }

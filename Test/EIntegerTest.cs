@@ -431,7 +431,7 @@ namespace Test {
     [Test]
     public void TestLowBits() {
        var r = new RandomGenerator();
-       int[] ints = {0, 1, 3, 5, 16, 32, 33, 37, 100, 1000, 10000, 100000 };
+       int[] ints = { 0, 1, 3, 5, 16, 32, 33, 37, 100, 1000, 10000, 100000 };
        EInteger eia = EInteger.One.ShiftLeft(100);
        EInteger eib = EInteger.One.ShiftLeft(1000);
        EInteger eic = EInteger.One.ShiftLeft(10000);

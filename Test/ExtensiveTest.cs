@@ -22,7 +22,7 @@ namespace Test {
     public static string[] GetTestFiles() {
       try {
         var path = Path.GetDirectoryName(
-              System.Reflection.Assembly.GetExecutingAssembly().Location);
+            System.Reflection.Assembly.GetExecutingAssembly().Location);
         var list = new List<string>(
           Directory.GetFiles(path));
         list.Sort();
@@ -73,12 +73,12 @@ namespace Test {
             double em2 = sw.ElapsedMilliseconds / 1000.0;
             if (em2 - em > 1) {
               foreach (var k in context.Keys) {
-                  slowlines.Add(k + ": " + context[k]);
-                }
-                slowlines.Add(ln);
+                slowlines.Add(k + ": " + context[k]);
+              }
+              slowlines.Add(ln);
               Console.WriteLine(
-                  ln.Substring(0, Math.Min(ln.Length, 200)));
-                Console.WriteLine("Processing time: " + (em2 - em) + " s");
+                ln.Substring(0, Math.Min(ln.Length, 200)));
+              Console.WriteLine("Processing time: " + (em2 - em) + " s");
             }
           }
         }

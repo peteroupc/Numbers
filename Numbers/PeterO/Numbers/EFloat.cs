@@ -803,7 +803,7 @@ namespace PeterO.Numbers {
       int offset,
       int length,
       EContext ctx) {
-      return EFloatTextString.FromString(str, offset, length, ctx);
+      return EFloatTextString.FromString(str, offset, length, ctx, true);
     }
 
     /// <summary>Creates a binary floating-point number from a text string
@@ -931,7 +931,7 @@ namespace PeterO.Numbers {
       int offset,
       int length,
       EContext ctx) {
-      return EFloatCharArrayString.FromString(chars, offset, length, ctx);
+      return EFloatCharArrayString.FromString(chars, offset, length, ctx, true);
     }
 
     /// <summary>Creates a binary floating-point number from a sequence of
@@ -1054,7 +1054,7 @@ namespace PeterO.Numbers {
       int offset,
       int length,
       EContext ctx) {
-      return EFloatByteArrayString.FromString(bytes, offset, length, ctx);
+      return EFloatByteArrayString.FromString(bytes, offset, length, ctx, true);
     }
 
     /// <summary>Creates a binary floating-point number from a sequence of

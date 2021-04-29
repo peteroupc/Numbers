@@ -1,21 +1,8 @@
 <package
-><metadata><version>1.7.3</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.7.3
+><metadata><version>1.8.0</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.8
 
-- Fix bugs and regressions involving EInteger&apos;s Pow, Root, and new Gcd
-
-Version 1.7.2
-
-- Improve performance of EInteger&apos;s Gcd method for large integers
-
-Version 1.7.1
-
-- Fix bugs in new char[] and byte[] overloads of FromString
-
-Version 1.7.0
-
-- Added overloads to string-to-number methods that take char[] and byte[] arrays.
-- Added methods that convert EDecimal, EFloat, and ERational to and from raw bits that follow IEEE 754 binary floating-point formats (To/FromDoubleBits, To/FromSingleBits).
-- Added Log1P and ExpM1 methods to EDecimal and EFloat
-- Added &apos;long&apos; overloads to several arithmetic methods
-- Added implication and equivalence (Imp/Eqv) methods and an nth-root method to EInteger</releaseNotes><summary></summary><license type='expression'>CC0-1.0</license><projectUrl>https://github.com/peteroupc/Numbers</projectUrl><authors>Peter Occil</authors><description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</description><owners>Peter Occil</owners><title>Arbitrary-Precision Number Library</title><tags>numbers arithmetic decimal math</tags><dependencies><group targetFramework='.NETStandard1.0' /><group targetFramework='.NETFramework2.0' /><group targetFramework='.NETFramework4.0' /></dependencies></metadata><files><file src='Numbers/bin/Release/netstandard1.0/Numbers.dll' target='/lib/netstandard1.0' /><file src='Numbers/bin/Release/netstandard1.0/Numbers.xml' target='/lib/netstandard1.0' /><file src='Numbers20/bin/Release/Numbers.dll' target='/lib/net20' /><file src='Numbers20/bin/Release/Numbers.xml' target='/lib/net20' /><file src='Numbers40/bin/Release/Numbers.dll' target='/lib/net40' /><file src='Numbers40/bin/Release/Numbers.xml' target='/lib/net40' /></files></package
+- Add LowBits family of methods to EInteger
+- Add FromInt64AsUnsigned to EInteger, EDecimal, EFloat, and ERational
+- Add overload to FromBytes method of EInteger
+- Bug fixes</releaseNotes><summary></summary><license type='expression'>CC0-1.0</license><projectUrl>https://github.com/peteroupc/Numbers</projectUrl><authors>Peter Occil</authors><description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</description><owners>Peter Occil</owners><title>Arbitrary-Precision Number Library</title><tags>numbers arithmetic decimal math</tags><dependencies><group targetFramework='.NETStandard1.0' /><group targetFramework='.NETFramework2.0' /><group targetFramework='.NETFramework4.0' /></dependencies></metadata><files><file src='Numbers/bin/Release/netstandard1.0/Numbers.dll' target='/lib/netstandard1.0' /><file src='Numbers/bin/Release/netstandard1.0/Numbers.xml' target='/lib/netstandard1.0' /><file src='Numbers20/bin/Release/Numbers.dll' target='/lib/net20' /><file src='Numbers20/bin/Release/Numbers.xml' target='/lib/net20' /><file src='Numbers40/bin/Release/Numbers.dll' target='/lib/net40' /><file src='Numbers40/bin/Release/Numbers.xml' target='/lib/net40' /></files></package
 >
