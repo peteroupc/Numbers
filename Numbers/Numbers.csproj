@@ -14,25 +14,12 @@
     <PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>
-Version 1.7.3
+Version 1.8
 
-- Fix bugs and regressions involving EInteger's Pow, Root, and new Gcd
-
-Version 1.7.2
-
-- Improve performance of EInteger's Gcd method for large integers
-
-Version 1.7.1
-
-- Fix bugs in new char[] and byte[] overloads of FromString
-
-Version 1.7.0
-
-- Added overloads to string-to-number methods that take char[] and byte[] arrays.
-- Added methods that convert EDecimal, EFloat, and ERational to and from raw bits that follow IEEE 754 binary floating-point formats (To/FromDoubleBits, To/FromSingleBits).
-- Added Log1P and ExpM1 methods to EDecimal and EFloat
-- Added 'long' overloads to several arithmetic methods
-- Added implication and equivalence (Imp/Eqv) methods and an nth-root method to EInteger
+- Add LowBits family of methods to EInteger
+- Add FromInt64AsUnsigned to EInteger, EDecimal, EFloat, and ERational
+- Add overload to FromBytes method of EInteger
+- Bug fixes
 
 </PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>
