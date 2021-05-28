@@ -3,9 +3,8 @@ Written by Peter O.
 Any copyright to this work is released to the Public Domain.
 In case this is not possible, this work is also
 licensed under Creative Commons Zero (CC0):
-http://creativecommons.org/publicdomain/zero/1.0/
-If you like this, you should donate to Peter O.
-at: http://peteroupc.github.io/
+https://creativecommons.org/publicdomain/zero/1.0/
+
  */
 using System;
 
@@ -2302,7 +2301,8 @@ EFloat)?.ToDouble()));
                // thisValue is 1 and power is a negative integer, the reciprocal of 1
                // is used, which will have an exponent of 0, according to the
                // General Decimal Arithmetic Specification
-               return this.PowerIntegral(this.helper.ValueOf(1), signedMant, ctx);
+               return this.PowerIntegral(this.helper.ValueOf(1), signedMant,
+  ctx);
             } else {
                return this.PowerIntegral(thisValue, signedMant, ctx);
             }

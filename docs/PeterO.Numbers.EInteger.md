@@ -1424,7 +1424,7 @@ The parameter  <i>bigintSecond</i>
 Attempted to divide by zero.
 
  * System.ArgumentException:
-bigPower is negative.
+BigPower is negative.
 
 <a id="GetBits_int_int"></a>
 ### GetBits
@@ -3015,7 +3015,7 @@ The result. Returns 1 if  <i>longPower</i>
 <b>Exceptions:</b>
 
  * System.ArgumentException:
-bigPower is negative.
+BigPower is negative.
 
 <a id="Pow_PeterO_Numbers_EInteger"></a>
 ### Pow
