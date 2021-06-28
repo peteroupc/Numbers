@@ -871,6 +871,91 @@ namespace Test {
       Assert.IsFalse(EFloat.NaN.IsZero);
       Assert.IsFalse(EFloat.SignalingNaN.IsZero);
     }
+
+     [Test]
+     public void TestCloseToPowerOfOne() {
+        string[] variations = {
+          String.Empty, ".0", ".00", ".000",
+          ".4", ".40", ".6", ".60", ".5", ".50", ".500",
+        };
+        for (var i = 52; i < 129; ++i) {
+           EInteger ei = EInteger.FromInt32(1).ShiftLeft(i);
+           foreach (string vari in variations) {
+              TestStringToDoubleSingleOne(ei.ToString() + vari);
+              TestStringToDoubleSingleOne(ei.Add(1).ToString() + vari);
+              TestStringToDoubleSingleOne(ei.Subtract(1).ToString() + vari);
+           }
+        }
+     }
+
+    public static void TestParseNumberFxxLine(string line) {
+      string f16 = line.Substring(0, 4);
+      if (line[4] != ' ') {
+        Assert.Fail(line);
+      }
+      string f32 = line.Substring(4 + 1, 8);
+      if (line[4+1 +8] != ' ') {
+        Assert.Fail(line);
+      }
+      string f64 = line.Substring(4 + 1 + 8 + 1, 16);
+      if (line[4+1+8+1 +16] != ' ') {
+        Assert.Fail(line);
+      }
+      string str = line.Substring(4 + 1 + 8 + 1 + 16 + 1);
+      short sf16 = EInteger.FromRadixString(f16, 16).ToInt16Unchecked();
+      int sf32 = EInteger.FromRadixString(f32, 16).ToInt32Unchecked();
+      long sf64 = EInteger.FromRadixString(f64, 16).ToInt64Unchecked();
+      TestParseNumberFxx(str, sf16, sf32, sf64, line);
+    }
+
+    public static void TestParseNumberFxx(
+      string str,
+      short _f16,
+      int f32,
+      long f64,
+      string line) {
+       if (str.Length > 3000) {
+          // Console.WriteLine("Skipping for now: lengt h "+ str.Length);
+          // return;
+       }
+       // TODO: Support f16 test
+       // TODO: Add From/ToHalfBits in EDecimal/EFloat/ERational
+       EFloat efsng = EFloat.FromSingleBits(f32);
+       EFloat efdbl = EFloat.FromDoubleBits(f64);
+       // Begin test
+       EFloat ef;
+       if (!str.Contains("E") && !str.Contains("e")) {
+          ef = EFloat.FromString(str);
+          Assert.AreEqual(f32, ef.ToSingleBits(), line);
+          Assert.AreEqual(f64, ef.ToDoubleBits(), line);
+       }
+       ef = EFloat.FromString(str, EContext.Binary64);
+       Assert.AreEqual(f64, ef.ToDoubleBits(), line);
+       ef = EFloat.FromString(str, EContext.Binary32);
+       Assert.AreEqual(f32, ef.ToSingleBits(), line);
+       ef = EFloat.FromString(
+          "xxx" + str + "xxx",
+          3,
+          str.Length,
+          EContext.Binary64);
+       Assert.AreEqual(f64, ef.ToDoubleBits(), line);
+       ef = EFloat.FromString(
+          "xxx" + str + "xxx",
+          3,
+          str.Length,
+          EContext.Binary32);
+       Assert.AreEqual(f32, ef.ToSingleBits(), line);
+       if (efsng.IsFinite) {
+         TestStringToSingleOne(str);
+       }
+       if (efdbl.IsFinite) {
+         TestStringToDoubleOne(str);
+       }
+       EDecimal ed = EDecimal.FromString(str);
+       Assert.AreEqual(ed.ToSingleBits(), f32, str);
+       Assert.AreEqual(ed.ToDoubleBits(), f64, str);
+    }
+
     [Test]
     public void TestLog() {
       Assert.IsTrue(EFloat.One.Log(null).IsNaN());

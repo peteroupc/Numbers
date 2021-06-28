@@ -6506,6 +6506,71 @@ EDecimal.FromString("-6.44157770841120149430189812635250244E+472921500817");
     }
 
     [Test]
+    public void TestEDecimalEFloatWithHighExponent() {
+      string decstr = "0E100441809235791722330759976";
+      Assert.AreEqual(0L, EDecimal.FromString(decstr).ToDoubleBits());
+      Assert.AreEqual(0L, EFloat.FromString(decstr).ToDoubleBits());
+    {
+        object objectTemp = 0L;
+        object objectTemp2 = EDecimal.FromString(decstr,
+  EContext.Decimal32).ToDoubleBits();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+      {
+        object objectTemp = 0L;
+        object objectTemp2 = EFloat.FromString(decstr,
+  EContext.Binary64).ToDoubleBits();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+      decstr = "0E-100441809235791722330759976";
+      Assert.AreEqual(0L, EDecimal.FromString(decstr).ToDoubleBits());
+      Assert.AreEqual(0L, EFloat.FromString(decstr).ToDoubleBits());
+    {
+        object objectTemp = 0L;
+        object objectTemp2 = EDecimal.FromString(decstr,
+  EContext.Decimal32).ToDoubleBits();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+      {
+        object objectTemp = 0L;
+        object objectTemp2 = EFloat.FromString(decstr,
+  EContext.Binary64).ToDoubleBits();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+      decstr = "-0E100441809235791722330759976";
+      long negzero = 1L << 63;
+      Assert.AreEqual(negzero, EDecimal.FromString(decstr).ToDoubleBits());
+      Assert.AreEqual(negzero, EFloat.FromString(decstr).ToDoubleBits());
+    {
+        object objectTemp = negzero;
+        object objectTemp2 = EDecimal.FromString(decstr,
+  EContext.Decimal32).ToDoubleBits();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+      {
+        object objectTemp = negzero;
+        object objectTemp2 = EFloat.FromString(decstr,
+  EContext.Binary64).ToDoubleBits();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+      decstr = "-0E-100441809235791722330759976";
+      Assert.AreEqual(negzero, EDecimal.FromString(decstr).ToDoubleBits());
+      Assert.AreEqual(negzero, EFloat.FromString(decstr).ToDoubleBits());
+    {
+        object objectTemp = negzero;
+        object objectTemp2 = EDecimal.FromString(decstr,
+  EContext.Decimal32).ToDoubleBits();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+      {
+        object objectTemp = negzero;
+        object objectTemp2 = EFloat.FromString(decstr,
+  EContext.Binary64).ToDoubleBits();
+        Assert.AreEqual(objectTemp, objectTemp2);
+      }
+    }
+
+    [Test]
     public void TestRescaleInvalid() {
       var context = new Dictionary<string, string>();
       context["precision"] = "9";

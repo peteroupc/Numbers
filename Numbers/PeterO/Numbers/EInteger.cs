@@ -5467,8 +5467,8 @@ this.Pow(EInteger.FromInt64(longPower));
       return this.And(second.Not());
     }
 
-    /// <summary>Does an OR NOT operation (or implication or IMP operation)
-    /// between this arbitrary-precision integer and another one.</summary>
+    /// <summary>Does an OR NOT operation between this arbitrary-precision
+    /// integer and another one.</summary>
     /// <param name='second'>Another arbitrary-precision integer that
     /// participates in the operation.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
@@ -5493,8 +5493,8 @@ this.Pow(EInteger.FromInt64(longPower));
       return this.Or(second.Not());
     }
 
-    /// <summary>Does an OR NOT operation (or implication or IMP operation)
-    /// between this arbitrary-precision integer and another one.</summary>
+    /// <summary>Does an OR NOT operation between this arbitrary-precision
+    /// integer and another one.</summary>
     /// <param name='second'>Another arbitrary-precision integer that
     /// participates in the operation.</param>
     /// <returns>An arbitrary-precision integer in which each bit is set if
@@ -5512,8 +5512,22 @@ this.Pow(EInteger.FromInt64(longPower));
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
+    [Obsolete("Does the incorrect implication operation. Use Imply instead.")]
     public EInteger Imp(EInteger second) {
       return this.OrNot(second);
+    }
+
+  /// <summary>Not documented yet.</summary>
+  /// <summary>Not documented yet.</summary>
+  /// <param name='second'>Not documented yet.</param>
+  /// <returns>The return value is not documented yet.</returns>
+  /// <exception cref='ArgumentNullException'>The parameter <paramref
+  /// name='second'/> is null.</exception>
+    public EInteger Imply(EInteger second) {
+      if (second == null) {
+        throw new ArgumentNullException(nameof(second));
+      }
+      return second.OrNot(this);
     }
 
     /// <summary>Does an XOR NOT operation (or equivalence operation, EQV

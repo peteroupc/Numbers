@@ -3,7 +3,7 @@ Written by Peter O.
 Any copyright to this work is released to the Public Domain.
 In case this is not possible, this work is also
 licensed under Creative Commons Zero (CC0):
-http://creativecommons.org/publicdomain/zero/1.0/
+https://creativecommons.org/publicdomain/zero/1.0/
 
  */
 using System;
@@ -52,7 +52,6 @@ namespace Test {
         ++x;
         var context = new Dictionary<string, string>();
         var lowerF = DecTestUtil.ToLowerCaseAscii(f);
-        var isinput = DecTestUtil.Contains(lowerF, ".input");
         if (!DecTestUtil.Contains(lowerF, ".input") &&
           !DecTestUtil.Contains(lowerF, ".txt") &&
           !DecTestUtil.Contains(lowerF, ".dectest") &&
