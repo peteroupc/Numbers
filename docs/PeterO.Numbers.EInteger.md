@@ -96,7 +96,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - <b>Deprecated:</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
 * <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value, and returns that number of bits as an arbitrary-precision integer.
 * <code>[GetUnsignedBitLengthAsInt64()](#GetUnsignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this number's absolute value, and returns that number of bits as a 64-bit signed integer.
-* <code>[Imp(PeterO.Numbers.EInteger)](#Imp_PeterO_Numbers_EInteger)</code> - Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
+* <code>[Imp(PeterO.Numbers.EInteger)](#Imp_PeterO_Numbers_EInteger)</code> - <b>Deprecated:</b> Does the incorrect implication operation. Use Imply instead.
 * <code>[implicit operator PeterO.Numbers.EInteger(byte)](#implicit_operator_PeterO_Numbers_EInteger_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(int)](#implicit_operator_PeterO_Numbers_EInteger_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(long)](#implicit_operator_PeterO_Numbers_EInteger_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
@@ -105,6 +105,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[implicit operator PeterO.Numbers.EInteger(uint)](#implicit_operator_PeterO_Numbers_EInteger_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(ulong)](#implicit_operator_PeterO_Numbers_EInteger_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(ushort)](#implicit_operator_PeterO_Numbers_EInteger_ushort)</code> - Converts a 16-bit unsigned integer to an arbitrary-precision integer.
+* <code>[Imply(PeterO.Numbers.EInteger)](#Imply_PeterO_Numbers_EInteger)</code> - Not documented yet.
 * <code>[Increment()](#Increment)</code> - Returns one added to this arbitrary-precision integer.
 * <code>[IsEven](#IsEven)</code> - Gets a value indicating whether this value is even.
 * <code>[IsPowerOfTwo](#IsPowerOfTwo)</code> - Gets a value indicating whether this object's value is a power of two, and greater than 0.
@@ -147,7 +148,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[PeterO.Numbers.EInteger operator -(PeterO.Numbers.EInteger)](#op_UnaryNegation)</code> - Negates an arbitrary-precision integer.
 * <code>[Or(PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger)</code> - Does an OR operation between this arbitrary-precision integer and another one.
 * <code>[Or(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#Or_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an OR operation between two arbitrary-precision integer instances.
-* <code>[OrNot(PeterO.Numbers.EInteger)](#OrNot_PeterO_Numbers_EInteger)</code> - Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
+* <code>[OrNot(PeterO.Numbers.EInteger)](#OrNot_PeterO_Numbers_EInteger)</code> - Does an OR NOT operation between this arbitrary-precision integer and another one.
 * <code>[Pow(int)](#Pow_int)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Pow(long)](#Pow_long)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Pow(PeterO.Numbers.EInteger)](#Pow_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power.
@@ -1693,7 +1694,9 @@ The number of bits in this object's absolute value. Returns 0 if this object's v
     public PeterO.Numbers.EInteger Imp(
         PeterO.Numbers.EInteger second);
 
-Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
+<b>Deprecated.</b> Does the incorrect implication operation. Use Imply instead.
+
+Does an OR NOT operation between this arbitrary-precision integer and another one.
 
 Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
 
@@ -1704,6 +1707,30 @@ Each arbitrary-precision integer is treated as a two's-complement form (see [&#x
 <b>Return Value:</b>
 
 An arbitrary-precision integer in which each bit is set if the corresponding bit of this integer is set, the other integer's corresponding bit is <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010 = 00100 (or in decimal, 22 OR NOT 26 = 23). This method uses the two's complement form of negative integers (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ). For example, in binary, ...11101110 OR NOT 01011 = ...11111110 (or in decimal, -18 OR 11 = -2).
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>second</i>
+ is null.
+
+<a id="Imply_PeterO_Numbers_EInteger"></a>
+### Imply
+
+    public PeterO.Numbers.EInteger Imply(
+        PeterO.Numbers.EInteger second);
+
+Not documented yet.
+
+Not documented yet.
+
+<b>Parameters:</b>
+
+ * <i>second</i>: Not documented yet.
+
+<b>Return Value:</b>
+
+The return value is not documented yet.
 
 <b>Exceptions:</b>
 
@@ -2960,7 +2987,7 @@ The parameter  <i>first</i>
     public PeterO.Numbers.EInteger OrNot(
         PeterO.Numbers.EInteger second);
 
-Does an OR NOT operation (or implication or IMP operation) between this arbitrary-precision integer and another one.
+Does an OR NOT operation between this arbitrary-precision integer and another one.
 
 Each arbitrary-precision integer is treated as a two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) for the purposes of this operator.
 

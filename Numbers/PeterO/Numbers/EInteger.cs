@@ -5517,12 +5517,12 @@ this.Pow(EInteger.FromInt64(longPower));
       return this.OrNot(second);
     }
 
-  /// <summary>Not documented yet.</summary>
-  /// <summary>Not documented yet.</summary>
-  /// <param name='second'>Not documented yet.</param>
+  /// <param name='second'>The parameter <paramref name='second'/> is a
+  /// Numbers.EInteger object.</param>
   /// <returns>The return value is not documented yet.</returns>
   /// <exception cref='ArgumentNullException'>The parameter <paramref
   /// name='second'/> is null.</exception>
+  /// <summary>Not documented yet.</summary>
     public EInteger Imply(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));

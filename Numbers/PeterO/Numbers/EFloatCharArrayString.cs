@@ -175,7 +175,8 @@ namespace PeterO.Numbers {
           } else {
             digitEnd = i + 1;
           }
-          if (mantissaLong <= 922337203685477580L) {
+          if (mantissaLong < 922337203685477580L ||
+               (mantissaLong == 922337203685477580L && thisdigit <= 7)) {
             mantissaLong *= 10;
             mantissaLong += thisdigit;
           } else {
@@ -250,7 +251,7 @@ namespace PeterO.Numbers {
             if (haveNonzeroDigit) {
               ++expPrec;
             }
-            if (expInt <= 214748364) {
+            if (expInt < 214748364 || (expInt == 214748364 && thisdigit < 7)) {
               expInt *= 10;
               expInt += thisdigit;
             } else {

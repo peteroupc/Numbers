@@ -11345,8 +11345,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Imp(PeterO.Numbers.EInteger)">
 
-            <summary>Does an OR NOT operation (or implication or IMP operation)
-            between this arbitrary-precision integer and another one.</summary>
+            <summary>Does an OR NOT operation between this arbitrary-precision
+            integer and another one.</summary>
             <param name='second'>Another arbitrary-precision integer that
             participates in the operation.</param>
             <returns>An arbitrary-precision integer in which each bit is set if
@@ -11364,6 +11364,9 @@
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
             the purposes of this operator.</remarks>
 
+</doc>
+<doc name="M:PeterO.Numbers.EInteger.Imply(PeterO.Numbers.EInteger)">
+<param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Increment">
 
@@ -11633,8 +11636,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.OrNot(PeterO.Numbers.EInteger)">
 
-            <summary>Does an OR NOT operation (or implication or IMP operation)
-            between this arbitrary-precision integer and another one.</summary>
+            <summary>Does an OR NOT operation between this arbitrary-precision
+            integer and another one.</summary>
             <param name='second'>Another arbitrary-precision integer that
             participates in the operation.</param>
             <returns>An arbitrary-precision integer in which each bit is set if
