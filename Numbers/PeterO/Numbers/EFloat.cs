@@ -593,7 +593,7 @@ namespace PeterO.Numbers {
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = ((dblBits >> 32) & 0x80000) != 0;
         lvalue = dblBits & ((1L << 51) - 1);
-        if (lvalue == 0) {
+        if (lvalue == 0 && !neg) {
           return quiet ? NaN : SignalingNaN;
         }
         int flags = (neg ? BigNumberFlags.FlagNegative : 0) |
@@ -688,7 +688,7 @@ namespace PeterO.Numbers {
         bigmant = (EInteger)valueFpMantissa;
         value = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
             BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
-        if (bigmant.IsZero) {
+        if (bigmant.IsZero && !neg) {
           return quiet ? NaN : SignalingNaN;
         }
         return CreateWithFlags(

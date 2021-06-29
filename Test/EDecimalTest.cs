@@ -275,6 +275,38 @@ namespace Test {
     }
 
     [Test]
+    public void TestFromSingleBitsNaN() {
+      int bits = unchecked((int)0xffc00000);
+      Assert.AreEqual(bits, EDecimal.FromSingleBits(bits).ToSingleBits());
+      bits = 0x7fc00000;
+      Assert.AreEqual(bits, EDecimal.FromSingleBits(bits).ToSingleBits());
+      bits = unchecked((int)0xffc00000);
+      Assert.AreEqual(bits, EFloat.FromSingleBits(bits).ToSingleBits());
+      bits = 0x7fc00000;
+      Assert.AreEqual(bits, EFloat.FromSingleBits(bits).ToSingleBits());
+      bits = unchecked((int)0xffc00000);
+      Assert.AreEqual(bits, ERational.FromSingleBits(bits).ToSingleBits());
+      bits = 0x7fc00000;
+      Assert.AreEqual(bits, ERational.FromSingleBits(bits).ToSingleBits());
+    }
+
+    [Test]
+    public void TestFromDoubleBitsNaN() {
+      long lbits = unchecked((long)0xfff8000000000000);
+      Assert.AreEqual(lbits, EDecimal.FromDoubleBits(lbits).ToDoubleBits());
+      lbits = 0x7ff8000000000000L;
+      Assert.AreEqual(lbits, EDecimal.FromDoubleBits(lbits).ToDoubleBits());
+      lbits = unchecked((long)0xfff8000000000000);
+      Assert.AreEqual(lbits, EFloat.FromDoubleBits(lbits).ToDoubleBits());
+      lbits = 0x7ff8000000000000L;
+      Assert.AreEqual(lbits, EFloat.FromDoubleBits(lbits).ToDoubleBits());
+      lbits = unchecked((long)0xfff8000000000000);
+      Assert.AreEqual(lbits, ERational.FromDoubleBits(lbits).ToDoubleBits());
+      lbits = 0x7ff8000000000000L;
+      Assert.AreEqual(lbits, ERational.FromDoubleBits(lbits).ToDoubleBits());
+    }
+
+    [Test]
     public void TestCompareToBinarySpecific1A() {
       EFloat ef;
       EDecimal ed;

@@ -18,6 +18,7 @@ licensed under Creative Commons Zero (CC0): https://creativecommons.org/publicdo
 Version 1.8.1
 
 - Fix bugs in EFloat string parsing in certain corner cases
+- Fix NaN roundtripping with From/ToSingleBits and From/ToDoubleBits
 
 Version 1.8
 
