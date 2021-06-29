@@ -5512,23 +5512,19 @@ this.Pow(EInteger.FromInt64(longPower));
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
-    [Obsolete("Does the incorrect implication operation. Use Imply instead.")]
     public EInteger Imp(EInteger second) {
+      // TODO: Make Obsolete("Does the incorrect implication operation. Use Imply
+      // instead.")
       return this.OrNot(second);
     }
-
-  /// <param name='second'>The parameter <paramref name='second'/> is a
-  /// Numbers.EInteger object.</param>
-  /// <returns>The return value is not documented yet.</returns>
-  /// <exception cref='ArgumentNullException'>The parameter <paramref
-  /// name='second'/> is null.</exception>
-  /// <summary>Not documented yet.</summary>
-    public EInteger Imply(EInteger second) {
+    /*
+    private EInteger Imply(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
       return second.OrNot(this);
     }
+    */
 
     /// <summary>Does an XOR NOT operation (or equivalence operation, EQV
     /// operation, or exclusive-OR NOT operation) between this

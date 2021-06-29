@@ -902,7 +902,7 @@ namespace Test {
         Assert.Fail(line);
       }
       string f64 = line.Substring(4 + 1 + 8 + 1, 16);
-      if (line[4+1+8 +1 + 16] != ' ') {
+      if (line[4+1+8 + 17] != ' ') {
         Assert.Fail(line);
       }
       string str = line.Substring(4 + 1 + 8 + 1 + 16 + 1);
