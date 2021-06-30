@@ -11365,9 +11365,6 @@
             the purposes of this operator.</remarks>
 
 </doc>
-<doc name="M:PeterO.Numbers.EInteger.Imply(PeterO.Numbers.EInteger)">
-<param name='second'>The parameter <paramref name='second'/> is a Numbers.EInteger object.</param><returns>The return value is not documented yet.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception>
-</doc>
 <doc name="M:PeterO.Numbers.EInteger.Increment">
 
             <summary>Returns one added to this arbitrary-precision

@@ -318,19 +318,19 @@ namespace Test {
       {
         object objectTemp =
 
-  EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+          EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
         object objectTemp2 =
 
-  EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+          EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
         Assert.AreEqual(objectTemp, objectTemp2);
       }
       {
         object objectTemp =
 
-  EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+          EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
         object objectTemp2 =
 
-  EFloat.FromString("0.001809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474");
+          EFloat.FromString("0.001809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474");
         Assert.AreNotEqual(objectTemp, objectTemp2);
       }
       var r = new RandomGenerator();
@@ -872,23 +872,23 @@ namespace Test {
       Assert.IsFalse(EFloat.SignalingNaN.IsZero);
     }
 
-     [Test]
-     public void TestCloseToPowerOfTwo() {
-        string[] variations = {
-          String.Empty, ".0", ".00", ".000",
-          ".4", ".40", ".6", ".60", ".5", ".50", ".500",
-        };
-        for (var i = 31; i < 129; ++i) {
-           EInteger ei = EInteger.FromInt32(1).ShiftLeft(i);
-           foreach (string vari in variations) {
-              TestStringToDoubleSingleOne(ei.ToString() + vari);
-              TestStringToDoubleSingleOne(ei.Add(1).ToString() + vari);
-              TestStringToDoubleSingleOne(ei.Subtract(1).ToString() + vari);
-              TestStringToDoubleSingleOne(ei.Add(2).ToString() + vari);
-              TestStringToDoubleSingleOne(ei.Subtract(2).ToString() + vari);
-           }
+    [Test]
+    public void TestCloseToPowerOfTwo() {
+      string[] variations = {
+        String.Empty, ".0", ".00", ".000",
+        ".4", ".40", ".6", ".60", ".5", ".50", ".500",
+      };
+      for (var i = 31; i < 129; ++i) {
+        EInteger ei = EInteger.FromInt32(1).ShiftLeft(i);
+        foreach (string vari in variations) {
+          TestStringToDoubleSingleOne(ei.ToString() + vari);
+          TestStringToDoubleSingleOne(ei.Add(1).ToString() + vari);
+          TestStringToDoubleSingleOne(ei.Subtract(1).ToString() + vari);
+          TestStringToDoubleSingleOne(ei.Add(2).ToString() + vari);
+          TestStringToDoubleSingleOne(ei.Subtract(2).ToString() + vari);
         }
-     }
+      }
+    }
 
     public static void TestParseNumberFxxLine(string line) {
       // Parse test case format used in:
@@ -914,41 +914,42 @@ namespace Test {
 
     public static void TestParseNumberFxx(
       string str,
-      short _f16,
+      short f16,
       int f32,
       long f64,
       string line) {
-       // TODO: Support f16 test
-       // TODO: Add From/ToHalfBits in EDecimal/EFloat/ERational
-       EFloat efsng = EFloat.FromSingleBits(f32);
-       EFloat efdbl = EFloat.FromDoubleBits(f64);
-       // Begin test
-       if (efsng.IsFinite) {
-         TestStringToSingleOne(str);
-       }
-       if (efdbl.IsFinite) {
-         TestStringToDoubleOne(str);
-       }
-       EFloat ef;
-       ef = EFloat.FromString(str, EContext.Binary64);
-       Assert.AreEqual(f64, ef.ToDoubleBits(), line);
-       ef = EFloat.FromString(str, EContext.Binary32);
-       Assert.AreEqual(f32, ef.ToSingleBits(), line);
-       ef = EFloat.FromString(
+      Assert.AreEqual(f16, f16);
+      // TODO: Support f16 test
+      // TODO: Add From/ToHalfBits in EDecimal/EFloat/ERational
+      EFloat efsng = EFloat.FromSingleBits(f32);
+      EFloat efdbl = EFloat.FromDoubleBits(f64);
+      // Begin test
+      if (efsng.IsFinite) {
+        TestStringToSingleOne(str);
+      }
+      if (efdbl.IsFinite) {
+        TestStringToDoubleOne(str);
+      }
+      EFloat ef;
+      ef = EFloat.FromString(str, EContext.Binary64);
+      Assert.AreEqual(f64, ef.ToDoubleBits(), line);
+      ef = EFloat.FromString(str, EContext.Binary32);
+      Assert.AreEqual(f32, ef.ToSingleBits(), line);
+      ef = EFloat.FromString(
           "xxx" + str + "xxx",
           3,
           str.Length,
           EContext.Binary64);
-       Assert.AreEqual(f64, ef.ToDoubleBits(), line);
-       ef = EFloat.FromString(
+      Assert.AreEqual(f64, ef.ToDoubleBits(), line);
+      ef = EFloat.FromString(
           "xxx" + str + "xxx",
           3,
           str.Length,
           EContext.Binary32);
-       Assert.AreEqual(f32, ef.ToSingleBits(), line);
-       EDecimal ed = EDecimal.FromString(str);
-       Assert.AreEqual(ed.ToSingleBits(), f32, str);
-       Assert.AreEqual(ed.ToDoubleBits(), f64, str);
+      Assert.AreEqual(f32, ef.ToSingleBits(), line);
+      EDecimal ed = EDecimal.FromString(str);
+      Assert.AreEqual(ed.ToSingleBits(), f32, str);
+      Assert.AreEqual(ed.ToDoubleBits(), f64, str);
     }
 
     [Test]
@@ -1016,7 +1017,7 @@ namespace Test {
     [Test]
     public void TestLogExpSpecificA() {
       EFloat efa = EFloat.Create(5094638944929121L,
-  -43).ExpM1(EContext.Binary64);
+          -43).ExpM1(EContext.Binary64);
       EInteger mant = efa.Mantissa;
       Assert.IsTrue(mant.Abs().GetUnsignedBitLengthAsInt64() <= 53);
       EFloat efb = EFloat.Create(6823497764200007L, 783);
@@ -1035,7 +1036,7 @@ namespace Test {
     [Test]
     public void TestLogExpSpecificC() {
       EFloat efa = EFloat.Create(-1184982539430741L,
-  -52).Exp(EContext.Binary64);
+          -52).Exp(EContext.Binary64);
       EInteger mant = efa.Mantissa;
       Assert.IsTrue(mant.Abs().GetUnsignedBitLengthAsInt64() <= 53);
       EFloat efb = EFloat.Create(6923387652188847L, -53);
@@ -1045,7 +1046,7 @@ namespace Test {
     [Test]
     public void TestLogExpSpecificD() {
       EFloat efa = EFloat.Create(6832986215039611L,
-  -38).Log1P(EContext.Binary64);
+          -38).Log1P(EContext.Binary64);
       EFloat efb = EFloat.Create(1424402087294909L, -47);
       string str = OutputEF(efb) + "\n" + OutputEF(efa);
       TestCommon.CompareTestEqual(efb, efa, str);
@@ -1053,7 +1054,7 @@ namespace Test {
     [Test]
     public void TestLogExpSpecificE() {
       EFloat efa = EFloat.Create(5615046595603761L,
-  -44).ExpM1(EContext.Binary64);
+          -44).ExpM1(EContext.Binary64);
       EInteger mant = efa.Mantissa;
       Assert.IsTrue(mant.Abs().GetUnsignedBitLengthAsInt64() <= 53);
       EFloat efb = EFloat.Create(6269016557695007L, 408);
@@ -2125,10 +2126,10 @@ namespace Test {
           false).WithExponentClamp(true).WithSimplified(false);
       EInteger emant =
 
-  EInteger.FromString("88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
+        EInteger.FromString("88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
       EInteger eexp =
 
-  EInteger.FromString("1000000000000000000000000000000000000000000000000000000000000");
+        EInteger.FromString("1000000000000000000000000000000000000000000000000000000000000");
       EFloat efmant = EFloat.FromEInteger(emant);
       EFloat efexp = EFloat.FromEInteger(eexp);
       EFloat ef2 = efmant.Multiply(efexp, ec);
@@ -2143,10 +2144,10 @@ namespace Test {
     public void TestStringToDoubleSpecificA() {
       string str =
 
-  "395327047447757233151852025916007341543830859020311182348280049405196796002596109672166636419495856284607016106216608940280159980410562166599659829549836399698289289291865158130408917411887384321629920907652092446340673107744633313627817849916899822288644199811238047243389339131191051062809216261025215824523.4450649076678708780046658731481724174843552673744114894507741447375332545091864773666544122664744761333144781246291659228465651037706198817528715653479238826021855332253112859123685832653222952164708641577926580176434675271038652656763152189489079211898438385589908245057380361924564889535903026779733005698423207728797753101352096950270825633677221801202735885609696599439158086869381984718373482202897732285374878471795568389970731523802567947950548336665365358918558902407299370109971613731348136804887326596306602541763433746075226973971630905830686044475031568633180101625817896363428603835057150659940109566037118543874354367476000190935017225290762348459773388606367426256772899921636";
+        "395327047447757233151852025916007341543830859020311182348280049405196796002596109672166636419495856284607016106216608940280159980410562166599659829549836399698289289291865158130408917411887384321629920907652092446340673107744633313627817849916899822288644199811238047243389339131191051062809216261025215824523.4450649076678708780046658731481724174843552673744114894507741447375332545091864773666544122664744761333144781246291659228465651037706198817528715653479238826021855332253112859123685832653222952164708641577926580176434675271038652656763152189489079211898438385589908245057380361924564889535903026779733005698423207728797753101352096950270825633677221801202735885609696599439158086869381984718373482202897732285374878471795568389970731523802567947950548336665365358918558902407299370109971613731348136804887326596306602541763433746075226973971630905830686044475031568633180101625817896363428603835057150659940109566037118543874354367476000190935017225290762348459773388606367426256772899921636";
       string strb =
 
-  "179769313486231580793728971405303415079934132710037826936173778980444968292764750946649017977587207096330286416692887910946555547851940402630657488671505820681908902000708383676273854845817711531764475730270069855571366959622842914819860834936475292719074168444365510704342711559699508093042880177904174497792";
+        "179769313486231580793728971405303415079934132710037826936173778980444968292764750946649017977587207096330286416692887910946555547851940402630657488671505820681908902000708383676273854845817711531764475730270069855571366959622842914819860834936475292719074168444365510704342711559699508093042880177904174497792";
       EDecimal eda = EDecimal.FromString(str);
       EDecimal edb = EDecimal.FromString(strb);
       TestCommon.CompareTestLess(edb, eda);
@@ -2958,17 +2959,19 @@ namespace Test {
         TestToFloatRoundingOne(objectTemp, true);
       }
       {
+        string rrs = "-1000000000000000000000000000" +
+           "0000000000000000000000000";
         EFloat objectTemp = EFloat.Create(
-          EInteger.FromRadixString("-10000000000000000000000000000000000000000000000000000", 2),
-          EInteger.FromInt32(-1074));
+            EInteger.FromRadixString(rrs, 2),
+            EInteger.FromInt32(-1074));
         TestToFloatRoundingOne(objectTemp, true);
         objectTemp = EFloat.Create(
             EInteger.FromRadixString("1010011", 2),
             EInteger.FromInt32(-1034));
         TestToFloatRoundingOne(objectTemp, true);
         objectTemp = EFloat.Create(
-  EInteger.FromRadixString("100110100000000011000010111000111111101", 2),
-  EInteger.FromInt32(-1073));
+            EInteger.FromRadixString("100110100000000011000010111000111111101", 2),
+            EInteger.FromInt32(-1073));
         TestToFloatRoundingOne(objectTemp, true);
       }
     }

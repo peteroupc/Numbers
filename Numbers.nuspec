@@ -1,5 +1,10 @@
 <package
-><metadata><version>1.8.0</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.8
+><metadata><version>1.8.1</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.8.1
+
+- Fix bugs in EFloat string parsing in certain corner cases
+- Fix NaN roundtripping with From/ToSingleBits and From/ToDoubleBits
+
+Version 1.8
 
 - Add LowBits family of methods to EInteger
 - Add FromInt64AsUnsigned to EInteger, EDecimal, EFloat, and ERational
