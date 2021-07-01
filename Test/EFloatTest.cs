@@ -523,6 +523,7 @@ namespace Test {
       }
     }
 
+
     [Test]
     public void TestFromToSingleBits() {
       for (var i = 0; i < 65536; ++i) {
@@ -530,20 +531,44 @@ namespace Test {
         Assert.AreEqual(i, ERational.FromSingleBits(i).ToSingleBits());
         Assert.AreEqual(i, EDecimal.FromSingleBits(i).ToSingleBits());
         Assert.AreEqual(
-          i,
+          i+Int32.MinValue,
           EFloat.FromSingleBits(i + Int32.MinValue).ToSingleBits());
-        Assert.AreEqual(i,
+        Assert.AreEqual(i+Int32.MinValue,
   ERational.FromSingleBits(i + Int32.MinValue).ToSingleBits());
         Assert.AreEqual(
-          i,
+          i+Int32.MinValue,
           EDecimal.FromSingleBits(i + Int32.MinValue).ToSingleBits());
-        Assert.AreEqual(i,
+        Assert.AreEqual(Int32.MaxValue - i,
   EFloat.FromSingleBits(Int32.MaxValue - i).ToSingleBits());
         Assert.AreEqual(
-          i,
+          Int32.MaxValue - i,
           ERational.FromSingleBits(Int32.MaxValue - i).ToSingleBits());
-        Assert.AreEqual(i,
+        Assert.AreEqual(Int32.MaxValue - i,
   EDecimal.FromSingleBits(Int32.MaxValue - i).ToSingleBits());
+      }
+    }
+
+    [Test]
+    public void TestFromToDoubleBits() {
+      for (var i = 0; i < 65536; ++i) {
+        Assert.AreEqual(i, EFloat.FromDoubleBits(i).ToDoubleBits());
+        Assert.AreEqual(i, ERational.FromDoubleBits(i).ToDoubleBits());
+        Assert.AreEqual(i, EDecimal.FromDoubleBits(i).ToDoubleBits());
+        Assert.AreEqual(
+          i+Int64.MinValue,
+          EFloat.FromDoubleBits(i + Int64.MinValue).ToDoubleBits());
+        Assert.AreEqual(i+Int64.MinValue,
+  ERational.FromDoubleBits(i + Int64.MinValue).ToDoubleBits());
+        Assert.AreEqual(
+          i+Int64.MinValue,
+          EDecimal.FromDoubleBits(i + Int64.MinValue).ToDoubleBits());
+        Assert.AreEqual(Int64.MaxValue - i,
+  EFloat.FromDoubleBits(Int64.MaxValue - i).ToDoubleBits());
+        Assert.AreEqual(
+          Int64.MaxValue - i,
+          ERational.FromDoubleBits(Int64.MaxValue - i).ToDoubleBits());
+        Assert.AreEqual(Int64.MaxValue - i,
+  EDecimal.FromDoubleBits(Int64.MaxValue - i).ToDoubleBits());
       }
     }
 
