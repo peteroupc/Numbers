@@ -104,7 +104,7 @@ namespace PeterO.Numbers {
     internal const int Binary32SignifAreaBits = Binary32SignifBits - 1;
     internal const int Binary32ExponentArea = Binary32Bits - BinarySignArea
 - Binary32SignifAreaBits;
-    internal const int Binary32EMin = -((1 << (Binary32ExponentArea -1)) - 2) -
+    internal const int Binary32EMin = -((1 << (Binary32ExponentArea - 1)) - 2) -
 Binary32SignifAreaBits;
     internal const int Binary32Infinity =
 ((1 << Binary32ExponentArea) - 1) << Binary32SignifAreaBits;
@@ -114,7 +114,7 @@ Binary32SignifAreaBits;
     internal const int Binary16SignifAreaBits = Binary16SignifBits - 1;
     internal const int Binary16ExponentArea = Binary16Bits - BinarySignArea
 - Binary16SignifAreaBits;
-    internal const int Binary16EMin = -((1 << (Binary16ExponentArea -1)) - 2) -
+    internal const int Binary16EMin = -((1 << (Binary16ExponentArea - 1)) - 2) -
 Binary16SignifAreaBits;
     internal const int Binary16Infinity =
 ((1 << Binary16ExponentArea) - 1) << Binary16SignifAreaBits;
@@ -3937,7 +3937,7 @@ Binary16SignifAreaBits;
           return neg ? NegativeInfinity : PositiveInfinity;
         }
         // Treat high bit of mantissa as quiet/signaling bit
-        bool quiet = (valueFpMantissa & (1 << (Binary32SignifAreaBits - 1)))!=
+        bool quiet = (valueFpMantissa & (1 << (Binary32SignifAreaBits - 1))) !=
 0;
         valueFpMantissa &= (1 << (Binary32SignifAreaBits - 1)) - 1;
         bigmant = (EInteger)valueFpMantissa;
@@ -3994,7 +3994,7 @@ Binary16SignifAreaBits;
           return neg ? NegativeInfinity : PositiveInfinity;
         }
         // Treat high bit of mantissa as quiet/signaling bit
-        bool quiet = (valueFpMantissa & (1 << (Binary16SignifAreaBits - 1)))!=
+        bool quiet = (valueFpMantissa & (1 << (Binary16SignifAreaBits - 1))) !=
 0;
         valueFpMantissa &= (1 << (Binary16SignifAreaBits - 1)) - 1;
         bigmant = (EInteger)valueFpMantissa;
@@ -4052,7 +4052,7 @@ Binary16SignifAreaBits;
         return unchecked(Binary32Infinity + (1 << (Binary32Bits - 1)));
       }
       if (this.IsNaN()) {
-        var nan = Binary32Infinity;
+        int nan = Binary32Infinity;
         if (this.IsNegative) {
           nan |= unchecked((int)(1 << (Binary32Bits - 1)));
         }
@@ -4151,7 +4151,7 @@ Binary32SignifBits;
         return unchecked((short)(Binary16Infinity + (1 << (Binary16Bits - 1))));
       }
       if (this.IsNaN()) {
-        var nan = Binary16Infinity;
+        int nan = Binary16Infinity;
         if (this.IsNegative) {
           nan |= unchecked((short)(1 << (Binary16Bits - 1)));
         }

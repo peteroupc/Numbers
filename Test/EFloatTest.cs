@@ -2048,7 +2048,7 @@ namespace Test {
       EFloat ef = EFloat.FromString(str, EContext.Binary32);
       var significandBits = 24;
       var exponentBits = 8;
-      int emin = -((1 << (exponentBits -1)) - 2) - (significandBits - 1);
+      int emin = -((1 << (exponentBits - 1)) - 2) - (significandBits - 1);
       if (ef.Sign == 0) {
         Assert.IsTrue(ed.IsNegative == ef.IsNegative);
         ERational half = PowerOfTwo(emin).Divide(2);
@@ -2059,7 +2059,7 @@ namespace Test {
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
             EInteger.FromInt32((1 << (significandBits + 1)) - 1)
-               .ShiftLeft((1 << (exponentBits-1))-1 -significandBits));
+               .ShiftLeft((1 << (exponentBits-1)) -1 - significandBits));
         if (ed.Abs().CompareTo(half) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
@@ -2123,7 +2123,7 @@ namespace Test {
       EFloat ef = EFloat.FromString(str, EContext.Binary16);
       var significandBits = 11;
       var exponentBits = 5;
-      int emin = -((1 << (exponentBits -1)) - 2) - (significandBits - 1);
+      int emin = -((1 << (exponentBits - 1)) - 2) - (significandBits - 1);
       if (ef.Sign == 0) {
         Assert.IsTrue(ed.IsNegative == ef.IsNegative);
         ERational half = PowerOfTwo(emin).Divide(2);
@@ -2134,7 +2134,7 @@ namespace Test {
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
             EInteger.FromInt32((1 << (significandBits + 1)) - 1)
-               .ShiftLeft((1 << (exponentBits-1))-1 -significandBits));
+               .ShiftLeft((1 << (exponentBits-1)) -1 - significandBits));
         if (ed.Abs().CompareTo(half) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
@@ -3370,25 +3370,19 @@ namespace Test {
         Double.IsPositiveInfinity(ERational.PositiveInfinity.ToDouble()),
         ERational.PositiveInfinity.ToDouble() + String.Empty);
       {
-        object objectTemp = Double.IsNegativeInfinity(
+        bool objectTemp = Double.IsNegativeInfinity(
           ERational.NegativeInfinity.ToDouble());
-        object objectTemp2 = ERational.NegativeInfinity.ToDouble()+
-             String.Empty;
-        Assert.IsTrue(objectTemp, objectTemp2);
+        Assert.IsTrue(objectTemp);
 }
       {
-        object objectTemp = Single.IsPositiveInfinity(
+        bool objectTemp = Single.IsPositiveInfinity(
           ERational.PositiveInfinity.ToSingle());
-        object objectTemp2 = ERational.PositiveInfinity.ToSingle() +
-String.Empty;
-        Assert.IsTrue(objectTemp, objectTemp2);
+        Assert.IsTrue(objectTemp);
       }
       {
-        object objectTemp = Single.IsNegativeInfinity(
+        bool objectTemp = Single.IsNegativeInfinity(
           ERational.NegativeInfinity.ToSingle());
-        object objectTemp2 = ERational.NegativeInfinity.ToSingle()+
-             String.Empty;
-        Assert.IsTrue(objectTemp, objectTemp2);
+        Assert.IsTrue(objectTemp);
 }
     }
 
