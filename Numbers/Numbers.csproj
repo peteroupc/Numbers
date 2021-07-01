@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.8.1</Version>
+    <Version>1.8.2</Version>
     <Owners>Peter Occil</Owners>
     <Description>A C# library that supports arbitrary-precision binary and decimal floating-point numbers and rational numbers with arbitrary-precision components, and supports arithmetic with these numbers.</Description>
     <Copyright>Written by Peter O.  Any copyright to this work is released to the Public Domain.  In case this is not possible, this work is also
@@ -15,6 +15,10 @@ licensed under Creative Commons Zero (CC0): https://creativecommons.org/publicdo
     <PackageLicenseExpression>CC0-1.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/peteroupc/Numbers</PackageProjectUrl>
     <PackageReleaseNotes>
+Version 1.8.2
+
+- Fix bugs involving negative zero with ERational.FromEFloat and ERational.FromEDecimal
+
 Version 1.8.1
 
 - Fix bugs in EFloat string parsing in certain corner cases
