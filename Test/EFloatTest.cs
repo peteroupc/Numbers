@@ -318,19 +318,19 @@ namespace Test {
       {
         object objectTemp =
 
-          EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+  EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
         object objectTemp2 =
 
-          EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+  EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
         Assert.AreEqual(objectTemp, objectTemp2);
       }
       {
         object objectTemp =
 
-          EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
+  EFloat.FromString("0.009461540475412139260145553670698466186015902447450593622262751970123371581303298477485466592231565609");
         object objectTemp2 =
 
-          EFloat.FromString("0.001809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474");
+  EFloat.FromString("0.001809476049361792727571247490438259768858020288404502743164967883090669271207537395819291033916115474");
         Assert.AreNotEqual(objectTemp, objectTemp2);
       }
       var r = new RandomGenerator();
@@ -510,6 +510,54 @@ namespace Test {
           edExp.CompareToValue(ed),
           messageTemp);
         Assert.AreEqual(1250652260, ed.ToSingleBits());
+      }
+    }
+
+    [Test]
+    public void TestFromToSingleBits() {
+      for (var i = 0; i < 65536; ++i) {
+        Assert.AreEqual(i, EFloat.FromSingleBits(i).ToSingleBits());
+        Assert.AreEqual(i, ERational.FromSingleBits(i).ToSingleBits());
+        Assert.AreEqual(i, EDecimal.FromSingleBits(i).ToSingleBits());
+        Assert.AreEqual(
+          i,
+          EFloat.FromSingleBits(i + Int32.MinValue).ToSingleBits());
+        Assert.AreEqual(i,
+  ERational.FromSingleBits(i + Int32.MinValue).ToSingleBits());
+        Assert.AreEqual(
+          i,
+          EDecimal.FromSingleBits(i + Int32.MinValue).ToSingleBits());
+        Assert.AreEqual(i,
+  EFloat.FromSingleBits(Int32.MaxValue - i).ToSingleBits());
+        Assert.AreEqual(
+          i,
+          ERational.FromSingleBits(Int32.MaxValue - i).ToSingleBits());
+        Assert.AreEqual(i,
+  EDecimal.FromSingleBits(Int32.MaxValue - i).ToSingleBits());
+      }
+    }
+
+    [Test]
+    public void TestFromToDoubleBits() {
+      for (var i = 0; i < 65536; ++i) {
+        Assert.AreEqual(i, EFloat.FromDoubleBits(i).ToDoubleBits());
+        Assert.AreEqual(i, ERational.FromDoubleBits(i).ToDoubleBits());
+        Assert.AreEqual(i, EDecimal.FromDoubleBits(i).ToDoubleBits());
+        Assert.AreEqual(
+          i,
+          EFloat.FromDoubleBits(i + Int64.MinValue).ToDoubleBits());
+        Assert.AreEqual(i,
+  ERational.FromDoubleBits(i + Int64.MinValue).ToDoubleBits());
+        Assert.AreEqual(
+          i,
+          EDecimal.FromDoubleBits(i + Int64.MinValue).ToDoubleBits());
+        Assert.AreEqual(i,
+  EFloat.FromDoubleBits(Int32.MaxValue - i).ToDoubleBits());
+        Assert.AreEqual(
+          i,
+          ERational.FromDoubleBits(Int64.MaxValue - i).ToDoubleBits());
+        Assert.AreEqual(i,
+  EDecimal.FromDoubleBits(Int64.MaxValue - i).ToDoubleBits());
       }
     }
 
@@ -918,11 +966,9 @@ namespace Test {
       int f32,
       long f64,
       string line) {
-      Assert.AreEqual(f16, f16);
-      // TODO: Support f16 test
-      // TODO: Add From/ToHalfBits in EDecimal/EFloat/ERational
       EFloat efsng = EFloat.FromSingleBits(f32);
       EFloat efdbl = EFloat.FromDoubleBits(f64);
+      Assert.AreEqual(f16, f16);
       // Begin test
       if (efsng.IsFinite) {
         TestStringToSingleOne(str);
@@ -932,24 +978,76 @@ namespace Test {
       }
       EFloat ef;
       ef = EFloat.FromString(str, EContext.Binary64);
-      Assert.AreEqual(f64, ef.ToDoubleBits(), line);
+      Assert.AreEqual(f64, ef.ToDoubleBits(), line + " ef.ToDoubleBits");
       ef = EFloat.FromString(str, EContext.Binary32);
-      Assert.AreEqual(f32, ef.ToSingleBits(), line);
+      Assert.AreEqual(f32, ef.ToSingleBits(), line + " ef.ToSingleBits");
       ef = EFloat.FromString(
           "xxx" + str + "xxx",
           3,
           str.Length,
           EContext.Binary64);
-      Assert.AreEqual(f64, ef.ToDoubleBits(), line);
+      Assert.AreEqual(f64, ef.ToDoubleBits(), line + " ef.ToDoubleBits");
       ef = EFloat.FromString(
           "xxx" + str + "xxx",
           3,
           str.Length,
           EContext.Binary32);
-      Assert.AreEqual(f32, ef.ToSingleBits(), line);
+      Assert.AreEqual(f32, ef.ToSingleBits(), line + " ef.ToSingleBits");
       EDecimal ed = EDecimal.FromString(str);
       Assert.AreEqual(ed.ToSingleBits(), f32, str);
       Assert.AreEqual(ed.ToDoubleBits(), f64, str);
+    }
+
+    [Test]
+    [Timeout(20000)]
+    public void TestZeroHighExponents() {
+       string[] variations = {
+         String.Empty,
+         ".0",
+         ".00",
+         ".000",
+         ".00000000",
+       };
+       foreach (string vari in variations) {
+         TestParseNumberFxxLine(
+          "0000 00000000 0000000000000000 0" + vari +
+          "E1004418092357917223");
+         TestParseNumberFxxLine(
+          "0000 00000000 0000000000000000 0" + vari +
+          "E-1004418092357917223");
+         TestParseNumberFxxLine(
+            "0000 00000000 0000000000000000 0" + vari +
+          "E132190956");
+         TestParseNumberFxxLine(
+            "0000 00000000 0000000000000000 0" + vari +
+          "E-132190956");
+
+         TestParseNumberFxxLine(
+          "0000 00000000 0000000000000000 0" + vari +
+          "E100441809235791722330759976");
+         TestParseNumberFxxLine(
+          "0000 00000000 0000000000000000 0" + vari +
+          "E-100441809235791722330759976");
+         TestParseNumberFxxLine(
+            "0000 00000000 0000000000000000 0" + vari +
+          "E1321909565013040040586");
+         TestParseNumberFxxLine(
+            "0000 00000000 0000000000000000 0" + vari +
+          "E-1321909565013040040586");
+         // Negative zero
+         TestParseNumberFxxLine(
+          "8000 80000000 8000000000000000 -0" + vari +
+          "E100441809235791722330759976");
+         TestParseNumberFxxLine(
+          "8000 80000000 8000000000000000 -0" + vari +
+          "E-100441809235791722330759976");
+         TestParseNumberFxxLine(
+            "8000 80000000 8000000000000000 -0" + vari +
+          "E1321909565013040040586");
+         TestParseNumberFxxLine(
+            "8000 80000000 8000000000000000 -0" + vari +
+          "E-1321909565013040040586");
+        }
     }
 
     [Test]
@@ -1950,16 +2048,20 @@ namespace Test {
         Assert.Fail(str);
       }
       EFloat ef = EFloat.FromString(str, EContext.Binary32);
+      var significandBits = 24;
+      var exponentBits = 8;
+      int emin = -((1 << (exponentBits - 1)) - 2) - (significandBits - 1);
       if (ef.Sign == 0) {
         Assert.IsTrue(ed.IsNegative == ef.IsNegative);
-        ERational half = PowerOfTwo(-149).Divide(2);
+        ERational half = PowerOfTwo(emin).Divide(2);
         if (half.CompareToDecimal(ed.Abs()) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
         }
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
-            EInteger.FromInt32((1 << 25) - 1).ShiftLeft(103));
+            EInteger.FromInt32((1 << (significandBits + 1)) - 1)
+               .ShiftLeft((1 << (exponentBits-1)) -1 - significandBits));
         if (ed.Abs().CompareTo(half) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
@@ -1976,21 +2078,96 @@ namespace Test {
         EInteger eimant = ef.Abs().Mantissa;
         long lmant = eimant.ToInt64Checked();
         int exp = ef.Exponent.ToInt32Checked();
-        while (lmant < (1 << 23) && exp > -149) {
+        while (lmant < (1 << (significandBits - 1)) && exp > emin) {
           --exp;
           lmant <<= 1;
         }
-        while (lmant >= (1 >> 24) && (lmant & 1) == 0) {
+        while (lmant >= (1 >> significandBits) && (lmant & 1) == 0) {
           ++exp;
           lmant >>= 1;
         }
-        Assert.IsTrue(lmant < (1 << 24));
+        Assert.IsTrue(lmant < (1 << significandBits));
         ERational ulp = PowerOfTwo(exp);
         ERational half = PowerOfTwo(exp - 1);
         ERational binValue = ERational.FromInt64(lmant).Multiply(ulp);
         ERational decValue = ERational.FromEDecimal(ed).Abs();
         ERational diffValue = decValue.Subtract(binValue);
-        if (IsPowerOfTwo(lmant) && exp != -149) {
+        if (IsPowerOfTwo(lmant) && exp != emin) {
+          // Different closeness check applies when approximate
+          // binary number is a power of 2
+          ERational negQuarter = PowerOfTwo(exp - 2).Negate();
+          // NOTE: Order of subtraction in diffValue is important here
+          if (negQuarter.CompareTo(diffValue) > 0 ||
+            diffValue.CompareTo(half) > 0) {
+            string msg = "str=" + str + "\nef=" + OutputEF(ef) +
+              "\nmant=" + lmant + "\nexp=" + exp +
+              "\nnegQuarter=" + negQuarter + "\n" +
+              "\ndiffValue=" + diffValue + "\n" + "\nhalf=" + half + "\n";
+            Assert.Fail(msg);
+          }
+        } else {
+          int cmp = diffValue.Abs().CompareTo(half);
+          if (cmp > 0 || (cmp == 0 && (lmant & 1) != 0)) {
+            string msg = "str=" + str + "\nef=" + OutputEF(ef) +
+              "\nmant=" + lmant + "\nexp=" + exp;
+            Assert.Fail(msg);
+          }
+        }
+      }
+    }
+
+    private static void TestStringToHalfOne(string str) {
+      EDecimal ed = EDecimal.FromString(str);
+      if (ed.IsInfinity() || ed.IsNaN()) {
+        // Expected string to represent a finite number
+        Assert.Fail(str);
+      }
+      EFloat ef = EFloat.FromString(str, EContext.Binary16);
+      var significandBits = 11;
+      var exponentBits = 5;
+      int emin = -((1 << (exponentBits - 1)) - 2) - (significandBits - 1);
+      if (ef.Sign == 0) {
+        Assert.IsTrue(ed.IsNegative == ef.IsNegative);
+        ERational half = PowerOfTwo(emin).Divide(2);
+        if (half.CompareToDecimal(ed.Abs()) < 0) {
+          string msg = "str=" + str + "\nef=" + OutputEF(ef);
+          Assert.Fail(msg);
+        }
+      } else if (ef.IsInfinity()) {
+        EDecimal half = EDecimal.FromEInteger(
+            EInteger.FromInt32((1 << (significandBits + 1)) - 1)
+               .ShiftLeft((1 << (exponentBits-1)) -1 - significandBits));
+        if (ed.Abs().CompareTo(half) < 0) {
+          string msg = "str=" + str + "\nef=" + OutputEF(ef);
+          Assert.Fail(msg);
+        }
+      } else if (ef.IsNaN()) {
+        string msg = "str=" + str + "\nef=" + OutputEF(ef);
+        Assert.Fail(msg);
+      } else {
+        if (ed.IsNegative != ef.IsNegative) {
+          Assert.IsTrue(
+            ed.IsNegative == ef.IsNegative,
+            ed + "\nef=" + ef + "\nstr=" + str);
+        }
+        EInteger eimant = ef.Abs().Mantissa;
+        long lmant = eimant.ToInt64Checked();
+        int exp = ef.Exponent.ToInt32Checked();
+        while (lmant < (1 << (significandBits - 1)) && exp > emin) {
+          --exp;
+          lmant <<= 1;
+        }
+        while (lmant >= (1 >> significandBits) && (lmant & 1) == 0) {
+          ++exp;
+          lmant >>= 1;
+        }
+        Assert.IsTrue(lmant < (1 << significandBits));
+        ERational ulp = PowerOfTwo(exp);
+        ERational half = PowerOfTwo(exp - 1);
+        ERational binValue = ERational.FromInt64(lmant).Multiply(ulp);
+        ERational decValue = ERational.FromEDecimal(ed).Abs();
+        ERational diffValue = decValue.Subtract(binValue);
+        if (IsPowerOfTwo(lmant) && exp != emin) {
           // Different closeness check applies when approximate
           // binary number is a power of 2
           ERational negQuarter = PowerOfTwo(exp - 2).Negate();
@@ -2087,6 +2264,7 @@ namespace Test {
     public static void TestStringToDoubleSingleOne(string str) {
       TestStringToDoubleOne(str);
       TestStringToSingleOne(str);
+      TestStringToHalfOne(str);
     }
 
     [Test]
@@ -2126,10 +2304,10 @@ namespace Test {
           false).WithExponentClamp(true).WithSimplified(false);
       EInteger emant =
 
-        EInteger.FromString("88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
+  EInteger.FromString("88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888");
       EInteger eexp =
 
-        EInteger.FromString("1000000000000000000000000000000000000000000000000000000000000");
+  EInteger.FromString("1000000000000000000000000000000000000000000000000000000000000");
       EFloat efmant = EFloat.FromEInteger(emant);
       EFloat efexp = EFloat.FromEInteger(eexp);
       EFloat ef2 = efmant.Multiply(efexp, ec);
@@ -2144,10 +2322,10 @@ namespace Test {
     public void TestStringToDoubleSpecificA() {
       string str =
 
-        "395327047447757233151852025916007341543830859020311182348280049405196796002596109672166636419495856284607016106216608940280159980410562166599659829549836399698289289291865158130408917411887384321629920907652092446340673107744633313627817849916899822288644199811238047243389339131191051062809216261025215824523.4450649076678708780046658731481724174843552673744114894507741447375332545091864773666544122664744761333144781246291659228465651037706198817528715653479238826021855332253112859123685832653222952164708641577926580176434675271038652656763152189489079211898438385589908245057380361924564889535903026779733005698423207728797753101352096950270825633677221801202735885609696599439158086869381984718373482202897732285374878471795568389970731523802567947950548336665365358918558902407299370109971613731348136804887326596306602541763433746075226973971630905830686044475031568633180101625817896363428603835057150659940109566037118543874354367476000190935017225290762348459773388606367426256772899921636";
+  "395327047447757233151852025916007341543830859020311182348280049405196796002596109672166636419495856284607016106216608940280159980410562166599659829549836399698289289291865158130408917411887384321629920907652092446340673107744633313627817849916899822288644199811238047243389339131191051062809216261025215824523.4450649076678708780046658731481724174843552673744114894507741447375332545091864773666544122664744761333144781246291659228465651037706198817528715653479238826021855332253112859123685832653222952164708641577926580176434675271038652656763152189489079211898438385589908245057380361924564889535903026779733005698423207728797753101352096950270825633677221801202735885609696599439158086869381984718373482202897732285374878471795568389970731523802567947950548336665365358918558902407299370109971613731348136804887326596306602541763433746075226973971630905830686044475031568633180101625817896363428603835057150659940109566037118543874354367476000190935017225290762348459773388606367426256772899921636";
       string strb =
 
-        "179769313486231580793728971405303415079934132710037826936173778980444968292764750946649017977587207096330286416692887910946555547851940402630657488671505820681908902000708383676273854845817711531764475730270069855571366959622842914819860834936475292719074168444365510704342711559699508093042880177904174497792";
+  "179769313486231580793728971405303415079934132710037826936173778980444968292764750946649017977587207096330286416692887910946555547851940402630657488671505820681908902000708383676273854845817711531764475730270069855571366959622842914819860834936475292719074168444365510704342711559699508093042880177904174497792";
       EDecimal eda = EDecimal.FromString(str);
       EDecimal edb = EDecimal.FromString(strb);
       TestCommon.CompareTestLess(edb, eda);
@@ -2970,8 +3148,8 @@ namespace Test {
             EInteger.FromInt32(-1034));
         TestToFloatRoundingOne(objectTemp, true);
         objectTemp = EFloat.Create(
-            EInteger.FromRadixString("100110100000000011000010111000111111101", 2),
-            EInteger.FromInt32(-1073));
+  EInteger.FromRadixString("100110100000000011000010111000111111101", 2),
+  EInteger.FromInt32(-1073));
         TestToFloatRoundingOne(objectTemp, true);
       }
     }
@@ -3191,17 +3369,23 @@ namespace Test {
         ERational.NegativeInfinity,
         ERational.FromEFloat(EFloat.NegativeInfinity));
       Assert.IsTrue(
-        Double.IsPositiveInfinity(
-          ERational.PositiveInfinity.ToDouble()));
-      Assert.IsTrue(
-        Double.IsNegativeInfinity(
-          ERational.NegativeInfinity.ToDouble()));
-      Assert.IsTrue(
-        Single.IsPositiveInfinity(
-          ERational.PositiveInfinity.ToSingle()));
-      Assert.IsTrue(
-        Single.IsNegativeInfinity(
-          ERational.NegativeInfinity.ToSingle()));
+        Double.IsPositiveInfinity(ERational.PositiveInfinity.ToDouble()),
+        ERational.PositiveInfinity.ToDouble() + String.Empty);
+      {
+        bool objectTemp = Double.IsNegativeInfinity(
+          ERational.NegativeInfinity.ToDouble());
+        Assert.IsTrue(objectTemp);
+}
+      {
+        bool objectTemp = Single.IsPositiveInfinity(
+          ERational.PositiveInfinity.ToSingle());
+        Assert.IsTrue(objectTemp);
+      }
+      {
+        bool objectTemp = Single.IsNegativeInfinity(
+          ERational.NegativeInfinity.ToSingle());
+        Assert.IsTrue(objectTemp);
+}
     }
 
     [Test]
