@@ -879,7 +879,17 @@ namespace PeterO.Numbers {
     /// closest "double" to 0.1, not 0.1 exactly). To create an
     /// arbitrary-precision decimal number from a decimal value, use
     /// FromString instead in most cases (for example:
-    /// <c>EDecimal.FromString("0.1")</c> ).</summary>
+    /// <c>EDecimal.FromString("0.1")</c> ).
+    /// <para>The input value can be a not-a-number (NaN) value (such as
+    /// <c>Double.NaN</c> ); however, NaN values have multiple forms that
+    /// are equivalent for many applications' purposes, and
+    /// <c>Double.NaN</c> is only one of these equivalent forms. In fact,
+    /// <c>EDecimal.FromDouble(Double.NaN)</c> could produce an object that
+    /// is represented differently between DotNet and Java, because
+    /// <c>Double.NaN</c> may have a different form in DotNet and Java (for
+    /// example, the NaN value's sign may be negative in DotNet, but
+    /// positive in Java). Use `IsNaN()` to determine whether an object
+    /// from this class stores a NaN value of any form.</para></summary>
     /// <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
     /// floating-point number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
@@ -1145,7 +1155,20 @@ namespace PeterO.Numbers {
     /// closest "float" to 0.1, not 0.1 exactly). To create an
     /// arbitrary-precision decimal number from a decimal value, use
     /// FromString instead in most cases (for example:
-    /// <c>EDecimal.FromString("0.1")</c> ).</summary>
+    /// <c>EDecimal.FromString("0.1")</c> ).
+    /// <para>The input value can be a not-a-number (NaN) value (such as
+    /// <c>Single.NaN</c> in DotNet or Float.NaN in Java); however, NaN
+    /// values have multiple forms that are equivalent for many
+    /// applications' purposes, and <c>Single.NaN</c> / <c>Float.NaN</c> is
+    /// only one of these equivalent forms. In fact,
+    /// <c>EDecimal.FromSingle(Single.NaN)</c> or
+    /// <c>EDecimal.FromSingle(Float.NaN)</c> could produce an object that
+    /// is represented differently between DotNet and Java, because
+    /// <c>Single.NaN</c> / <c>Float.NaN</c> may have a different form in
+    /// DotNet and Java (for example, the NaN value's sign may be negative
+    /// in DotNet, but positive in Java). Use `IsNaN()` to determine
+    /// whether an object from this class stores a NaN value of any
+    /// form.</para></summary>
     /// <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
     /// binary floating-point number.</param>
     /// <returns>An arbitrary-precision decimal number with the same value

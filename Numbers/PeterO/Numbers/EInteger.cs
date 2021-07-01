@@ -5512,19 +5512,37 @@ this.Pow(EInteger.FromInt64(longPower));
     /// two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
+    [Obsolete("Does the incorrect implication operation. Use Imply instead.")]
     public EInteger Imp(EInteger second) {
-      // TODO: Make Obsolete("Does the incorrect implication operation. Use Imply
-      // instead.")
       return this.OrNot(second);
     }
-    /*
+
+    /// <summary>Does an implication or IMP operation between this
+    /// arbitrary-precision integer and another one. Also means SECOND OR
+    /// NOT FIRST.</summary>
+    /// <param name='second'>Another arbitrary-precision integer that
+    /// participates in the operation.</param>
+    /// <returns>An arbitrary-precision integer in which each bit is set if
+    /// the corresponding bit of the other integer is set, this integer's
+    /// corresponding bit is
+    /// <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010
+    /// = 11010 IMP 10110 = 00100 (or in decimal, 22 OR NOT 26 = 23). This
+    /// method uses the two's complement form of negative integers (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+    /// example, in binary, ...11101110 OR NOT 01011 = 01011 IMP...11101110
+    /// =...11111110 (or in decimal, -18 OR 11 = -2).</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='second'/> is null.</exception>
+    /// <remarks>Each arbitrary-precision integer is treated as a
+    /// two's-complement form (see
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+    /// the purposes of this operator.</remarks>
     private EInteger Imply(EInteger second) {
       if (second == null) {
         throw new ArgumentNullException(nameof(second));
       }
       return second.OrNot(this);
     }
-    */
 
     /// <summary>Does an XOR NOT operation (or equivalence operation, EQV
     /// operation, or exclusive-OR NOT operation) between this
