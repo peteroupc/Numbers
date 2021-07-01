@@ -433,6 +433,8 @@ this.unsignedNumerator.IsValueZero;
     /// <returns>An arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='ef'/> is null.</exception>
+    /// <exception cref='ArgumentException'>doesn't satisfy den.Sign
+    /// &amp;gt;= 0.</exception>
     public static ERational FromEDecimal(EDecimal ef) {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
@@ -447,7 +449,11 @@ PositiveInfinity) : CreateNaN(
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
       if (exp.IsZero) {
-        return FromEInteger(num);
+        if (num.Sign != 0) {
+          return FromEInteger(num);
+        } else {
+          return ef.IsNegative ? NegativeZero : Zero;
+        }
       }
       bool neg = num.Sign < 0;
       num = num.Abs();
@@ -462,7 +468,14 @@ PositiveInfinity) : CreateNaN(
       if (neg) {
         num = -(EInteger)num;
       }
-      return ERational.Create(num, den);
+      ERational rat = ERational.Create(num, den);
+#if DEBUG
+      if (!(den.Sign >= 0)) {
+        throw new ArgumentException("doesn't satisfy den.Sign >= 0");
+      }
+#endif
+
+      return (ef.IsNegative && num.Sign == 0) ? rat.Negate() : rat;
     }
 
     /// <summary>Converts an arbitrary-precision binary floating-point
@@ -472,6 +485,8 @@ PositiveInfinity) : CreateNaN(
     /// <returns>An arbitrary-precision rational number.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='ef'/> is null.</exception>
+    /// <exception cref='ArgumentException'>doesn't satisfy den.Sign
+    /// &amp;gt;= 0.</exception>
     public static ERational FromEFloat(EFloat ef) {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
@@ -486,7 +501,11 @@ PositiveInfinity) : CreateNaN(
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
       if (exp.IsZero) {
-        return FromEInteger(num);
+        if (num.Sign != 0) {
+          return FromEInteger(num);
+        } else {
+          return ef.IsNegative ? NegativeZero : Zero;
+        }
       }
       bool neg = num.Sign < 0;
       num = num.Abs();
@@ -500,7 +519,14 @@ PositiveInfinity) : CreateNaN(
       if (neg) {
         num = -(EInteger)num;
       }
-      return ERational.Create(num, den);
+      ERational rat = ERational.Create(num, den);
+#if DEBUG
+      if (!(den.Sign >= 0)) {
+        throw new ArgumentException("doesn't satisfy den.Sign >= 0");
+      }
+#endif
+
+      return (ef.IsNegative && num.Sign == 0) ? rat.Negate() : rat;
     }
 
     /// <summary>Converts an arbitrary-precision integer to a rational
@@ -549,6 +575,20 @@ PositiveInfinity) : CreateNaN(
     /// <paramref name='value'/>.</returns>
     public static ERational FromSingleBits(int value) {
       return FromEFloat(EFloat.FromSingleBits(value));
+    }
+
+    /// <summary>Creates a binary rational number from a binary
+    /// floating-point number encoded in the IEEE 754 binary16 format (also
+    /// known as a "half-precision" floating-point number). This method
+    /// computes the exact value of the floating point number, not an
+    /// approximation, as is often the case by converting the number to a
+    /// string.</summary>
+    /// <param name='value'>A 16-bit integer encoded in the IEEE 754
+    /// binary16 format.</param>
+    /// <returns>A rational number with the same floating-point value as
+    /// <paramref name='value'/>.</returns>
+    public static ERational FromHalfBits(short value) {
+      return FromEFloat(EFloat.FromHalfBits(value));
     }
 
     /// <summary>Creates a binary rational number from a 64-bit
@@ -1915,6 +1955,33 @@ PositiveInfinity) : CreateNaN(
       return EFloat.FromEInteger(this.Numerator)
         .Divide(EFloat.FromEInteger(this.Denominator), EContext.Binary32)
         .ToSingleBits();
+    }
+
+    /// <summary>Converts this value to its closest equivalent as a binary
+    /// floating-point number, expressed as an integer in the IEEE 754
+    /// binary16 format (also known as a "half-precision" floating-point
+    /// number). The half-even rounding mode is used.
+    /// <para>If this value is a NaN, sets the high bit of the binary16
+    /// number's significand area for a quiet NaN, and clears it for a
+    /// signaling NaN. Then the other bits of the significand area are set
+    /// to the lowest bits of this object's unsigned significand, and the
+    /// next-highest bit of the significand area is set if those bits are
+    /// all zeros and this is a signaling NaN.</para></summary>
+    /// <returns>The closest binary floating-point number to this value,
+    /// expressed as an integer in the IEEE 754 binary16 format. The return
+    /// value can be positive infinity or negative infinity if this value
+    /// exceeds the range of a floating-point number in the binary16
+    /// format.</returns>
+    public short ToHalfBits() {
+      if (!this.IsFinite) {
+        return this.ToEFloat(EContext.Binary16).ToHalfBits();
+      }
+      if (this.IsNegative && this.IsZero) {
+        return EFloat.NegativeZero.ToHalfBits();
+      }
+      return EFloat.FromEInteger(this.Numerator)
+        .Divide(EFloat.FromEInteger(this.Denominator), EContext.Binary16)
+        .ToHalfBits();
     }
 
     /// <summary>Converts this value to its form in lowest terms. For

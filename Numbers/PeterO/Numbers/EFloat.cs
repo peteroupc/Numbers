@@ -98,6 +98,27 @@ namespace PeterO.Numbers {
     private const int CacheFirst = -24;
     private const int CacheLast = 128;
 
+    private const int BinarySignArea = 1;
+    internal const int Binary32Bits = 32;
+    internal const int Binary32SignifBits = 24;
+    internal const int Binary32SignifAreaBits = Binary32SignifBits - 1;
+    internal const int Binary32ExponentArea = Binary32Bits - BinarySignArea
+- Binary32SignifAreaBits;
+    internal const int Binary32EMin = -((1 << (Binary32ExponentArea -1)) - 2) -
+Binary32SignifAreaBits;
+    internal const int Binary32Infinity =
+((1 << Binary32ExponentArea) - 1) << Binary32SignifAreaBits;
+
+    internal const int Binary16Bits = 16;
+    internal const int Binary16SignifBits = 11;
+    internal const int Binary16SignifAreaBits = Binary16SignifBits - 1;
+    internal const int Binary16ExponentArea = Binary16Bits - BinarySignArea
+- Binary16SignifAreaBits;
+    internal const int Binary16EMin = -((1 << (Binary16ExponentArea -1)) - 2) -
+Binary16SignifAreaBits;
+    internal const int Binary16Infinity =
+((1 << Binary16ExponentArea) - 1) << Binary16SignifAreaBits;
+
     /// <summary>A not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Microsoft.Security",
@@ -683,59 +704,6 @@ namespace PeterO.Numbers {
     /// number.</returns>
     public static EFloat FromEInteger(EInteger bigint) {
       return EFloat.Create(bigint, (int)0);
-    }
-
-    /// <summary>Creates a binary floating-point number from a 32-bit
-    /// floating-point number encoded in the IEEE 754 binary32 format. This
-    /// method computes the exact value of the floating point number, not
-    /// an approximation, as is often the case by converting the floating
-    /// point number to a string first.</summary>
-    /// <param name='value'>A 32-bit binary floating-point number encoded
-    /// in the IEEE 754 binary32 format.</param>
-    /// <returns>A binary floating-point number with the same
-    /// floating-point value as <paramref name='value'/>.</returns>
-    public static EFloat FromSingleBits(int value) {
-      bool neg = (value >> 31) != 0;
-      var floatExponent = (int)((value >> 23) & 0xff);
-      int valueFpMantissa = value & 0x7fffff;
-      EInteger bigmant;
-      if (floatExponent == 255) {
-        if (valueFpMantissa == 0) {
-          return neg ? NegativeInfinity : PositiveInfinity;
-        }
-        // Treat high bit of mantissa as quiet/signaling bit
-        bool quiet = (valueFpMantissa & 0x400000) != 0;
-        valueFpMantissa &= 0x3fffff;
-        bigmant = (EInteger)valueFpMantissa;
-        value = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
-            BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
-        if (bigmant.IsZero && !neg) {
-          return quiet ? NaN : SignalingNaN;
-        }
-        return CreateWithFlags(
-            bigmant,
-            EInteger.Zero,
-            value);
-      }
-      if (floatExponent == 0) {
-        ++floatExponent;
-      } else {
-        valueFpMantissa |= 1 << 23;
-      }
-      if (valueFpMantissa == 0) {
-        return neg ? EFloat.NegativeZero : EFloat.Zero;
-      }
-      while ((valueFpMantissa & 1) == 0) {
-        ++floatExponent;
-        valueFpMantissa >>= 1;
-      }
-      if (neg) {
-        valueFpMantissa = -valueFpMantissa;
-      }
-      bigmant = (EInteger)valueFpMantissa;
-      return EFloat.Create(
-          bigmant,
-          (EInteger)(floatExponent - 150));
     }
 
     internal static EFloat SignalUnderflow(EContext ec, bool negative, bool
@@ -3949,6 +3917,118 @@ namespace PeterO.Numbers {
       return BitConverter.ToDouble(BitConverter.GetBytes((long)value), 0);
     }
 
+    /// <summary>Creates a binary floating-point number from a 32-bit
+    /// floating-point number encoded in the IEEE 754 binary32 format. This
+    /// method computes the exact value of the floating point number, not
+    /// an approximation, as is often the case by converting the floating
+    /// point number to a string first.</summary>
+    /// <param name='value'>A 32-bit binary floating-point number encoded
+    /// in the IEEE 754 binary32 format.</param>
+    /// <returns>A binary floating-point number with the same
+    /// floating-point value as <paramref name='value'/>.</returns>
+    public static EFloat FromSingleBits(int value) {
+      bool neg = (value >> (Binary32Bits - 1)) != 0;
+      var floatExponent = (int)((value >> Binary32SignifAreaBits) &
+((1 << Binary32ExponentArea) - 1));
+      int valueFpMantissa = value & ((1 << Binary32SignifAreaBits) - 1);
+      EInteger bigmant;
+      if (floatExponent == ((1 << Binary32ExponentArea) - 1)) {
+        if (valueFpMantissa == 0) {
+          return neg ? NegativeInfinity : PositiveInfinity;
+        }
+        // Treat high bit of mantissa as quiet/signaling bit
+        bool quiet = (valueFpMantissa & (1 << (Binary32SignifAreaBits - 1)))!=
+0;
+        valueFpMantissa &= (1 << (Binary32SignifAreaBits - 1)) - 1;
+        bigmant = (EInteger)valueFpMantissa;
+        value = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
+            BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
+        if (bigmant.IsZero && !neg) {
+          return quiet ? NaN : SignalingNaN;
+        }
+        return CreateWithFlags(
+            bigmant,
+            EInteger.Zero,
+            value);
+      }
+      if (floatExponent == 0) {
+        ++floatExponent;
+      } else {
+        valueFpMantissa |= 1 << Binary32SignifAreaBits;
+      }
+      if (valueFpMantissa == 0) {
+        return neg ? EFloat.NegativeZero : EFloat.Zero;
+      }
+      while ((valueFpMantissa & 1) == 0) {
+        ++floatExponent;
+        valueFpMantissa >>= 1;
+      }
+      if (neg) {
+        valueFpMantissa = -valueFpMantissa;
+      }
+      bigmant = (EInteger)valueFpMantissa;
+      return EFloat.Create(
+          bigmant,
+          (EInteger)(floatExponent - 1 + Binary32EMin));
+    }
+
+    /// <summary>Creates a binary floating-point number from a binary
+    /// floating-point number encoded in the IEEE 754 binary16 format (also
+    /// known as a "half-precision" floating-point number). This method
+    /// computes the exact value of the floating point number, not an
+    /// approximation, as is often the case by converting the floating
+    /// point number to a string first.</summary>
+    /// <param name='value'>A binary floating-point number encoded in the
+    /// IEEE 754 binary16 format.</param>
+    /// <returns>A binary floating-point number with the same
+    /// floating-point value as <paramref name='value'/>.</returns>
+    public static EFloat FromHalfBits(short value) {
+      int ivalue = ((int)value) & 0xffff;
+      bool neg = (ivalue >> (Binary16Bits - 1)) != 0;
+      var floatExponent = (int)((ivalue >> Binary16SignifAreaBits) &
+((1 << Binary16ExponentArea) - 1));
+      int valueFpMantissa = ivalue & ((1 << Binary16SignifAreaBits) - 1);
+      EInteger bigmant;
+      if (floatExponent == ((1 << Binary16ExponentArea) - 1)) {
+        if (valueFpMantissa == 0) {
+          return neg ? NegativeInfinity : PositiveInfinity;
+        }
+        // Treat high bit of mantissa as quiet/signaling bit
+        bool quiet = (valueFpMantissa & (1 << (Binary16SignifAreaBits - 1)))!=
+0;
+        valueFpMantissa &= (1 << (Binary16SignifAreaBits - 1)) - 1;
+        bigmant = (EInteger)valueFpMantissa;
+        ivalue = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
+            BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
+        if (bigmant.IsZero && !neg) {
+          return quiet ? NaN : SignalingNaN;
+        }
+        return CreateWithFlags(
+            bigmant,
+            EInteger.Zero,
+            ivalue);
+      }
+      if (floatExponent == 0) {
+        ++floatExponent;
+      } else {
+        valueFpMantissa |= 1 << Binary16SignifAreaBits;
+      }
+      if (valueFpMantissa == 0) {
+        return neg ? EFloat.NegativeZero : EFloat.Zero;
+      }
+      while ((valueFpMantissa & 1) == 0) {
+        ++floatExponent;
+        valueFpMantissa >>= 1;
+      }
+      if (neg) {
+        valueFpMantissa = -valueFpMantissa;
+      }
+      bigmant = (EInteger)valueFpMantissa;
+      return EFloat.Create(
+          bigmant,
+          (EInteger)(floatExponent - 1 + Binary16EMin));
+    }
+
     /// <summary>Converts this value to its closest equivalent as 32-bit
     /// floating-point number, expressed as an integer in the IEEE 754
     /// binary32 format. The half-even rounding mode is used.
@@ -3966,31 +4046,32 @@ namespace PeterO.Numbers {
     /// number.</returns>
     public int ToSingleBits() {
       if (this.IsPositiveInfinity()) {
-        return 0x7f800000;
+        return Binary32Infinity;
       }
       if (this.IsNegativeInfinity()) {
-        return unchecked((int)0xff800000);
+        return unchecked(Binary32Infinity + (1 << (Binary32Bits - 1)));
       }
       if (this.IsNaN()) {
-        var nan = 0x7f800000;
+        var nan = Binary32Infinity;
         if (this.IsNegative) {
-          nan |= unchecked((int)(1 << 31));
+          nan |= unchecked((int)(1 << (Binary32Bits - 1)));
         }
         // IsQuietNaN(): the quiet bit for X86 at least
-        // If signaling NaN and mantissa is 0: set 0x200000
-        // bit to keep the mantissa from being zero
+        // If signaling NaN and mantissa is 0: set highest
+        // bit of mantissa area to keep the mantissa from being zero
         if (this.IsQuietNaN()) {
-          nan |= 0x400000;
+          nan |= 1 << (Binary32SignifAreaBits - 1);
         } else if (this.UnsignedMantissa.IsZero) {
-          nan |= 0x200000;
+          nan |= 1 << (Binary32SignifAreaBits - 2);
         }
         if (!this.UnsignedMantissa.IsZero) {
           // Transfer diagnostic information
-          EInteger bigdata = this.UnsignedMantissa % (EInteger)0x400000;
+          EInteger bigdata = this.UnsignedMantissa.Remainder(
+              EInteger.FromInt32(1 << (Binary32SignifAreaBits - 1)));
           var intData = (int)bigdata;
           nan |= intData;
           if (intData == 0 && !this.IsQuietNaN()) {
-            nan |= 0x200000;
+            nan |= 1 << (Binary32SignifAreaBits - 2);
           }
         }
         return nan;
@@ -4000,10 +4081,12 @@ namespace PeterO.Numbers {
       // thisValue.Mantissa + " " + thisValue.Exponent);
       // Check whether rounding can be avoided for common cases
       // where the value already fits a single
+      int exponentZone = ((1 << (Binary32ExponentArea - 1)) - 2) -
+Binary32SignifBits;
       if (!thisValue.IsFinite ||
-        thisValue.unsignedMantissa.CompareToInt(0x1000000) >= 0 ||
-        thisValue.exponent.CompareToInt(-95) < 0 ||
-        thisValue.exponent.CompareToInt(95) > 0) {
+        thisValue.unsignedMantissa.CompareToInt(1 << Binary32SignifBits) >= 0 ||
+        thisValue.exponent.CompareToInt(-exponentZone) < 0 ||
+        thisValue.exponent.CompareToInt(exponentZone) > 0) {
         thisValue = this.RoundToPrecision(EContext.Binary32);
       }
       // DebugUtility.Log("afterround=" +thisValue + " ["+
@@ -4013,21 +4096,21 @@ namespace PeterO.Numbers {
       }
       int intmant = thisValue.unsignedMantissa.ToInt32();
       if (thisValue.IsNegative && intmant == 0) {
-        return (int)1 << 31;
+        return (int)1 << (Binary32Bits - 1);
       } else if (intmant == 0) {
         return 0;
       }
       int intBitLength = NumberUtility.BitLength(intmant);
       int expo = thisValue.exponent.ToInt32();
       var subnormal = false;
-      if (intBitLength < 24) {
-        int diff = 24 - intBitLength;
+      if (intBitLength < Binary32SignifBits) {
+        int diff = Binary32SignifBits - intBitLength;
         expo -= diff;
-        if (expo < -149) {
+        if (expo < Binary32EMin) {
           // DebugUtility.Log("Diff changed from " + diff + " to " + (diff -
-          // (-149 - expo)));
-          diff -= -149 - expo;
-          expo = -149;
+          // (Binary32EMin - expo)));
+          diff -= Binary32EMin - expo;
+          expo = Binary32EMin;
           subnormal = true;
         }
         intmant <<= diff;
@@ -4035,14 +4118,113 @@ namespace PeterO.Numbers {
       // DebugUtility.Log("intmant=" + intmant + " " + intBitLength +
       // " expo=" + expo +
       // " subnormal=" + subnormal);
-      int smallmantissa = intmant & 0x7fffff;
+      int smallmantissa = intmant & ((1 << Binary32SignifAreaBits) - 1);
       if (!subnormal) {
-        smallmantissa |= (expo + 150) << 23;
+        smallmantissa |= (expo + 1 - Binary32EMin) << Binary32SignifAreaBits;
       }
       if (this.IsNegative) {
-        smallmantissa |= 1 << 31;
+        smallmantissa |= 1 << (Binary32Bits - 1);
       }
       return smallmantissa;
+    }
+
+    /// <summary>Converts this value to its closest equivalent as a binary
+    /// floating-point number, expressed as an integer in the IEEE 754
+    /// binary16 format (also known as a "half-precision" floating-point
+    /// number). The half-even rounding mode is used.
+    /// <para>If this value is a NaN, sets the high bit of the binary16
+    /// number's significand area for a quiet NaN, and clears it for a
+    /// signaling NaN. Then the other bits of the significand area are set
+    /// to the lowest bits of this object's unsigned significand, and the
+    /// next-highest bit of the significand area is set if those bits are
+    /// all zeros and this is a signaling NaN.</para></summary>
+    /// <returns>The closest binary floating-point number to this value,
+    /// expressed as an integer in the IEEE 754 binary16 format. The return
+    /// value can be positive infinity or negative infinity if this value
+    /// exceeds the range of a floating-point number in the binary16
+    /// format.</returns>
+    public short ToHalfBits() {
+      if (this.IsPositiveInfinity()) {
+        return (short)Binary16Infinity;
+      }
+      if (this.IsNegativeInfinity()) {
+        return unchecked((short)(Binary16Infinity + (1 << (Binary16Bits - 1))));
+      }
+      if (this.IsNaN()) {
+        var nan = Binary16Infinity;
+        if (this.IsNegative) {
+          nan |= unchecked((short)(1 << (Binary16Bits - 1)));
+        }
+        // IsQuietNaN(): the quiet bit for X86 at least
+        // If signaling NaN and mantissa is 0: set highest
+        // bit of mantissa area to keep the mantissa from being zero
+        if (this.IsQuietNaN()) {
+          nan |= 1 << (Binary16SignifAreaBits - 1);
+        } else if (this.UnsignedMantissa.IsZero) {
+          nan |= 1 << (Binary16SignifAreaBits - 2);
+        }
+        if (!this.UnsignedMantissa.IsZero) {
+          // Transfer diagnostic information
+          EInteger bigdata = this.UnsignedMantissa.Remainder(
+              EInteger.FromInt32(1 << (Binary16SignifAreaBits - 1)));
+          var intData = (int)bigdata;
+          nan |= intData;
+          if (intData == 0 && !this.IsQuietNaN()) {
+            nan |= 1 << (Binary16SignifAreaBits - 2);
+          }
+        }
+        return unchecked((short)nan);
+      }
+      EFloat thisValue = this;
+      // DebugUtility.Log("beforeround=" +thisValue + " ["+
+      // thisValue.Mantissa + " " + thisValue.Exponent);
+      // Check whether rounding can be avoided for common cases
+      // where the value already fits a single
+      int exponentZone = ((1 << (Binary16ExponentArea - 1)) - 2) -
+Binary16SignifBits;
+      if (!thisValue.IsFinite ||
+        thisValue.unsignedMantissa.CompareToInt(1 << Binary16SignifBits) >= 0 ||
+        thisValue.exponent.CompareToInt(-exponentZone) < 0 ||
+        thisValue.exponent.CompareToInt(exponentZone) > 0) {
+        thisValue = this.RoundToPrecision(EContext.Binary16);
+      }
+      // DebugUtility.Log("afterround=" +thisValue + " ["+
+      // thisValue.Mantissa + " " + thisValue.Exponent);
+      if (!thisValue.IsFinite) {
+        return thisValue.ToHalfBits();
+      }
+      int intmant = thisValue.unsignedMantissa.ToInt32();
+      if (thisValue.IsNegative && intmant == 0) {
+        return unchecked((short)(1 << (Binary16Bits - 1)));
+      } else if (intmant == 0) {
+        return (short)0;
+      }
+      int intBitLength = NumberUtility.BitLength(intmant);
+      int expo = thisValue.exponent.ToInt32();
+      var subnormal = false;
+      if (intBitLength < Binary16SignifBits) {
+        int diff = Binary16SignifBits - intBitLength;
+        expo -= diff;
+        if (expo < Binary16EMin) {
+          // DebugUtility.Log("Diff changed from " + diff + " to " + (diff -
+          // (Binary16EMin - expo)));
+          diff -= Binary16EMin - expo;
+          expo = Binary16EMin;
+          subnormal = true;
+        }
+        intmant <<= diff;
+      }
+      // DebugUtility.Log("intmant=" + intmant + " " + intBitLength +
+      // " expo=" + expo +
+      // " subnormal=" + subnormal);
+      int smallmantissa = intmant & ((1 << Binary16SignifAreaBits) - 1);
+      if (!subnormal) {
+        smallmantissa |= (expo + 1 - Binary16EMin) << Binary16SignifAreaBits;
+      }
+      if (this.IsNegative) {
+        smallmantissa |= 1 << (Binary16Bits - 1);
+      }
+      return unchecked((short)smallmantissa);
     }
 
     /// <summary>Converts this value to its closest equivalent as a 64-bit
