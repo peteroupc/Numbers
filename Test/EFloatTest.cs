@@ -536,7 +536,7 @@ namespace Test {
   EDecimal.FromSingleBits(Int32.MaxValue - i).ToSingleBits());
       }
     }
-    
+
     [Test]
     public void TestNegativeZero() {
       ERational er=ERational.FromString("-0/1");
@@ -549,23 +549,22 @@ namespace Test {
       EDecimal ed2;
       EFloat ef2;
 
-      er2=ERational.FromEDecimal(ed);
+      er2 = ERational.FromEDecimal(ed);
       Assert.IsTrue(er2.IsNegative && er2.IsZero);
-      er2=ERational.FromEFloat(ef);
+      er2 = ERational.FromEFloat(ef);
       Assert.IsTrue(er2.IsNegative && er2.IsZero);
 
-      ef2=ed.ToEFloat();
+      ef2 = ed.ToEFloat();
       Assert.IsTrue(ef2.IsNegative && ef2.IsZero);
-      ef2=er.ToEFloat();
+      ef2 = er.ToEFloat();
       Assert.IsTrue(ef2.IsNegative && ef2.IsZero);
-      
-      ed2=ef.ToEDecimal();
+
+      ed2 = ef.ToEDecimal();
       Assert.IsTrue(ed2.IsNegative && ed2.IsZero);
-      ed2=EDecimal.FromEFloat(ef);
+      ed2 = EDecimal.FromEFloat(ef);
       Assert.IsTrue(ed2.IsNegative && ed2.IsZero);
-      ed2=er.ToEDecimal();
+      ed2 = er.ToEDecimal();
       Assert.IsTrue(ed2.IsNegative && ed2.IsZero);
-      
     }
 
     [Test]
