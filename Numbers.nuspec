@@ -1,5 +1,9 @@
 <package
-><metadata><version>1.8.1</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.8.1
+><metadata><version>1.8.2</version><id>PeterO.Numbers</id><requireLicenseAcceptance>false</requireLicenseAcceptance><releaseNotes>Version 1.8.2
+
+- Fix bugs involving negative zero with ERational.FromEFloat and ERational.FromEDecimal
+
+Version 1.8.1
 
 - Fix bugs in EFloat string parsing in certain corner cases
 - Fix NaN roundtripping with From/ToSingleBits and From/ToDoubleBits
