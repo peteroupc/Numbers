@@ -530,12 +530,12 @@ namespace Test {
         Assert.AreEqual(i, ERational.FromSingleBits(i).ToSingleBits());
         Assert.AreEqual(i, EDecimal.FromSingleBits(i).ToSingleBits());
         Assert.AreEqual(
-          i + Int32.MinValue,
+          i+Int32.MinValue,
           EFloat.FromSingleBits(i + Int32.MinValue).ToSingleBits());
-        Assert.AreEqual(i + Int32.MinValue,
+        Assert.AreEqual(i+Int32.MinValue,
   ERational.FromSingleBits(i + Int32.MinValue).ToSingleBits());
         Assert.AreEqual(
-          i + Int32.MinValue,
+          i+Int32.MinValue,
           EDecimal.FromSingleBits(i + Int32.MinValue).ToSingleBits());
         Assert.AreEqual(Int32.MaxValue - i,
   EFloat.FromSingleBits(Int32.MaxValue - i).ToSingleBits());
@@ -554,12 +554,12 @@ namespace Test {
         Assert.AreEqual(i, ERational.FromDoubleBits(i).ToDoubleBits());
         Assert.AreEqual(i, EDecimal.FromDoubleBits(i).ToDoubleBits());
         Assert.AreEqual(
-          i + Int64.MinValue,
+          i+Int64.MinValue,
           EFloat.FromDoubleBits(i + Int64.MinValue).ToDoubleBits());
-        Assert.AreEqual(i + Int64.MinValue,
+        Assert.AreEqual(i+Int64.MinValue,
   ERational.FromDoubleBits(i + Int64.MinValue).ToDoubleBits());
         Assert.AreEqual(
-          i + Int64.MinValue,
+          i+Int64.MinValue,
           EDecimal.FromDoubleBits(i + Int64.MinValue).ToDoubleBits());
         Assert.AreEqual(Int64.MaxValue - i,
   EFloat.FromDoubleBits(Int64.MaxValue - i).ToDoubleBits());
@@ -573,9 +573,9 @@ namespace Test {
 
     [Test]
     public void TestNegativeZero() {
-      ERational er = ERational.FromString("-0/1");
-      EDecimal ed = EDecimal.FromString("-0.0");
-      EFloat ef = EFloat.FromString("-0.0");
+      ERational er=ERational.FromString("-0/1");
+      EDecimal ed=EDecimal.FromString("-0.0");
+      EFloat ef=EFloat.FromString("-0.0");
       Assert.IsTrue(er.IsNegative && er.IsZero && er.IsFinite);
       Assert.IsTrue(ed.IsNegative && ed.IsZero && ed.IsFinite);
       Assert.IsTrue(ef.IsNegative && ef.IsZero && ef.IsFinite);
@@ -583,22 +583,23 @@ namespace Test {
       EDecimal ed2;
       EFloat ef2;
 
-      er2 = ERational.FromEDecimal(ed);
+      er2=ERational.FromEDecimal(ed);
       Assert.IsTrue(er2.IsNegative && er2.IsZero);
-      er2 = ERational.FromEFloat(ef);
+      er2=ERational.FromEFloat(ef);
       Assert.IsTrue(er2.IsNegative && er2.IsZero);
 
-      ef2 = ed.ToEFloat();
+      ef2=ed.ToEFloat();
       Assert.IsTrue(ef2.IsNegative && ef2.IsZero);
-      ef2 = er.ToEFloat();
+      ef2=er.ToEFloat();
       Assert.IsTrue(ef2.IsNegative && ef2.IsZero);
 
-      ed2 = ef.ToEDecimal();
+      ed2=ef.ToEDecimal();
       Assert.IsTrue(ed2.IsNegative && ed2.IsZero);
-      ed2 = EDecimal.FromEFloat(ef);
+      ed2=EDecimal.FromEFloat(ef);
       Assert.IsTrue(ed2.IsNegative && ed2.IsZero);
-      ed2 = er.ToEDecimal();
+      ed2=er.ToEDecimal();
       Assert.IsTrue(ed2.IsNegative && ed2.IsZero);
+
     }
 
     [Test]
@@ -2113,7 +2114,7 @@ namespace Test {
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
             EInteger.FromInt32((1 << (significandBits + 1)) - 1)
-               .ShiftLeft((1 << (exponentBits - 1)) - 1 - significandBits));
+               .ShiftLeft((1 << (exponentBits-1)) -1 - significandBits));
         if (ed.Abs().CompareTo(half) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
@@ -2188,7 +2189,7 @@ namespace Test {
       } else if (ef.IsInfinity()) {
         EDecimal half = EDecimal.FromEInteger(
             EInteger.FromInt32((1 << (significandBits + 1)) - 1)
-               .ShiftLeft((1 << (exponentBits - 1)) - 1 - significandBits));
+               .ShiftLeft((1 << (exponentBits-1)) -1 - significandBits));
         if (ed.Abs().CompareTo(half) < 0) {
           string msg = "str=" + str + "\nef=" + OutputEF(ef);
           Assert.Fail(msg);
@@ -2633,6 +2634,42 @@ namespace Test {
       }
     }
 
+    public static bool TestShortestStringOne(short halfbits) {
+      EFloat ef = EFloat.FromHalfBits(halfbits);
+      if (!ef.IsFinite) {
+        { return false;
+        }
+      }
+      Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(11)
+        <= 0);
+      Assert.AreEqual(ef, EFloat.FromHalfBits(ef.ToHalfBits()));
+      return EFloatTest.TestShortestStringOne(ef, EContext.Binary16);
+    }
+    public static bool TestShortestStringOne(int sngbits) {
+      EFloat ef = EFloat.FromSingleBits(sngbits);
+      if (!ef.IsFinite) {
+        { return false;
+        }
+      }
+      Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(24)
+        <= 0);
+      Assert.AreEqual(ef, EFloat.FromSingle(ef.ToSingle()));
+      Assert.AreEqual(ef, EFloat.FromSingleBits(ef.ToSingleBits()));
+      return EFloatTest.TestShortestStringOne(ef, EContext.Binary32);
+    }
+    public static bool TestShortestStringOne(long dblbits) {
+      EFloat ef = EFloat.FromDoubleBits(dblbits);
+      if (!ef.IsFinite) {
+        { return false;
+        }
+      }
+      Assert.IsTrue(ef.Mantissa.GetUnsignedBitLengthAsEInteger().CompareTo(53)
+        <= 0);
+      Assert.AreEqual(ef, EFloat.FromDouble(ef.ToDouble()));
+      Assert.AreEqual(ef, EFloat.FromDoubleBits(ef.ToDoubleBits()));
+      return EFloatTest.TestShortestStringOne(ef, EContext.Binary64);
+    }
+
     public static bool TestShortestStringOne(float sng) {
       EFloat ef = EFloat.FromSingle(sng);
       if (!ef.IsFinite) {
@@ -2714,6 +2751,14 @@ namespace Test {
       var fr = new RandomGenerator();
       for (var i = 0; i < 1500; ++i) {
         TestDoubleRoundingOne(RandomObjects.RandomDouble(fr));
+      }
+    }
+
+    [Test]
+    public void TestHalfShortestString() {
+      for (var i = 0; i < 0x10000; ++i) {
+        short s=unchecked((short)i);
+        TestShortestStringOne(s);
       }
     }
 
