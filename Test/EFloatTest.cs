@@ -539,9 +539,9 @@ namespace Test {
 
     [Test]
     public void TestNegativeZero() {
-      ERational er=ERational.FromString("-0/1");
-      EDecimal ed=EDecimal.FromString("-0.0");
-      EFloat ef=EFloat.FromString("-0.0");
+      ERational er = ERational.FromString("-0/1");
+      EDecimal ed = EDecimal.FromString("-0.0");
+      EFloat ef = EFloat.FromString("-0.0");
       Assert.IsTrue(er.IsNegative && er.IsZero && er.IsFinite);
       Assert.IsTrue(ed.IsNegative && ed.IsZero && ed.IsFinite);
       Assert.IsTrue(ef.IsNegative && ef.IsZero && ef.IsFinite);

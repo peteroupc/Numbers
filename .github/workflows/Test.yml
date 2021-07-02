@@ -5,6 +5,7 @@ name: Test
 
 on: [push, pull_request]
 jobs:
+  permissions: read-all
   Core:
     runs-on: ${{ matrix.os }}
     strategy:
