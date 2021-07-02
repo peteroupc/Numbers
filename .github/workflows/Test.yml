@@ -2,11 +2,10 @@
 # Modified from a file that was contributed by GitHub user Happypig375
 # at: https://github.com/peteroupc/Numbers/pull/10
 name: Test
-
+permissions:
+    contents: read
 on: [push, pull_request]
 jobs:
-  permissions:
-    contents: read
   Core:
     runs-on: ${{ matrix.os }}
     strategy:
