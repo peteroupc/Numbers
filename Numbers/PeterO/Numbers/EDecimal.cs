@@ -5245,7 +5245,7 @@ namespace PeterO.Numbers {
             // can fit exactly in a double)
             long am = Math.Abs(m);
             var expshift = 0;
-            while (am < (1 << 52)) {
+            while (am < (1L << 52)) {
               am <<= 1;
               --expshift;
             }

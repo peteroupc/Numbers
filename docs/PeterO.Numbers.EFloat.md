@@ -111,6 +111,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Creates a binary floating-point number from a 64-bit floating-point number.
 * <code>[FromDoubleBits(long)](#FromDoubleBits_long)</code> - Creates a binary floating-point number from a 64-bit floating-point number encoded in the IEEE 754 binary64 format.
 * <code>[FromEInteger(PeterO.Numbers.EInteger)](#FromEInteger_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to the same value as a binary floating-point number.
+* <code>[FromHalfBits(short)](#FromHalfBits_short)</code> - Creates a binary floating-point number from a binary floating-point number encoded in the IEEE 754 binary16 format (also known as a "half-precision" floating-point number).
 * <code>[FromInt16(short)](#FromInt16_short)</code> - Converts a 16-bit signed integer to an arbitrary-precision binary floating-point number.
 * <code>[FromInt32(int)](#FromInt32_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision binary floating-point number.
 * <code>[FromInt64(long)](#FromInt64_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision binary floating-point number.
@@ -253,6 +254,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[ToEIntegerIfExact()](#ToEIntegerIfExact)</code> - Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part.
 * <code>[ToEngineeringString()](#ToEngineeringString)</code> - Converts this value to an arbitrary-precision decimal number, then returns the value of that decimal's ToEngineeringString method.
 * <code>[ToExtendedDecimal()](#ToExtendedDecimal)</code> - <b>Deprecated:</b> Renamed to ToEDecimal.
+* <code>[ToHalfBits()](#ToHalfBits)</code> - Converts this value to its closest equivalent as a binary floating-point number, expressed as an integer in the IEEE 754 binary16 format (also known as a "half-precision" floating-point number).
 * <code>[ToInt16Checked()](#ToInt16Checked)</code> - Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToInt16IfExact()](#ToInt16IfExact)</code> - Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer without rounding to a different numerical value.
 * <code>[ToInt16Unchecked()](#ToInt16Unchecked)</code> - Converts this number's value to an integer by discarding its fractional part, and returns the least-significant bits of its two's-complement form as a 16-bit signed integer.
@@ -1466,7 +1468,7 @@ This number's value as an arbitrary-precision binary floating-point number.
     public static PeterO.Numbers.EFloat FromDouble(
         double dbl);
 
-Creates a binary floating-point number from a 64-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
+Creates a binary floating-point number from a 64-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. The input value can be a not-a-number (NaN) value (such as  `Double.NaN`  ); however, NaN values have multiple forms that are equivalent for many applications' purposes, and  `Double.NaN`  is only one of these equivalent forms. In fact,  `EFloat.FromDouble(Double.NaN)`  could produce an object that is represented differently between DotNet and Java, because  `Double.NaN`  may have a different form in DotNet and Java (for example, the NaN value's sign may be negative in DotNet, but positive in Java). Use `IsNaN()` to determine whether an object from this class stores a NaN value of any form.
 
 <b>Parameters:</b>
 
@@ -1511,6 +1513,23 @@ Converts an arbitrary-precision integer to the same value as a binary floating-p
 <b>Return Value:</b>
 
 An arbitrary-precision binary floating-point number.
+
+<a id="FromHalfBits_short"></a>
+### FromHalfBits
+
+    public static PeterO.Numbers.EFloat FromHalfBits(
+        short value);
+
+Creates a binary floating-point number from a binary floating-point number encoded in the IEEE 754 binary16 format (also known as a "half-precision" floating-point number). This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
+
+<b>Parameters:</b>
+
+ * <i>value</i>: A binary floating-point number encoded in the IEEE 754 binary16 format.
+
+<b>Return Value:</b>
+
+A binary floating-point number with the same floating-point value as  <i>value</i>
+.
 
 <a id="FromInt16_short"></a>
 ### FromInt16
@@ -1602,7 +1621,7 @@ This number's value as an arbitrary-precision binary floating-point number.
     public static PeterO.Numbers.EFloat FromSingle(
         float flt);
 
-Creates a binary floating-point number from a 32-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first.
+Creates a binary floating-point number from a 32-bit floating-point number. This method computes the exact value of the floating point number, not an approximation, as is often the case by converting the floating point number to a string first. The input value can be a not-a-number (NaN) value (such as  `Single.NaN`  in DotNet or Float.NaN in Java); however, NaN values have multiple forms that are equivalent for many applications' purposes, and  `Single.NaN`  /  `Float.NaN`  is only one of these equivalent forms. In fact,  `EFloat.FromSingle(Single.NaN)`  or  `EFloat.FromSingle(Float.NaN)`  could produce an object that is represented differently between DotNet and Java, because  `Single.NaN`  /  `Float.NaN`  may have a different form in DotNet and Java (for example, the NaN value's sign may be negative in DotNet, but positive in Java). Use `IsNaN()` to determine whether an object from this class stores a NaN value of any form.
 
 <b>Parameters:</b>
 
@@ -4478,6 +4497,17 @@ Converts this value to an arbitrary-precision decimal number.
 <b>Return Value:</b>
 
 An arbitrary-precision decimal number.
+
+<a id="ToHalfBits"></a>
+### ToHalfBits
+
+    public short ToHalfBits();
+
+Converts this value to its closest equivalent as a binary floating-point number, expressed as an integer in the IEEE 754 binary16 format (also known as a "half-precision" floating-point number). The half-even rounding mode is used. If this value is a NaN, sets the high bit of the binary16 number's significand area for a quiet NaN, and clears it for a signaling NaN. Then the other bits of the significand area are set to the lowest bits of this object's unsigned significand, and the next-highest bit of the significand area is set if those bits are all zeros and this is a signaling NaN.
+
+<b>Return Value:</b>
+
+The closest binary floating-point number to this value, expressed as an integer in the IEEE 754 binary16 format. The return value can be positive infinity or negative infinity if this value exceeds the range of a floating-point number in the binary16 format.
 
 <a id="ToInt16Checked"></a>
 ### ToInt16Checked

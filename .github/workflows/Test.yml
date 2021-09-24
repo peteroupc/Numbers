@@ -5,7 +5,7 @@ name: Test
 
 on: [push, pull_request]
 jobs:
-  permissions: read-all
+
   Core:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -25,3 +25,6 @@ jobs:
         dotnet add Test package GitHubActionsTestLogger
         dotnet add Test package NUnit3TestAdapter
         dotnet test Test -c Release
+
+permissions:
+  contents: read

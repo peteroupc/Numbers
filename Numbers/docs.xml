@@ -2055,7 +2055,17 @@
             closest "double" to 0.1, not 0.1 exactly). To create an
             arbitrary-precision decimal number from a decimal value, use
             FromString instead in most cases (for example:
-            <c>EDecimal.FromString("0.1")</c> ).</summary>
+            <c>EDecimal.FromString("0.1")</c> ).
+            <para>The input value can be a not-a-number (NaN) value (such as
+            <c>Double.NaN</c> ); however, NaN values have multiple forms that
+            are equivalent for many applications' purposes, and
+            <c>Double.NaN</c> is only one of these equivalent forms. In fact,
+            <c>EDecimal.FromDouble(Double.NaN)</c> could produce an object that
+            is represented differently between DotNet and Java, because
+            <c>Double.NaN</c> may have a different form in DotNet and Java (for
+            example, the NaN value's sign may be negative in DotNet, but
+            positive in Java). Use `IsNaN()` to determine whether an object
+            from this class stores a NaN value of any form.</para></summary>
             <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
             floating-point number.</param>
             <returns>An arbitrary-precision decimal number with the same value
@@ -2110,6 +2120,18 @@
             number.</param>
             <returns>An arbitrary-precision decimal number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.FromHalfBits(System.Int16)">
+<summary>Creates a decimal floating-point number from a binary
+            floating-point number encoded in the IEEE 754 binary16 format (also
+            known as a "half-precision" floating-point number). This method
+            computes the exact value of the floating point number, not an
+            approximation, as is often the case by converting the floating
+            point number to a string first.</summary>
+            <param name='value'>A binary floating-point number encoded in the
+            IEEE 754 binary16 format.</param>
+            <returns>A decimal floating-point number with the same
+            floating-point value as <paramref name='value'/>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromInt16(System.Int16)">
 
@@ -2179,7 +2201,20 @@
             closest "float" to 0.1, not 0.1 exactly). To create an
             arbitrary-precision decimal number from a decimal value, use
             FromString instead in most cases (for example:
-            <c>EDecimal.FromString("0.1")</c> ).</summary>
+            <c>EDecimal.FromString("0.1")</c> ).
+            <para>The input value can be a not-a-number (NaN) value (such as
+            <c>Single.NaN</c> in DotNet or Float.NaN in Java); however, NaN
+            values have multiple forms that are equivalent for many
+            applications' purposes, and <c>Single.NaN</c> / <c>Float.NaN</c> is
+            only one of these equivalent forms. In fact,
+            <c>EDecimal.FromSingle(Single.NaN)</c> or
+            <c>EDecimal.FromSingle(Float.NaN)</c> could produce an object that
+            is represented differently between DotNet and Java, because
+            <c>Single.NaN</c> / <c>Float.NaN</c> may have a different form in
+            DotNet and Java (for example, the NaN value's sign may be negative
+            in DotNet, but positive in Java). Use `IsNaN()` to determine
+            whether an object from this class stores a NaN value of any
+            form.</para></summary>
             <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
             binary floating-point number.</param>
             <returns>An arbitrary-precision decimal number with the same value
@@ -4295,6 +4330,23 @@
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EDecimal.ToHalfBits">
+<summary>Converts this value to its closest equivalent as a binary
+            floating-point number, expressed as an integer in the IEEE 754
+            binary16 format (also known as a "half-precision" floating-point
+            number). The half-even rounding mode is used.
+            <para>If this value is a NaN, sets the high bit of the binary16
+            number's significand area for a quiet NaN, and clears it for a
+            signaling NaN. Then the other bits of the significand area are set
+            to the lowest bits of this object's unsigned significand, and the
+            next-highest bit of the significand area is set if those bits are
+            all zeros and this is a signaling NaN.</para></summary>
+            <returns>The closest binary floating-point number to this value,
+            expressed as an integer in the IEEE 754 binary16 format. The return
+            value can be positive infinity or negative infinity if this value
+            exceeds the range of a floating-point number in the binary16
+            format.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16Checked">
 
@@ -6773,8 +6825,17 @@
             <summary>Creates a binary floating-point number from a 64-bit
             floating-point number. This method computes the exact value of the
             floating point number, not an approximation, as is often the case
-            by converting the floating point number to a string
-            first.</summary>
+            by converting the floating point number to a string first.
+            <para>The input value can be a not-a-number (NaN) value (such as
+            <c>Double.NaN</c> ); however, NaN values have multiple forms that
+            are equivalent for many applications' purposes, and
+            <c>Double.NaN</c> is only one of these equivalent forms. In fact,
+            <c>EFloat.FromDouble(Double.NaN)</c> could produce an object that
+            is represented differently between DotNet and Java, because
+            <c>Double.NaN</c> may have a different form in DotNet and Java (for
+            example, the NaN value's sign may be negative in DotNet, but
+            positive in Java). Use `IsNaN()` to determine whether an object
+            from this class stores a NaN value of any form.</para></summary>
             <param name='dbl'>The parameter <paramref name='dbl'/> is a 64-bit
             floating-point number.</param>
             <returns>A binary floating-point number with the same value as
@@ -6802,6 +6863,18 @@
             <returns>An arbitrary-precision binary floating-point
             number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.FromHalfBits(System.Int16)">
+<summary>Creates a binary floating-point number from a binary
+            floating-point number encoded in the IEEE 754 binary16 format (also
+            known as a "half-precision" floating-point number). This method
+            computes the exact value of the floating point number, not an
+            approximation, as is often the case by converting the floating
+            point number to a string first.</summary>
+            <param name='value'>A binary floating-point number encoded in the
+            IEEE 754 binary16 format.</param>
+            <returns>A binary floating-point number with the same
+            floating-point value as <paramref name='value'/>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromInt16(System.Int16)">
 
@@ -6863,8 +6936,20 @@
             <summary>Creates a binary floating-point number from a 32-bit
             floating-point number. This method computes the exact value of the
             floating point number, not an approximation, as is often the case
-            by converting the floating point number to a string
-            first.</summary>
+            by converting the floating point number to a string first.
+            <para>The input value can be a not-a-number (NaN) value (such as
+            <c>Single.NaN</c> in DotNet or Float.NaN in Java); however, NaN
+            values have multiple forms that are equivalent for many
+            applications' purposes, and <c>Single.NaN</c> / <c>Float.NaN</c> is
+            only one of these equivalent forms. In fact,
+            <c>EFloat.FromSingle(Single.NaN)</c> or
+            <c>EFloat.FromSingle(Float.NaN)</c> could produce an object that is
+            represented differently between DotNet and Java, because
+            <c>Single.NaN</c> / <c>Float.NaN</c> may have a different form in
+            DotNet and Java (for example, the NaN value's sign may be negative
+            in DotNet, but positive in Java). Use `IsNaN()` to determine
+            whether an object from this class stores a NaN value of any
+            form.</para></summary>
             <param name='flt'>The parameter <paramref name='flt'/> is a 64-bit
             floating-point number.</param>
             <returns>A binary floating-point number with the same value as
@@ -8816,6 +8901,23 @@
             number.</summary>
             <returns>An arbitrary-precision decimal number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.EFloat.ToHalfBits">
+<summary>Converts this value to its closest equivalent as a binary
+            floating-point number, expressed as an integer in the IEEE 754
+            binary16 format (also known as a "half-precision" floating-point
+            number). The half-even rounding mode is used.
+            <para>If this value is a NaN, sets the high bit of the binary16
+            number's significand area for a quiet NaN, and clears it for a
+            signaling NaN. Then the other bits of the significand area are set
+            to the lowest bits of this object's unsigned significand, and the
+            next-highest bit of the significand area is set if those bits are
+            all zeros and this is a signaling NaN.</para></summary>
+            <returns>The closest binary floating-point number to this value,
+            expressed as an integer in the IEEE 754 binary16 format. The return
+            value can be positive infinity or negative infinity if this value
+            exceeds the range of a floating-point number in the binary16
+            format.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16Checked">
 
@@ -11365,6 +11467,27 @@
             the purposes of this operator.</remarks>
 
 </doc>
+<doc name="M:PeterO.Numbers.EInteger.Imply(PeterO.Numbers.EInteger)">
+<summary>Does an implication or IMP operation between this
+            arbitrary-precision integer and another one. Also means SECOND OR
+            NOT FIRST.</summary>
+            <param name='second'>Another arbitrary-precision integer that
+            participates in the operation.</param>
+            <returns>An arbitrary-precision integer in which each bit is set if
+            the corresponding bit of the other integer is set, this integer's
+            corresponding bit is
+            <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010
+            = 11010 IMP 10110 = 00100 (or in decimal, 22 OR NOT 26 = 23). This
+            method uses the two's complement form of negative integers (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
+            example, in binary, ...11101110 OR NOT 01011 = 01011 IMP...11101110
+            =...11111110 (or in decimal, -18 OR 11 = -2).</returns>
+            <exception cref='ArgumentNullException'>The parameter <paramref name='second'/> is null.</exception>
+            <remarks>Each arbitrary-precision integer is treated as a
+            two's-complement form (see
+            <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
+            the purposes of this operator.</remarks>
+</doc>
 <doc name="M:PeterO.Numbers.EInteger.Increment">
 
             <summary>Returns one added to this arbitrary-precision
@@ -13057,7 +13180,17 @@
             <summary>Converts a 64-bit floating-point number to a rational
             number. This method computes the exact value of the floating point
             number, not an approximation, as is often the case by converting
-            the number to a string.</summary>
+            the number to a string.
+            <para>The input value can be a not-a-number (NaN) value (such as
+            <c>Double.NaN</c> ); however, NaN values have multiple forms that
+            are equivalent for many applications' purposes, and
+            <c>Double.NaN</c> is only one of these equivalent forms. In fact,
+            <c>ERational.FromDouble(Double.NaN)</c> could produce an object
+            that is represented differently between DotNet and Java, because
+            <c>Double.NaN</c> may have a different form in DotNet and Java (for
+            example, the NaN value's sign may be negative in DotNet, but
+            positive in Java). Use `IsNaN()` to determine whether an object
+            from this class stores a NaN value of any form.</para></summary>
             <param name='flt'>The parameter <paramref name='flt'/> is a 64-bit
             floating-point number.</param>
             <returns>A rational number with the same value as <paramref name='flt'/>.</returns>
@@ -13078,23 +13211,15 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromEDecimal(PeterO.Numbers.EDecimal)">
 
-            <summary>Converts an arbitrary-precision decimal number to a
-            rational number.</summary>
-            <param name='ef'>The number to convert as an arbitrary-precision
-            decimal number.</param>
-            <returns>An arbitrary-precision rational number.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
-
+        <summary>Converts an arbitrary-precision decimal number to a
+            rational number.</summary><param name='ef'>The number to convert as an arbitrary-precision
+            decimal number.</param><returns>An arbitrary-precision rational number.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromEFloat(PeterO.Numbers.EFloat)">
 
-            <summary>Converts an arbitrary-precision binary floating-point
-            number to a rational number.</summary>
-            <param name='ef'>The number to convert as an arbitrary-precision
-            binary floating-point number.</param>
-            <returns>An arbitrary-precision rational number.</returns>
-            <exception cref='ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
-
+        <summary>Converts an arbitrary-precision binary floating-point
+            number to a rational number.</summary><param name='ef'>The number to convert as an arbitrary-precision
+            binary floating-point number.</param><returns>An arbitrary-precision rational number.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromEInteger(PeterO.Numbers.EInteger)">
 
@@ -13123,6 +13248,18 @@
             binary floating-point number.</param>
             <returns>An arbitrary-precision rational number.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.FromHalfBits(System.Int16)">
+<summary>Creates a binary rational number from a binary
+            floating-point number encoded in the IEEE 754 binary16 format (also
+            known as a "half-precision" floating-point number). This method
+            computes the exact value of the floating point number, not an
+            approximation, as is often the case by converting the number to a
+            string.</summary>
+            <param name='value'>A 16-bit integer encoded in the IEEE 754
+            binary16 format.</param>
+            <returns>A rational number with the same floating-point value as
+            <paramref name='value'/>.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromInt16(System.Int16)">
 
@@ -13182,7 +13319,20 @@
             <summary>Converts a 32-bit binary floating-point number to a
             rational number. This method computes the exact value of the
             floating point number, not an approximation, as is often the case
-            by converting the number to a string.</summary>
+            by converting the number to a string.
+            <para>The input value can be a not-a-number (NaN) value (such as
+            <c>Single.NaN</c> in DotNet or Float.NaN in Java); however, NaN
+            values have multiple forms that are equivalent for many
+            applications' purposes, and <c>Single.NaN</c> / <c>Float.NaN</c> is
+            only one of these equivalent forms. In fact,
+            <c>ERational.FromSingle(Single.NaN)</c> or
+            <c>ERational.FromSingle(Float.NaN)</c> could produce an object that
+            is represented differently between DotNet and Java, because
+            <c>Single.NaN</c> / <c>Float.NaN</c> may have a different form in
+            DotNet and Java (for example, the NaN value's sign may be negative
+            in DotNet, but positive in Java). Use `IsNaN()` to determine
+            whether an object from this class stores a NaN value of any
+            form.</para></summary>
             <param name='flt'>The parameter <paramref name='flt'/> is a 32-bit
             binary floating-point number.</param>
             <returns>A rational number with the same value as <paramref name='flt'/>.</returns>
@@ -13975,6 +14125,23 @@
             can't be exact because it has a nonterminating binary
             expansion.</returns>
 
+</doc>
+<doc name="M:PeterO.Numbers.ERational.ToHalfBits">
+<summary>Converts this value to its closest equivalent as a binary
+            floating-point number, expressed as an integer in the IEEE 754
+            binary16 format (also known as a "half-precision" floating-point
+            number). The half-even rounding mode is used.
+            <para>If this value is a NaN, sets the high bit of the binary16
+            number's significand area for a quiet NaN, and clears it for a
+            signaling NaN. Then the other bits of the significand area are set
+            to the lowest bits of this object's unsigned significand, and the
+            next-highest bit of the significand area is set if those bits are
+            all zeros and this is a signaling NaN.</para></summary>
+            <returns>The closest binary floating-point number to this value,
+            expressed as an integer in the IEEE 754 binary16 format. The return
+            value can be positive infinity or negative infinity if this value
+            exceeds the range of a floating-point number in the binary16
+            format.</returns>
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16Checked">
 

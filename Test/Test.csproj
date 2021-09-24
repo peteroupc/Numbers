@@ -1,6 +1,6 @@
 <Project Sdk='Microsoft.NET.Sdk'>
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
      <!--https://andrewlock.net/fixing-the-error-program-has-more-than-one-entry-point-defined-for-console-apps-containing-xunit-tests/-->
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
