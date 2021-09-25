@@ -6104,9 +6104,6 @@ namespace Test {
         ed.CompareTo(edef2) != 0) {
         Console.WriteLine("# ERounding.None fails to detect rounding was" +
           "\u0020necessary");
-        if (str == null) {
-          throw new ArgumentNullException(nameof(str));
-        }
         Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
               200)) + (str.Length > 200 ? "..." : String.Empty) + "\n# ec = " +
           ECString(ec));
@@ -6115,9 +6112,6 @@ namespace Test {
         ed.CompareTo(edef2) == 0) {
         Console.WriteLine("# ERounding.None fails to detect rounding was" +
           "\u0020unnecessary");
-        if (str == null) {
-          throw new ArgumentNullException(nameof(str));
-        }
         Console.WriteLine("# str = " + str.Substring(0, Math.Min(str.Length,
               200)) + (str.Length > 200 ? "..." : String.Empty) + "\n# ec = " +
           ECString(ec));
@@ -6129,12 +6123,6 @@ namespace Test {
         return;
       }
       if (ef.CompareTo(ef2) != 0) {
-        if (ec == null) {
-          throw new ArgumentNullException(nameof(ec));
-        }
-        if (str == null) {
-          throw new ArgumentNullException(nameof(str));
-        }
         string bstr = String.Empty;
         if (ec.HasMaxPrecision) {
           EContext ecf = ec.WithBlankFlags();

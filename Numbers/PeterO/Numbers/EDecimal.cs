@@ -6083,11 +6083,11 @@ EFloat.Binary32SignifAreaBits;
     /// <param name='ec'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. The precision is in
     /// bits, and an example of this parameter is <c>EContext.Binary64</c>. Can be null.</param>
-    /// <returns>An arbitrary-precision float floating-point
-    /// number.</returns>
+    /// <returns>An arbitrary-precision floating-point number.</returns>
     public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigUnsignedMantissa = this.UnsignedMantissa;
+      DebugUtility.Log("ToEFloat " + this.Exponent + "," + this.Mantissa);
       if (this.IsNaN()) {
         return EFloat.CreateNaN(
             this.UnsignedMantissa,
@@ -6134,14 +6134,18 @@ EFloat.Binary32SignifAreaBits;
               eTiny);
           return ret.RoundToPrecision(ec);
         } else if (adjexpLowerBound.CompareTo(309) > 0) {
+          // DebugUtility.Log("Overflow A");
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
         EInteger digitCountLower = bounds[0];
+        // DebugUtility.Log("DCL " + digitCountLower + "," + bigintExp);
         if (bigintExp.Sign >= 0 &&
           digitCountLower.Subtract(2).CompareTo(309) > 0) {
+          // DebugUtility.Log("Overflow B");
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
-        } else if (digitCountLower.Add(bigintExp).Subtract(2).CompareTo(309) >
-          0) {
+        } else if (ec.AdjustExponent &&
+              digitCountLower.Add(bigintExp).Subtract(2).CompareTo(309) > 0) {
+          // DebugUtility.Log("Overflow C");
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
       }
@@ -6155,6 +6159,7 @@ EFloat.Binary32SignifAreaBits;
           }
         } else if (ec == EContext.Binary64) {
           if (bigintExp.CompareTo(309) > 0) {
+            // DebugUtility.Log("Overflow D");
             return this.IsNegative ? EFloat.NegativeInfinity :
               EFloat.PositiveInfinity;
           }

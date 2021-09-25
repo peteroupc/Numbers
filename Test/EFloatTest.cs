@@ -3587,5 +3587,60 @@ namespace Test {
         }
       }
     }
+
+    [Test]
+    public void TestLogOneA() {
+EFloat efa = EFloat.Create(-57879578442079L, -222).Log(EContext.Binary64);
+EFloat efb = EFloat.NaN;
+Assert.AreEqual(efb, efa);
+}
+
+    [Test]
+    public void TestStringContextOneA() {
+EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+  1023).WithRounding(
+  ERounding.Up).WithAdjustExponent(
+  false).WithExponentClamp(true).WithSimplified(false);
+String str = "777777777777E+305";
+EDecimalTest.TestStringContextOneEFloat(str, ec);
+ec = ec.WithAdjustExponent(true);
+EDecimalTest.TestStringContextOneEFloat(str, ec);
+}
+
+    [Test]
+    public void TestStringContextOneB() {
+EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+  1023).WithRounding(
+  ERounding.Up).WithAdjustExponent(
+  false).WithExponentClamp(true).WithSimplified(false);
+String str = "-8680474356126740082E+300";
+EDecimalTest.TestStringContextOneEFloat(str, ec);
+ec = ec.WithAdjustExponent(true);
+EDecimalTest.TestStringContextOneEFloat(str, ec);
+}
+
+[Test]
+public void TestStringContextOneC() {
+EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+  1023).WithRounding(
+  ERounding.Up).WithAdjustExponent(
+  false).WithExponentClamp(true).WithSimplified(false);
+String str = "8509471309484248101E298";
+EDecimalTest.TestStringContextOneEFloat(str, ec);
+ec = ec.WithAdjustExponent(true);
+EDecimalTest.TestStringContextOneEFloat(str, ec);
+}
+
+[Test]
+public void TestStringContextOneD() {
+EContext ec = EContext.Unlimited.WithPrecision(53).WithExponentRange(-1022,
+  1023).WithRounding(
+  ERounding.Up).WithAdjustExponent(
+  false).WithExponentClamp(true).WithSimplified(false);
+String str = "5574867550208E308";
+EDecimalTest.TestStringContextOneEFloat(str, ec);
+ec = ec.WithAdjustExponent(true);
+EDecimalTest.TestStringContextOneEFloat(str, ec);
+}
   }
 }
