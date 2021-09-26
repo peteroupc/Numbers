@@ -6087,7 +6087,7 @@ EFloat.Binary32SignifAreaBits;
     public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigUnsignedMantissa = this.UnsignedMantissa;
-      DebugUtility.Log("ToEFloat " + this.Exponent + "," + this.Mantissa);
+      // DebugUtility.Log("ToEFloat " + this.Exponent + "," + this.Mantissa);
       if (this.IsNaN()) {
         return EFloat.CreateNaN(
             this.UnsignedMantissa,
