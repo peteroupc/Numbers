@@ -2122,7 +2122,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromHalfBits(System.Int16)">
-<summary>Creates a decimal floating-point number from a binary
+
+            <summary>Creates a decimal floating-point number from a binary
             floating-point number encoded in the IEEE 754 binary16 format (also
             known as a "half-precision" floating-point number). This method
             computes the exact value of the floating point number, not an
@@ -2132,6 +2133,7 @@
             IEEE 754 binary16 format.</param>
             <returns>A decimal floating-point number with the same
             floating-point value as <paramref name='value'/>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.FromInt16(System.Int16)">
 
@@ -4260,8 +4262,7 @@
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. The precision is in
             bits, and an example of this parameter is <c>EContext.Binary64</c>. Can be null.</param>
-            <returns>An arbitrary-precision float floating-point
-            number.</returns>
+            <returns>An arbitrary-precision floating-point number.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToEInteger">
@@ -4332,7 +4333,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToHalfBits">
-<summary>Converts this value to its closest equivalent as a binary
+
+            <summary>Converts this value to its closest equivalent as a binary
             floating-point number, expressed as an integer in the IEEE 754
             binary16 format (also known as a "half-precision" floating-point
             number). The half-even rounding mode is used.
@@ -4347,6 +4349,7 @@
             value can be positive infinity or negative infinity if this value
             exceeds the range of a floating-point number in the binary16
             format.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.ToInt16Checked">
 
@@ -6865,7 +6868,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromHalfBits(System.Int16)">
-<summary>Creates a binary floating-point number from a binary
+
+            <summary>Creates a binary floating-point number from a binary
             floating-point number encoded in the IEEE 754 binary16 format (also
             known as a "half-precision" floating-point number). This method
             computes the exact value of the floating point number, not an
@@ -6875,6 +6879,7 @@
             IEEE 754 binary16 format.</param>
             <returns>A binary floating-point number with the same
             floating-point value as <paramref name='value'/>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.FromInt16(System.Int16)">
 
@@ -8903,7 +8908,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToHalfBits">
-<summary>Converts this value to its closest equivalent as a binary
+
+            <summary>Converts this value to its closest equivalent as a binary
             floating-point number, expressed as an integer in the IEEE 754
             binary16 format (also known as a "half-precision" floating-point
             number). The half-even rounding mode is used.
@@ -8918,6 +8924,7 @@
             value can be positive infinity or negative infinity if this value
             exceeds the range of a floating-point number in the binary16
             format.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.ToInt16Checked">
 
@@ -11468,7 +11475,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Imply(PeterO.Numbers.EInteger)">
-<summary>Does an implication or IMP operation between this
+
+            <summary>Does an implication or IMP operation between this
             arbitrary-precision integer and another one. Also means SECOND OR
             NOT FIRST.</summary>
             <param name='second'>Another arbitrary-precision integer that
@@ -11487,6 +11495,7 @@
             two's-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
             the purposes of this operator.</remarks>
+
 </doc>
 <doc name="M:PeterO.Numbers.EInteger.Increment">
 
@@ -13211,15 +13220,17 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromEDecimal(PeterO.Numbers.EDecimal)">
 
-        <summary>Converts an arbitrary-precision decimal number to a
+            <summary>Converts an arbitrary-precision decimal number to a
             rational number.</summary><param name='ef'>The number to convert as an arbitrary-precision
             decimal number.</param><returns>An arbitrary-precision rational number.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromEFloat(PeterO.Numbers.EFloat)">
 
-        <summary>Converts an arbitrary-precision binary floating-point
+            <summary>Converts an arbitrary-precision binary floating-point
             number to a rational number.</summary><param name='ef'>The number to convert as an arbitrary-precision
             binary floating-point number.</param><returns>An arbitrary-precision rational number.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromEInteger(PeterO.Numbers.EInteger)">
 
@@ -13250,7 +13261,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromHalfBits(System.Int16)">
-<summary>Creates a binary rational number from a binary
+
+            <summary>Creates a binary rational number from a binary
             floating-point number encoded in the IEEE 754 binary16 format (also
             known as a "half-precision" floating-point number). This method
             computes the exact value of the floating point number, not an
@@ -13260,6 +13272,7 @@
             binary16 format.</param>
             <returns>A rational number with the same floating-point value as
             <paramref name='value'/>.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.FromInt16(System.Int16)">
 
@@ -14127,7 +14140,8 @@
 
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToHalfBits">
-<summary>Converts this value to its closest equivalent as a binary
+
+            <summary>Converts this value to its closest equivalent as a binary
             floating-point number, expressed as an integer in the IEEE 754
             binary16 format (also known as a "half-precision" floating-point
             number). The half-even rounding mode is used.
@@ -14142,6 +14156,7 @@
             value can be positive infinity or negative infinity if this value
             exceeds the range of a floating-point number in the binary16
             format.</returns>
+
 </doc>
 <doc name="M:PeterO.Numbers.ERational.ToInt16Checked">
 

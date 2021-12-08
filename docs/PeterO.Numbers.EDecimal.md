@@ -4791,7 +4791,7 @@ Creates a binary floating-point number from this object's value. Note that if th
 
 <b>Return Value:</b>
 
-An arbitrary-precision float floating-point number.
+An arbitrary-precision floating-point number.
 
 <a id="ToEFloat"></a>
 ### ToEFloat
