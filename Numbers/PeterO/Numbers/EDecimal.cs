@@ -5462,7 +5462,9 @@ namespace PeterO.Numbers {
         if (this.exponent.CompareToInt(0) < 0 &&
           this.exponent.CompareToInt(-6) >= 0 &&
           this.unsignedMantissa.CanFitInInt32()) {
-          int m = this.unsignedMantissa.ToInt32();
+          return this.ToEFloat(EContext.Binary16).ToHalfBits();
+          // TODO: Find out what's wrong with the code commented out below
+          /* int m = this.unsignedMantissa.ToInt32();
           int iex = -this.exponent.ToInt32();
           int vtp = ValueTenPowers[iex];
           if (m >= -(1 << EFloat.Binary16SignifAreaBits) && m < (1 <<
@@ -5531,7 +5533,7 @@ EFloat.Binary16SignifAreaBits;
               return unchecked((short)smallmantissa);
             }
           }
-        }
+          */ }
         if (this.exponent.CompareToInt(39) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? unchecked((short)(EFloat.Binary16Infinity +

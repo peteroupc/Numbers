@@ -999,6 +999,9 @@ An arbitrary-precision rational number.
 The parameter  <i>ef</i>
  is null.
 
+ * System.ArgumentException:
+doesn't satisfy den.Sign &gt;= 0.
+
 <a id="FromEFloat_PeterO_Numbers_EFloat"></a>
 ### FromEFloat
 
@@ -1020,6 +1023,9 @@ An arbitrary-precision rational number.
  * System.ArgumentNullException:
 The parameter  <i>ef</i>
  is null.
+
+ * System.ArgumentException:
+doesn't satisfy den.Sign &gt;= 0.
 
 <a id="FromEInteger_PeterO_Numbers_EInteger"></a>
 ### FromEInteger
