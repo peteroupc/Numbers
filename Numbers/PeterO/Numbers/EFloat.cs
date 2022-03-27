@@ -2016,7 +2016,7 @@ Binary16SignifAreaBits;
     /// Signals FlagInvalid and returns not-a-number (NaN) if the divisor
     /// and the dividend are 0; or, either <paramref name='ctx'/> is null
     /// or <paramref name='ctx'/> 's precision is 0, and the result would
-    /// have a nonterminating decimal expansion (examples include 1 divided
+    /// have a nonterminating binary expansion (examples include 1 divided
     /// by any multiple of 3, such as 1/3 or 1/12); or, the rounding mode
     /// is ERounding.None and the result is not exact.</returns>
     public EFloat Divide(

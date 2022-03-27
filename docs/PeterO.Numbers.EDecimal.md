@@ -1192,7 +1192,7 @@ Divides this arbitrary-precision decimal floating-point number by a 32-bit signe
 
 <b>Return Value:</b>
 
-The result of dividing this arbitrary-precision decimal floating-point number by a 32-bit signed integer. Returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other 32-bit signed integer) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Decimal128`  ) instead.
+The result of dividing this arbitrary-precision decimal floating-point number by a 32-bit signed integer. Returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other 32-bit signed integer) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Decimal128`  ) instead.
 
 <a id="Divide_long"></a>
 ### Divide
@@ -1209,7 +1209,7 @@ Divides this arbitrary-precision decimal floating-point number by a 64-bit signe
 
 <b>Return Value:</b>
 
-The result of dividing this arbitrary-precision decimal floating-point number by a 64-bit signed integer. Returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other 64-bit signed integer) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Decimal128`  ) instead.
+The result of dividing this arbitrary-precision decimal floating-point number by a 64-bit signed integer. Returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other 64-bit signed integer) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Decimal128`  ) instead.
 
 <a id="Divide_PeterO_Numbers_EDecimal"></a>
 ### Divide
@@ -1225,7 +1225,7 @@ Divides this arbitrary-precision decimal floating-point number by another arbitr
 
 <b>Return Value:</b>
 
-The result of dividing this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number. Returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other arbitrary-precision decimal floating-point number) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Decimal128`  ) instead.
+The result of dividing this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number. Returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other arbitrary-precision decimal floating-point number) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Decimal128`  ) instead.
 
 <a id="Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Divide
