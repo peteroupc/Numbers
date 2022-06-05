@@ -427,8 +427,14 @@ this.unsignedNumerator.IsValueZero;
     }
 
     /// <summary>Converts an arbitrary-precision decimal number to a
-    /// rational number.</summary><param name='ef'>The number to convert as an arbitrary-precision
-    /// decimal number.</param><returns>An arbitrary-precision rational number.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
+    /// rational number.</summary>
+    /// <param name='ef'>The number to convert as an arbitrary-precision
+    /// decimal number.</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ef'/> is null.</exception>
+    /// <exception cref='ArgumentException'>doesn't satisfy den.Sign
+    /// &amp;gt;= 0.</exception>
     public static ERational FromEDecimal(EDecimal ef) {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
@@ -473,8 +479,14 @@ PositiveInfinity) : CreateNaN(
     }
 
     /// <summary>Converts an arbitrary-precision binary floating-point
-    /// number to a rational number.</summary><param name='ef'>The number to convert as an arbitrary-precision
-    /// binary floating-point number.</param><returns>An arbitrary-precision rational number.</returns><exception cref='ArgumentNullException'>The parameter <paramref name='ef'/> is null.</exception>
+    /// number to a rational number.</summary>
+    /// <param name='ef'>The number to convert as an arbitrary-precision
+    /// binary floating-point number.</param>
+    /// <returns>An arbitrary-precision rational number.</returns>
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
+    /// name='ef'/> is null.</exception>
+    /// <exception cref='ArgumentException'>doesn't satisfy den.Sign
+    /// &amp;gt;= 0.</exception>
     public static ERational FromEFloat(EFloat ef) {
       if (ef == null) {
         throw new ArgumentNullException(nameof(ef));
