@@ -1,7 +1,7 @@
 <Project Sdk='Microsoft.NET.Sdk'>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.0; net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0; net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Version>1.9</Version>
     <Owners>Peter Occil</Owners>
@@ -40,13 +40,13 @@ Version 1.8
       <DefineConstants>MULTI_TARGETING_SUPPORT_ATTRIBUTES</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=' &apos;$(Configuration)&apos;==&apos;Debug&apos; '>
-    <DocumentationFile>bin\Debug\netstandard1.0\Numbers.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\Numbers.xml</DocumentationFile>
 
     <DebugType>full</DebugType>
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
   <PropertyGroup Condition=' &apos;$(Configuration)&apos;==&apos;Release&apos; '>
     <DebugType>none</DebugType>
-    <DocumentationFile>bin\Release\netstandard1.0\Numbers.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\Numbers.xml</DocumentationFile>
 
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
 
