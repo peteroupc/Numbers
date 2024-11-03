@@ -9,19 +9,22 @@ namespace PeterO {
   /// <para><b>Thread safety:</b> The methods in this class are safe for
   /// concurrent use by multiple threads, as long as the underlying
   /// random byte generator is as well.</para></summary>
-  public sealed class RandomGenerator : IRandomGenExtended {
+  public sealed class RandomGenerator : IRandomGenExtended
+  {
+    private readonly IRandomGen valueIrg;
+    private readonly object valueNormalLock = new();
     private bool valueHaveLastNormal;
-    private IRandomGen valueIrg;
     private double valueLastNormal;
-    private object valueNormalLock = new Object();
 
-    /// <summary>Initializes a new instance of the RandomGenerator
-    /// class.</summary>
+    /// <summary>Initializes a new instance of the
+    /// <see cref='RandomGenerator'/> class.Initializes a new instance of
+    /// the RandomGenerator class.</summary>
     public RandomGenerator() : this(new XorShift128Plus()) {
     }
 
-    /// <summary>Initializes a new instance of the RandomGenerator
-    /// class.</summary>
+    /// <summary>Initializes a new instance of the
+    /// <see cref='RandomGenerator'/> class.Initializes a new instance of
+    /// the RandomGenerator class.</summary>
     /// <param name='valueIrg'>An IRandomGen object.</param>
     public RandomGenerator(IRandomGen valueIrg) {
       this.valueIrg = valueIrg;
@@ -33,13 +36,10 @@ namespace PeterO {
     /// false, and 1 means always true.</param>
     /// <returns>A Boolean object.</returns>
     public bool Bernoulli(double p) {
-      if (p < 0) {
-        throw new ArgumentException("p(" + p + ") is less than 0");
-      }
-      if (p > 1) {
-        throw new ArgumentException("p(" + p + ") is more than 1");
-      }
-      return this.Uniform() < p;
+      return p < 0 ?
+        throw new ArgumentException("p(" + p + ") is less than 0") :
+        p > 1 ? throw new ArgumentException("p(" + p + ") is more than 1") :
+this.Uniform() < p;
     }
 
     /// <summary>Returns either true or false at a 50% chance
@@ -59,6 +59,11 @@ namespace PeterO {
       return this.Binomial(trials, 0.5);
     }
 
+    /// <inheritdoc/>
+    /// <returns/>
+    /// <param name='bytes'>Not documented yet.</param>
+    /// <param name='offset'>Not documented yet.</param>
+    /// <param name='count'>Not documented yet.</param>
     public int GetBytes(byte[] bytes, int offset, int count) {
       return this.valueIrg.GetBytes(bytes, offset, count);
     }
@@ -90,7 +95,7 @@ namespace PeterO {
       if (p == 0.5) {
         var bytes = new byte[1];
         for (int i = 0; i < trials && i >= 0;) {
-          this.valueIrg.GetBytes(bytes, 0, 1);
+          _ = this.valueIrg.GetBytes(bytes, 0, 1);
           int b = bytes[0];
           while (i < trials && i >= 0) {
             if ((b & 1) == 1) {
@@ -117,10 +122,8 @@ namespace PeterO {
     /// chosen normally-distributed numbers).</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double ChiSquared(int df) {
-      if (df <= 0) {
-        throw new ArgumentException("df(" + df + ") is not greater than 0");
-      }
-      return this.Gamma(df * 0.5, 2);
+      return df <= 0 ? throw new ArgumentException("df(" + df + ") is not" +
+"\u0020greater than 0") : this.Gamma(df * 0.5, 2);
     }
 
     /// <summary>Not documented yet.</summary>
@@ -134,10 +137,8 @@ namespace PeterO {
     /// <param name='b'>A 64-bit floating-point number. (3).</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Gamma(double a, double b) {
-      if (b <= 0) {
-        throw new ArgumentException("b(" + b + ") is not greater than 0");
-      }
-      return this.Gamma(a) * b;
+      return b <= 0 ? throw new ArgumentException("b(" + b + ") is not" +
+"\u0020greater than 0") : this.Gamma(a) * b;
     }
 
     /// <summary>Not documented yet.</summary>
@@ -159,11 +160,7 @@ namespace PeterO {
         x2 = x * x;
       } while (u >= 1 - (0.0331 * x2 * x2) &&
         Math.Log(u) >= (0.5 * x2) + (d * (1 - v + Math.Log(v))));
-      if (a < 1) {
-        return d * v * Math.Exp(this.Exponential() / -a);
-      } else {
-        return d * v;
-      }
+      return a < 1 ? d * v * Math.Exp(this.Exponential() / -a) : d * v;
     }
 
     /// <summary>Conceptually, generates either 1 or 0 until a 1 is
@@ -213,7 +210,7 @@ namespace PeterO {
           ") is more than " + count);
       }
       var ret = 0;
-      for (var i = 0; i < trials && ones > 0; ++i) {
+      for (int i = 0; i < trials && ones > 0; ++i) {
         if (this.UniformInt(count) < ones) {
           --ones;
           ++ret;
@@ -262,7 +259,7 @@ namespace PeterO {
       if (p == 0.5) {
         var bytes = new byte[1];
         while (true) {
-          this.valueIrg.GetBytes(bytes, 0, 1);
+          _ = this.valueIrg.GetBytes(bytes, 0, 1);
           int b = bytes[0];
           for (int i = 0; i < 8; ++i) {
             if ((b & 1) == 1) {
@@ -366,11 +363,9 @@ namespace PeterO {
     /// less than.</param>
     /// <returns>A 64-bit floating-point number.</returns>
     public double Uniform(double min, double max) {
-      if (min >= max) {
+      return min >= max ?
         throw new ArgumentException("min(" + min + ") is not less than " +
-          max);
-      }
-      return min + ((max - min) * this.Uniform());
+          max) : min + ((max - min) * this.Uniform());
     }
 
     /// <summary>Returns a uniformly-distributed 64-bit floating-point
@@ -415,11 +410,8 @@ namespace PeterO {
         return minInclusive + this.UniformInt(maxExclusive - minInclusive);
       } else {
         long diff = maxExclusive - minInclusive;
-        if (diff <= Int32.MaxValue) {
-          return minInclusive + this.UniformInt((int)diff);
-        } else {
-          return (int)(minInclusive + this.UniformLong(diff));
-        }
+        return diff <= Int32.MaxValue ? minInclusive +
+this.UniformInt((int)diff) : (int)(minInclusive + this.UniformLong(diff));
       }
     }
 
@@ -445,12 +437,11 @@ namespace PeterO {
             minInclusive) ||
           (maxExclusive > 0 && Int64.MinValue + maxExclusive > minInclusive) ||
           minInclusive - maxExclusive < 0) {
-          // Difference is greater than MaxValue
-          long lb = 0;
           var b = new byte[8];
           while (true) {
-            this.valueIrg.GetBytes(b, 0, 8);
-            lb = b[0] & 0xffL;
+            _ = this.valueIrg.GetBytes(b, 0, 8);
+            // Difference is greater than MaxValue
+            long lb = b[0] & 0xffL;
             lb |= (b[1] & 0xffL) << 8;
             lb |= (b[2] & 0xffL) << 16;
             lb |= (b[3] & 0xffL) << 24;
@@ -481,57 +472,62 @@ namespace PeterO {
       if (maxExclusive <= 1) {
         return 0;
       }
-      var rge = this.valueIrg as IRandomGenExtended;
-      if (rge != null) {
+      if (this.valueIrg is IRandomGenExtended rge) {
         return rge.GetInt32(maxExclusive);
       }
       var b = new byte[4];
       switch (maxExclusive) {
         case 2: {
-          this.valueIrg.GetBytes(b, 0, 1);
-          return b[0] & 1;
-        }
+            _ = this.valueIrg.GetBytes(b, 0, 1);
+            return b[0] & 1;
+          }
         case 256: {
-          this.valueIrg.GetBytes(b, 0, 1);
-          return (int)b[0] & 1;
-        }
+            _ = this.valueIrg.GetBytes(b, 0, 1);
+            return b[0] & 1;
+          }
         default: {
-          while (true) {
-            var ib = 0;
-            if (maxExclusive == 0x1000000) {
-              this.valueIrg.GetBytes(b, 0, 3);
-              ib = b[0] & 0xff;
-              ib |= (b[1] & 0xff) << 8;
-              ib |= (b[2] & 0xff) << 16;
-              return ib;
-            }
-            if (maxExclusive == 0x10000) {
-              this.valueIrg.GetBytes(b, 0, 2);
-              ib = b[0] & 0xff;
-              ib |= (b[1] & 0xff) << 8;
-              return ib;
-            }
-            int maxexc;
-            maxexc = (Int32.MaxValue / maxExclusive) * maxExclusive;
             while (true) {
-              this.valueIrg.GetBytes(b, 0, 4);
-              ib = b[0] & 0xff;
-              ib |= (b[1] & 0xff) << 8;
-              ib |= (b[2] & 0xff) << 16;
-              ib |= (b[3] & 0x7f) << 24;
-              if (ib < maxexc) {
-                return ib % maxExclusive;
+              int ib;
+              if (maxExclusive == 0x1000000) {
+                _ = this.valueIrg.GetBytes(b, 0, 3);
+                ib = b[0] & 0xff;
+                ib |= (b[1] & 0xff) << 8;
+                ib |= (b[2] & 0xff) << 16;
+                return ib;
+              }
+              if (maxExclusive == 0x10000) {
+                _ = this.valueIrg.GetBytes(b, 0, 2);
+                ib = b[0] & 0xff;
+                ib |= (b[1] & 0xff) << 8;
+                return ib;
+              }
+              int maxexc;
+              maxexc = Int32.MaxValue / maxExclusive * maxExclusive;
+              while (true) {
+                _ = this.valueIrg.GetBytes(b, 0, 4);
+                ib = b[0] & 0xff;
+                ib |= (b[1] & 0xff) << 8;
+                ib |= (b[2] & 0xff) << 16;
+                ib |= (b[3] & 0x7f) << 24;
+                if (ib < maxexc) {
+                  return ib % maxExclusive;
+                }
               }
             }
           }
-        }
       }
     }
 
+    /// <inheritdoc/>
+    /// <returns/>
+    /// <param name='maxExclusive'>Not documented yet.</param>
     public long GetInt64(long maxExclusive) {
       return this.UniformLong(maxExclusive);
     }
 
+    /// <inheritdoc/>
+    /// <returns/>
+    /// <param name='maxExclusive'>Not documented yet.</param>
     public int GetInt32(int maxExclusive) {
       return this.UniformInt(maxExclusive);
     }
@@ -549,17 +545,16 @@ namespace PeterO {
       if (maxExclusive <= Int32.MaxValue) {
         return this.UniformInt((int)maxExclusive);
       }
-      var rge = this.valueIrg as IRandomGenExtended;
-      if (rge != null) {
+      if (this.valueIrg is IRandomGenExtended rge) {
         return rge.GetInt64(maxExclusive);
       }
-      long lb = 0;
+
       long maxexc;
       var b = new byte[8];
-      maxexc = (Int64.MaxValue / maxExclusive) * maxExclusive;
+      maxexc = Int64.MaxValue / maxExclusive * maxExclusive;
       while (true) {
-        this.valueIrg.GetBytes(b, 0, 8);
-        lb = b[0] & 0xffL;
+        _ = this.valueIrg.GetBytes(b, 0, 8);
+        long lb = b[0] & 0xffL;
         lb |= (b[1] & 0xffL) << 8;
         lb |= (b[2] & 0xffL) << 16;
         lb |= (b[3] & 0xffL) << 24;

@@ -2,8 +2,7 @@
 Written by Peter O.
 Any copyright to this work is released to the Public Domain.
 In case this is not possible, this work is also
-licensed under Creative Commons Zero (CC0):
-https://creativecommons.org/publicdomain/zero/1.0/
+licensed under the Unlicense: https://unlicense.org/
 
  */
 using System;
@@ -493,17 +492,14 @@ namespace PeterO.Numbers {
     /// arithmetic. In the simplified arithmetic, infinity, not-a-number,
     /// and subnormal numbers are not allowed, and negative zero is treated
     /// the same as positive zero. For further details, see
-    /// <a
-    ///   href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
-    /// .</summary>
+    /// <c>speleotrove.com/decimal/dax3274.html</c>.</summary>
     /// <value><c>true</c> if to use a "simplified" arithmetic; otherwise,
     /// <c>false</c> In the simplified arithmetic, infinity, not-a-number,
     /// and subnormal numbers are not allowed, and negative zero is treated
     /// the same as positive zero. For further details, see
-    /// <a
-    ///   href='http://speleotrove.com/decimal/dax3274.html'><c>http://speleotrove.com/decimal/dax3274.html</c></a>
-    /// . <c>true</c> if a "simplified" arithmetic will be used; otherwise,
-    /// <c>false</c>.</value>
+    /// <c>speleotrove.com/decimal/dax3274.html</c>. <c>true</c> if a
+    /// "simplified" arithmetic will be used; otherwise, <c>false</c>
+    /// .</value>
     public bool IsSimplified {
       get {
         return this.simplified;

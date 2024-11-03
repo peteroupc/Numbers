@@ -10,20 +10,13 @@ namespace Test {
     private const string ValueDigitsLower =
       "0123456789abcdefghijklmnopqrstuvwxyz";
 
-    private String stringValue;
+    public string StringValue { get; private set; }
 
-    public String StringValue {
-      get {
-        return this.stringValue;
-      }
-    }
+    public EInteger BigIntValue { get; private set; }
 
-    private EInteger bigintValue;
-
-    public EInteger BigIntValue {
-      get {
-        return this.bigintValue;
-      }
+    private StringAndBigInt(string sv, EInteger biv) {
+      this.StringValue = sv;
+      this.BigIntValue = biv;
     }
 
     public static StringAndBigInt Generate(IRandomGenExtended rand, int radix) {
@@ -43,17 +36,16 @@ namespace Test {
           ") is more than 36");
       }
       EInteger bv = EInteger.Zero;
-      var sabi = new StringAndBigInt();
       int numDigits = 1 + rand.GetInt32(maxNumDigits);
       var negative = false;
       var builder = new StringBuilder();
       if (rand.GetInt32(2) == 0) {
-        builder.Append('-');
+        _ = builder.Append('-');
         negative = true;
       }
       int radixpowint = radix * radix * radix * radix;
-      EInteger radixpow4 = EInteger.FromInt32(radixpowint);
-      EInteger radixpow1 = EInteger.FromInt32(radix);
+      var radixpow4 = EInteger.FromInt32(radixpowint);
+      var radixpow1 = EInteger.FromInt32(radix);
       var count = 0;
       for (int i = 0; i < numDigits - 4; i += 4) {
         int digitvalues = rand.GetInt32(radixpowint);
@@ -64,29 +56,16 @@ namespace Test {
         int digit3 = digitvalues % radix;
         digitvalues /= radix;
         int digit4 = digitvalues % radix;
-        digitvalues /= radix;
         count += 4;
         int bits = rand.GetInt32(16);
-        if ((bits & 0x01) == 0) {
-          builder.Append(ValueDigits[digit]);
-        } else {
-          builder.Append(ValueDigitsLower[digit]);
-        }
-        if ((bits & 0x02) == 0) {
-          builder.Append(ValueDigits[digit2]);
-        } else {
-          builder.Append(ValueDigitsLower[digit2]);
-        }
-        if ((bits & 0x04) == 0) {
-          builder.Append(ValueDigits[digit3]);
-        } else {
-          builder.Append(ValueDigitsLower[digit3]);
-        }
-        if ((bits & 0x08) == 0) {
-          builder.Append(ValueDigits[digit4]);
-        } else {
-          builder.Append(ValueDigitsLower[digit4]);
-        }
+        builder = (bits & 0x01) == 0 ? builder.Append(ValueDigits[digit]) :
+builder.Append(ValueDigitsLower[digit]);
+        builder = (bits & 0x02) == 0 ? builder.Append(ValueDigits[digit2]) :
+builder.Append(ValueDigitsLower[digit2]);
+        builder = (bits & 0x04) == 0 ? builder.Append(ValueDigits[digit3]) :
+builder.Append(ValueDigitsLower[digit3]);
+        builder = (bits & 0x08) == 0 ? builder.Append(ValueDigits[digit4]) :
+builder.Append(ValueDigitsLower[digit4]);
         int digits = (((((digit * radix) + digit2) *
                 radix) + digit3) * radix) + digit4;
         bv *= radixpow4;
@@ -95,11 +74,8 @@ namespace Test {
       }
       for (int i = count; i < numDigits; ++i) {
         int digit = rand.GetInt32(radix);
-        if (rand.GetInt32(2) == 0) {
-          builder.Append(ValueDigits[digit]);
-        } else {
-          builder.Append(ValueDigitsLower[digit]);
-        }
+        builder = rand.GetInt32(2) == 0 ? builder.Append(ValueDigits[digit]) :
+builder.Append(ValueDigitsLower[digit]);
         bv *= radixpow1;
         var bigintTmp = (EInteger)digit;
         bv += bigintTmp;
@@ -107,9 +83,7 @@ namespace Test {
       if (negative) {
         bv = -bv;
       }
-      sabi.bigintValue = bv;
-      sabi.stringValue = builder.ToString();
-      return sabi;
+      return new StringAndBigInt(builder.ToString(), bv);
     }
   }
 }

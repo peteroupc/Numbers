@@ -375,11 +375,11 @@ Gets a value indicating whether this context's Precision property is in bits, ra
 
     public bool IsSimplified { get; }
 
-Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html"> `http://speleotrove.com/decimal/dax3274.html` </a> .
+Gets a value indicating whether to use a "simplified" arithmetic. In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see  `speleotrove.com/decimal/dax3274.html` .
 
 <b>Returns:</b>
 
- `true`  if to use a "simplified" arithmetic; otherwise,  `false`  In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see <a href="http://speleotrove.com/decimal/dax3274.html"> `http://speleotrove.com/decimal/dax3274.html` </a> .  `true`  if a "simplified" arithmetic will be used; otherwise,  `false` .
+ `true`  if to use a "simplified" arithmetic; otherwise,  `false`  In the simplified arithmetic, infinity, not-a-number, and subnormal numbers are not allowed, and negative zero is treated the same as positive zero. For further details, see  `speleotrove.com/decimal/dax3274.html` .  `true`  if a "simplified" arithmetic will be used; otherwise,  `false`  .
 
 <a id="Precision"></a>
 ### Precision

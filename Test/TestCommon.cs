@@ -2,8 +2,7 @@
 Written in 2013-2018 by Peter O.
 Any copyright to this work is released to the Public Domain.
 In case this is not possible, this work is also
-licensed under Creative Commons Zero (CC0):
-https://creativecommons.org/publicdomain/zero/1.0/
+licensed under the Unlicense: https://unlicense.org/
 
  */
 using System;
@@ -31,7 +30,7 @@ namespace Test {
       while (i < str.Length) {
         int c = str[i];
         ++i;
-        if (c >= '0' && c <= '9') {
+        if (c is >= '0' and <= '9') {
           int x = c - '0';
           if (ret > 214748364) {
             throw new FormatException();
@@ -39,10 +38,8 @@ namespace Test {
           ret *= 10;
           if (ret == 2147483640) {
             if (neg && x == 8) {
-              if (i != str.Length) {
-                throw new FormatException();
-              }
-              return Int32.MinValue;
+              return i != str.Length ? throw new FormatException() :
+Int32.MinValue;
             }
             if (x > 7) {
               throw new FormatException();
@@ -73,18 +70,16 @@ namespace Test {
       while (i < str.Length) {
         int c = str[i];
         ++i;
-        if (c >= '0' && c <= '9') {
+        if (c is >= '0' and <= '9') {
           int x = c - '0';
-          if ((long)ret > 922337203685477580L) {
+          if (ret > 922337203685477580L) {
             throw new FormatException();
           }
           ret *= 10;
-          if ((long)ret == 9223372036854775800L) {
+          if (ret == 9223372036854775800L) {
             if (neg && x == 8) {
-              if (i != str.Length) {
-                throw new FormatException();
-              }
-              return Int64.MinValue;
+              return i != str.Length ? throw new FormatException() :
+Int64.MinValue;
             }
             if (x > 7) {
               throw new FormatException();
@@ -174,7 +169,7 @@ namespace Test {
       }
     }
 
-    public static void AssertNotEqual(Object o, Object o2) {
+    public static void AssertNotEqual(object o, object o2) {
       if (o == null) {
         throw new ArgumentNullException(nameof(o));
       }
@@ -187,7 +182,7 @@ namespace Test {
       }
     }
 
-    public static void AssertEquals(Object o, Object o2) {
+    public static void AssertEquals(object o, object o2) {
       if (o == null) {
         throw new ArgumentNullException(nameof(o));
       }
@@ -196,7 +191,7 @@ namespace Test {
       }
     }
 
-    public static void AssertEqualsHashCode(Object o, Object o2) {
+    public static void AssertEqualsHashCode(object o, object o2) {
       if (o == null) {
         throw new ArgumentNullException(nameof(o));
       }
@@ -226,13 +221,13 @@ namespace Test {
         }
         // At least check that GetHashCode doesn't throw
         try {
-          o.GetHashCode();
+          _ = o.GetHashCode();
         } catch (Exception ex) {
           Assert.Fail(ex.ToString());
           throw new InvalidOperationException(String.Empty, ex);
         }
         try {
-          o2.GetHashCode();
+          _ = o2.GetHashCode();
         } catch (Exception ex) {
           Assert.Fail(ex.ToString());
           throw new InvalidOperationException(String.Empty, ex);
@@ -241,7 +236,8 @@ namespace Test {
     }
 
     public static void CompareTestConsistency<T>(T o1, T o2, T o3) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (o1 == null) {
         throw new ArgumentNullException(nameof(o1));
       }
@@ -263,7 +259,8 @@ namespace Test {
     }
 
     public static void CompareTestNotEqual<T>(T o1, T o2) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) == 0) {
         Assert.Fail(ObjectMessages(
             o1,
@@ -273,7 +270,8 @@ namespace Test {
     }
 
     public static void CompareTestNotEqual<T>(T o1, T o2, string msg) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) == 0) {
         string str = msg + "\r\n" + ObjectMessages(
           o1,
@@ -284,7 +282,8 @@ namespace Test {
     }
 
     public static void CompareTestEqual<T>(T o1, T o2) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) != 0) {
         Assert.Fail(ObjectMessages(
             o1,
@@ -294,7 +293,8 @@ namespace Test {
     }
 
     public static void CompareTestEqual<T>(T o1, T o2, string msg) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) != 0) {
         string str = msg + "\r\n" + ObjectMessages(
           o1,
@@ -305,14 +305,16 @@ namespace Test {
     }
 
     public static void CompareTestEqualAndConsistent<T>(T o1, T o2) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       CompareTestEqualAndConsistent(o1, o2, null);
     }
 
     public static void CompareTestEqualAndConsistent<T>(
       T o1,
       T o2,
-      string msg) where T : IComparable<T> {
+      string msg) where T : IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) != 0) {
         msg = (msg == null ? String.Empty : (msg + "\r\n")) +
         "Not equal: " + CompareTestReciprocal(o1, o2);
@@ -332,12 +334,14 @@ namespace Test {
     }
 
     public static void CompareTestGreater<T>(T o1, T o2) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       CompareTestLess(o2, o1);
     }
 
     public static void CompareTestLess<T>(T o1, T o2) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) >= 0) {
         Assert.Fail(ObjectMessages(
             o1,
@@ -347,12 +351,14 @@ namespace Test {
     }
 
     public static void CompareTestGreaterEqual<T>(T o1, T o2) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       CompareTestLessEqual(o2, o1);
     }
 
     public static void CompareTestLessEqual<T>(T o1, T o2) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) > 0) {
         Assert.Fail(ObjectMessages(
             o1,
@@ -362,7 +368,8 @@ namespace Test {
     }
 
     public static void CompareTestLess<T>(T o1, T o2, string msg) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) >= 0) {
         string str = msg + "\r\n" + ObjectMessages(
           o1,
@@ -373,7 +380,8 @@ namespace Test {
     }
 
     public static void CompareTestLessEqual<T>(T o1, T o2, string msg)
-    where T : IComparable<T> {
+    where T : IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) > 0) {
         string str = msg + "\r\n" + ObjectMessages(
           o1,
@@ -384,7 +392,8 @@ namespace Test {
     }
 
     public static void CompareTestGreater<T>(T o1, T o2, string msg) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) <= 0) {
         string str = msg + "\r\n" + ObjectMessages(
           o1,
@@ -395,7 +404,8 @@ namespace Test {
     }
 
     public static void CompareTestGreaterEqual<T>(T o1, T o2, string msg) where
-    T : IComparable<T> {
+    T : IComparable<T>
+    {
       if (CompareTestReciprocal(o1, o2) < 0) {
         string str = msg + "\r\n" + ObjectMessages(
           o1,
@@ -406,7 +416,8 @@ namespace Test {
     }
 
     public static int CompareTestReciprocal<T>(T o1, T o2) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (o1 == null) {
         throw new ArgumentNullException(nameof(o1));
       }
@@ -423,7 +434,8 @@ namespace Test {
     }
 
     public static void CompareTestRelations<T>(T o1, T o2, T o3) where T :
-      IComparable<T> {
+      IComparable<T>
+    {
       if (o1 == null) {
         throw new ArgumentNullException(nameof(o1));
       }
@@ -486,20 +498,20 @@ namespace Test {
       int count;
       if (value < 100000) {
         if (neg) {
-         chars = new char[6];
-         count = 5;
+          chars = new char[6];
+          count = 5;
         } else {
-         chars = new char[5];
-         count = 4;
+          chars = new char[5];
+          count = 4;
         }
         while (value > 9) {
           int intdivvalue = unchecked((((value >> 1) * 52429) >> 18) & 16383);
-          char digit = Digits[(int)(value - (intdivvalue * 10))];
+          char digit = Digits[value - (intdivvalue * 10)];
           chars[count--] = digit;
           value = intdivvalue;
         }
         if (value != 0) {
-          chars[count--] = Digits[(int)value];
+          chars[count--] = Digits[value];
         }
         if (neg) {
           chars[count] = '-';
@@ -512,18 +524,18 @@ namespace Test {
       count = 11;
       while (value >= 163840) {
         int intdivvalue = value / 10;
-        char digit = Digits[(int)(value - (intdivvalue * 10))];
+        char digit = Digits[value - (intdivvalue * 10)];
         chars[count--] = digit;
         value = intdivvalue;
       }
       while (value > 9) {
         int intdivvalue = unchecked((((value >> 1) * 52429) >> 18) & 16383);
-        char digit = Digits[(int)(value - (intdivvalue * 10))];
+        char digit = Digits[value - (intdivvalue * 10)];
         chars[count--] = digit;
         value = intdivvalue;
       }
       if (value != 0) {
-        chars[count--] = Digits[(int)value];
+        chars[count--] = Digits[value];
       }
       if (neg) {
         chars[count] = '-';
@@ -541,14 +553,13 @@ namespace Test {
         return "0";
       }
       bool neg = longValue < 0;
-      var count = 0;
       char[] chars;
       int intlongValue = unchecked((int)longValue);
-      if ((long)intlongValue == longValue) {
+      if (intlongValue == longValue) {
         return IntToString(intlongValue);
       } else {
         chars = new char[24];
-        count = 23;
+        var count = 23;
         if (neg) {
           longValue = -longValue;
         }
@@ -579,7 +590,7 @@ namespace Test {
     public static string ObjectMessages(
       object o1,
       object o2,
-      String s) {
+      string s) {
       return s + ":\n" + o1 + " and\n" + o2;
     }
 
@@ -587,7 +598,7 @@ namespace Test {
       object o1,
       object o2,
       object o3,
-      String s) {
+      string s) {
       return s + ":\n" + o1 + " and\n" + o2 + " and\n" + o3;
     }
 
@@ -603,21 +614,21 @@ namespace Test {
         string sb2 = Repeat(c, RepeatDivideThreshold);
         int count = num / RepeatDivideThreshold;
         int rem = num % RepeatDivideThreshold;
-        for (var i = 0; i < count; ++i) {
-          sb.Append(sb2);
+        for (int i = 0; i < count; ++i) {
+          _ = sb.Append(sb2);
         }
-        for (var i = 0; i < rem; ++i) {
-          sb.Append(c);
+        for (int i = 0; i < rem; ++i) {
+          _ = sb.Append(c);
         }
       } else {
-        for (var i = 0; i < num; ++i) {
-          sb.Append(c);
+        for (int i = 0; i < num; ++i) {
+          _ = sb.Append(c);
         }
       }
       return sb.ToString();
     }
 
-    public static string Repeat(String str, int num) {
+    public static string Repeat(string str, int num) {
       if (num < 0) {
         throw new ArgumentException("num (" + num +
            ") is not greater or equal to 0");
@@ -629,8 +640,8 @@ namespace Test {
         return Repeat(str[0], num);
       }
       var sb = new StringBuilder(num * str.Length);
-      for (var i = 0; i < num; ++i) {
-        sb.Append(str);
+      for (int i = 0; i < num; ++i) {
+        _ = sb.Append(str);
       }
       return sb.ToString();
     }
@@ -675,20 +686,19 @@ length);
       }
       var sb = new System.Text.StringBuilder();
       const string ValueHex = "0123456789ABCDEF";
-      sb.Append("new byte[] { ");
-      for (var i = 0; i < length; ++i) {
+      _ = sb.Append("new byte[] { ");
+      for (int i = 0; i < length; ++i) {
         if (i > 0) {
-          sb.Append(',');
+          _ = sb.Append(',');
         }
         if ((bytes[offset + i] & 0x80) != 0) {
-          sb.Append("(byte)0x");
-        } else {
-          sb.Append("0x");
+          sb.Append("(byte)");
         }
+        sb.Append("0x");
         sb.Append(ValueHex[(bytes[offset + i] >> 4) & 0xf]);
         sb.Append(ValueHex[bytes[offset + i] & 0xf]);
       }
-      sb.Append('}');
+      _ = sb.Append('}');
       return sb.ToString();
     }
 
@@ -753,7 +763,7 @@ length2);
       if (length != length2) {
         return false;
       }
-      for (var i = 0; i < length; ++i) {
+      for (int i = 0; i < length; ++i) {
         if (arr1[offset + i] != arr2[offset2 + i]) {
           return false;
         }
@@ -771,7 +781,7 @@ length2);
       if (arr1.Length != arr2.Length) {
         return false;
       }
-      for (var i = 0; i < arr1.Length; ++i) {
+      for (int i = 0; i < arr1.Length; ++i) {
         if (arr1[i] != arr2[i]) {
           return false;
         }

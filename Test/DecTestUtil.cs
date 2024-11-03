@@ -441,7 +441,6 @@ namespace Test {
         return dn;
       }
 
-      #region Equals and GetHashCode implementation
       public override bool Equals(object obj) {
         var other = obj as DecimalNumber;
         return (other != null) && Object.Equals(this.ed, other.ed);
@@ -456,7 +455,6 @@ namespace Test {
         }
         return hashCode;
       }
-      #endregion
 
       public override string ToString() {
         return this.ed.ToString();
@@ -852,7 +850,6 @@ namespace Test {
         throw new ArgumentException("words has a bad length");
       }
 
-      #region Equals and GetHashCode implementation
       public override bool Equals(object obj) {
         var other = obj as BinaryNumber;
         return (other != null) && (this.ef.CompareTo(other.ef) == 0);
@@ -867,7 +864,6 @@ namespace Test {
         }
         return hashCode;
       }
-      #endregion
 
       public override string ToString() {
         return this.ef.ToString();

@@ -10,8 +10,7 @@ Stigen Larsen (http://csl.sublevel3.org).
 
 Any copyright to this work is released to the Public Domain.
 In case this is not possible, this work is also
-licensed under Creative Commons Zero (CC0):
-https://creativecommons.org/publicdomain/zero/1.0/
+licensed under the Unlicense: https://unlicense.org/
 
  */
 using System;
@@ -3574,14 +3573,14 @@ namespace PeterO.Numbers {
         // DebugUtility.Log("eia->" + eia.ToRadixString(16));
         // DebugUtility.Log("eib->" + eib.ToRadixString(16));
         if (eia.Sign < 0 || eib.Sign < 0) {
-          var sb = new StringBuilder();
+          /*var sb = new StringBuilder();
           sb.Append("eia=" + ret[0] + "\n");
           sb.Append("eib=" + ret[1] + "\n");
           for (int k = 0; k < 6; ++k) {
             sb.Append("hgcd_" + k + "=" + hgcd[k].ToRadixString(16));
             sb.Append("\n");
-          }
-          throw new InvalidOperationException("Internal error\n" + sb);
+          }*/
+          throw new InvalidOperationException("Internal error\n");
         }
         if (ret[0].Equals(eia) && ret[1].Equals(eib)) {
           // Didn't change
