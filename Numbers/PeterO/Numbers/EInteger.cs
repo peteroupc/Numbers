@@ -5027,8 +5027,8 @@ this.Pow(EInteger.FromInt64(longPower));
 
     /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the left by a number of bits. A value of 1 doubles this
-    /// value, a value of 2 multiplies it by 4, a value of 3 &times; by, a
-    /// value of 4 &times; by, and so on.</summary>
+    /// value, a value of 2 multiplies it by 4, a value of 3 × by, a value
+    /// of 4 × by, and so on.</summary>
     /// <param name='numberBits'>The number of bits to shift. Can be
     /// negative, in which case this is the same as shiftRight with the
     /// absolute value of this parameter.</param>

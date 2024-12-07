@@ -143,8 +143,8 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the left by a number of bits. A value of 1 doubles this
-    /// value, a value of 2 multiplies it by 4, a value of 3 &times; by, a
-    /// value of 4 &times; by, and so on.</summary>
+    /// value, a value of 2 multiplies it by 4, a value of 3 × by, a value
+    /// of 4 × by, and so on.</summary>
     /// <param name='bthis'>The arbitrary-precision integer to shift
     /// left.</param>
     /// <param name='bitCount'>The number of bits to shift. Can be
