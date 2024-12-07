@@ -2697,7 +2697,7 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.EInteger bthis,
         int bitCount);
 
-Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by 16, and so on.
+Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 &times; by, a value of 4 &times; by, and so on.
 
 <b>Parameters:</b>
 
@@ -3224,7 +3224,7 @@ The parameter  <i>root</i>
     public PeterO.Numbers.EInteger ShiftLeft(
         int numberBits);
 
-Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by 16, and so on.
+Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 &times; by, a value of 4 &times; by, and so on.
 
 <b>Parameters:</b>
 
@@ -3240,7 +3240,7 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EInteger ShiftLeft(
         PeterO.Numbers.EInteger eshift);
 
-Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits given as an arbitrary-precision integer. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 by 8, a value of 4 by 16, and so on.
+Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits given as an arbitrary-precision integer. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 &times; by, a value of 4 &times; by, and so on.
 
 <b>Parameters:</b>
 
