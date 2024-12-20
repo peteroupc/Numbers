@@ -267,7 +267,7 @@ namespace PeterO.Numbers {
     /// of bytes.</summary>
     /// <param name='bytes'>A byte array consisting of the two's-complement
     /// form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// the arbitrary-precision integer to create. The byte array is
     /// encoded using the rules given in the FromBytes(bytes, offset,
     /// length, littleEndian) overload.</param>
@@ -276,7 +276,7 @@ namespace PeterO.Numbers {
     /// order is big-endian, or most-significant-byte first.</param>
     /// <returns>An arbitrary-precision integer. Returns 0 if the byte
     /// array's length is 0.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bytes'/> is null.</exception>
     public static EInteger FromBytes(byte[] bytes, bool littleEndian) {
       if (bytes == null) {
@@ -310,7 +310,7 @@ namespace PeterO.Numbers {
     /// order just discussed.</para></summary>
     /// <param name='bytes'>A byte array consisting of the two's-complement
     /// form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// the arbitrary-precision integer to create. The byte array is
     /// encoded using the rules given in the FromBytes(bytes, offset,
     /// length, littleEndian) overload.</param>
@@ -324,9 +324,9 @@ namespace PeterO.Numbers {
     /// order is big-endian, or most-significant-byte first.</param>
     /// <returns>An arbitrary-precision integer. Returns 0 if the byte
     /// array's length is 0.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bytes'/> is null.</exception>
-    /// <exception cref="ArgumentException">Either <paramref
+    /// <exception cref='ArgumentException'>Either <paramref
     /// name='offset'/> or <paramref name='length'/> is less than 0 or
     /// greater than <paramref name='bytes'/> 's length, or <paramref
     /// name='bytes'/> 's length minus <paramref name='offset'/> is less
@@ -577,7 +577,7 @@ namespace PeterO.Numbers {
     /// instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
     /// given string.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     /// <exception cref='FormatException'>The string is empty or in an
     /// invalid format.</exception>
@@ -609,7 +609,7 @@ namespace PeterO.Numbers {
     /// portion. The length will be index + endIndex - 1.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string portion.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     /// <exception cref='FormatException'>The string portion is empty or in
     /// an invalid format.</exception>
@@ -646,12 +646,12 @@ namespace PeterO.Numbers {
     /// - 1.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the sequence of <c>char</c> s portion.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='index'/> is less than 0, <paramref name='endIndex'/> is less
     /// than 0, or either is greater than the sequence's length, or
     /// <paramref name='endIndex'/> is less than <paramref
     /// name='index'/>.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='cs'/> is null.</exception>
     public static EInteger FromSubstring(
       char[] cs,
@@ -676,7 +676,7 @@ namespace PeterO.Numbers {
     /// given in the sequence of <c>char</c> s.</returns>
     /// <exception cref='FormatException'>The parameter <paramref
     /// name='cs'/> is in an invalid format.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='cs'/> is null.</exception>
     public static EInteger FromString(char[] cs) {
       if (cs == null) {
@@ -706,7 +706,7 @@ namespace PeterO.Numbers {
     /// letter (U+0061 to U+007a) is allowed instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
     /// given sequence of <c>char</c> s.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='cs'/> is null.</exception>
     /// <exception cref='FormatException'>The sequence of <c>char</c> s is
     /// empty or in an invalid format.</exception>
@@ -740,7 +740,7 @@ namespace PeterO.Numbers {
     /// - 1.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the sequence's portion.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='cs'/> is null.</exception>
     /// <exception cref='FormatException'>The portion is empty or in an
     /// invalid format.</exception>
@@ -780,12 +780,12 @@ namespace PeterO.Numbers {
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the sequence of bytes (interpreted as text)
     /// portion.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='index'/> is less than 0, <paramref name='endIndex'/> is less
     /// than 0, or either is greater than the sequence's length, or
     /// <paramref name='endIndex'/> is less than <paramref
     /// name='index'/>.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bytes'/> is null.</exception>
     public static EInteger FromSubstring(
       byte[] bytes,
@@ -811,7 +811,7 @@ namespace PeterO.Numbers {
     /// given in the sequence of bytes.</returns>
     /// <exception cref='FormatException'>The parameter <paramref
     /// name='bytes'/> is in an invalid format.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bytes'/> is null.</exception>
     public static EInteger FromString(byte[] bytes) {
       if (bytes == null) {
@@ -843,7 +843,7 @@ namespace PeterO.Numbers {
     /// (U+0061 to U+007a) is allowed instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
     /// given sequence of bytes.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bytes'/> is null.</exception>
     /// <exception cref='FormatException'>The sequence of bytes
     /// (interpreted as text) is empty or in an invalid format.</exception>
@@ -881,7 +881,7 @@ namespace PeterO.Numbers {
     /// will be index + endIndex - 1.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the sequence's portion.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bytes'/> is null.</exception>
     /// <exception cref='FormatException'>The portion is empty or in an
     /// invalid format.</exception>
@@ -913,7 +913,7 @@ namespace PeterO.Numbers {
     /// given in the string.</returns>
     /// <exception cref='FormatException'>The parameter <paramref
     /// name='str'/> is in an invalid format.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     public static EInteger FromString(string str) {
       if (str == null) {
@@ -945,12 +945,12 @@ namespace PeterO.Numbers {
     /// portion. The length will be index + endIndex - 1.</param>
     /// <returns>An arbitrary-precision integer with the same value as
     /// given in the string portion.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='index'/> is less than 0, <paramref name='endIndex'/> is less
     /// than 0, or either is greater than the string's length, or <paramref
     /// name='endIndex'/> is less than <paramref
     /// name='index'/>.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     public static EInteger FromSubstring(
       string str,
@@ -977,7 +977,7 @@ namespace PeterO.Numbers {
     /// <returns>The sum of the two numbers, that is, this
     /// arbitrary-precision integer plus another arbitrary-precision
     /// integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintAugend'/> is null.</exception>
     public EInteger Add(EInteger bigintAugend) {
       if (bigintAugend == null) {
@@ -1254,7 +1254,7 @@ namespace PeterO.Numbers {
     /// <summary>Converts this object's value to a 32-bit signed integer.
     /// If the value can't fit in a 32-bit integer, returns the lower 32
     /// bits of this object's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
     /// <returns>A 32-bit signed integer.</returns>
@@ -1276,7 +1276,7 @@ namespace PeterO.Numbers {
     /// <summary>Converts this object's value to a 64-bit signed integer.
     /// If the value can't fit in a 64-bit integer, returns the lower 64
     /// bits of this object's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
     /// <returns>A 64-bit signed integer.</returns>
@@ -1374,7 +1374,7 @@ namespace PeterO.Numbers {
     /// <param name='first'>The first integer to compare.</param>
     /// <param name='second'>The second integer to compare.</param>
     /// <returns>The greater of the two integers.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EInteger Max(EInteger first, EInteger second) {
       if (first == null) {
@@ -1391,7 +1391,7 @@ namespace PeterO.Numbers {
     /// <param name='first'>The first integer to compare.</param>
     /// <param name='second'>The second integer to compare.</param>
     /// <returns>The smaller of the two integers.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EInteger Min(EInteger first, EInteger second) {
       if (first == null) {
@@ -1409,7 +1409,7 @@ namespace PeterO.Numbers {
     /// <param name='first'>The first integer to compare.</param>
     /// <param name='second'>The second integer to compare.</param>
     /// <returns>The integer with the greater absolute value.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EInteger MaxMagnitude(EInteger first, EInteger second) {
       if (first == null) {
@@ -1428,7 +1428,7 @@ namespace PeterO.Numbers {
     /// <param name='first'>The first integer to compare.</param>
     /// <param name='second'>The second integer to compare.</param>
     /// <returns>The integer with the smaller absolute value.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='first'/> or <paramref name='second'/> is null.</exception>
     public static EInteger MinMagnitude(EInteger first, EInteger second) {
       if (first == null) {
@@ -1535,7 +1535,7 @@ namespace PeterO.Numbers {
     /// integer.</returns>
     /// <example>
     /// <code>EInteger result = EInteger.FromString("5").Multiply(200);</code>
-    /// .
+    ///  .
     /// </example>
     public EInteger Multiply(int intValue) {
       return this.Multiply(EInteger.FromInt32(intValue));
@@ -1576,7 +1576,7 @@ namespace PeterO.Numbers {
     /// integer.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='intValue'/> is null.</exception>
     public EInteger Remainder(int intValue) {
       return this.Remainder(EInteger.FromInt32(intValue));
@@ -1622,7 +1622,7 @@ namespace PeterO.Numbers {
     /// arbitrary-precision integer is positive and the other
     /// arbitrary-precision integer is negative, or vice versa, and will be
     /// positive if both are positive or both are negative.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintDivisor'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
@@ -2754,7 +2754,7 @@ namespace PeterO.Numbers {
     /// operands.</returns>
     /// <exception cref='DivideByZeroException'>The parameter <paramref
     /// name='divisor'/> is 0.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='divisor'/> is null.</exception>
     public EInteger[] DivRem(EInteger divisor) {
       if (divisor == null) {
@@ -2953,11 +2953,11 @@ namespace PeterO.Numbers {
     /// be negative.</param>
     /// <returns>The greatest common divisor of this integer and the given
     /// integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintSecond'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <exception cref="ArgumentException">BigPower is
+    /// <exception cref='ArgumentException'>BigPower is
     /// negative.</exception>
     public EInteger Gcd(EInteger bigintSecond) {
       if (bigintSecond == null) {
@@ -3876,7 +3876,7 @@ maxDigitEstimate : retval +
     /// number's absolute value. (This will also be the position of the
     /// lowest set bit in the number's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
-    ///).).</summary>
+    /// ).).</summary>
     /// <returns>The bit position of the lowest bit set in the number's
     /// absolute value, starting at 0. Returns -1 if this value is
     /// 0.</returns>
@@ -3890,10 +3890,10 @@ maxDigitEstimate : retval +
     /// (This will also be the position of the lowest set bit in the
     /// number's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
-    ///).).</summary>
+    /// ).).</summary>
     /// <returns>The bit position of the lowest bit set in the number's
     /// absolute value, starting at 0. Returns -1 if this value is 0 or
-    /// odd. Returns 2^63 - 1 (<c>Int64.MaxValue</c> in.NET or
+    /// odd. Returns 2^63 - 1 ( <c>Int64.MaxValue</c> in.NET or
     /// <c>Long.MAX_VALUE</c> in Java) if this number is other than zero
     /// but the lowest set bit is at 2^63 - 1 or greater. (Use
     /// <c>GetLowBitAsEInteger</c> instead if the application relies on the
@@ -3931,7 +3931,7 @@ maxDigitEstimate : retval +
     /// integer. (This will also be the position of the lowest set bit in
     /// the number's two's-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>
-    ///).).</summary>
+    /// ).).</summary>
     /// <returns>The bit position of the lowest bit set in the number's
     /// absolute value, starting at 0. Returns -1 if this value is 0 or
     /// odd.</returns>
@@ -3941,16 +3941,16 @@ maxDigitEstimate : retval +
 
     /// <summary>Returns whether a bit is set in the two's-complement form
     /// (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value.</summary>
     /// <param name='bigIndex'>The index, starting at zero, of the bit to
     /// test, where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
     /// <returns><c>true</c> if the given bit is set in the two'
     /// s-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value; otherwise, <c>false</c>.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigIndex'/> is null.</exception>
     public bool GetSignedBit(EInteger bigIndex) {
       if (bigIndex == null) {
@@ -3991,14 +3991,14 @@ maxDigitEstimate : retval +
 
     /// <summary>Returns whether a bit is set in the two's-complement form
     /// (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value.</summary>
     /// <param name='index'>The index, starting at 0, of the bit to test,
     /// where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
     /// <returns><c>true</c> if the given bit is set in the two'
     /// s-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) of
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value; otherwise, <c>false</c>.</returns>
     public bool GetSignedBit(int index) {
       if (index < 0) {
@@ -4057,7 +4057,7 @@ maxDigitEstimate : retval +
     /// 63.</summary>
     /// <returns>The number of bits in this object's value, except for its
     /// sign. Returns 0 if this object's value is 0 or negative 1. If the
-    /// return value would be greater than 2^63 - 1 (<c>Int64.MaxValue</c>
+    /// return value would be greater than 2^63 - 1 ( <c>Int64.MaxValue</c>
     /// in.NET or <c>Long.MAX_VALUE</c> in Java), returns 2^63 - 1 instead.
     /// (Use <c>GetSignedBitLengthAsEInteger</c> instead of this method if
     /// the application relies on the exact number of bits.).</returns>
@@ -4126,7 +4126,7 @@ maxDigitEstimate : retval +
     /// significant bit, and so on.</param>
     /// <returns><c>true</c> if the given bit is set in this number's
     /// absolute value.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigIndex'/> is null.</exception>
     public bool GetUnsignedBit(EInteger bigIndex) {
       if (bigIndex == null) {
@@ -4247,9 +4247,9 @@ maxDigitEstimate : retval +
     /// remainder if the normal remainder is negative.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='divisor'/> is less than 0.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='divisor'/> is null.</exception>
     public EInteger Mod(EInteger divisor) {
       if (divisor == null) {
@@ -4272,7 +4272,7 @@ maxDigitEstimate : retval +
     /// the normal remainder is negative.</summary>
     /// <param name='smallDivisor'>The divisor of the modulus.</param>
     /// <returns>The modulus remainder.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='smallDivisor'/> is less than 0.</exception>
     public EInteger Mod(int smallDivisor) {
       if (smallDivisor < 0) {
@@ -4292,7 +4292,7 @@ maxDigitEstimate : retval +
     /// <param name='mod'>The integer to divide the raised number
     /// by.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='pow'/> or <paramref name='mod'/> is null.</exception>
     public EInteger ModPow(EInteger pow, EInteger mod) {
       if (pow == null) {
@@ -4328,7 +4328,7 @@ maxDigitEstimate : retval +
     /// <returns>The product of the two numbers, that is, this
     /// arbitrary-precision integer times another arbitrary-precision
     /// integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintMult'/> is null.</exception>
     public EInteger Multiply(EInteger bigintMult) {
       if (bigintMult == null) {
@@ -4780,7 +4780,7 @@ maxDigitEstimate : retval +
     /// to.</param>
     /// <returns>The result. Returns 1 if <paramref name='longPower'/> is
     /// 0.</returns>
-    /// <exception cref="ArgumentException">BigPower is
+    /// <exception cref='ArgumentException'>BigPower is
     /// negative.</exception>
     public EInteger Pow(long longPower) {
       if (longPower < 0) {
@@ -4799,9 +4799,9 @@ this.Pow(EInteger.FromInt64(longPower));
     /// to.</param>
     /// <returns>The result. Returns 1 if <paramref name='bigPower'/> is
     /// 0.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigPower'/> is null.</exception>
-    /// <exception cref="ArgumentException">BigPower is
+    /// <exception cref='ArgumentException'>BigPower is
     /// negative.</exception>
     public EInteger Pow(EInteger bigPower) {
       if (bigPower == null) {
@@ -4896,9 +4896,9 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <param name='power'>The exponent to raise to.</param>
     /// <returns>The result. Returns 1 if <paramref name='power'/> is
     /// 0.</returns>
-    /// <exception cref="ArgumentException">The parameter <paramref
+    /// <exception cref='ArgumentException'>The parameter <paramref
     /// name='power'/> is less than 0.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='power'/> is null.</exception>
     [Obsolete("Use Pow instead.")]
     public EInteger PowBigIntVar(EInteger power) {
@@ -4921,7 +4921,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// arbitrary-precision integer.</returns>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
     /// zero.</exception>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='divisor'/> is null.</exception>
     public EInteger Remainder(EInteger divisor) {
       if (divisor == null) {
@@ -4973,14 +4973,14 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the right. For this operation, the arbitrary-precision
     /// integer is treated as a two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>).
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
     /// Thus, for negative values, the arbitrary-precision integer is
     /// sign-extended.</summary>
     /// <param name='eshift'>The number of bits to shift. Can be negative,
     /// in which case this is the same as ShiftLeft with the absolute value
     /// of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='eshift'/> is null.</exception>
     public EInteger ShiftRight(EInteger eshift) {
       if (eshift == null) {
@@ -5007,7 +5007,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// in which case this is the same as ShiftRight with the absolute
     /// value of this parameter.</param>
     /// <returns>An arbitrary-precision integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='eshift'/> is null.</exception>
     public EInteger ShiftLeft(EInteger eshift) {
       if (eshift == null) {
@@ -5121,7 +5121,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// is 0. If this integer is positive, the return value is negative,
     /// and vice versa. This method uses the two's complement form of
     /// negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, NOT 10100 = ...11101011 (or in decimal, NOT 20
     /// = -21). In binary, NOT ...11100110 = 11001 (or in decimal, NOT -26
     /// = 25).</returns>
@@ -5223,7 +5223,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <param name='bigBitCount'>The number of bits to extract from the
     /// lowest part of this integer.</param>
     /// <returns>A value equivalent to <c>And(2^bigBitCount - 1)</c>.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigBitCount'/> is null.</exception>
     public EInteger LowBits(EInteger bigBitCount) {
       if (bigBitCount == null) {
@@ -5288,14 +5288,14 @@ this.Pow(EInteger.FromInt64(longPower));
     /// in binary, 10110 AND 01100 = 00100 (or in decimal, 22 AND 12 = 4).
     /// This method uses the two's complement form of negative integers
     /// (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, ...11100111 AND 01100 = 00100 (or in decimal,
     /// -25 AND 12 = 4).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='other'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     public EInteger And(EInteger other) {
       if (other == null) {
@@ -5359,14 +5359,14 @@ this.Pow(EInteger.FromInt64(longPower));
     /// corresponding bit is set, or both. For example, in binary, 10110 OR
     /// 11010 = 11110 (or in decimal, 22 OR 26 = 30). This method uses the
     /// two's complement form of negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, ...11101110 OR 01011 = ...11101111 (or in
     /// decimal, -18 OR 11 = -17).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     public EInteger Or(EInteger second) {
       if (second == null) {
@@ -5450,14 +5450,14 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <i>not</i> set. For example, in binary, 10110 AND NOT 11010 = 00100
     /// (or in decimal, 22 AND NOT 26 = 4). This method uses the two's
     /// complement form of negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, ...11101110 AND NOT 01011 = 00100 (or in
     /// decimal, -18 OR 11 = 4).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     public EInteger AndNot(EInteger second) {
       if (second == null) {
@@ -5476,14 +5476,14 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010
     /// = 00100 (or in decimal, 22 OR NOT 26 = 23). This method uses the
     /// two's complement form of negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, ...11101110 OR NOT 01011 = ...11111110 (or in
     /// decimal, -18 OR 11 = -2).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     public EInteger OrNot(EInteger second) {
       if (second == null) {
@@ -5502,14 +5502,14 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010
     /// = 00100 (or in decimal, 22 OR NOT 26 = 23). This method uses the
     /// two's complement form of negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, ...11101110 OR NOT 01011 = ...11111110 (or in
     /// decimal, -18 OR 11 = -2).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     [Obsolete("Does the incorrect implication operation. Use Imply instead.")]
     public EInteger Imp(EInteger second) {
@@ -5527,14 +5527,14 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <i>not</i> set, or both. For example, in binary, 10110 OR NOT 11010
     /// = 11010 IMP 10110 = 00100 (or in decimal, 22 OR NOT 26 = 23). This
     /// method uses the two's complement form of negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, ...11101110 OR NOT 01011 = 01011 IMP...11101110
     /// =...11111110 (or in decimal, -18 OR 11 = -2).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     private EInteger Imply(EInteger second) {
       if (second == null) {
@@ -5554,14 +5554,14 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <i>not</i> set, but not both. For example, in binary, 10110 XOR NOT
     /// 11010 = 10011 (or in decimal, 22 XOR NOT 26 = 19). This method uses
     /// the two's complement form of negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, ...11101110 XOR NOT 01011 = ...11111010 (or in
     /// decimal, -18 OR 11 = -6).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     public EInteger XorNot(EInteger second) {
       if (second == null) {
@@ -5581,14 +5581,14 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <i>not</i> set, but not both. For example, in binary, 10110 XOR NOT
     /// 11010 = 10011 (or in decimal, 22 XOR NOT 26 = 19). This method uses
     /// the two's complement form of negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, ...11101110 XOR NOT 01011 = ...11111010 (or in
     /// decimal, -18 OR 11 = -6).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='second'/> is null.</exception>
     /// <remarks>Each arbitrary-precision integer is treated as a
     /// two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) for
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) for
     /// the purposes of this operator.</remarks>
     public EInteger Eqv(EInteger second) {
       if (second == null) {
@@ -5606,10 +5606,10 @@ this.Pow(EInteger.FromInt64(longPower));
     /// other. For example, in binary, 11010 XOR 01001 = 10011 (or in
     /// decimal, 26 XOR 9 = 19). This method uses the two's complement form
     /// of negative integers (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>). For
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ). For
     /// example, in binary, ...11101101 XOR 00011 = ...11101110 (or in
     /// decimal, -19 XOR 3 = -18).</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='other'/> is null.</exception>
     public EInteger Xor(EInteger other) {
       if (other == null) {
@@ -5885,7 +5885,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the right. For this operation, the arbitrary-precision
     /// integer is treated as a two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>).
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ).
     /// Thus, for negative values, the arbitrary-precision integer is
     /// sign-extended.</summary>
     /// <param name='numberBits'>The number of bits to shift. Can be
@@ -5970,7 +5970,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// and so on.</param>
     /// <returns>The square root of this object's value. Returns 0 if this
     /// value is 0 or less.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='root'/> is null.</exception>
     public EInteger Root(EInteger root) {
       if (root == null) {
@@ -5989,7 +5989,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// this value and the nth power of the first integer. Returns two
     /// zeros if this value is 0 or less, or one and zero if this value
     /// equals 1.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='root'/> is null.</exception>
     public EInteger[] RootRem(EInteger root) {
       if (root == null) {
@@ -6030,7 +6030,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <returns>The difference between the two numbers, that is, this
     /// arbitrary-precision integer minus another arbitrary-precision
     /// integer.</returns>
-    /// <exception cref="ArgumentNullException">The parameter <paramref
+    /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='subtrahend'/> is null.</exception>
     public EInteger Subtract(EInteger subtrahend) {
       if (subtrahend == null) {
@@ -6042,7 +6042,7 @@ this.Pow(EInteger.FromInt64(longPower));
 
     /// <summary>Returns a byte array of this integer's value. The byte
     /// array will take the number's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>),
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ),
     /// using the fewest bytes necessary to store its value unambiguously.
     /// If this value is negative, the bits that appear beyond the most
     /// significant bit of the number will be all ones. The resulting byte
@@ -6140,7 +6140,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <summary>Converts this object's value to a 32-bit signed integer.
     /// If the value can't fit in a 32-bit integer, returns the lower 32
     /// bits of this object's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
     /// <returns>A 32-bit signed integer.</returns>
@@ -6187,7 +6187,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <summary>Converts this object's value to a 64-bit signed integer.
     /// If the value can't fit in a 64-bit integer, returns the lower 64
     /// bits of this object's two's-complement form (see
-    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see>) (in
+    /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) (in
     /// which case the return value might have a different sign than this
     /// object's value).</summary>
     /// <returns>A 64-bit signed integer.</returns>
