@@ -2760,7 +2760,7 @@ PositiveInfinity) : CreateNaN(
       return this.IsZero ? ((int)0) : this.ToEIntegerIfExact().ToInt32Checked();
     }
 
-    /// <summary>Converts a boolean value (true or false) to an
+    /// <summary>Converts a Boolean value (true or false) to an
     /// arbitrary-precision rational number.</summary>
     /// <param name='boolValue'>Either true or false.</param>
     /// <returns>The number 1 if <paramref name='boolValue'/> is true;

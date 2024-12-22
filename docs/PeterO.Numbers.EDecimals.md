@@ -6,7 +6,7 @@ A class that implements additional operations on arbitrary-precision decimal num
 
 ### Member Summary
 * <code>[And(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#And_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Performs a logical AND operation on two decimal numbers in the form of logical operands.
-* <code>[BooleanToEDecimal(bool, PeterO.Numbers.EContext)](#BooleanToEDecimal_bool_PeterO_Numbers_EContext)</code> - Converts a boolean value (either true or false) to an arbitrary-precision decimal number.
+* <code>[BooleanToEDecimal(bool, PeterO.Numbers.EContext)](#BooleanToEDecimal_bool_PeterO_Numbers_EContext)</code> - Converts a Boolean value (either true or false) to an arbitrary-precision decimal number.
 * <code>[Canonical(PeterO.Numbers.EDecimal)](#Canonical_PeterO_Numbers_EDecimal)</code> - Returns a canonical version of the given arbitrary-precision number object.
 * <code>[CompareTotal(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareTotal_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the values of one arbitrary-precision number object and another object, imposing a total ordering on all possible values.
 * <code>[CompareTotalMagnitude(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareTotalMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the absolute values of two arbitrary-precision number objects, imposing a total ordering on all possible values (ignoring their signs).
@@ -70,7 +70,7 @@ The result of the logical AND operation as a logical operand. Signals an invalid
         bool b,
         PeterO.Numbers.EContext ec);
 
-Converts a boolean value (either true or false) to an arbitrary-precision decimal number.
+Converts a Boolean value (either true or false) to an arbitrary-precision decimal number.
 
 <b>Parameters:</b>
 

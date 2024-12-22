@@ -419,7 +419,7 @@ namespace PeterO.Numbers {
         new EInteger(newwordCount, newreg, numIsNegative);
     }
 
-    /// <summary>Converts a boolean value (true or false) to an
+    /// <summary>Converts a Boolean value (true or false) to an
     /// arbitrary-precision integer.</summary>
     /// <param name='boolValue'>Either true or false.</param>
     /// <returns>The number 1 if <paramref name='boolValue'/> is true;

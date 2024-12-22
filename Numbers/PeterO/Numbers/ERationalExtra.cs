@@ -9,7 +9,7 @@ using System;
 
 namespace PeterO.Numbers {
   public sealed partial class ERational {
-    /// <summary>Converts a boolean value (true or false) to an
+    /// <summary>Converts a Boolean value (true or false) to an
     /// arbitrary-precision rational number.</summary>
     /// <param name='boolValue'>Either true or false.</param>
     /// <returns>1 if <paramref name='boolValue'/> is true; otherwise,

@@ -1063,7 +1063,7 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Converts a boolean value (true or false) to an
+    /// <summary>Converts a Boolean value (true or false) to an
     /// arbitrary-precision decimal number.</summary>
     /// <param name='boolValue'>Either true or false.</param>
     /// <returns>The number 1 if <paramref name='boolValue'/> is true;

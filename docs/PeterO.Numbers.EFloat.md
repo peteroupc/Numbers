@@ -97,7 +97,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[explicit operator float(PeterO.Numbers.EFloat)](#explicit_operator_float_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary floating-point number to its closest equivalent as a 32-bit floating-point number.
 * <code>[explicit operator int(PeterO.Numbers.EFloat)](#explicit_operator_int_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary floating-point number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[explicit operator long(PeterO.Numbers.EFloat)](#explicit_operator_long_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary floating-point number to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
-* <code>[explicit operator PeterO.Numbers.EFloat(bool)](#explicit_operator_PeterO_Numbers_EFloat_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number.
+* <code>[explicit operator PeterO.Numbers.EFloat(bool)](#explicit_operator_PeterO_Numbers_EFloat_bool)</code> - Converts a Boolean value (true or false) to an arbitrary-precision binary floating-point number.
 * <code>[explicit operator PeterO.Numbers.EInteger(PeterO.Numbers.EFloat)](#explicit_operator_PeterO_Numbers_EInteger_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary floating-point number to a value to an arbitrary-precision integer.
 * <code>[explicit operator sbyte(PeterO.Numbers.EFloat)](#explicit_operator_sbyte_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary floating-point number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[explicit operator short(PeterO.Numbers.EFloat)](#explicit_operator_short_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary floating-point number to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
@@ -106,7 +106,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[explicit operator ushort(PeterO.Numbers.EFloat)](#explicit_operator_ushort_PeterO_Numbers_EFloat)</code> - Converts an arbitrary-precision binary floating-point number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[ExpM1(PeterO.Numbers.EContext)](#ExpM1_PeterO_Numbers_EContext)</code> - Finds e (the base of natural logarithms) raised to the power of this object's value, and subtracts the result by 1 and returns the final result, in a way that avoids loss of precision if the true result is very close to 0.
 * <code>[Exponent](#Exponent)</code> - Gets this object's exponent.
-* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (either true or false) to an arbitrary-precision binary floating-point number.
+* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a Boolean value (either true or false) to an arbitrary-precision binary floating-point number.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision binary floating-point number.
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Creates a binary floating-point number from a 64-bit floating-point number.
 * <code>[FromDoubleBits(long)](#FromDoubleBits_long)</code> - Creates a binary floating-point number from a 64-bit floating-point number encoded in the IEEE 754 binary64 format.
@@ -1435,7 +1435,7 @@ Exponential of this object, minus 1. Signals FlagInvalid and returns not-a-numbe
     public static PeterO.Numbers.EFloat FromBoolean(
         bool boolValue);
 
-Converts a boolean value (either true or false) to an arbitrary-precision binary floating-point number.
+Converts a Boolean value (either true or false) to an arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
 
@@ -3140,7 +3140,7 @@ The parameter  <i>input</i>
     public static explicit operator PeterO.Numbers.EFloat(
         bool boolValue);
 
-Converts a boolean value (true or false) to an arbitrary-precision binary floating-point number.
+Converts a Boolean value (true or false) to an arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
 

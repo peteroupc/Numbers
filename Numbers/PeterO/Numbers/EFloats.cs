@@ -30,7 +30,7 @@ namespace PeterO.Numbers {
       return EFloat.FromInt32(i32).RoundToPrecision(ec);
     }
 
-    /// <summary>Converts a boolean value (either true or false) to an
+    /// <summary>Converts a Boolean value (either true or false) to an
     /// arbitrary-precision binary floating-point number.</summary>
     /// <param name='b'>Either true or false.</param>
     /// <param name='ec'>A context used for rounding the result. Can be
@@ -41,7 +41,7 @@ namespace PeterO.Numbers {
     public static EFloat BooleanToEFloat(bool b, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
-      // miscellaneous operations here return booleans
+      // miscellaneous operations here return Boolean values
       return EFloat.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 

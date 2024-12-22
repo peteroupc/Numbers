@@ -53,7 +53,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[explicit operator uint(PeterO.Numbers.EInteger)](#explicit_operator_uint_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 32-bit signed integer if it can fit in a 32-bit signed integer.
 * <code>[explicit operator ulong(PeterO.Numbers.EInteger)](#explicit_operator_ulong_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer.
 * <code>[explicit operator ushort(PeterO.Numbers.EInteger)](#explicit_operator_ushort_PeterO_Numbers_EInteger)</code> - Converts an arbitrary-precision integer to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer.
-* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision integer.
+* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a Boolean value (true or false) to an arbitrary-precision integer.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[FromBytes(byte[], bool)](#FromBytes_byte_bool)</code> - Initializes an arbitrary-precision integer from an array of bytes.
 * <code>[FromBytes(byte[], int, int, bool)](#FromBytes_byte_int_int_bool)</code> - Initializes an arbitrary-precision integer from a portion of an array of bytes.
@@ -784,7 +784,7 @@ The parameter  <i>second</i>
     public static PeterO.Numbers.EInteger FromBoolean(
         bool boolValue);
 
-Converts a boolean value (true or false) to an arbitrary-precision integer.
+Converts a Boolean value (true or false) to an arbitrary-precision integer.
 
 <b>Parameters:</b>
 

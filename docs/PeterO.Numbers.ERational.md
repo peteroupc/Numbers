@@ -42,13 +42,13 @@ Represents an arbitrary-precision rational number. This class can't be inherited
 * <code>[explicit operator int(PeterO.Numbers.ERational)](#explicit_operator_int_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[explicit operator long(PeterO.Numbers.ERational)](#explicit_operator_long_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 64-bit signed integer if it can fit in a 64-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[explicit operator PeterO.Numbers.EInteger(PeterO.Numbers.ERational)](#explicit_operator_PeterO_Numbers_EInteger_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to an arbitrary-precision integer.
-* <code>[explicit operator PeterO.Numbers.ERational(bool)](#explicit_operator_PeterO_Numbers_ERational_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision rational number.
+* <code>[explicit operator PeterO.Numbers.ERational(bool)](#explicit_operator_PeterO_Numbers_ERational_bool)</code> - Converts a Boolean value (true or false) to an arbitrary-precision rational number.
 * <code>[explicit operator sbyte(PeterO.Numbers.ERational)](#explicit_operator_sbyte_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to an 8-bit signed integer if it can fit in an 8-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[explicit operator short(PeterO.Numbers.ERational)](#explicit_operator_short_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[explicit operator uint(PeterO.Numbers.ERational)](#explicit_operator_uint_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 32-bit signed integer if it can fit in a 32-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[explicit operator ulong(PeterO.Numbers.ERational)](#explicit_operator_ulong_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 64-bit unsigned integer if it can fit in a 64-bit unsigned integer after converting it to an integer by discarding its fractional part.
 * <code>[explicit operator ushort(PeterO.Numbers.ERational)](#explicit_operator_ushort_PeterO_Numbers_ERational)</code> - Converts an arbitrary-precision rational number to a 16-bit unsigned integer if it can fit in a 16-bit unsigned integer after converting it to an integer by discarding its fractional part.
-* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a boolean value (true or false) to an arbitrary-precision rational number.
+* <code>[FromBoolean(bool)](#FromBoolean_bool)</code> - Converts a Boolean value (true or false) to an arbitrary-precision rational number.
 * <code>[FromByte(byte)](#FromByte_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision rational number.
 * <code>[FromDecimal(decimal)](#FromDecimal_decimal)</code> - Converts a decimal under the Common Language Infrastructure (usually a.
 * <code>[FromDouble(double)](#FromDouble_double)</code> - Converts a 64-bit floating-point number to a rational number.
@@ -899,7 +899,7 @@ Either  `true`  or  `false` .
     public static PeterO.Numbers.ERational FromBoolean(
         bool boolValue);
 
-Converts a boolean value (true or false) to an arbitrary-precision rational number.
+Converts a Boolean value (true or false) to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 
@@ -2016,7 +2016,7 @@ The parameter  <i>bigValue</i>
     public static explicit operator PeterO.Numbers.ERational(
         bool boolValue);
 
-Converts a boolean value (true or false) to an arbitrary-precision rational number.
+Converts a Boolean value (true or false) to an arbitrary-precision rational number.
 
 <b>Parameters:</b>
 

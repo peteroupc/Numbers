@@ -6,7 +6,7 @@ A class that implements additional operations on arbitrary-precision binary floa
 
 ### Member Summary
 * <code>[And(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#And_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Performs a logical AND operation on two binary numbers in the form of logical operands.
-* <code>[BooleanToEFloat(bool, PeterO.Numbers.EContext)](#BooleanToEFloat_bool_PeterO_Numbers_EContext)</code> - Converts a boolean value (either true or false) to an arbitrary-precision binary floating-point number.
+* <code>[BooleanToEFloat(bool, PeterO.Numbers.EContext)](#BooleanToEFloat_bool_PeterO_Numbers_EContext)</code> - Converts a Boolean value (either true or false) to an arbitrary-precision binary floating-point number.
 * <code>[Canonical(PeterO.Numbers.EFloat)](#Canonical_PeterO_Numbers_EFloat)</code> - Returns a canonical version of the given arbitrary-precision number object.
 * <code>[CompareTotal(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareTotal_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the values of one arbitrary-precision number object and another object, imposing a total ordering on all possible values.
 * <code>[CompareTotalMagnitude(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#CompareTotalMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Compares the absolute values of two arbitrary-precision number objects, imposing a total ordering on all possible values (ignoring their signs).
@@ -70,7 +70,7 @@ The result of the logical AND operation as a logical operand. Signals an invalid
         bool b,
         PeterO.Numbers.EContext ec);
 
-Converts a boolean value (either true or false) to an arbitrary-precision binary floating-point number.
+Converts a Boolean value (either true or false) to an arbitrary-precision binary floating-point number.
 
 <b>Parameters:</b>
 
