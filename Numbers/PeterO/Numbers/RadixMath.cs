@@ -2041,7 +2041,7 @@ EFloat)?.ToDouble()));
         if ((ctx2.Flags & (EContext.FlagOverflow |
               EContext.FlagUnderflow)) == 0) {
           // Don't set flags except on overflow or underflow,
-          // in accordance with the DecTest test cases
+          // per the DecTest test cases
           ctx2.Flags = 0;
         }
         if ((ctx2.Flags & EContext.FlagUnderflow) != 0) {
@@ -3966,7 +3966,7 @@ EFloat)?.ToDouble()));
     private static int CompareToHandleSpecial2(
       int thisFlags,
       int otherFlags) {
-      // Assumes either value is NaN and/or infinity
+      // Assumes either value is NaN or infinity
       {
         if ((thisFlags & BigNumberFlags.FlagNaN) != 0) {
           if ((otherFlags & BigNumberFlags.FlagNaN) != 0) {
@@ -5795,7 +5795,7 @@ EFloat)?.ToDouble()));
         }
       }
 
-      // Binary precision of potentially non-binary numbers
+      // Binary precision of potentially nonbinary numbers
       // binaryPrec means whether precision is the number of bits and not
       // digits
       bool binaryPrec = ctx.IsPrecisionInBits && this.thisRadix != 2 &&

@@ -2017,7 +2017,7 @@ The format of the sequence generally consists of:
 
  * Optionally, "E"/"e" followed by an optional (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.
+The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and/or basic lowercase letters.
 
 All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
 
@@ -2163,7 +2163,7 @@ The format of the sequence generally consists of:
 
  * Optionally, "E"/"e" followed by an optional (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.
+The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and/or basic lowercase letters.
 
 All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
 
@@ -2311,7 +2311,7 @@ The format of the string generally consists of:
 
  * Optionally, "E"/"e" followed by an optional (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic upper-case and/or basic lower-case letters.
+The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and/or basic lowercase letters.
 
 All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 

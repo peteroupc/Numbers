@@ -752,9 +752,9 @@ Binary16SignifAreaBits;
     /// digits may begin with any number of zeros), or signaling NaN
     /// ("sNaN") followed by any number of digits (these digits may begin
     /// with any number of zeros), all where the letters can be any
-    /// combination of basic upper-case and/or basic lower-case
+    /// combination of basic uppercase and/or basic lowercase
     /// letters.</para>
-    /// <para>All characters mentioned above are the corresponding
+    /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
     /// allowed to contain white space characters, including
@@ -880,9 +880,9 @@ Binary16SignifAreaBits;
     /// digits may begin with any number of zeros), or signaling NaN
     /// ("sNaN") followed by any number of digits (these digits may begin
     /// with any number of zeros), all where the letters can be any
-    /// combination of basic upper-case and/or basic lower-case
+    /// combination of basic uppercase and/or basic lowercase
     /// letters.</para>
-    /// <para>All characters mentioned above are the corresponding
+    /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
     /// allowed to contain white space characters, including
@@ -1003,9 +1003,9 @@ Binary16SignifAreaBits;
     /// digits may begin with any number of zeros), or signaling NaN
     /// ("sNaN") followed by any number of digits (these digits may begin
     /// with any number of zeros), all where the letters can be any
-    /// combination of basic upper-case and/or basic lower-case
+    /// combination of basic uppercase and/or basic lowercase
     /// letters.</para>
-    /// <para>All characters mentioned above are the corresponding
+    /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
     /// allowed to contain white space characters, including
@@ -3485,7 +3485,7 @@ Binary16SignifAreaBits;
     /// Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
     /// be changed to the given exponent when rounding, and the given
-    /// exponent is outside of the valid range of the arithmetic
+    /// exponent is outside the valid range of the arithmetic
     /// context.</returns>
     public EFloat RoundToExponent(
       EInteger exponent,
@@ -3517,7 +3517,7 @@ Binary16SignifAreaBits;
     /// Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
     /// be changed to the given exponent when rounding, and the given
-    /// exponent is outside of the valid range of the arithmetic
+    /// exponent is outside the valid range of the arithmetic
     /// context.</returns>
     public EFloat RoundToExponent(
       int exponentSmall,
@@ -3550,8 +3550,8 @@ Binary16SignifAreaBits;
     /// precision without rounding. Signals FlagInvalid and returns
     /// not-a-number (NaN) if the arithmetic context defines an exponent
     /// range, the new exponent must be changed to the given exponent when
-    /// rounding, and the given exponent is outside of the valid range of
-    /// the arithmetic context.</returns>
+    /// rounding, and the given exponent is outside the valid range of the
+    /// arithmetic context.</returns>
     public EFloat RoundToExponentExact(
       EInteger exponent,
       EContext ctx) {
@@ -3608,8 +3608,8 @@ Binary16SignifAreaBits;
     /// precision without rounding. Signals FlagInvalid and returns
     /// not-a-number (NaN) if the arithmetic context defines an exponent
     /// range, the new exponent must be changed to the given exponent when
-    /// rounding, and the given exponent is outside of the valid range of
-    /// the arithmetic context.</returns>
+    /// rounding, and the given exponent is outside the valid range of the
+    /// arithmetic context.</returns>
     public EFloat RoundToExponentExact(
       int exponentSmall,
       EContext ctx) {
@@ -3633,7 +3633,7 @@ Binary16SignifAreaBits;
     /// precision without rounding. Signals FlagInvalid and returns
     /// not-a-number (NaN) if the arithmetic context defines an exponent
     /// range, the new exponent must be changed to 0 when rounding, and 0
-    /// is outside of the valid range of the arithmetic context.</returns>
+    /// is outside the valid range of the arithmetic context.</returns>
     public EFloat RoundToIntegerExact(EContext ctx) {
       return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
     }
@@ -3657,8 +3657,8 @@ Binary16SignifAreaBits;
     /// fit the precision, additional digits are discarded to make it fit.
     /// Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
-    /// be changed to 0 when rounding, and 0 is outside of the valid range
-    /// of the arithmetic context.</returns>
+    /// be changed to 0 when rounding, and 0 is outside the valid range of
+    /// the arithmetic context.</returns>
     public EFloat RoundToIntegerNoRoundedFlag(EContext ctx) {
       return MathValue.RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
@@ -3678,7 +3678,7 @@ Binary16SignifAreaBits;
     /// precision without rounding. Signals FlagInvalid and returns
     /// not-a-number (NaN) if the arithmetic context defines an exponent
     /// range, the new exponent must be changed to 0 when rounding, and 0
-    /// is outside of the valid range of the arithmetic context.</returns>
+    /// is outside the valid range of the arithmetic context.</returns>
     [Obsolete("Renamed to RoundToIntegerExact.")]
     public EFloat RoundToIntegralExact(EContext ctx) {
       return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
@@ -3700,8 +3700,8 @@ Binary16SignifAreaBits;
     /// fit the precision, additional digits are discarded to make it fit.
     /// Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
-    /// be changed to 0 when rounding, and 0 is outside of the valid range
-    /// of the arithmetic context.</returns>
+    /// be changed to 0 when rounding, and 0 is outside the valid range of
+    /// the arithmetic context.</returns>
     [Obsolete("Renamed to RoundToIntegerNoRoundedFlag.")]
     public EFloat RoundToIntegralNoRoundedFlag(EContext ctx) {
       return MathValue.RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);

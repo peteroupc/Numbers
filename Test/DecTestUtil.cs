@@ -121,8 +121,8 @@ namespace Test {
       return (string[])strings.ToArray();
     }
 
-    /// <summary>Returns a string with the basic upper-case letters A to Z
-    /// (U+0041 to U+005A) converted to lower-case. Other characters remain
+    /// <summary>Returns a string with the basic uppercase letters A to Z
+    /// (U+0041 to U+005A) converted to lowercase. Other characters remain
     /// unchanged.</summary>
     /// <param name='str'>The parameter <paramref name='str'/> is a text
     /// string.</param>

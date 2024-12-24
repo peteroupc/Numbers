@@ -2327,7 +2327,7 @@
             (these digits may begin with any number of zeros), or signaling NaN
             ("sNaN" /"-sNaN") followed by any number of digits (these digits
             may begin with any number of zeros), all where the letters can be
-            any combination of basic upper-case and/or basic lower-case
+            any combination of basic uppercase and/or basic lowercase
             letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
@@ -2439,7 +2439,7 @@
             (these digits may begin with any number of zeros), or signaling NaN
             ("sNaN" /"-sNaN") followed by any number of digits (these digits
             may begin with any number of zeros), all where the letters can be
-            any combination of basic upper-case and/or basic lower-case
+            any combination of basic uppercase and/or basic lowercase
             letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
@@ -2549,7 +2549,7 @@
             (these digits may begin with any number of zeros), or signaling NaN
             ("sNaN" /"-sNaN") followed by any number of digits (these digits
             may begin with any number of zeros), all where the letters can be
-            any combination of basic upper-case and/or basic lower-case
+            any combination of basic uppercase and/or basic lowercase
             letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
@@ -7050,7 +7050,7 @@
             digits may begin with any number of zeros), or signaling NaN
             ("sNaN") followed by any number of digits (these digits may begin
             with any number of zeros), all where the letters can be any
-            combination of basic upper-case and/or basic lower-case
+            combination of basic uppercase and/or basic lowercase
             letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
@@ -7159,7 +7159,7 @@
             digits may begin with any number of zeros), or signaling NaN
             ("sNaN") followed by any number of digits (these digits may begin
             with any number of zeros), all where the letters can be any
-            combination of basic upper-case and/or basic lower-case
+            combination of basic uppercase and/or basic lowercase
             letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
@@ -7272,7 +7272,7 @@
             digits may begin with any number of zeros), or signaling NaN
             ("sNaN") followed by any number of digits (these digits may begin
             with any number of zeros), all where the letters can be any
-            combination of basic upper-case and/or basic lower-case
+            combination of basic uppercase and/or basic lowercase
             letters.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
@@ -10880,10 +10880,10 @@
             described by the FromRadixSubstring method.</param>
             <param name='radix'>A base from 2 to 36. Depending on the radix,
             the sequence of bytes can use the basic digits 0 to 9 (U+0030 to
-            U+0039) and then the basic upper-case letters A to Z (U+0041 to
+            U+0039) and then the basic uppercase letters A to Z (U+0041 to
             U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix
-            16. Where a basic upper-case letter A to Z is allowed in the
-            sequence of bytes, the corresponding basic lower-case letter
+            16. Where a basic uppercase letter A to Z is allowed in the
+            sequence of bytes, the corresponding basic lowercase letter
             (U+0061 to U+007a) is allowed instead.</param>
             <returns>An arbitrary-precision integer with the same value as the
             given sequence of bytes.</returns>
@@ -10900,10 +10900,10 @@
             FromRadixSubstring method.</param>
             <param name='radix'>A base from 2 to 36. Depending on the radix,
             the sequence of <c>char</c> s can use the basic digits 0 to 9
-            (U+0030 to U+0039) and then the basic upper-case letters A to Z
+            (U+0030 to U+0039) and then the basic uppercase letters A to Z
             (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F
-            in radix 16. Where a basic upper-case letter A to Z is allowed in
-            the sequence of <c>char</c> s, the corresponding basic lower-case
+            in radix 16. Where a basic uppercase letter A to Z is allowed in
+            the sequence of <c>char</c> s, the corresponding basic lowercase
             letter (U+0061 to U+007a) is allowed instead.</param>
             <returns>An arbitrary-precision integer with the same value as the
             given sequence of <c>char</c> s.</returns>
@@ -10920,10 +10920,10 @@
             method.</param>
             <param name='radix'>A base from 2 to 36. Depending on the radix,
             the string can use the basic digits 0 to 9 (U+0030 to U+0039) and
-            then the basic upper-case letters A to Z (U+0041 to U+005A). For
+            then the basic uppercase letters A to Z (U+0041 to U+005A). For
             example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a
-            basic upper-case letter A to Z is allowed in the string, the
-            corresponding basic lower-case letter (U+0061 to U+007a) is allowed
+            basic uppercase letter A to Z is allowed in the string, the
+            corresponding basic lowercase letter (U+0061 to U+007a) is allowed
             instead.</param>
             <returns>An arbitrary-precision integer with the same value as the
             given string.</returns>
@@ -10948,11 +10948,11 @@
             any number of zeros.</param>
             <param name='radix'>A base from 2 to 36. Depending on the radix,
             the sequence of bytes (interpreted as text) can use the basic
-            digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case
+            digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase
             letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10,
-            and 0-9, then A-F in radix 16. Where a basic upper-case letter A to
+            and 0-9, then A-F in radix 16. Where a basic uppercase letter A to
             Z is allowed in the sequence of bytes (interpreted as text), the
-            corresponding basic lower-case letter (U+0061 to U+007a) is allowed
+            corresponding basic lowercase letter (U+0061 to U+007a) is allowed
             instead.</param>
             <param name='index'>The index of the sequence of bytes (interpreted
             as text) that starts the desired portion.</param>
@@ -10979,10 +10979,10 @@
             zeros.</param>
             <param name='radix'>A base from 2 to 36. Depending on the radix,
             the sequence of <c>char</c> s can use the basic digits 0 to 9
-            (U+0030 to U+0039) and then the basic upper-case letters A to Z
+            (U+0030 to U+0039) and then the basic uppercase letters A to Z
             (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F
-            in radix 16. Where a basic upper-case letter A to Z is allowed in
-            the sequence of <c>char</c> s, the corresponding basic lower-case
+            in radix 16. Where a basic uppercase letter A to Z is allowed in
+            the sequence of <c>char</c> s, the corresponding basic lowercase
             letter (U+0061 to U+007a) is allowed instead.</param>
             <param name='index'>The index of the sequence of <c>char</c> s that
             starts the desired portion.</param>
@@ -11008,10 +11008,10 @@
             start with any number of zeros.</param>
             <param name='radix'>A base from 2 to 36. Depending on the radix,
             the string can use the basic digits 0 to 9 (U+0030 to U+0039) and
-            then the basic upper-case letters A to Z (U+0041 to U+005A). For
+            then the basic uppercase letters A to Z (U+0041 to U+005A). For
             example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a
-            basic upper-case letter A to Z is allowed in the string, the
-            corresponding basic lower-case letter (U+0061 to U+007a) is allowed
+            basic uppercase letter A to Z is allowed in the string, the
+            corresponding basic lowercase letter (U+0061 to U+007a) is allowed
             instead.</param>
             <param name='index'>The index of the string that starts the string
             portion.</param>
@@ -12155,7 +12155,7 @@
             value is 0, returns "0". If negative, the string will begin with a
             minus sign ("-", U+002D). Depending on the radix, the string will
             use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic
-            upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in
+            uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in
             radix 10, and 0-9, then A-F in radix 16.</returns>
 
 </doc>
@@ -13393,8 +13393,7 @@
             <para>The sequence of bytes can also be "-INF", "-Infinity",
             "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number
             of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any
-            number of digits, all in any combination of upper and lower
-            case.</para>
+            number of digits, all in any combination of uppercase and lowercase.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of
@@ -13444,8 +13443,7 @@
             <para>The sequence of <c>char</c> s can also be "-INF",
             "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed
             by any number of digits, or signaling NaN ("sNaN" /"-sNaN")
-            followed by any number of digits, all in any combination of upper
-            and lower case.</para>
+            followed by any number of digits, all in any combination of uppercase and lowercase.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of
@@ -13494,7 +13492,7 @@
             <para>The string can also be "-INF", "-Infinity", "Infinity",
             "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits,
             or signaling NaN ("sNaN" /"-sNaN") followed by any number of
-            digits, all in any combination of upper and lower case.</para>
+            digits, all in any combination of uppercase and lowercase.</para>
             <para>All characters mentioned above are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The string is not

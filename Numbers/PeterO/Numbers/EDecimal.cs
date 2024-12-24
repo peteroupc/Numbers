@@ -67,7 +67,7 @@ namespace PeterO.Numbers {
   /// generally used when a negative number is rounded to 0; it has the
   /// same mathematical value as positive zero. <b>Infinity</b>
   ///  is
-  /// generally used when a non-zero number is divided by zero, or when a
+  /// generally used when a nonzero number is divided by zero, or when a
   /// very high or very low number can't be represented in a given
   /// exponent range. <b>Not-a-number</b>
   ///  is generally used to signal
@@ -143,7 +143,7 @@ namespace PeterO.Numbers {
   /// secret parameters.</item>
   ///  <item>The methods in this class
   /// (especially those that involve arithmetic) are not guaranteed to be
-  /// "constant-time" (non-data-dependent) for all relevant inputs.
+  /// "constant-time" (nondata-dependent) for all relevant inputs.
   /// Certain attacks that involve encrypted communications have
   /// exploited the timing and other aspects of such communications to
   /// derive keying material or cleartext indirectly.</item>
@@ -175,57 +175,56 @@ namespace PeterO.Numbers {
   /// runtime settings that change how floating-point math behaves with
   /// them, and these settings are often not accessible to .NET or Java
   /// code.</item>
-  ///  <item>Non-associativity and intermediate precisions:
-  /// In general, EDecimal and EFloat use "unlimited" precision in their
+  ///  <item>Nonassociativity and intermediate precisions: In
+  /// general, EDecimal and EFloat use "unlimited" precision in their
   /// calculations unless specified otherwise by an EContext object.
   /// However, by limiting the precision of EDecimal, EFloat, and other
   /// floating-point numbers in this way, operations such as addition and
   /// multiplication on three or more numbers can be
-  /// <i>non-associative</i>
+  /// <i>nonassociative</i>
   ///  , meaning the result can change depending on
   /// the order in which those numbers are added or multiplied. This
   /// property means that if an algorithm does not ensure such numbers
   /// are added or multiplied in the same order every time, its results
   /// may not be reproducible across computers or across runs of the
-  /// application. This non-associativity problem can happen, for
-  /// example, if an application splits a calculation across several
-  /// threads and combines their results in the end. The problems with an
-  /// unspecified order of operations (in the same line of code) and
-  /// intermediate precisions (problems present in C and C++, for
-  /// example) don't exist with method calls to EDecimal and EFloat
-  /// methods, especially since they require limited-precision support to
-  /// be declared explicitly via EContext.</item>
-  ///  <item>fmadd
-  /// instruction: EDecimal and EFloat include a MultiplyAndAdd method
-  /// with the same semantics as in the General Decimal Arithmetic
-  /// Specification, which requires delivering correctly rounded results
-  /// for this method.</item>
-  ///  <item>Square root estimate: Not applicable
-  /// since EDecimal and EFloat don't include any estimates to square
-  /// root.</item>
-  ///  <item>Transcendental functions: This includes
-  /// logarithms, exponentials, and the Pi method. For these functions,
-  /// results are not guaranteed to always be correctly rounded. When
-  /// using transcendentals, an application that cares about
-  /// reproducibility should choose one version of this library and stick
-  /// to it; this at least has the advantage that the implementation will
-  /// be the same across computers, unlike with "native" floating-point
-  /// types where the choice of implementation is often not within the
-  /// application's control.</item>
-  ///  <item>Conversions: Conversions
-  /// between EDecimal or EFloat and text strings have the same
-  /// implementation across computers for the same version of this
-  /// library (see also the advice for transcendentals above). But as for
-  /// the ToDouble, ToSingle, FromDouble, and FromSingle methods, note
-  /// that some implementations of Java and.NET may or may not support
-  /// preserving the value of subnormal numbers (numbers other than zero
-  /// with the lowest possible exponent) or the payloads held in a
-  /// not-a-number (NaN) value of float or double; thus these methods
-  /// should not be considered reproducible across computers.</item>
-  /// <item>Compiler differences: Not applicable where these classes
-  /// don't use "native" floating-point types.</item>
-  ///  <item>Uninitialized
-  /// data; per-processor code: Not applicable.</item>
+  /// application. This nonassociativity problem can happen, for example,
+  /// if an application splits a calculation across several threads and
+  /// combines their results in the end. The problems with an unspecified
+  /// order of operations (in the same line of code) and intermediate
+  /// precisions (problems present in C and C++, for example) don't exist
+  /// with method calls to EDecimal and EFloat methods, especially since
+  /// they require limited-precision support to be declared explicitly
+  /// via EContext.</item>
+  ///  <item>fmadd instruction: EDecimal and EFloat
+  /// include a MultiplyAndAdd method with the same semantics as in the
+  /// General Decimal Arithmetic Specification, which requires delivering
+  /// correctly rounded results for this method.</item>
+  ///  <item>Square root
+  /// estimate: Not applicable since EDecimal and EFloat don't include
+  /// any estimates to square root.</item>
+  ///  <item>Transcendental
+  /// functions: This includes logarithms, exponentials, and the Pi
+  /// method. For these functions, results are not guaranteed to always
+  /// be correctly rounded. When using transcendentals, an application
+  /// that cares about reproducibility should choose one version of this
+  /// library and stick to it; this at least has the advantage that the
+  /// implementation will be the same across computers, unlike with
+  /// "native" floating-point types where the choice of implementation is
+  /// often not within the application's control.</item>
+  /// <item>Conversions: Conversions between EDecimal or EFloat and text
+  /// strings have the same implementation across computers for the same
+  /// version of this library (see also the advice for transcendentals
+  /// above). But as for the ToDouble, ToSingle, FromDouble, and
+  /// FromSingle methods, note that some implementations of Java and.NET
+  /// may or may not support preserving the value of subnormal numbers
+  /// (numbers other than zero with the lowest possible exponent) or the
+  /// payloads held in a not-a-number (NaN) value of float or double;
+  /// thus these methods should not be considered reproducible across
+  /// computers.</item>
+  ///  <item>Compiler differences: Not applicable where
+  /// these classes don't use "native" floating-point types.</item>
+  /// <item>Uninitialized data; per-processor code: Not
+  /// applicable.</item>
   ///  </list>
   /// <para><b>Forms of numbers</b>
   /// </para>
@@ -297,7 +296,7 @@ namespace PeterO.Numbers {
   ///  <item>C.
   /// Highest bit: If one, this is a negative number.</item>
   ///  </list>
-  /// <para>The elements described above are in the same order as the
+  /// <para>The elements described earlier are in the same order as the
   /// order of each bit of each element, that is, either most significant
   /// first or least significant first.</para>
   /// <para><b>32-bit binary floating-point number</b>
@@ -333,7 +332,7 @@ namespace PeterO.Numbers {
   ///  <item>If the highest bit is
   /// one, it's a negative number.</item>
   ///  </list>
-  /// <para>The elements described above are in the same order as the
+  /// <para>The elements described earlier are in the same order as the
   /// order of each bit of each element, that is, either most significant
   /// first or least significant first.</para>
   /// </summary>
@@ -1426,9 +1425,9 @@ namespace PeterO.Numbers {
     /// (these digits may begin with any number of zeros), or signaling NaN
     /// ("sNaN" /"-sNaN") followed by any number of digits (these digits
     /// may begin with any number of zeros), all where the letters can be
-    /// any combination of basic upper-case and/or basic lower-case
+    /// any combination of basic uppercase and basic lowercase
     /// letters.</para>
-    /// <para>All characters mentioned above are the corresponding
+    /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
     /// allowed to contain white space characters, including
@@ -1567,9 +1566,9 @@ namespace PeterO.Numbers {
     /// (these digits may begin with any number of zeros), or signaling NaN
     /// ("sNaN" /"-sNaN") followed by any number of digits (these digits
     /// may begin with any number of zeros), all where the letters can be
-    /// any combination of basic upper-case and/or basic lower-case
+    /// any combination of basic uppercase and basic lowercase
     /// letters.</para>
-    /// <para>All characters mentioned above are the corresponding
+    /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
     /// allowed to contain white space characters, including
@@ -1704,9 +1703,9 @@ namespace PeterO.Numbers {
     /// (these digits may begin with any number of zeros), or signaling NaN
     /// ("sNaN" /"-sNaN") followed by any number of digits (these digits
     /// may begin with any number of zeros), all where the letters can be
-    /// any combination of basic upper-case and/or basic lower-case
+    /// any combination of basic uppercase and basic lowercase
     /// letters.</para>
-    /// <para>All characters mentioned above are the corresponding
+    /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
     /// allowed to contain white space characters, including
@@ -2802,8 +2801,8 @@ namespace PeterO.Numbers {
     /// number by another arbitrary-precision decimal floating-point number
     /// and returns the result; returns NaN instead if the result would
     /// have a nonterminating decimal expansion (including 1/3, 1/12, 1/7,
-    /// 2/3, and so on); if this is not desired, use DivideToExponent, or
-    /// use the Divide overload that takes an EContext.</summary>
+    /// and 2/3); if this is not desired, use DivideToExponent, or use the
+    /// Divide overload that takes an EContext.</summary>
     /// <param name='divisor'>The number to divide by.</param>
     /// <returns>The result of dividing this arbitrary-precision decimal
     /// floating-point number by another arbitrary-precision decimal
@@ -3918,8 +3917,8 @@ namespace PeterO.Numbers {
     /// <summary>Divides this arbitrary-precision decimal floating-point
     /// number by a 64-bit signed integer and returns the result; returns
     /// NaN instead if the result would have a nonterminating decimal
-    /// expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is
-    /// not desired, use DivideToExponent, or use the Divide overload that
+    /// expansion (including 1/3, 1/12, 1/7, and 2/3); if this is not
+    /// desired, use DivideToExponent, or use the Divide overload that
     /// takes an EContext.</summary>
     /// <param name='longValue'>The parameter <paramref name='longValue'/>
     /// is a 64-bit signed integer.</param>
@@ -3986,8 +3985,8 @@ namespace PeterO.Numbers {
     /// <summary>Divides this arbitrary-precision decimal floating-point
     /// number by a 32-bit signed integer and returns the result; returns
     /// NaN instead if the result would have a nonterminating decimal
-    /// expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is
-    /// not desired, use DivideToExponent, or use the Divide overload that
+    /// expansion (including 1/3, 1/12, 1/7, and 2/3); if this is not
+    /// desired, use DivideToExponent, or use the Divide overload that
     /// takes an EContext.</summary>
     /// <param name='intValue'>A 32-bit signed integer, the divisor, to
     /// divide this object by.</param>
@@ -4602,7 +4601,7 @@ namespace PeterO.Numbers {
     /// fit. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
     /// be changed to the given exponent when rounding, and the given
-    /// exponent is outside of the valid range of the arithmetic
+    /// exponent is outside the valid range of the arithmetic
     /// context.</returns>
     public EDecimal RoundToExponent(
       EInteger exponent,
@@ -4702,7 +4701,7 @@ namespace PeterO.Numbers {
     /// fit. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
     /// be changed to the given exponent when rounding, and the given
-    /// exponent is outside of the valid range of the arithmetic
+    /// exponent is outside the valid range of the arithmetic
     /// context.</returns>
     public EDecimal RoundToExponent(
       int exponentSmall,
@@ -4776,8 +4775,8 @@ namespace PeterO.Numbers {
     /// the given precision without rounding. Signals FlagInvalid and
     /// returns not-a-number (NaN) if the arithmetic context defines an
     /// exponent range, the new exponent must be changed to the given
-    /// exponent when rounding, and the given exponent is outside of the
-    /// valid range of the arithmetic context.</returns>
+    /// exponent when rounding, and the given exponent is outside the valid
+    /// range of the arithmetic context.</returns>
     public EDecimal RoundToExponentExact(
       EInteger exponent,
       EContext ctx) {
@@ -4811,8 +4810,8 @@ namespace PeterO.Numbers {
     /// the given precision without rounding. Signals FlagInvalid and
     /// returns not-a-number (NaN) if the arithmetic context defines an
     /// exponent range, the new exponent must be changed to the given
-    /// exponent when rounding, and the given exponent is outside of the
-    /// valid range of the arithmetic context.</returns>
+    /// exponent when rounding, and the given exponent is outside the valid
+    /// range of the arithmetic context.</returns>
     public EDecimal RoundToExponentExact(
       int exponentSmall,
       EContext ctx) {
@@ -4862,7 +4861,7 @@ namespace PeterO.Numbers {
     /// the given precision without rounding. Signals FlagInvalid and
     /// returns not-a-number (NaN) if the arithmetic context defines an
     /// exponent range, the new exponent must be changed to 0 when
-    /// rounding, and 0 is outside of the valid range of the arithmetic
+    /// rounding, and 0 is outside the valid range of the arithmetic
     /// context.</returns>
     public EDecimal RoundToIntegerExact(EContext ctx) {
       return GetMathValue(ctx).RoundToExponentExact(this, EInteger.Zero, ctx);
@@ -4887,8 +4886,8 @@ namespace PeterO.Numbers {
     /// can't fit the precision, additional digits are discarded to make it
     /// fit. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
-    /// be changed to 0 when rounding, and 0 is outside of the valid range
-    /// of the arithmetic context.</returns>
+    /// be changed to 0 when rounding, and 0 is outside the valid range of
+    /// the arithmetic context.</returns>
     public EDecimal RoundToIntegerNoRoundedFlag(EContext ctx) {
       return GetMathValue(ctx)
         .RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
@@ -4909,7 +4908,7 @@ namespace PeterO.Numbers {
     /// the given precision without rounding. Signals FlagInvalid and
     /// returns not-a-number (NaN) if the arithmetic context defines an
     /// exponent range, the new exponent must be changed to 0 when
-    /// rounding, and 0 is outside of the valid range of the arithmetic
+    /// rounding, and 0 is outside the valid range of the arithmetic
     /// context.</returns>
     [Obsolete("Renamed to RoundToIntegerExact.")]
     public EDecimal RoundToIntegralExact(EContext ctx) {
@@ -4932,8 +4931,8 @@ namespace PeterO.Numbers {
     /// can't fit the precision, additional digits are discarded to make it
     /// fit. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
-    /// be changed to 0 when rounding, and 0 is outside of the valid range
-    /// of the arithmetic context.</returns>
+    /// be changed to 0 when rounding, and 0 is outside the valid range of
+    /// the arithmetic context.</returns>
     [Obsolete("Renamed to RoundToIntegerNoRoundedFlag.")]
     public EDecimal RoundToIntegralNoRoundedFlag(EContext ctx) {
       return GetMathValue(ctx)

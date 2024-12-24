@@ -969,7 +969,7 @@ Converts a sequence of bytes (interpreted as text) to an arbitrary-precision int
 
  * <i>bytes</i>: A sequence of bytes (interpreted as text) described by the FromRadixSubstring method.
 
- * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of bytes can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic upper-case letter A to Z is allowed in the sequence of bytes, the corresponding basic lower-case letter (U+0061 to U+007a) is allowed instead.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of bytes can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic uppercase letter A to Z is allowed in the sequence of bytes, the corresponding basic lowercase letter (U+0061 to U+007a) is allowed instead.
 
 <b>Return Value:</b>
 
@@ -997,7 +997,7 @@ Converts a sequence of  `char`  s to an arbitrary-precision integer in a given r
 
  * <i>cs</i>: A sequence of  `char`  s described by the FromRadixSubstring method.
 
- * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of  `char`  s can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic upper-case letter A to Z is allowed in the sequence of  `char`  s, the corresponding basic lower-case letter (U+0061 to U+007a) is allowed instead.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of  `char`  s can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic uppercase letter A to Z is allowed in the sequence of  `char`  s, the corresponding basic lowercase letter (U+0061 to U+007a) is allowed instead.
 
 <b>Return Value:</b>
 
@@ -1025,7 +1025,7 @@ Converts a string to an arbitrary-precision integer in a given radix.
 
  * <i>str</i>: A string described by the FromRadixSubstring method.
 
- * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic upper-case letter A to Z is allowed in the string, the corresponding basic lower-case letter (U+0061 to U+007a) is allowed instead.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic uppercase letter A to Z is allowed in the string, the corresponding basic lowercase letter (U+0061 to U+007a) is allowed instead.
 
 <b>Return Value:</b>
 
@@ -1055,7 +1055,7 @@ Converts a portion of a sequence of bytes (interpreted as text) to an arbitrary-
 
  * <i>bytes</i>: A sequence of bytes (interpreted as text). The desired portion of the sequence of bytes (interpreted as text) must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
 
- * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of bytes (interpreted as text) can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic upper-case letter A to Z is allowed in the sequence of bytes (interpreted as text), the corresponding basic lower-case letter (U+0061 to U+007a) is allowed instead.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of bytes (interpreted as text) can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic uppercase letter A to Z is allowed in the sequence of bytes (interpreted as text), the corresponding basic lowercase letter (U+0061 to U+007a) is allowed instead.
 
  * <i>index</i>: The index of the sequence of bytes (interpreted as text) that starts the desired portion.
 
@@ -1089,7 +1089,7 @@ Converts a portion of a sequence of  `char`  s to an arbitrary-precision integer
 
  * <i>cs</i>: A text sequence of  `char`  s. The desired portion of the sequence of  `char`  s must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
 
- * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of  `char`  s can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic upper-case letter A to Z is allowed in the sequence of  `char`  s, the corresponding basic lower-case letter (U+0061 to U+007a) is allowed instead.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of  `char`  s can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic uppercase letter A to Z is allowed in the sequence of  `char`  s, the corresponding basic lowercase letter (U+0061 to U+007a) is allowed instead.
 
  * <i>index</i>: The index of the sequence of  `char`  s that starts the desired portion.
 
@@ -1123,7 +1123,7 @@ Converts a portion of a string to an arbitrary-precision integer in a given radi
 
  * <i>str</i>: A text string. The desired portion of the string must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
 
- * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic upper-case letter A to Z is allowed in the string, the corresponding basic lower-case letter (U+0061 to U+007a) is allowed instead.
+ * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic uppercase letter A to Z is allowed in the string, the corresponding basic lowercase letter (U+0061 to U+007a) is allowed instead.
 
  * <i>index</i>: The index of the string that starts the string portion.
 
@@ -3510,7 +3510,7 @@ Generates a string representing the value of this object, in the given radix.
 
 <b>Return Value:</b>
 
-A string representing the value of this object. If this value is 0, returns "0". If negative, the string will begin with a minus sign ("-", U+002D). Depending on the radix, the string will use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
+A string representing the value of this object. If this value is 0, returns "0". If negative, the string will begin with a minus sign ("-", U+002D). Depending on the radix, the string will use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16.
 
 <a id="ToSByteChecked"></a>
 ### ToSByteChecked

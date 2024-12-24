@@ -25,7 +25,7 @@ Version 1.8
 - Add LowBits family of methods to EInteger
 - Add FromInt64AsUnsigned to EInteger, EDecimal, EFloat, and ERational
 - Add overload to FromBytes method of EInteger
-- Bug fixes
+- Issue fixes
 
 </PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>

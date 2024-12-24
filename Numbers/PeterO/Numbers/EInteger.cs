@@ -43,7 +43,7 @@ namespace PeterO.Numbers {
   /// parameters.</item>
   /// <item>The methods in this class (especially those that involve
   /// arithmetic) are not guaranteed to be "constant-time"
-  /// (non-data-dependent) for all relevant inputs. Certain attacks that
+  /// (nondata-dependent) for all relevant inputs. Certain attacks that
   /// involve encrypted communications have exploited the timing and
   /// other aspects of such communications to derive keying material or
   /// cleartext indirectly.</item></list>
@@ -298,7 +298,7 @@ namespace PeterO.Numbers {
     /// <c>0xC8</c>, so an additional 0 is added at the start to ensure
     /// it's interpreted as positive.)</item>
     /// <item>To encode negative numbers, take the absolute value of the
-    /// number, subtract by 1, encode the number into bytes, and toggle
+    /// number, subtract by 1, encode the number into bytes, and reverse
     /// each bit of each byte. Any further bits that appear beyond the most
     /// significant bit of the number will be all ones. For example, the
     /// number -450 can be encoded as <c>0xfe, 0x70</c> and -52869 as
@@ -570,10 +570,10 @@ namespace PeterO.Numbers {
     /// method.</param>
     /// <param name='radix'>A base from 2 to 36. Depending on the radix,
     /// the string can use the basic digits 0 to 9 (U+0030 to U+0039) and
-    /// then the basic upper-case letters A to Z (U+0041 to U+005A). For
+    /// then the basic uppercase letters A to Z (U+0041 to U+005A). For
     /// example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a
-    /// basic upper-case letter A to Z is allowed in the string, the
-    /// corresponding basic lower-case letter (U+0061 to U+007a) is allowed
+    /// basic uppercase letter A to Z is allowed in the string, the
+    /// corresponding basic lowercase letter (U+0061 to U+007a) is allowed
     /// instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
     /// given string.</returns>
@@ -598,10 +598,10 @@ namespace PeterO.Numbers {
     /// start with any number of zeros.</param>
     /// <param name='radix'>A base from 2 to 36. Depending on the radix,
     /// the string can use the basic digits 0 to 9 (U+0030 to U+0039) and
-    /// then the basic upper-case letters A to Z (U+0041 to U+005A). For
+    /// then the basic uppercase letters A to Z (U+0041 to U+005A). For
     /// example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a
-    /// basic upper-case letter A to Z is allowed in the string, the
-    /// corresponding basic lower-case letter (U+0061 to U+007a) is allowed
+    /// basic uppercase letter A to Z is allowed in the string, the
+    /// corresponding basic lowercase letter (U+0061 to U+007a) is allowed
     /// instead.</param>
     /// <param name='index'>The index of the string that starts the string
     /// portion.</param>
@@ -699,10 +699,10 @@ namespace PeterO.Numbers {
     /// FromRadixSubstring method.</param>
     /// <param name='radix'>A base from 2 to 36. Depending on the radix,
     /// the sequence of <c>char</c> s can use the basic digits 0 to 9
-    /// (U+0030 to U+0039) and then the basic upper-case letters A to Z
+    /// (U+0030 to U+0039) and then the basic uppercase letters A to Z
     /// (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F
-    /// in radix 16. Where a basic upper-case letter A to Z is allowed in
-    /// the sequence of <c>char</c> s, the corresponding basic lower-case
+    /// in radix 16. Where a basic uppercase letter A to Z is allowed in
+    /// the sequence of <c>char</c> s, the corresponding basic lowercase
     /// letter (U+0061 to U+007a) is allowed instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
     /// given sequence of <c>char</c> s.</returns>
@@ -728,10 +728,10 @@ namespace PeterO.Numbers {
     /// zeros.</param>
     /// <param name='radix'>A base from 2 to 36. Depending on the radix,
     /// the sequence of <c>char</c> s can use the basic digits 0 to 9
-    /// (U+0030 to U+0039) and then the basic upper-case letters A to Z
+    /// (U+0030 to U+0039) and then the basic uppercase letters A to Z
     /// (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F
-    /// in radix 16. Where a basic upper-case letter A to Z is allowed in
-    /// the sequence of <c>char</c> s, the corresponding basic lower-case
+    /// in radix 16. Where a basic uppercase letter A to Z is allowed in
+    /// the sequence of <c>char</c> s, the corresponding basic lowercase
     /// letter (U+0061 to U+007a) is allowed instead.</param>
     /// <param name='index'>The index of the sequence of <c>char</c> s that
     /// starts the desired portion.</param>
@@ -836,11 +836,11 @@ namespace PeterO.Numbers {
     /// described by the FromRadixSubstring method.</param>
     /// <param name='radix'>A base from 2 to 36. Depending on the radix,
     /// the sequence of bytes can use the basic digits 0 to 9 (U+0030 to
-    /// U+0039) and then the basic upper-case letters A to Z (U+0041 to
+    /// U+0039) and then the basic uppercase letters A to Z (U+0041 to
     /// U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix
-    /// 16. Where a basic upper-case letter A to Z is allowed in the
-    /// sequence of bytes, the corresponding basic lower-case letter
-    /// (U+0061 to U+007a) is allowed instead.</param>
+    /// 16. Where a basic uppercase letter A to Z is allowed in the
+    /// sequence of bytes, the corresponding basic lowercase letter (U+0061
+    /// to U+007a) is allowed instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
     /// given sequence of bytes.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -868,11 +868,11 @@ namespace PeterO.Numbers {
     /// any number of zeros.</param>
     /// <param name='radix'>A base from 2 to 36. Depending on the radix,
     /// the sequence of bytes (interpreted as text) can use the basic
-    /// digits 0 to 9 (U+0030 to U+0039) and then the basic upper-case
+    /// digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase
     /// letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10,
-    /// and 0-9, then A-F in radix 16. Where a basic upper-case letter A to
+    /// and 0-9, then A-F in radix 16. Where a basic uppercase letter A to
     /// Z is allowed in the sequence of bytes (interpreted as text), the
-    /// corresponding basic lower-case letter (U+0061 to U+007a) is allowed
+    /// corresponding basic lowercase letter (U+0061 to U+007a) is allowed
     /// instead.</param>
     /// <param name='index'>The index of the sequence of bytes (interpreted
     /// as text) that starts the desired portion.</param>
@@ -2191,7 +2191,7 @@ namespace PeterO.Numbers {
       var size = 0;
       for (i = blocksA - 1; i >= 0; --i) {
         int workAIndex = workPosA + (i * blocksB);
-        // Set the low part of the sub-dividend with the working
+        // Set the low part of the subdividend with the working
         // block of the dividend
         Array.Copy(workA, workAIndex, tmprem, blocksB, blocksB);
         // Clear the quotient
@@ -2219,7 +2219,7 @@ namespace PeterO.Numbers {
               size);
           }
         }
-        // Set the high part of the sub-dividend with the remainder
+        // Set the high part of the subdividend with the remainder
         Array.Copy(tmprem, 0, tmprem, blocksB << 1, blocksB);
       }
       if (rem != null) {
@@ -5002,7 +5002,8 @@ this.Pow(EInteger.FromInt64(longPower));
     /// shifted to the left by a number of bits given as an
     /// arbitrary-precision integer. A value of 1 doubles this value, a
     /// value of 2 multiplies it by 4; a value of 3, by 8; a value of 4, by
-    /// 16; and so on.</summary>
+    /// 16; and in general, a value of N, by 2^N, where N is 1 or
+    /// greater.</summary>
     /// <param name='eshift'>The number of bits to shift. Can be negative,
     /// in which case this is the same as ShiftRight with the absolute
     /// value of this parameter.</param>
@@ -5027,8 +5028,9 @@ this.Pow(EInteger.FromInt64(longPower));
 
     /// <summary>Returns an arbitrary-precision integer with the bits
     /// shifted to the left by a number of bits. A value of 1 doubles this
-    /// value, a value of 2 multiplies it by 4, a value of 3 × by, a value
-    /// of 4 × by, and so on.</summary>
+    /// value, a value of 2 multiplies it by 4, a value of 3, by 8, a value
+    /// of 4, by 16, and in general, a value of N, by 2^N, where N is 1 or
+    /// greater.</summary>
     /// <param name='numberBits'>The number of bits to shift. Can be
     /// negative, in which case this is the same as shiftRight with the
     /// absolute value of this parameter.</param>
@@ -5151,8 +5153,8 @@ this.Pow(EInteger.FromInt64(longPower));
 
     /// <summary>Extracts the lowest bits of this integer. This is
     /// equivalent to <c>And(2^longBitCount - 1)</c>, but is more
-    /// efficient when this integer is non-negative and longBitCount's
-    /// value is large.</summary>
+    /// efficient when this integer is nonnegative and longBitCount's value
+    /// is large.</summary>
     /// <param name='longBitCount'>The number of bits to extract from the
     /// lowest part of this integer.</param>
     /// <returns>A value equivalent to <c>And(2^longBitCount - 1)</c>.</returns>
@@ -5168,7 +5170,7 @@ this.Pow(EInteger.FromInt64(longPower));
 
     /// <summary>Extracts the lowest bits of this integer. This is
     /// equivalent to <c>And(2^bitCount - 1)</c>, but is more efficient
-    /// when this integer is non-negative and bitCount's value is
+    /// when this integer is nonnegative and bitCount's value is
     /// large.</summary>
     /// <param name='bitCount'>The number of bits to extract from the
     /// lowest part of this integer.</param>
@@ -5218,7 +5220,7 @@ this.Pow(EInteger.FromInt64(longPower));
 
     /// <summary>Extracts the lowest bits of this integer. This is
     /// equivalent to <c>And(2^bigBitCount - 1)</c>, but is more efficient
-    /// when this integer is non-negative and bigBitCount's value is
+    /// when this integer is nonnegative and bigBitCount's value is
     /// large.</summary>
     /// <param name='bigBitCount'>The number of bits to extract from the
     /// lowest part of this integer.</param>
@@ -5967,7 +5969,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// down.</summary>
     /// <param name='root'>The root to find; must be 1 or greater. If this
     /// value is 2, this method finds the square root; if 3, the cube root,
-    /// and so on.</param>
+    /// and in general, if N, the N-th root.</param>
     /// <returns>The square root of this object's value. Returns 0 if this
     /// value is 0 or less.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -5983,7 +5985,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <summary>Calculates the nth root and the remainder.</summary>
     /// <param name='root'>The root to find; must be 1 or greater. If this
     /// value is 2, this method finds the square root; if 3, the cube root,
-    /// and so on.</param>
+    /// and in general, if N, the N-th root.</param>
     /// <returns>An array of two arbitrary-precision integers: the first
     /// integer is the nth root, and the second is the difference between
     /// this value and the nth power of the first integer. Returns two
@@ -6002,7 +6004,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// down.</summary>
     /// <param name='root'>The root to find; must be 1 or greater. If this
     /// value is 2, this method finds the square root; if 3, the cube root,
-    /// and so on.</param>
+    /// and in general, if N, the N-th root.</param>
     /// <returns>The square root of this object's value. Returns 0 if this
     /// value is 0 or less.</returns>
     public EInteger Root(int root) {
@@ -6013,7 +6015,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// <summary>Calculates the nth root and the remainder.</summary>
     /// <param name='root'>The root to find; must be 1 or greater. If this
     /// value is 2, this method finds the square root; if 3, the cube root,
-    /// and so on.</param>
+    /// and in general, if N, the N-th root.</param>
     /// <returns>An array of two arbitrary-precision integers: the first
     /// integer is the nth root, and the second is the difference between
     /// this value and the nth power of the first integer. Returns two
@@ -6406,7 +6408,7 @@ this.Pow(EInteger.FromInt64(longPower));
     /// value is 0, returns "0". If negative, the string will begin with a
     /// minus sign ("-", U+002D). Depending on the radix, the string will
     /// use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic
-    /// upper-case letters A to Z (U+0041 to U+005A). For example, 0-9 in
+    /// uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in
     /// radix 10, and 0-9, then A-F in radix 16.</returns>
     public string ToRadixString(int radix) {
       if (radix < 2) {

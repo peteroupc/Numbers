@@ -29,7 +29,7 @@ Version 1.6.0
 - New ToSizedEInteger/ToSizedEIntegerIfExact/IsInteger methods in EDecimal, EFloat, and ERational
 - New Create overloads in EFloat and ERational
 - New Min and Max methods in EInteger and ERational
-- Bug fixes
+- Issue fixes
 
 Version 1.5.1
 
@@ -45,7 +45,7 @@ Version 1.5.0
 - ETrapException now has an Errors property that holds all errors that occur at the same time as the primary error.
 - Fixed edge cases when ToShortestString might return an incorrect result.
 - Fixed bug when some ETrapExceptions aren't thrown as they should.
-- Other bug fixes.
+- Other issue fixes.
 
 Version 1.4.3
 
@@ -54,7 +54,7 @@ Version 1.4.3
 
 Version 1.4.2
 
-- Bug fix in the EInteger.CanFitInInt64 method
+- Issue fix in the EInteger.CanFitInInt64 method
 
 Version 1.4.1
 
@@ -71,7 +71,7 @@ Version 1.4.0
 - Add Copy method to EDecimal, EFloat, and ERational
 - Add CompareToTotalMagnitude overload to EDecimal, EFloat, and ERational
 - Deprecated Odd and ZeroFiveUp rounding modes
-- Bug fixes and performance improvements
+- Issue fixes and performance improvements
 
 Version 1.3.0:
 
@@ -122,7 +122,7 @@ Version 0.5
 
 - Moved from .NET Portable to .NET Standard 1.0. Contributed by GitHub user NZSmartie
 - Broke backwards compatibility with .NET Framework 4.0
-- Bug fixes
+- Issue fixes
 
 Version 0.4:
 
@@ -141,7 +141,7 @@ Version 0.3:
 - Used a new division implementation in EInteger
 - Used the new division implementation to optimize conversion
   of huge EIntegers to decimal strings
-- Bug fixes
+- Issue fixes
 
 Version 0.2.2:
 
@@ -168,7 +168,7 @@ Version 0.2:
  add ToEFloat method taking an EContext in EDecimal
 - Added ToShortestString method in EFloat
 - Add UnlimitedHalfEven EContext object
-- Bug fixes
+- Issue fixes
 
 Version 0.1:
 
