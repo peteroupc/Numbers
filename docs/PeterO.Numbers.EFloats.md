@@ -33,7 +33,7 @@ A class that implements additional operations on arbitrary-precision binary floa
 * <code>[Radix(PeterO.Numbers.EContext)](#Radix_PeterO_Numbers_EContext)</code> - Returns the number 2, the binary radix.
 * <code>[Rescale(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Rescale_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision binary number with the same value as this object but with the given exponent, expressed as an arbitrary-precision binary number.
 * <code>[Rotate(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Rotate_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Rotates the bits of an arbitrary-precision binary number's significand.
-* <code>[SameQuantum(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#SameQuantum_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative).
+* <code>[SameQuantum(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat)](#SameQuantum_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat)</code> - Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive, negative, or both).
 * <code>[ScaleB(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#ScaleB_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Finds an arbitrary-precision binary number whose binary point is moved a given number of places.
 * <code>[Shift(PeterO.Numbers.EFloat, PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Shift_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Shifts the bits of an arbitrary-precision binary floating point number's significand.
 * <code>[Trim(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Trim_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its significand.
@@ -47,7 +47,7 @@ A class that implements additional operations on arbitrary-precision binary floa
         PeterO.Numbers.EFloat ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical AND operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical AND operation sets each bit of the result to 1 if the corresponding bits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010=01000` .
+Performs a logical AND operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a nonnegative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical AND operation sets each bit of the result to 1 if the corresponding bits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010=01000` .
 
 <b>Parameters:</b>
 
@@ -287,7 +287,7 @@ An arbitrary-precision binary floating-point number with the closest representab
         PeterO.Numbers.EFloat ed1,
         PeterO.Numbers.EContext ec);
 
-Performs a logical NOT operation on a binary number in the form of a <i>logical operand</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include  `01001`  and  `111001`  ). The logical NOT operation sets each bit of the result to 1 if the corresponding bit is 0, and to 0 otherwise; it can set no more bits than the maximum precision, however. For example, if the maximum precision is 8 bits, then  `NOT 111010=11000101` .
+Performs a logical NOT operation on a binary number in the form of a <i>logical operand</i>. A  `logical operand`  is a nonnegative base-2 number with an Exponent property of 0 (examples include  `01001`  and  `111001`  ). The logical NOT operation sets each bit of the result to 1 if the corresponding bit is 0, and to 0 otherwise; it can set no more bits than the maximum precision, however. For example, if the maximum precision is 8 bits, then  `NOT 111010=11000101` .
 
 <b>Parameters:</b>
 
@@ -377,7 +377,7 @@ Returns whether the given number is a <i>normal</i> number. A <i>subnormal numbe
 
  * <i>ed</i>: An arbitrary-precision number object.
 
- * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is  `true` , a nonzero number is normal if the number's exponent (when that number is expressed in scientific notation with one nonzero digit before the radix point) is at least the given context's EMax property (e.g., if EMax is -100, 2.3456 * 10 <sup>-99</sup> is normal, but 2.3456 * 10 <sup>-102</sup> is not). If AdjustExponent of the given context is  `false` , a nonzero number is subnormal if the number's Exponent property is at least given context's EMax property (e.g., if EMax is -100, 23456 * 10 <sup>-99</sup> is normal, but 23456 * 10 <sup>-102</sup> is not).
+ * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is  `true` , a nonzero number is normal if the number's exponent (when that number is expressed in scientific notation with one nonzero digit before the radix point) is at least the given context's EMax property (for example, if EMax is -100, 2.3456 * 10 <sup>-99</sup> is normal, but 2.3456 * 10 <sup>-102</sup> is not). If AdjustExponent of the given context is  `false` , a nonzero number is subnormal if the number's Exponent property is at least given context's EMax property (for example, if EMax is -100, 23456 * 10 <sup>-99</sup> is normal, but 23456 * 10 <sup>-102</sup> is not).
 
 <b>Return Value:</b>
 
@@ -444,7 +444,7 @@ Returns whether the given number is a <i>subnormal</i> number. A <i>subnormal nu
 
  * <i>ed</i>: An arbitrary-precision number object.
 
- * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is  `true` , a nonzero number is subnormal if the number's exponent (when that number is expressed in scientific notation with one nonzero digit before the radix point) is less than the given context's EMax property (e.g., if EMax is -100, 2.3456 * 10 <sup>-102</sup> is subnormal, but 2.3456 * 10 <sup>-99</sup> is not). If AdjustExponent of the given context is  `false` , a nonzero number is subnormal if the number's Exponent property is less than the given context's EMax property (e.g., if EMax is -100, 23456 * 10 <sup>-102</sup> is subnormal, but 23456 * 10 <sup>-99</sup> is not).
+ * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is  `true` , a nonzero number is subnormal if the number's exponent (when that number is expressed in scientific notation with one nonzero digit before the radix point) is less than the given context's EMax property (for example, if EMax is -100, 2.3456 * 10 <sup>-102</sup> is subnormal, but 2.3456 * 10 <sup>-99</sup> is not). If AdjustExponent of the given context is  `false` , a nonzero number is subnormal if the number's Exponent property is less than the given context's EMax property (for example, if EMax is -100, 23456 * 10 <sup>-102</sup> is subnormal, but 23456 * 10 <sup>-99</sup> is not).
 
 <b>Return Value:</b>
 
@@ -554,7 +554,7 @@ The parameter  <i>nc</i>
         PeterO.Numbers.EFloat ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical OR operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical OR operation sets each bit of the result to 1 if either or both of the corresponding bits of each logical operand are 1, and to 0 otherwise. For example,  `01001 OR 111010=111011` .
+Performs a logical OR operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a nonnegative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical OR operation sets each bit of the result to 1 if either or both of the corresponding bits of each logical operand are 1, and to 0 otherwise. For example,  `01001 OR 111010=111011` .
 
 <b>Parameters:</b>
 
@@ -648,7 +648,7 @@ The parameter  <i>ed2</i>
         PeterO.Numbers.EFloat ed1,
         PeterO.Numbers.EFloat ed2);
 
-Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative).
+Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive, negative, or both).
 
 <b>Parameters:</b>
 
@@ -658,7 +658,7 @@ Returns whether two arbitrary-precision numbers have the same exponent, they bot
 
 <b>Return Value:</b>
 
-Either  `true`  if the given arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative); otherwise,  `false` .
+Either  `true`  if the given arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive, negative, or both); otherwise,  `false` .
 
 <a id="ScaleB_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### ScaleB
@@ -751,7 +751,7 @@ An arbitrary-precision number with the same value as this one but with certain t
         PeterO.Numbers.EFloat ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical exclusive-OR (XOR) operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a non-negative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example,  `01001 XOR 111010 =
+Performs a logical exclusive-OR (XOR) operation on two binary numbers in the form of <i>logical operands</i>. A  `logical operand`  is a nonnegative base-2 number with an Exponent property of 0 (examples include the base-2 numbers  `01001`  and  `111001`  ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example,  `01001 XOR 111010 =
             101010` .
 
 <b>Parameters:</b>

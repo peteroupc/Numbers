@@ -33,7 +33,7 @@ A class that implements additional operations on arbitrary-precision decimal num
 * <code>[Radix(PeterO.Numbers.EContext)](#Radix_PeterO_Numbers_EContext)</code> - Returns the number 10, the decimal radix.
 * <code>[Rescale(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Rescale_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value as this object but with the given exponent, expressed as an arbitrary-precision decimal number.
 * <code>[Rotate(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Rotate_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Rotates the digits of an arbitrary-precision decimal number's mantissa.
-* <code>[SameQuantum(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#SameQuantum_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative).
+* <code>[SameQuantum(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#SameQuantum_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive, negative, or both).
 * <code>[ScaleB(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#ScaleB_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Not documented yet.
 * <code>[Shift(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Shift_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Shifts the digits of an arbitrary-precision decimal number's mantissa.
 * <code>[Trim(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Trim_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision number with the same value as this one but with certain trailing zeros removed from its mantissa.
@@ -47,7 +47,7 @@ A class that implements additional operations on arbitrary-precision decimal num
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical AND operation on two decimal numbers in the form of<i>logical operands</i>. A `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include `01001`  and `111001`  , but not `02001`  or `99999`  ). The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise. For example, `01001 AND 111010 = 01000`
+Performs a logical AND operation on two decimal numbers in the form of<i>logical operands</i>. A `logical operand`  is a nonnegative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include `01001`  and `111001`  , but not `02001`  or `99999`  ). The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise. For example, `01001 AND 111010 = 01000`
 
 <b>Parameters:</b>
 
@@ -261,7 +261,7 @@ An arbitrary-precision decimal number with the closest representable value to th
         PeterO.Numbers.EDecimal ed1,
         PeterO.Numbers.EContext ec);
 
-Performs a logical NOT operation on an arbitrary-precision decimal number in the form of a<i>logical operand</i>. A `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include `01001`  and `111001`  , but not `02001`  or `99999`  ). The logical NOT operation sets each digit of the result to 1 if the corresponding digit is 0, and to 0 otherwise; it can set no more digits than the maximum precision, however. For example, if the maximum precision is 8 digits, then `NOT 111010 = 11000101`
+Performs a logical NOT operation on an arbitrary-precision decimal number in the form of a<i>logical operand</i>. A `logical operand`  is a nonnegative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include `01001`  and `111001`  , but not `02001`  or `99999`  ). The logical NOT operation sets each digit of the result to 1 if the corresponding digit is 0, and to 0 otherwise; it can set no more digits than the maximum precision, however. For example, if the maximum precision is 8 digits, then `NOT 111010 = 11000101`
 
 <b>Parameters:</b>
 
@@ -351,7 +351,7 @@ Returns whether the given number is a<i>normal</i>number. A<i>subnormal number</
 
  * <i>ed</i>: An arbitrary-precision number object.
 
- * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is `true`  , a nonzero number is normal if the number's exponent (when that number is expressed in scientific notation with one digit before the radix point) is at least the given context's EMax property (e.g., if EMax is -100, 2.3456 * 10<sup>-99</sup>is normal, but 2.3456 * 10<sup>-102</sup>is not). If AdjustExponent of the given context is `false`  , a nonzero number is subnormal if the number's Exponent property is at least given context's EMax property (e.g., if EMax is -100, 23456 * 10<sup>-99</sup>is normal, but 23456 * 10<sup>-102</sup>is not).
+ * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is `true`  , a nonzero number is normal if the number's exponent (when that number is expressed in scientific notation with one digit before the radix point) is at least the given context's EMax property (for example, if EMax is -100, 2.3456 * 10<sup>-99</sup>is normal, but 2.3456 * 10<sup>-102</sup>is not). If AdjustExponent of the given context is `false`  , a nonzero number is subnormal if the number's Exponent property is at least given context's EMax property (for example, if EMax is -100, 23456 * 10<sup>-99</sup>is normal, but 23456 * 10<sup>-102</sup>is not).
 
 <b>Return Value:</b>
 
@@ -418,7 +418,7 @@ Returns whether the given number is a<i>subnormal</i>number. A<i>subnormal numbe
 
  * <i>ed</i>: An arbitrary-precision number object.
 
- * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is `true`  , a nonzero number is subnormal if the number's exponent (when that number is expressed in scientific notation with one digit before the radix point) is less than the given context's EMax property (e.g., if EMax is -100, 2.3456 * 10<sup>-102</sup>is subnormal, but 2.3456 * 10<sup>-99</sup>is not). If AdjustExponent of the given context is `false`  , a nonzero number is subnormal if the number's Exponent property is less than the given context's EMax property (e.g., if EMax is -100, 23456 * 10<sup>-102</sup>is subnormal, but 23456 * 10<sup>-99</sup>is not).
+ * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is `true`  , a nonzero number is subnormal if the number's exponent (when that number is expressed in scientific notation with one digit before the radix point) is less than the given context's EMax property (for example, if EMax is -100, 2.3456 * 10<sup>-102</sup>is subnormal, but 2.3456 * 10<sup>-99</sup>is not). If AdjustExponent of the given context is `false`  , a nonzero number is subnormal if the number's Exponent property is less than the given context's EMax property (for example, if EMax is -100, 23456 * 10<sup>-102</sup>is subnormal, but 23456 * 10<sup>-99</sup>is not).
 
 <b>Return Value:</b>
 
@@ -520,7 +520,7 @@ is less than 0 or greater than 9 .
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical OR operation on two decimal numbers in the form of<i>logical operands</i>. A `logical operand`  is a non-negative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include `01001`  and `111001`  , but not `02001`  or `99999`  ). The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise. For example, `01001 OR 111010 = 111011`
+Performs a logical OR operation on two decimal numbers in the form of<i>logical operands</i>. A `logical operand`  is a nonnegative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include `01001`  and `111001`  , but not `02001`  or `99999`  ). The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise. For example, `01001 OR 111010 = 111011`
 
 <b>Parameters:</b>
 
@@ -608,7 +608,7 @@ is not an integer, is negative, has an exponent other than 0, or has an bsolute 
         PeterO.Numbers.EDecimal ed1,
         PeterO.Numbers.EDecimal ed2);
 
-Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative).
+Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive, negative, or both).
 
 <b>Parameters:</b>
 
@@ -618,7 +618,7 @@ Returns whether two arbitrary-precision numbers have the same exponent, they bot
 
 <b>Return Value:</b>
 
-Either `true`  if the given arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive and/or negative); otherwise, `false`  .
+Either `true`  if the given arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive, negative, or both); otherwise, `false`  .
 
 <a id="ScaleB_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### ScaleB
@@ -711,7 +711,7 @@ is not-a-number (NaN) or infinity, it is generally returned unchanged.
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical exclusive-OR (XOR) operation on two decimal numbers in the form of<i>logical operands</i>. A `logical operand`  is a non-negative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include `01001`  and `111001`  , but not `02001`  or `99999`  ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example, `01001 XOR 111010 = 101010`
+Performs a logical exclusive-OR (XOR) operation on two decimal numbers in the form of<i>logical operands</i>. A `logical operand`  is a nonnegative base-10 number with an exponent of 0 and no other base-10 digits than 0 or 1 (examples include `01001`  and `111001`  , but not `02001`  or `99999`  ). The logical exclusive-OR operation sets each digit of the result to 1 if either corresponding digit of the logical operands, but not both, is 1, and to 0 otherwise. For example, `01001 XOR 111010 = 101010`
 
 <b>Parameters:</b>
 

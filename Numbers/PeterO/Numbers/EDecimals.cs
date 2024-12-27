@@ -107,13 +107,13 @@ namespace PeterO.Numbers {
     /// given context is <c>true</c>, a nonzero number is normal if the
     /// number's exponent (when that number is expressed in scientific
     /// notation with one nonzero digit before the radix point) is at least
-    /// the given context's EMax property (e.g., if EMax is -100, 2.3456 *
-    /// 10
+    /// the given context's EMax property (for example, if EMax is -100,
+    /// 2.3456 * 10
     /// <sup>-99</sup> is normal, but 2.3456 * 10
     /// <sup>-102</sup> is not). If AdjustExponent of the given context is
     /// <c>false</c>, a nonzero number is subnormal if the number's
-    /// Exponent property is at least given context's EMax property (e.g.,
-    /// if EMax is -100, 23456 * 10
+    /// Exponent property is at least given context's EMax property (for
+    /// example, if EMax is -100, 23456 * 10
     /// <sup>-99</sup> is normal, but 23456 * 10
     /// <sup>-102</sup> is not).</param>
     /// <returns>Either <c>true</c> if the given number is subnormal, or
@@ -226,13 +226,13 @@ namespace PeterO.Numbers {
     /// given context is <c>true</c>, a nonzero number is subnormal if the
     /// number's exponent (when that number is expressed in scientific
     /// notation with one nonzero digit before the radix point) is less
-    /// than the given context's EMax property (e.g., if EMax is -100,
-    /// 2.3456 * 10
+    /// than the given context's EMax property (for example, if EMax is
+    /// -100, 2.3456 * 10
     /// <sup>-102</sup> is subnormal, but 2.3456 * 10
     /// <sup>-99</sup> is not). If AdjustExponent of the given context is
     /// <c>false</c>, a nonzero number is subnormal if the number's
     /// Exponent property is less than the given context's EMax property
-    /// (e.g., if EMax is -100, 23456 * 10
+    /// (for example, if EMax is -100, 23456 * 10
     /// <sup>-102</sup> is subnormal, but 23456 * 10
     /// <sup>-99</sup> is not).</param>
     /// <returns>Either <c>true</c> if the given number is subnormal, or
@@ -666,12 +666,12 @@ namespace PeterO.Numbers {
 
     /// <summary>Returns whether two arbitrary-precision numbers have the
     /// same exponent, they both are not-a-number (NaN), or they both are
-    /// infinity (positive and/or negative).</summary>
+    /// infinity (positive, negative, or both).</summary>
     /// <param name='ed1'>The first arbitrary-precision number.</param>
     /// <param name='ed2'>The second arbitrary-precision number.</param>
     /// <returns>Either <c>true</c> if the given arbitrary-precision
     /// numbers have the same exponent, they both are not-a-number (NaN),
-    /// or they both are infinity (positive and/or negative); otherwise,
+    /// or they both are infinity (positive, negative, or both); otherwise,
     /// <c>false</c>.</returns>
     public static bool SameQuantum(EDecimal ed1, EDecimal ed2) {
       if (ed1 == null || ed2 == null) {
@@ -813,13 +813,13 @@ namespace PeterO.Numbers {
 
     /// <summary>Performs a logical AND operation on two decimal numbers in
     /// the form of
-    /// <i>logical operands</i>. A <c>logical operand</c> is a
-    /// non-negative base-10 number with an Exponent property of 0 and no
-    /// other base-10 digits than 0 or 1 (examples include <c>01001</c> and
-    /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
-    /// AND operation sets each digit of the result to 1 if the
-    /// corresponding digits of each logical operand are both 1, and to 0
-    /// otherwise. For example, <c>01001 AND 111010=01000</c>.</summary>
+    /// <i>logical operands</i>. A <c>logical operand</c> is a nonnegative
+    /// base-10 number with an Exponent property of 0 and no other base-10
+    /// digits than 0 or 1 (examples include <c>01001</c> and <c>111001</c>
+    /// , but not <c>02001</c> or <c>99999</c> ). The logical AND operation
+    /// sets each digit of the result to 1 if the corresponding digits of
+    /// each logical operand are both 1, and to 0 otherwise. For example,
+    /// <c>01001 AND 111010=01000</c>.</summary>
     /// <param name='ed1'>The first logical operand to the logical AND
     /// operation.</param>
     /// <param name='ed2'>The second logical operand to the logical AND
@@ -854,7 +854,7 @@ namespace PeterO.Numbers {
 
     /// <summary>Performs a logical NOT operation on an arbitrary-precision
     /// decimal number in the form of a
-    /// <i>logical operand</i>. A <c>logical operand</c> is a non-negative
+    /// <i>logical operand</i>. A <c>logical operand</c> is a nonnegative
     /// base-10 number with an Exponent property of 0 and no other base-10
     /// digits than 0 or 1 (examples include <c>01001</c> and <c>111001</c>
     /// , but not <c>02001</c> or <c>99999</c> ). The logical NOT operation
@@ -900,11 +900,11 @@ namespace PeterO.Numbers {
 
     /// <summary>Performs a logical exclusive-OR (XOR) operation on two
     /// decimal numbers in the form of
-    /// <i>logical operands</i>. A <c>logical operand</c> is a
-    /// non-negative base-10 number with an exponent of 0 and no other
-    /// base-10 digits than 0 or 1 (examples include <c>01001</c> and
-    /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
-    /// exclusive-OR operation sets each digit of the result to 1 if either
+    /// <i>logical operands</i>. A <c>logical operand</c> is a nonnegative
+    /// base-10 number with an exponent of 0 and no other base-10 digits
+    /// than 0 or 1 (examples include <c>01001</c> and <c>111001</c>, but
+    /// not <c>02001</c> or <c>99999</c> ). The logical exclusive-OR
+    /// operation sets each digit of the result to 1 if either
     /// corresponding digit of the logical operands, but not both, is 1,
     /// and to 0 otherwise. For example, <c>01001 XOR 111010=101010</c>.</summary>
     /// <param name='ed1'>The first logical operand to the logical
@@ -939,12 +939,12 @@ namespace PeterO.Numbers {
 
     /// <summary>Performs a logical OR operation on two decimal numbers in
     /// the form of
-    /// <i>logical operands</i>. A <c>logical operand</c> is a
-    /// non-negative base-10 number with an Exponent property of 0 and no
-    /// other base-10 digits than 0 or 1 (examples include <c>01001</c> and
-    /// <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
-    /// OR operation sets each digit of the result to 1 if either or both
-    /// of the corresponding digits of the logical operands are 1, and to 0
+    /// <i>logical operands</i>. A <c>logical operand</c> is a nonnegative
+    /// base-10 number with an Exponent property of 0 and no other base-10
+    /// digits than 0 or 1 (examples include <c>01001</c> and <c>111001</c>
+    /// , but not <c>02001</c> or <c>99999</c> ). The logical OR operation
+    /// sets each digit of the result to 1 if either or both of the
+    /// corresponding digits of the logical operands are 1, and to 0
     /// otherwise. For example, <c>01001 OR 111010=111011</c>.</summary>
     /// <param name='ed1'>The first logical operand to the logical OR
     /// operation.</param>

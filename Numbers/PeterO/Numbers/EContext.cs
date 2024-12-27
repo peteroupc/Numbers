@@ -45,7 +45,7 @@ namespace PeterO.Numbers {
     /// mathematical value before an operation.</summary>
     public const int FlagLostDigits = 256;
 
-    /// <summary>Signals that the result is non-zero and the exponent is
+    /// <summary>Signals that the result is nonzero and the exponent is
     /// higher than the highest exponent allowed.</summary>
     public const int FlagOverflow = 16;
 

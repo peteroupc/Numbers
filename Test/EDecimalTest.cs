@@ -3820,7 +3820,7 @@ namespace Test {
           }
           return ed;
         } else if (exponent == 2047) {
-          throw new ArgumentException("dbl is non-finite");
+          throw new ArgumentException("dbl is nonfinite");
         } else {
           int e1 = exponent - 1;
           if (valueUlpTable[e1] == null) {
@@ -3857,7 +3857,7 @@ namespace Test {
           }
           return ed;
         } else if (exponent == 255) {
-          throw new ArgumentException("sng is non-finite");
+          throw new ArgumentException("sng is nonfinite");
         } else {
           exponent += 924;
           if (valueUlpTable[exponent] == null) {

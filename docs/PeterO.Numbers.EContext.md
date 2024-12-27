@@ -26,7 +26,7 @@ Contains parameters for controlling the precision, rounding, and exponent range 
 * <code>[public static int FlagInexact = 1;](#FlagInexact)</code> - Signals that the result was rounded to a different mathematical value, but as close as possible to the original.
 * <code>[public static int FlagInvalid = 64;](#FlagInvalid)</code> - Signals an invalid operation.
 * <code>[public static int FlagLostDigits = 256;](#FlagLostDigits)</code> - Signals that an operand was rounded to a different mathematical value before an operation.
-* <code>[public static int FlagOverflow = 16;](#FlagOverflow)</code> - Signals that the result is non-zero and the exponent is higher than the highest exponent allowed.
+* <code>[public static int FlagOverflow = 16;](#FlagOverflow)</code> - Signals that the result is nonzero and the exponent is higher than the highest exponent allowed.
 * <code>[public static int FlagRounded = 2;](#FlagRounded)</code> - Signals that the result was rounded to fit the precision; either the value or the exponent may have changed from the original.
 * <code>[Flags](#Flags)</code> - Gets or sets the flags that are set from converting numbers according to this arithmetic context.
 * <code>[public static int FlagSubnormal = 4;](#FlagSubnormal)</code> - Signals that the result's exponent, before rounding, is lower than the lowest exponent allowed.
@@ -221,7 +221,7 @@ Signals that an operand was rounded to a different mathematical value before an 
 
     public static int FlagOverflow = 16;
 
-Signals that the result is non-zero and the exponent is higher than the highest exponent allowed.
+Signals that the result is nonzero and the exponent is higher than the highest exponent allowed.
 
 <a id="FlagRounded"></a>
 ### FlagRounded

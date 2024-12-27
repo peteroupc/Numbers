@@ -78,7 +78,7 @@ namespace PeterO.Numbers {
   /// parameters.</item>
   /// <item>The methods in this class (especially those that involve
   /// arithmetic) are not guaranteed to be "constant-time"
-  /// (non-data-dependent) for all relevant inputs. Certain attacks that
+  /// (nondata-dependent) for all relevant inputs. Certain attacks that
   /// involve encrypted communications have exploited the timing and
   /// other aspects of such communications to derive keying material or
   /// cleartext indirectly.</item></list>
@@ -752,8 +752,7 @@ Binary16SignifAreaBits;
     /// digits may begin with any number of zeros), or signaling NaN
     /// ("sNaN") followed by any number of digits (these digits may begin
     /// with any number of zeros), all where the letters can be any
-    /// combination of basic uppercase and/or basic lowercase
-    /// letters.</para>
+    /// combination of basic uppercase and basic lowercase letters.</para>
     /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
@@ -880,8 +879,7 @@ Binary16SignifAreaBits;
     /// digits may begin with any number of zeros), or signaling NaN
     /// ("sNaN") followed by any number of digits (these digits may begin
     /// with any number of zeros), all where the letters can be any
-    /// combination of basic uppercase and/or basic lowercase
-    /// letters.</para>
+    /// combination of basic uppercase and basic lowercase letters.</para>
     /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
@@ -1003,8 +1001,7 @@ Binary16SignifAreaBits;
     /// digits may begin with any number of zeros), or signaling NaN
     /// ("sNaN") followed by any number of digits (these digits may begin
     /// with any number of zeros), all where the letters can be any
-    /// combination of basic uppercase and/or basic lowercase
-    /// letters.</para>
+    /// combination of basic uppercase and basic lowercase letters.</para>
     /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not

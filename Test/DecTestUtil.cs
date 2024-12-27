@@ -243,7 +243,7 @@ namespace Test {
                   }
                 }
                 if ((c & 0xf800) != 0xd800) {
-                  // Non-surrogate
+                  // Nonsurrogate
                   sb.Append((char)c);
                 } else if ((c & 0xfc00) == 0xd800) {
                   int ch = index >= str.Length ? -1 : str[index++];
@@ -1184,7 +1184,7 @@ namespace Test {
       } else if (op.Equals("pow", StringComparison.Ordinal)) {
         IExtendedNumber d3 = op1.Pow(op2, ctx);
         // Check for cases that contradict the General Decimal
-        // Arithmetic spec
+        // Arithmetic specification
         if (op1.IsZeroValue() && op2.IsZeroValue()) {
           return 0;
         }
@@ -1275,7 +1275,7 @@ namespace Test {
         if (!op1.IsZeroValue()) {
           // ignore flags for zero operand, expects
           // divide by zero flag where general decimal
-          // spec doesn't set flags in this case
+          // specification doesn't set flags in this case
           AssertFlagsRestricted(expectedFlags, ctx.Flags, ln);
         }
       } else if (op.Equals("exp", StringComparison.Ordinal)) {
@@ -1321,7 +1321,7 @@ namespace Test {
         if (!op1.IsZeroValue()) {
           // ignore flags for zero operand, expects
           // divide by zero flag where general decimal
-          // spec doesn't set flags in this case
+          // specification doesn't set flags in this case
           AssertFlagsRestricted(expectedFlags, ctx.Flags, ln);
         }
       } else if (op.Equals("div", StringComparison.Ordinal)) {

@@ -1,7 +1,7 @@
 <Project Sdk='Microsoft.NET.Sdk'>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0; net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0; net9.0</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Version>1.9</Version>
     <Owners>Peter Occil</Owners>
@@ -30,7 +30,6 @@ Version 1.8
 </PackageReleaseNotes>
     <PackageTags>numbers arithmetic decimal math</PackageTags>
     <SignAssembly>true</SignAssembly>    <PackOnBuild>true</PackOnBuild>
-    <AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>
     <Title>Arbitrary-Precision Arithmetic Library</Title>
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet>
 
@@ -47,7 +46,7 @@ Version 1.8
   <PropertyGroup Condition=' &apos;$(Configuration)&apos;==&apos;Release&apos; '>
     <DebugType>none</DebugType>
     <DocumentationFile>bin\Release\netstandard2.0\Numbers.xml</DocumentationFile>
-
+    <AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
 
   <ItemGroup>

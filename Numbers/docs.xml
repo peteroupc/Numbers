@@ -232,7 +232,7 @@
 </doc>
 <doc name="F:PeterO.Numbers.EContext.FlagOverflow">
 
-            <summary>Signals that the result is non-zero and the exponent is
+            <summary>Signals that the result is nonzero and the exponent is
             higher than the highest exponent allowed.</summary>
 
 </doc>
@@ -657,7 +657,7 @@
             not-a-number (NaN) values, and infinity. <b>Negative zero</b> is
             generally used when a negative number is rounded to 0; it has the
             same mathematical value as positive zero. <b>Infinity</b> is
-            generally used when a non-zero number is divided by zero, or when a
+            generally used when a nonzero number is divided by zero, or when a
             very high or very low number can't be represented in a given
             exponent range. <b>Not-a-number</b> is generally used to signal
             errors.</para>
@@ -725,7 +725,7 @@
             secret parameters.</item>
              <item>The methods in this class
             (especially those that involve arithmetic) are not guaranteed to be
-            "constant-time" (non-data-dependent) for all relevant inputs.
+            "constant-time" (nondata-dependent) for all relevant inputs.
             Certain attacks that involve encrypted communications have
             exploited the timing and other aspects of such communications to
             derive keying material or cleartext indirectly.</item>
@@ -751,19 +751,19 @@
             runtime settings that change how floating-point math behaves with
             them, and these settings are often not accessible to .NET or Java
             code.</item>
-             <item>Non-associativity and intermediate precisions:
+             <item>Nonassociativity and intermediate precisions:
             In general, EDecimal and EFloat use "unlimited" precision in their
             calculations unless specified otherwise by an EContext object.
             However, by limiting the precision of EDecimal, EFloat, and other
             floating-point numbers in this way, operations such as addition and
             multiplication on three or more numbers can be
-            <i>non-associative</i>
+            <i>nonassociative</i>
              , meaning the result can change depending on
             the order in which those numbers are added or multiplied. This
             property means that if an algorithm does not ensure such numbers
             are added or multiplied in the same order every time, its results
             may not be reproducible across computers or across runs of the
-            application. This non-associativity problem can happen, for
+            application. This nonassociativity problem can happen, for
             example, if an application splits a calculation across several
             threads and combines their results in the end. The problems with an
             unspecified order of operations (in the same line of code) and
@@ -867,7 +867,7 @@
              <item>C.
             Highest bit: If one, this is a negative number.</item>
              </list>
-            <para>The elements described above are in the same order as the
+            <para>The elements described earlier are in the same order as the
             order of each bit of each element, that is, either most significant
             first or least significant first.</para>
             <para><b>32-bit binary floating-point number</b> : A 32-bit binary
@@ -901,7 +901,7 @@
              <item>If the highest bit is
             one, it's a negative number.</item>
              </list>
-            <para>The elements described above are in the same order as the
+            <para>The elements described earlier are in the same order as the
             order of each bit of each element, that is, either most significant
             first or least significant first.</para>
             </summary>
@@ -2327,9 +2327,9 @@
             (these digits may begin with any number of zeros), or signaling NaN
             ("sNaN" /"-sNaN") followed by any number of digits (these digits
             may begin with any number of zeros), all where the letters can be
-            any combination of basic uppercase and/or basic lowercase
+            any combination of basic uppercase and basic lowercase
             letters.</para>
-            <para>All characters mentioned above are the corresponding
+            <para>All characters mentioned earlier are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
             allowed to contain white space characters, including
@@ -2439,9 +2439,9 @@
             (these digits may begin with any number of zeros), or signaling NaN
             ("sNaN" /"-sNaN") followed by any number of digits (these digits
             may begin with any number of zeros), all where the letters can be
-            any combination of basic uppercase and/or basic lowercase
+            any combination of basic uppercase and basic lowercase
             letters.</para>
-            <para>All characters mentioned above are the corresponding
+            <para>All characters mentioned earlier are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
             allowed to contain white space characters, including
@@ -2549,9 +2549,9 @@
             (these digits may begin with any number of zeros), or signaling NaN
             ("sNaN" /"-sNaN") followed by any number of digits (these digits
             may begin with any number of zeros), all where the letters can be
-            any combination of basic uppercase and/or basic lowercase
+            any combination of basic uppercase and basic lowercase
             letters.</para>
-            <para>All characters mentioned above are the corresponding
+            <para>All characters mentioned earlier are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
             allowed to contain white space characters, including
@@ -3341,8 +3341,7 @@
             rounded to fit the maximum precision allowed if it has more
             significant digits than the maximum precision. The maximum
             precision allowed is given in an arithmetic context. This method is
-            designed for preparing operands to a custom arithmetic operation in
-            accordance with the "simplified" arithmetic given in Appendix A of
+            designed for preparing operands to a custom arithmetic operation per the "simplified" arithmetic given in Appendix A of
             the General Decimal Arithmetic Specification.</summary>
             <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -3694,7 +3693,7 @@
             fit. Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
             be changed to the given exponent when rounding, and the given
-            exponent is outside of the valid range of the arithmetic
+            exponent is outside the valid range of the arithmetic
             context.</returns>
 
 </doc>
@@ -3764,7 +3763,7 @@
             fit. Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
             be changed to the given exponent when rounding, and the given
-            exponent is outside of the valid range of the arithmetic
+            exponent is outside the valid range of the arithmetic
             context.</returns>
 
 </doc>
@@ -3816,7 +3815,7 @@
             the given precision without rounding. Signals FlagInvalid and
             returns not-a-number (NaN) if the arithmetic context defines an
             exponent range, the new exponent must be changed to the given
-            exponent when rounding, and the given exponent is outside of the
+            exponent when rounding, and the given exponent is outside the
             valid range of the arithmetic context.</returns>
 
 </doc>
@@ -3848,7 +3847,7 @@
             the given precision without rounding. Signals FlagInvalid and
             returns not-a-number (NaN) if the arithmetic context defines an
             exponent range, the new exponent must be changed to the given
-            exponent when rounding, and the given exponent is outside of the
+            exponent when rounding, and the given exponent is outside the
             valid range of the arithmetic context.</returns>
 
 </doc>
@@ -3893,7 +3892,7 @@
             the given precision without rounding. Signals FlagInvalid and
             returns not-a-number (NaN) if the arithmetic context defines an
             exponent range, the new exponent must be changed to 0 when
-            rounding, and 0 is outside of the valid range of the arithmetic
+            rounding, and 0 is outside the valid range of the arithmetic
             context.</returns>
 
 </doc>
@@ -3918,7 +3917,7 @@
             can't fit the precision, additional digits are discarded to make it
             fit. Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
-            be changed to 0 when rounding, and 0 is outside of the valid range
+            be changed to 0 when rounding, and 0 is outside the valid range
             of the arithmetic context.</returns>
 
 </doc>
@@ -3939,7 +3938,7 @@
             the given precision without rounding. Signals FlagInvalid and
             returns not-a-number (NaN) if the arithmetic context defines an
             exponent range, the new exponent must be changed to 0 when
-            rounding, and 0 is outside of the valid range of the arithmetic
+            rounding, and 0 is outside the valid range of the arithmetic
             context.</returns>
 
 </doc>
@@ -3961,7 +3960,7 @@
             can't fit the precision, additional digits are discarded to make it
             fit. Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
-            be changed to 0 when rounding, and 0 is outside of the valid range
+            be changed to 0 when rounding, and 0 is outside the valid range
             of the arithmetic context.</returns>
 
 </doc>
@@ -5129,7 +5128,7 @@
             <summary>Performs a logical AND operation on two decimal numbers in
             the form of
             <i>logical operands</i>. A <c>logical operand</c> is a
-            non-negative base-10 number with an Exponent property of 0 and no
+            nonnegative base-10 number with an Exponent property of 0 and no
             other base-10 digits than 0 or 1 (examples include <c>01001</c> and
             <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
             AND operation sets each digit of the result to 1 if the
@@ -5298,7 +5297,7 @@
 
             <summary>Performs a logical NOT operation on an arbitrary-precision
             decimal number in the form of a
-            <i>logical operand</i>. A <c>logical operand</c> is a non-negative
+            <i>logical operand</i>. A <c>logical operand</c> is a nonnegative
             base-10 number with an Exponent property of 0 and no other base-10
             digits than 0 or 1 (examples include <c>01001</c> and <c>111001</c> , but not <c>02001</c> or <c>99999</c> ). The logical NOT operation
             sets each digit of the result to 1 if the corresponding digit is 0,
@@ -5372,12 +5371,12 @@
             given context is <c>true</c>, a nonzero number is normal if the
             number's exponent (when that number is expressed in scientific
             notation with one nonzero digit before the radix point) is at least
-            the given context's EMax property (e.g., if EMax is -100, 2.3456 *
+            the given context's EMax property (for example, if EMax is -100, 2.3456 *
             10
             <sup>-99</sup> is normal, but 2.3456 * 10
             <sup>-102</sup> is not). If AdjustExponent of the given context is
             <c>false</c>, a nonzero number is subnormal if the number's
-            Exponent property is at least given context's EMax property (e.g.,
+            Exponent property is at least given context's EMax property (for example,
             if EMax is -100, 23456 * 10
             <sup>-99</sup> is normal, but 23456 * 10
             <sup>-102</sup> is not).</param>
@@ -5425,13 +5424,13 @@
             given context is <c>true</c>, a nonzero number is subnormal if the
             number's exponent (when that number is expressed in scientific
             notation with one nonzero digit before the radix point) is less
-            than the given context's EMax property (e.g., if EMax is -100,
+            than the given context's EMax property (for example, if EMax is -100,
             2.3456 * 10
             <sup>-102</sup> is subnormal, but 2.3456 * 10
             <sup>-99</sup> is not). If AdjustExponent of the given context is
             <c>false</c>, a nonzero number is subnormal if the number's
             Exponent property is less than the given context's EMax property
-            (e.g., if EMax is -100, 23456 * 10
+            (for example, if EMax is -100, 23456 * 10
             <sup>-102</sup> is subnormal, but 23456 * 10
             <sup>-99</sup> is not).</param>
             <returns>Either <c>true</c> if the given number is subnormal, or
@@ -5504,7 +5503,7 @@
             <summary>Performs a logical OR operation on two decimal numbers in
             the form of
             <i>logical operands</i>. A <c>logical operand</c> is a
-            non-negative base-10 number with an Exponent property of 0 and no
+            nonnegative base-10 number with an Exponent property of 0 and no
             other base-10 digits than 0 or 1 (examples include <c>01001</c> and
             <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
             OR operation sets each digit of the result to 1 if either or both
@@ -5606,12 +5605,12 @@
 
             <summary>Returns whether two arbitrary-precision numbers have the
             same exponent, they both are not-a-number (NaN), or they both are
-            infinity (positive and/or negative).</summary>
+            infinity (positive, negative, or both).</summary>
             <param name='ed1'>The first arbitrary-precision number.</param>
             <param name='ed2'>The second arbitrary-precision number.</param>
             <returns>Either <c>true</c> if the given arbitrary-precision
             numbers have the same exponent, they both are not-a-number (NaN),
-            or they both are infinity (positive and/or negative); otherwise, <c>false</c>.</returns>
+            or they both are infinity (positive, negative, or both); otherwise, <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.ScaleB(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
@@ -5684,7 +5683,7 @@
             <summary>Performs a logical exclusive-OR (XOR) operation on two
             decimal numbers in the form of
             <i>logical operands</i>. A <c>logical operand</c> is a
-            non-negative base-10 number with an exponent of 0 and no other
+            nonnegative base-10 number with an exponent of 0 and no other
             base-10 digits than 0 or 1 (examples include <c>01001</c> and
             <c>111001</c>, but not <c>02001</c> or <c>99999</c> ). The logical
             exclusive-OR operation sets each digit of the result to 1 if either
@@ -5776,7 +5775,7 @@
             parameters.</item>
             <item>The methods in this class (especially those that involve
             arithmetic) are not guaranteed to be "constant-time"
-            (non-data-dependent) for all relevant inputs. Certain attacks that
+            (nondata-dependent) for all relevant inputs. Certain attacks that
             involve encrypted communications have exploited the timing and
             other aspects of such communications to derive keying material or
             cleartext indirectly.</item></list>
@@ -7050,9 +7049,9 @@
             digits may begin with any number of zeros), or signaling NaN
             ("sNaN") followed by any number of digits (these digits may begin
             with any number of zeros), all where the letters can be any
-            combination of basic uppercase and/or basic lowercase
+            combination of basic uppercase and basic lowercase
             letters.</para>
-            <para>All characters mentioned above are the corresponding
+            <para>All characters mentioned earlier are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
             allowed to contain white space characters, including
@@ -7159,9 +7158,9 @@
             digits may begin with any number of zeros), or signaling NaN
             ("sNaN") followed by any number of digits (these digits may begin
             with any number of zeros), all where the letters can be any
-            combination of basic uppercase and/or basic lowercase
+            combination of basic uppercase and basic lowercase
             letters.</para>
-            <para>All characters mentioned above are the corresponding
+            <para>All characters mentioned earlier are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not
             allowed to contain white space characters, including
@@ -7272,9 +7271,9 @@
             digits may begin with any number of zeros), or signaling NaN
             ("sNaN") followed by any number of digits (these digits may begin
             with any number of zeros), all where the letters can be any
-            combination of basic uppercase and/or basic lowercase
+            combination of basic uppercase and basic lowercase
             letters.</para>
-            <para>All characters mentioned above are the corresponding
+            <para>All characters mentioned earlier are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
             allowed to contain white space characters, including
@@ -8073,8 +8072,7 @@
             rounded to fit the maximum precision allowed if it has more
             significant digits than the maximum precision. The maximum
             precision allowed is given in an arithmetic context. This method is
-            designed for preparing operands to a custom arithmetic operation in
-            accordance with the "simplified" arithmetic given in Appendix A of
+            designed for preparing operands to a custom arithmetic operation per the "simplified" arithmetic given in Appendix A of
             the General Decimal Arithmetic Specification.</summary>
             <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
@@ -8379,7 +8377,7 @@
             Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
             be changed to the given exponent when rounding, and the given
-            exponent is outside of the valid range of the arithmetic
+            exponent is outside the valid range of the arithmetic
             context.</returns>
 
 </doc>
@@ -8409,7 +8407,7 @@
             Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
             be changed to the given exponent when rounding, and the given
-            exponent is outside of the valid range of the arithmetic
+            exponent is outside the valid range of the arithmetic
             context.</returns>
 
 </doc>
@@ -8440,7 +8438,7 @@
             precision without rounding. Signals FlagInvalid and returns
             not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to the given exponent when
-            rounding, and the given exponent is outside of the valid range of
+            rounding, and the given exponent is outside the valid range of
             the arithmetic context.</returns>
 
 </doc>
@@ -8491,7 +8489,7 @@
             precision without rounding. Signals FlagInvalid and returns
             not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to the given exponent when
-            rounding, and the given exponent is outside of the valid range of
+            rounding, and the given exponent is outside the valid range of
             the arithmetic context.</returns>
 
 </doc>
@@ -8514,7 +8512,7 @@
             precision without rounding. Signals FlagInvalid and returns
             not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to 0 when rounding, and 0
-            is outside of the valid range of the arithmetic context.</returns>
+            is outside the valid range of the arithmetic context.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)">
@@ -8538,7 +8536,7 @@
             fit the precision, additional digits are discarded to make it fit.
             Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
-            be changed to 0 when rounding, and 0 is outside of the valid range
+            be changed to 0 when rounding, and 0 is outside the valid range
             of the arithmetic context.</returns>
 
 </doc>
@@ -8559,7 +8557,7 @@
             precision without rounding. Signals FlagInvalid and returns
             not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to 0 when rounding, and 0
-            is outside of the valid range of the arithmetic context.</returns>
+            is outside the valid range of the arithmetic context.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)">
@@ -8580,7 +8578,7 @@
             fit the precision, additional digits are discarded to make it fit.
             Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
-            be changed to 0 when rounding, and 0 is outside of the valid range
+            be changed to 0 when rounding, and 0 is outside the valid range
             of the arithmetic context.</returns>
 
 </doc>
@@ -9736,7 +9734,7 @@
             <summary>Performs a logical AND operation on two binary numbers in
             the form of
             <i>logical operands</i>. A <c>logical operand</c> is a
-            non-negative base-2 number with an Exponent property of 0 (examples
+            nonnegative base-2 number with an Exponent property of 0 (examples
             include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
             logical AND operation sets each bit of the result to 1 if the
             corresponding bits of each logical operand are both 1, and to 0
@@ -9904,7 +9902,7 @@
 
             <summary>Performs a logical NOT operation on a binary number in the
             form of a
-            <i>logical operand</i>. A <c>logical operand</c> is a non-negative
+            <i>logical operand</i>. A <c>logical operand</c> is a nonnegative
             base-2 number with an Exponent property of 0 (examples include
             <c>01001</c> and <c>111001</c> ). The logical NOT operation sets
             each bit of the result to 1 if the corresponding bit is 0, and to 0
@@ -9977,12 +9975,12 @@
             given context is <c>true</c>, a nonzero number is normal if the
             number's exponent (when that number is expressed in scientific
             notation with one nonzero digit before the radix point) is at least
-            the given context's EMax property (e.g., if EMax is -100, 2.3456 *
+            the given context's EMax property (for example, if EMax is -100, 2.3456 *
             10
             <sup>-99</sup> is normal, but 2.3456 * 10
             <sup>-102</sup> is not). If AdjustExponent of the given context is
             <c>false</c>, a nonzero number is subnormal if the number's
-            Exponent property is at least given context's EMax property (e.g.,
+            Exponent property is at least given context's EMax property (for example,
             if EMax is -100, 23456 * 10
             <sup>-99</sup> is normal, but 23456 * 10
             <sup>-102</sup> is not).</param>
@@ -10030,13 +10028,13 @@
             given context is <c>true</c>, a nonzero number is subnormal if the
             number's exponent (when that number is expressed in scientific
             notation with one nonzero digit before the radix point) is less
-            than the given context's EMax property (e.g., if EMax is -100,
+            than the given context's EMax property (for example, if EMax is -100,
             2.3456 * 10
             <sup>-102</sup> is subnormal, but 2.3456 * 10
             <sup>-99</sup> is not). If AdjustExponent of the given context is
             <c>false</c>, a nonzero number is subnormal if the number's
             Exponent property is less than the given context's EMax property
-            (e.g., if EMax is -100, 23456 * 10
+            (for example, if EMax is -100, 23456 * 10
             <sup>-102</sup> is subnormal, but 23456 * 10
             <sup>-99</sup> is not).</param>
             <returns>Either <c>true</c> if the given number is subnormal, or
@@ -10109,7 +10107,7 @@
             <summary>Performs a logical OR operation on two binary numbers in
             the form of
             <i>logical operands</i>. A <c>logical operand</c> is a
-            non-negative base-2 number with an Exponent property of 0 (examples
+            nonnegative base-2 number with an Exponent property of 0 (examples
             include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
             logical OR operation sets each bit of the result to 1 if either or
             both of the corresponding bits of each logical operand are 1, and
@@ -10211,12 +10209,12 @@
 
             <summary>Returns whether two arbitrary-precision numbers have the
             same exponent, they both are not-a-number (NaN), or they both are
-            infinity (positive and/or negative).</summary>
+            infinity (positive, negative, or both).</summary>
             <param name='ed1'>The first arbitrary-precision number.</param>
             <param name='ed2'>The second arbitrary-precision number.</param>
             <returns>Either <c>true</c> if the given arbitrary-precision
             numbers have the same exponent, they both are not-a-number (NaN),
-            or they both are infinity (positive and/or negative); otherwise, <c>false</c>.</returns>
+            or they both are infinity (positive, negative, or both); otherwise, <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.ScaleB(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
@@ -10288,7 +10286,7 @@
             <summary>Performs a logical exclusive-OR (XOR) operation on two
             binary numbers in the form of
             <i>logical operands</i>. A <c>logical operand</c> is a
-            non-negative base-2 number with an Exponent property of 0 (examples
+            nonnegative base-2 number with an Exponent property of 0 (examples
             include the base-2 numbers <c>01001</c> and <c>111001</c> ). The
             logical exclusive-OR operation sets each digit of the result to 1
             if either corresponding digit of the logical operands, but not
@@ -10332,7 +10330,7 @@
             parameters.</item>
             <item>The methods in this class (especially those that involve
             arithmetic) are not guaranteed to be "constant-time"
-            (non-data-dependent) for all relevant inputs. Certain attacks that
+            (nondata-dependent) for all relevant inputs. Certain attacks that
             involve encrypted communications have exploited the timing and
             other aspects of such communications to derive keying material or
             cleartext indirectly.</item></list>
@@ -11528,7 +11526,7 @@
 
             <summary>Extracts the lowest bits of this integer. This is
             equivalent to <c>And(2^bigBitCount - 1)</c>, but is more efficient
-            when this integer is non-negative and bigBitCount's value is
+            when this integer is nonnegative and bigBitCount's value is
             large.</summary>
             <param name='bigBitCount'>The number of bits to extract from the
             lowest part of this integer.</param>
@@ -11540,7 +11538,7 @@
 
             <summary>Extracts the lowest bits of this integer. This is
             equivalent to <c>And(2^bitCount - 1)</c>, but is more efficient
-            when this integer is non-negative and bitCount's value is
+            when this integer is nonnegative and bitCount's value is
             large.</summary>
             <param name='bitCount'>The number of bits to extract from the
             lowest part of this integer.</param>
@@ -11551,7 +11549,7 @@
 
             <summary>Extracts the lowest bits of this integer. This is
             equivalent to <c>And(2^longBitCount - 1)</c>, but is more
-            efficient when this integer is non-negative and longBitCount's
+            efficient when this integer is nonnegative and longBitCount's
             value is large.</summary>
             <param name='longBitCount'>The number of bits to extract from the
             lowest part of this integer.</param>
@@ -13394,7 +13392,7 @@
             "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number
             of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any
             number of digits, all in any combination of uppercase and lowercase.</para>
-            <para>All characters mentioned above are the corresponding
+            <para>All characters mentioned earlier are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of
             bytes is not allowed to contain white space characters, including
@@ -13444,7 +13442,7 @@
             "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed
             by any number of digits, or signaling NaN ("sNaN" /"-sNaN")
             followed by any number of digits, all in any combination of uppercase and lowercase.</para>
-            <para>All characters mentioned above are the corresponding
+            <para>All characters mentioned earlier are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of
             <c>char</c> s is not allowed to contain white space characters,
@@ -13493,7 +13491,7 @@
             "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits,
             or signaling NaN ("sNaN" /"-sNaN") followed by any number of
             digits, all in any combination of uppercase and lowercase.</para>
-            <para>All characters mentioned above are the corresponding
+            <para>All characters mentioned earlier are the corresponding
             characters in the Basic Latin range. In particular, the digits must
             be the basic digits 0 to 9 (U+0030 to U+0039). The string is not
             allowed to contain white space characters, including
@@ -15191,7 +15189,7 @@
 <doc name="T:PeterO.Numbers.IShiftAccumulator">
 
             <summary>Common interface for classes that shift a number of digits
-            and record information on whether a non-zero digit was discarded
+            and record information on whether a nonzero digit was discarded
             this way.</summary>
 
 </doc>

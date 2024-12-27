@@ -18,7 +18,7 @@ The significand is the value of the digits that make up a number, ignoring the d
 
 The significand and exponent format preserves trailing zeros in the number's value. This may give rise to multiple ways to store the same value. For example, 1.00 and 1 would be stored differently, even though they have the same value. In the first case, 100 * 10^-2 (100 with decimal point moved left by 2), and in the second case, 1 * 10^0 (1 with decimal point moved 0).
 
-This class also supports values for negative zero, not-a-number (NaN) values, and infinity. <b>Negative zero</b> is generally used when a negative number is rounded to 0; it has the same mathematical value as positive zero. <b>Infinity</b> is generally used when a non-zero number is divided by zero, or when a very high or very low number can't be represented in a given exponent range. <b>Not-a-number</b> is generally used to signal errors.
+This class also supports values for negative zero, not-a-number (NaN) values, and infinity. <b>Negative zero</b> is generally used when a negative number is rounded to 0; it has the same mathematical value as positive zero. <b>Infinity</b> is generally used when a nonzero number is divided by zero, or when a very high or very low number can't be represented in a given exponent range. <b>Not-a-number</b> is generally used to signal errors.
 
 This class implements the General Decimal Arithmetic Specification version 1.70 except part of chapter 6(  `http://speleotrove.com/decimal/decarith.html`  ).
 
@@ -56,7 +56,7 @@ It is not recommended to implement security-sensitive algorithms using the metho
 
  *  `EDecimal`  objects are immutable, so they can't be modified, and the memory they occupy is not guaranteed to be cleared in a timely fashion due to garbage collection. This is relevant for applications that use many-digit-long numbers as secret parameters.
 
- * The methods in this class (especially those that involve arithmetic) are not guaranteed to be "constant-time" (non-data-dependent) for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
+ * The methods in this class (especially those that involve arithmetic) are not guaranteed to be "constant-time" (nondata-dependent) for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
 
 Applications should instead use dedicated security libraries to handle big numbers in security-sensitive algorithms.
 
@@ -66,7 +66,7 @@ Some applications, such as simulations, care about results that are reproducible
 
  * Runtime floating-point settings: All the settings that change how EDecimal and EFloat behave are given as parameters to the appropriate methods, especially via EContext objects, which specify the precision, rounding, and exponent range of numbers, among other things. The EDecimal and EFloat classes avoid the use of "native" floating-point data types (except for methods that convert to or from  `float`  ,  `double`  , or  `System.Decimal`  ). Such "native" types are often subject to runtime settings that change how floating-point math behaves with them, and these settings are often not accessible to .NET or Java code.
 
- * Non-associativity and intermediate precisions: In general, EDecimal and EFloat use "unlimited" precision in their calculations unless specified otherwise by an EContext object. However, by limiting the precision of EDecimal, EFloat, and other floating-point numbers in this way, operations such as addition and multiplication on three or more numbers can be <i>non-associative</i> , meaning the result can change depending on the order in which those numbers are added or multiplied. This property means that if an algorithm does not ensure such numbers are added or multiplied in the same order every time, its results may not be reproducible across computers or across runs of the application. This non-associativity problem can happen, for example, if an application splits a calculation across several threads and combines their results in the end. The problems with an unspecified order of operations (in the same line of code) and intermediate precisions (problems present in C and C++, for example) don't exist with method calls to EDecimal and EFloat methods, especially since they require limited-precision support to be declared explicitly via EContext.
+ * Nonassociativity and intermediate precisions: In general, EDecimal and EFloat use "unlimited" precision in their calculations unless specified otherwise by an EContext object. However, by limiting the precision of EDecimal, EFloat, and other floating-point numbers in this way, operations such as addition and multiplication on three or more numbers can be <i>nonassociative</i> , meaning the result can change depending on the order in which those numbers are added or multiplied. This property means that if an algorithm does not ensure such numbers are added or multiplied in the same order every time, its results may not be reproducible across computers or across runs of the application. This nonassociativity problem can happen, for example, if an application splits a calculation across several threads and combines their results in the end. The problems with an unspecified order of operations (in the same line of code) and intermediate precisions (problems present in C and C++, for example) don't exist with method calls to EDecimal and EFloat methods, especially since they require limited-precision support to be declared explicitly via EContext.
 
  * fmadd instruction: EDecimal and EFloat include a MultiplyAndAdd method with the same semantics as in the General Decimal Arithmetic Specification, which requires delivering correctly rounded results for this method.
 
@@ -122,7 +122,7 @@ There are several other types of numbers that are mentioned in this class and el
 
  * C. Highest bit: If one, this is a negative number.
 
-The elements described above are in the same order as the order of each bit of each element, that is, either most significant first or least significant first.
+The elements described earlier are in the same order as the order of each bit of each element, that is, either most significant first or least significant first.
 
 <b>32-bit binary floating-point number</b> : A 32-bit binary number which is stored similarly to a <i>64-bit floating-point number</i> , except that:
 
@@ -150,7 +150,7 @@ The elements described above are in the same order as the order of each bit of e
 
  * If the highest bit is one, it's a negative number.
 
-The elements described above are in the same order as the order of each bit of each element, that is, either most significant first or least significant first.
+The elements described earlier are in the same order as the order of each bit of each element, that is, either most significant first or least significant first.
 
 ### Member Summary
 * <code>[Abs()](#Abs)</code> - Finds the absolute value of this object (if it's negative, it becomes positive).
@@ -2017,9 +2017,9 @@ The format of the sequence generally consists of:
 
  * Optionally, "E"/"e" followed by an optional (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and/or basic lowercase letters.
+The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and basic lowercase letters.
 
-All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
+All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
 
 <b>Parameters:</b>
 
@@ -2163,9 +2163,9 @@ The format of the sequence generally consists of:
 
  * Optionally, "E"/"e" followed by an optional (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and/or basic lowercase letters.
+The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and basic lowercase letters.
 
-All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
+All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
 
 <b>Parameters:</b>
 
@@ -2311,9 +2311,9 @@ The format of the string generally consists of:
 
  * Optionally, "E"/"e" followed by an optional (positive exponent) or "-" (negative exponent) and followed by one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and/or basic lowercase letters.
+The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and basic lowercase letters.
 
-All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
+All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 
 <b>Parameters:</b>
 
@@ -4026,7 +4026,7 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EDecimal PreRound(
         PeterO.Numbers.EContext ctx);
 
-Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation in accordance with the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.
+Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation per the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.
 
 <b>Parameters:</b>
 
@@ -4290,7 +4290,7 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+An arbitrary-precision decimal number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside the valid range of the arithmetic context.
 
 <a id="RoundToExponent_int_PeterO_Numbers_ERounding"></a>
 ### RoundToExponent
@@ -4344,7 +4344,7 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+An arbitrary-precision decimal number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside the valid range of the arithmetic context.
 
 <a id="RoundToExponent_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding"></a>
 ### RoundToExponent
@@ -4382,7 +4382,7 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+An arbitrary-precision decimal number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside the valid range of the arithmetic context.
 
 <a id="RoundToExponentExact_int_PeterO_Numbers_ERounding"></a>
 ### RoundToExponentExact
@@ -4420,7 +4420,7 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+An arbitrary-precision decimal number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside the valid range of the arithmetic context.
 
 <a id="RoundToIntegerExact_PeterO_Numbers_EContext"></a>
 ### RoundToIntegerExact
@@ -4436,7 +4436,7 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+An arbitrary-precision decimal number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside the valid range of the arithmetic context.
 
 <a id="RoundToIntegerNoRoundedFlag_PeterO_Numbers_EContext"></a>
 ### RoundToIntegerNoRoundedFlag
@@ -4452,7 +4452,7 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+An arbitrary-precision decimal number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside the valid range of the arithmetic context.
 
 <a id="RoundToIntegralExact_PeterO_Numbers_EContext"></a>
 ### RoundToIntegralExact
@@ -4470,7 +4470,7 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+An arbitrary-precision decimal number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside the valid range of the arithmetic context.
 
 <a id="RoundToIntegralNoRoundedFlag_PeterO_Numbers_EContext"></a>
 ### RoundToIntegralNoRoundedFlag
@@ -4488,7 +4488,7 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+An arbitrary-precision decimal number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside the valid range of the arithmetic context.
 
 <a id="RoundToPrecision_PeterO_Numbers_EContext"></a>
 ### RoundToPrecision

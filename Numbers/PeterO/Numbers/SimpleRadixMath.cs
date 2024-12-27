@@ -10,7 +10,7 @@ using System;
 namespace PeterO.Numbers {
   // <summary>Implements the simplified arithmetic in Appendix A of the
   // General Decimal Arithmetic Specification. Unfortunately, it doesn't
-  // pass all the test cases, since some aspects of the spec are left
+  // pass all the test cases, since some aspects of the specification are left
   // open. For example: in which cases is the Clamped flag set? The test
   // cases set the Clamped flag in only a handful of test cases, all
   // within the <c>exp</c> operation.</summary>

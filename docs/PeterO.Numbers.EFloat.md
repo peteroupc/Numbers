@@ -34,7 +34,7 @@ It is not recommended to implement security-sensitive algorithms using the metho
 
  *  `EFloat`  objects are immutable, so they can't be modified, and the memory they occupy is not guaranteed to be cleared in a timely fashion due to garbage collection. This is relevant for applications that use many-bit-long numbers as secret parameters.
 
- * The methods in this class (especially those that involve arithmetic) are not guaranteed to be "constant-time" (non-data-dependent) for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
+ * The methods in this class (especially those that involve arithmetic) are not guaranteed to be "constant-time" (nondata-dependent) for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
 
 Applications should instead use dedicated security libraries to handle big numbers in security-sensitive algorithms.
 
@@ -1734,9 +1734,9 @@ Creates a binary floating-point number from a sequence of bytes that represents 
 
  * Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-" (negative exponent) plus one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and/or basic lowercase letters.
+The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and basic lowercase letters.
 
-All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
+All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
 
 <b>Parameters:</b>
 
@@ -1879,9 +1879,9 @@ Creates a binary floating-point number from a sequence of  `char`  s that repres
 
  * Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-" (negative exponent) plus one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and/or basic lowercase letters.
+The sequence can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and basic lowercase letters.
 
-All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
+All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence is not allowed to contain white space characters, including spaces.
 
 <b>Parameters:</b>
 
@@ -2035,9 +2035,9 @@ Creates a binary floating-point number from a text string that represents a numb
 
  * Optionally, "E+"/"e+" (positive exponent) or "E-"/"e-" (negative exponent) plus one or more digits specifying the exponent (these digits may begin with any number of zeros).
 
-The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and/or basic lowercase letters.
+The string can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN") followed by any number of digits (these digits may begin with any number of zeros), or signaling NaN ("sNaN") followed by any number of digits (these digits may begin with any number of zeros), all where the letters can be any combination of basic uppercase and basic lowercase letters.
 
-All characters mentioned above are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
+All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The string is not allowed to contain white space characters, including spaces.
 
 <b>Parameters:</b>
 
@@ -3757,7 +3757,7 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EFloat PreRound(
         PeterO.Numbers.EContext ctx);
 
-Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation in accordance with the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.
+Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation per the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.
 
 <b>Parameters:</b>
 
@@ -3989,7 +3989,7 @@ Returns a binary floating-point number with the same value as this object but ro
 
 <b>Return Value:</b>
 
-A binary floating-point number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside the valid range of the arithmetic context.
 
 <a id="RoundToExponent_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### RoundToExponent
@@ -4008,7 +4008,7 @@ Returns a binary floating-point number with the same value as this object but ro
 
 <b>Return Value:</b>
 
-A binary floating-point number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest value representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside the valid range of the arithmetic context.
 
 <a id="RoundToExponentExact_int_PeterO_Numbers_EContext"></a>
 ### RoundToExponentExact
@@ -4027,7 +4027,7 @@ Returns a binary floating-point number with the same value as this object but ro
 
 <b>Return Value:</b>
 
-A binary floating-point number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside the valid range of the arithmetic context.
 
 <a id="RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### RoundToExponentExact
@@ -4046,7 +4046,7 @@ Returns a binary floating-point number with the same value as this object but ro
 
 <b>Return Value:</b>
 
-A binary floating-point number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest value representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to the given exponent when rounding, and the given exponent is outside the valid range of the arithmetic context.
 
 <a id="RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding"></a>
 ### RoundToExponentExact
@@ -4081,7 +4081,7 @@ Returns a binary floating-point number with the same value as this object but ro
 
 <b>Return Value:</b>
 
-A binary floating-point number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside the valid range of the arithmetic context.
 
 <a id="RoundToIntegerNoRoundedFlag_PeterO_Numbers_EContext"></a>
 ### RoundToIntegerNoRoundedFlag
@@ -4097,7 +4097,7 @@ Returns a binary floating-point number with the same value as this object but ro
 
 <b>Return Value:</b>
 
-A binary floating-point number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside the valid range of the arithmetic context.
 
 <a id="RoundToIntegralExact_PeterO_Numbers_EContext"></a>
 ### RoundToIntegralExact
@@ -4115,7 +4115,7 @@ Returns a binary floating-point number with the same value as this object but ro
 
 <b>Return Value:</b>
 
-A binary floating-point number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest integer representable in the given precision. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside the valid range of the arithmetic context.
 
 <a id="RoundToIntegralNoRoundedFlag_PeterO_Numbers_EContext"></a>
 ### RoundToIntegralNoRoundedFlag
@@ -4133,7 +4133,7 @@ Returns a binary floating-point number with the same value as this object but ro
 
 <b>Return Value:</b>
 
-A binary floating-point number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside of the valid range of the arithmetic context.
+A binary floating-point number rounded to the closest integer representable in the given precision. If the result can't fit the precision, additional digits are discarded to make it fit. Signals FlagInvalid and returns not-a-number (NaN) if the arithmetic context defines an exponent range, the new exponent must be changed to 0 when rounding, and 0 is outside the valid range of the arithmetic context.
 
 <a id="RoundToPrecision_PeterO_Numbers_EContext"></a>
 ### RoundToPrecision

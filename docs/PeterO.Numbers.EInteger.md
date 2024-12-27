@@ -12,7 +12,7 @@ It is not recommended to implement security-sensitive algorithms using the metho
 
  *  `EInteger`  objects are immutable, so they can't be modified, and the memory they occupy is not guaranteed to be cleared in a timely fashion due to garbage collection. This is relevant for applications that use many-bit-long numbers as secret parameters.
 
- * The methods in this class (especially those that involve arithmetic) are not guaranteed to be "constant-time" (non-data-dependent) for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
+ * The methods in this class (especially those that involve arithmetic) are not guaranteed to be "constant-time" (nondata-dependent) for all relevant inputs. Certain attacks that involve encrypted communications have exploited the timing and other aspects of such communications to derive keying material or cleartext indirectly.
 
 Applications should instead use dedicated security libraries to handle big numbers in security-sensitive algorithms.
 
@@ -1730,7 +1730,7 @@ The given arbitrary-precision integer plus one.
     public PeterO.Numbers.EInteger LowBits(
         int bitCount);
 
-Extracts the lowest bits of this integer. This is equivalent to  `And(2^bitCount - 1)` , but is more efficient when this integer is non-negative and bitCount's value is large.
+Extracts the lowest bits of this integer. This is equivalent to  `And(2^bitCount - 1)` , but is more efficient when this integer is nonnegative and bitCount's value is large.
 
 <b>Parameters:</b>
 
@@ -1746,7 +1746,7 @@ A value equivalent to  `And(2^bitCount - 1)` .
     public PeterO.Numbers.EInteger LowBits(
         long longBitCount);
 
-Extracts the lowest bits of this integer. This is equivalent to  `And(2^longBitCount - 1)` , but is more efficient when this integer is non-negative and longBitCount's value is large.
+Extracts the lowest bits of this integer. This is equivalent to  `And(2^longBitCount - 1)` , but is more efficient when this integer is nonnegative and longBitCount's value is large.
 
 <b>Parameters:</b>
 
@@ -1762,7 +1762,7 @@ A value equivalent to  `And(2^longBitCount - 1)` .
     public PeterO.Numbers.EInteger LowBits(
         PeterO.Numbers.EInteger bigBitCount);
 
-Extracts the lowest bits of this integer. This is equivalent to  `And(2^bigBitCount - 1)` , but is more efficient when this integer is non-negative and bigBitCount's value is large.
+Extracts the lowest bits of this integer. This is equivalent to  `And(2^bigBitCount - 1)` , but is more efficient when this integer is nonnegative and bigBitCount's value is large.
 
 <b>Parameters:</b>
 
