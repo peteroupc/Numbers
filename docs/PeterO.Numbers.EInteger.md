@@ -24,10 +24,10 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[And(PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger)</code> - Does an AND operation between this arbitrary-precision integer and another one.
 * <code>[And(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger)](#And_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - Does an AND operation between two arbitrary-precision integer values.
 * <code>[AndNot(PeterO.Numbers.EInteger)](#AndNot_PeterO_Numbers_EInteger)</code> - Does an AND NOT operation between this arbitrary-precision integer and another one.
-* <code>[AsInt32Checked()](#AsInt32Checked)</code> - <b>Deprecated:</b> Renamed to ToInt32Checked.
-* <code>[AsInt32Unchecked()](#AsInt32Unchecked)</code> - <b>Deprecated:</b> Renamed to ToInt32Unchecked.
-* <code>[AsInt64Checked()](#AsInt64Checked)</code> - <b>Deprecated:</b> Renamed to ToInt64Checked.
-* <code>[AsInt64Unchecked()](#AsInt64Unchecked)</code> - <b>Deprecated:</b> Renamed to ToInt64Unchecked.
+* <code>[AsInt32Checked()](#AsInt32Checked)</code> - <b>Obsolete:</b> Renamed to ToInt32Checked.
+* <code>[AsInt32Unchecked()](#AsInt32Unchecked)</code> - <b>Obsolete:</b> Renamed to ToInt32Unchecked.
+* <code>[AsInt64Checked()](#AsInt64Checked)</code> - <b>Obsolete:</b> Renamed to ToInt64Checked.
+* <code>[AsInt64Unchecked()](#AsInt64Unchecked)</code> - <b>Obsolete:</b> Renamed to ToInt64Unchecked.
 * <code>[CanFitInInt32()](#CanFitInInt32)</code> - Returns whether this object's value can fit in a 32-bit signed integer.
 * <code>[CanFitInInt64()](#CanFitInInt64)</code> - Returns whether this object's value can fit in a 64-bit signed integer.
 * <code>[CompareTo(int)](#CompareTo_int)</code> - Compares an arbitrary-precision integer with this instance.
@@ -40,7 +40,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[DivRem(int)](#DivRem_int)</code> - Divides this arbitrary-precision integer by a 32-bit signed integer and returns a two-item array containing the result of the division and the remainder, in that order.
 * <code>[DivRem(long)](#DivRem_long)</code> - Divides this arbitrary-precision integer by a 64-bit signed integer and returns a two-item array containing the result of the division and the remainder, in that order.
 * <code>[DivRem(PeterO.Numbers.EInteger)](#DivRem_PeterO_Numbers_EInteger)</code> - Divides this arbitrary-precision integer by another arbitrary-precision integer and returns a two-item array containing the result of the division and the remainder, in that order.
-* <code>[DivRem(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger&amp;)](#DivRem_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - <b>Deprecated:</b> Use the DivRem instance method instead.
+* <code>[DivRem(PeterO.Numbers.EInteger, PeterO.Numbers.EInteger, PeterO.Numbers.EInteger&amp;)](#DivRem_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger_PeterO_Numbers_EInteger)</code> - <b>Obsolete:</b> Use the DivRem instance method instead.
 * <code>[Equals(object)](#Equals_object)</code> - Determines whether this object and another object are equal and have the same type.
 * <code>[Equals(PeterO.Numbers.EInteger)](#Equals_PeterO_Numbers_EInteger)</code> - Determines whether this object and another object are equal.
 * <code>[Eqv(PeterO.Numbers.EInteger)](#Eqv_PeterO_Numbers_EInteger)</code> - Does an XOR NOT operation (or equivalence operation, EQV operation, or exclusive-OR NOT operation) between this arbitrary-precision integer and another one.
@@ -79,24 +79,24 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[FromUInt64(ulong)](#FromUInt64_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision integer.
 * <code>[Gcd(PeterO.Numbers.EInteger)](#Gcd_PeterO_Numbers_EInteger)</code> - Returns the greatest common divisor of this integer and the given integer.
 * <code>[GetBits(int, int)](#GetBits_int_int)</code> - Retrieves bits from this integer's two's-complement form.
-* <code>[GetDigitCount()](#GetDigitCount)</code> - <b>Deprecated:</b> This method may overflow. Use GetDigitCountAsEInteger instead.
+* <code>[GetDigitCount()](#GetDigitCount)</code> - <b>Obsolete:</b> This method may overflow. Use GetDigitCountAsEInteger instead.
 * <code>[GetDigitCountAsEInteger()](#GetDigitCountAsEInteger)</code> - Returns the number of decimal digits used by this integer, in the form of an arbitrary-precision integer.
 * <code>[GetDigitCountAsInt64()](#GetDigitCountAsInt64)</code> - Returns the number of decimal digits used by this integer, in the form of a 64-bit signed integer.
 * <code>[GetHashCode()](#GetHashCode)</code> - Returns the hash code for this instance.
-* <code>[GetLowBit()](#GetLowBit)</code> - <b>Deprecated:</b> This method may overflow. Use GetLowBitAsEInteger instead.
+* <code>[GetLowBit()](#GetLowBit)</code> - <b>Obsolete:</b> This method may overflow. Use GetLowBitAsEInteger instead.
 * <code>[GetLowBitAsEInteger()](#GetLowBitAsEInteger)</code> - Gets the bit position of the lowest set bit in this number's absolute value, in the form of an arbitrary-precision integer.
 * <code>[GetLowBitAsInt64()](#GetLowBitAsInt64)</code> - Gets the bit position of the lowest set bit in this number's absolute value, in the form of a 64-bit signed integer.
 * <code>[GetSignedBit(int)](#GetSignedBit_int)</code> - Returns whether a bit is set in the two's-complement form (see T:PeterO.
 * <code>[GetSignedBit(PeterO.Numbers.EInteger)](#GetSignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in the two's-complement form (see T:PeterO.
-* <code>[GetSignedBitLength()](#GetSignedBitLength)</code> - <b>Deprecated:</b> This method may overflow. Use GetSignedBitLengthAsEInteger instead.
+* <code>[GetSignedBitLength()](#GetSignedBitLength)</code> - <b>Obsolete:</b> This method may overflow. Use GetSignedBitLengthAsEInteger instead.
 * <code>[GetSignedBitLengthAsEInteger()](#GetSignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, and returns that number of bits as an arbitrary-precision integer.
 * <code>[GetSignedBitLengthAsInt64()](#GetSignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this object's value, except for its sign, and returns that number of bits as a 64-bit signed integer.
 * <code>[GetUnsignedBit(int)](#GetUnsignedBit_int)</code> - Returns whether a bit is set in this number's absolute value.
 * <code>[GetUnsignedBit(PeterO.Numbers.EInteger)](#GetUnsignedBit_PeterO_Numbers_EInteger)</code> - Returns whether a bit is set in this number's absolute value.
-* <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - <b>Deprecated:</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
+* <code>[GetUnsignedBitLength()](#GetUnsignedBitLength)</code> - <b>Obsolete:</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
 * <code>[GetUnsignedBitLengthAsEInteger()](#GetUnsignedBitLengthAsEInteger)</code> - Finds the minimum number of bits needed to represent this number's absolute value, and returns that number of bits as an arbitrary-precision integer.
 * <code>[GetUnsignedBitLengthAsInt64()](#GetUnsignedBitLengthAsInt64)</code> - Finds the minimum number of bits needed to represent this number's absolute value, and returns that number of bits as a 64-bit signed integer.
-* <code>[Imp(PeterO.Numbers.EInteger)](#Imp_PeterO_Numbers_EInteger)</code> - <b>Deprecated:</b> Does the incorrect implication operation. Use Imply instead.
+* <code>[Imp(PeterO.Numbers.EInteger)](#Imp_PeterO_Numbers_EInteger)</code> - <b>Obsolete:</b> Does the incorrect implication operation. Use Imply instead.
 * <code>[implicit operator PeterO.Numbers.EInteger(byte)](#implicit_operator_PeterO_Numbers_EInteger_byte)</code> - Converts a byte (from 0 to 255) to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(int)](#implicit_operator_PeterO_Numbers_EInteger_int)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[implicit operator PeterO.Numbers.EInteger(long)](#implicit_operator_PeterO_Numbers_EInteger_long)</code> - Converts a 64-bit signed integer to an arbitrary-precision integer.
@@ -151,7 +151,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[Pow(int)](#Pow_int)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Pow(long)](#Pow_long)</code> - Raises an arbitrary-precision integer to a power.
 * <code>[Pow(PeterO.Numbers.EInteger)](#Pow_PeterO_Numbers_EInteger)</code> - Raises an arbitrary-precision integer to a power.
-* <code>[PowBigIntVar(PeterO.Numbers.EInteger)](#PowBigIntVar_PeterO_Numbers_EInteger)</code> - <b>Deprecated:</b> Use Pow instead.
+* <code>[PowBigIntVar(PeterO.Numbers.EInteger)](#PowBigIntVar_PeterO_Numbers_EInteger)</code> - <b>Obsolete:</b> Use Pow instead.
 * <code>[Remainder(int)](#Remainder_int)</code> - Returns the remainder that would result when this arbitrary-precision integer is divided by a 32-bit signed integer.
 * <code>[Remainder(long)](#Remainder_long)</code> - Returns the remainder that would result when this arbitrary-precision integer is divided by a 64-bit signed integer.
 * <code>[Remainder(PeterO.Numbers.EInteger)](#Remainder_PeterO_Numbers_EInteger)</code> - Returns the remainder that would result when this arbitrary-precision integer is divided by another arbitrary-precision integer.
@@ -419,7 +419,7 @@ The parameter  <i>second</i>
 
     public int AsInt32Checked();
 
-<b>Deprecated.</b> Renamed to ToInt32Checked.
+<b>Obsolete.</b> Renamed to ToInt32Checked.
 
 Converts this object's value to a 32-bit signed integer, throwing an exception if it can't fit.
 
@@ -437,7 +437,7 @@ This object's value is too big to fit a 32-bit signed integer.
 
     public int AsInt32Unchecked();
 
-<b>Deprecated.</b> Renamed to ToInt32Unchecked.
+<b>Obsolete.</b> Renamed to ToInt32Unchecked.
 
 Converts this object's value to a 32-bit signed integer. If the value can't fit in a 32-bit integer, returns the lower 32 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
 
@@ -450,7 +450,7 @@ A 32-bit signed integer.
 
     public long AsInt64Checked();
 
-<b>Deprecated.</b> Renamed to ToInt64Checked.
+<b>Obsolete.</b> Renamed to ToInt64Checked.
 
 Converts this object's value to a 64-bit signed integer, throwing an exception if it can't fit.
 
@@ -468,7 +468,7 @@ This object's value is too big to fit a 64-bit signed integer.
 
     public long AsInt64Unchecked();
 
-<b>Deprecated.</b> Renamed to ToInt64Unchecked.
+<b>Obsolete.</b> Renamed to ToInt64Unchecked.
 
 Converts this object's value to a 64-bit signed integer. If the value can't fit in a 64-bit integer, returns the lower 64 bits of this object's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) (in which case the return value might have a different sign than this object's value).
 
@@ -698,7 +698,7 @@ The parameter  <i>divisor</i>
         PeterO.Numbers.EInteger divisor,
         PeterO.Numbers.EInteger& remainder);
 
-<b>Deprecated.</b> Use the DivRem instance method instead.
+<b>Obsolete.</b> Use the DivRem instance method instead.
 
 Divides this arbitrary-precision integer by another arbitrary-precision integer and returns a two-item array containing the result of the division and the remainder, in that order. The result of the division is rounded down (the fractional part is discarded). Except if the result of the division is 0, it will be negative if this arbitrary-precision integer is positive and the other arbitrary-precision integer is negative, or vice versa, and will be positive if both are positive or both are negative. The remainder is the number that remains when the absolute value of this arbitrary-precision integer is divided by the absolute value of the other arbitrary-precision integer; the remainder has the same sign (positive or negative) as this arbitrary-precision integer.
 
@@ -1450,7 +1450,7 @@ A 64-bit signed integer containing the bits from this integer's two's-complement
 
     public int GetDigitCount();
 
-<b>Deprecated.</b> This method may overflow. Use GetDigitCountAsEInteger instead.
+<b>Obsolete.</b> This method may overflow. Use GetDigitCountAsEInteger instead.
 
 Returns the number of decimal digits used by this integer.
 
@@ -1501,7 +1501,7 @@ A 32-bit signed integer.
 
     public int GetLowBit();
 
-<b>Deprecated.</b> This method may overflow. Use GetLowBitAsEInteger instead.
+<b>Obsolete.</b> This method may overflow. Use GetLowBitAsEInteger instead.
 
 Gets the bit position of the lowest set bit in this number's absolute value. (This will also be the position of the lowest set bit in the number's two's-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ).).
 
@@ -1574,7 +1574,7 @@ The parameter  <i>bigIndex</i>
 
     public int GetSignedBitLength();
 
-<b>Deprecated.</b> This method may overflow. Use GetSignedBitLengthAsEInteger instead.
+<b>Obsolete.</b> This method may overflow. Use GetSignedBitLengthAsEInteger instead.
 
 Finds the minimum number of bits needed to represent this object's value, except for its sign. If the value is negative, finds the number of bits in the value equal to this object's absolute value minus 1. For example, all integers in the interval [-(2^63), (2^63) - 1], which is the same as the range of integers in Java's and.NET's  `long`  type, have a signed bit length of 63 or less, and all other integers have a signed bit length of greater than 63.
 
@@ -1652,7 +1652,7 @@ The parameter  <i>bigIndex</i>
 
     public int GetUnsignedBitLength();
 
-<b>Deprecated.</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
+<b>Obsolete.</b> This method may overflow. Use GetUnsignedBitLengthAsEInteger instead.
 
 Finds the minimum number of bits needed to represent this number's absolute value. For example, all integers in the interval [-((2^63) - 1), (2^63) - 1] have an unsigned bit length of 63 or less, and all other integers have an unsigned bit length of greater than 63. This interval is not the same as the range of integers in Java's and.NET's  `long`  type.
 
@@ -1693,7 +1693,7 @@ The number of bits in this object's absolute value. Returns 0 if this object's v
     public PeterO.Numbers.EInteger Imp(
         PeterO.Numbers.EInteger second);
 
-<b>Deprecated.</b> Does the incorrect implication operation. Use Imply instead.
+<b>Obsolete.</b> Does the incorrect implication operation. Use Imply instead.
 
 Does an OR NOT operation between this arbitrary-precision integer and another one.
 
@@ -3051,7 +3051,7 @@ BigPower is negative.
     public PeterO.Numbers.EInteger PowBigIntVar(
         PeterO.Numbers.EInteger power);
 
-<b>Deprecated.</b> Use Pow instead.
+<b>Obsolete.</b> Use Pow instead.
 
 Raises an arbitrary-precision integer to a power, which is given as another arbitrary-precision integer.
 

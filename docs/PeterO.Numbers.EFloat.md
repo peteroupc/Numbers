@@ -76,8 +76,8 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[Divide(long)](#Divide_long)</code> - Divides this arbitrary-precision binary floating-point number by a 64-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
 * <code>[Divide(PeterO.Numbers.EFloat)](#Divide_PeterO_Numbers_EFloat)</code> - Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
 * <code>[Divide(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result.
-* <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat)</code> - <b>Deprecated:</b> Renamed to DivRemNaturalScale.
-* <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to DivRemNaturalScale.
+* <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat)</code> - <b>Obsolete:</b> Renamed to DivRemNaturalScale.
+* <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EFloat, PeterO.Numbers.EContext)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext)</code> - <b>Obsolete:</b> Renamed to DivRemNaturalScale.
 * <code>[DivideToExponent(PeterO.Numbers.EFloat, long, PeterO.Numbers.EContext)](#DivideToExponent_PeterO_Numbers_EFloat_long_PeterO_Numbers_EContext)</code> - Divides two arbitrary-precision binary floating-point numbers, and gives a particular exponent to the result.
 * <code>[DivideToExponent(PeterO.Numbers.EFloat, long, PeterO.Numbers.ERounding)](#DivideToExponent_PeterO_Numbers_EFloat_long_PeterO_Numbers_ERounding)</code> - Divides two arbitrary-precision binary floating-point numbers, and gives a particular exponent to the result.
 * <code>[DivideToExponent(PeterO.Numbers.EFloat, PeterO.Numbers.EInteger, PeterO.Numbers.EContext)](#DivideToExponent_PeterO_Numbers_EFloat_PeterO_Numbers_EInteger_PeterO_Numbers_EContext)</code> - Divides two arbitrary-precision binary floating-point numbers, and gives a particular exponent to the result.
@@ -227,8 +227,8 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[RoundToExponentExact(PeterO.Numbers.EInteger, PeterO.Numbers.ERounding)](#RoundToExponentExact_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding)</code> - Returns a binary number with the same value as this object but rounded to the given exponent.
 * <code>[RoundToIntegerExact(PeterO.Numbers.EContext)](#RoundToIntegerExact_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
 * <code>[RoundToIntegerNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegerNoRoundedFlag_PeterO_Numbers_EContext)</code> - Returns a binary floating-point number with the same value as this object but rounded to an integer, without adding the FlagInexact or FlagRounded flags.
-* <code>[RoundToIntegralExact(PeterO.Numbers.EContext)](#RoundToIntegralExact_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to RoundToIntegerExact.
-* <code>[RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegralNoRoundedFlag_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to RoundToIntegerNoRoundedFlag.
+* <code>[RoundToIntegralExact(PeterO.Numbers.EContext)](#RoundToIntegralExact_PeterO_Numbers_EContext)</code> - <b>Obsolete:</b> Renamed to RoundToIntegerExact.
+* <code>[RoundToIntegralNoRoundedFlag(PeterO.Numbers.EContext)](#RoundToIntegralNoRoundedFlag_PeterO_Numbers_EContext)</code> - <b>Obsolete:</b> Renamed to RoundToIntegerNoRoundedFlag.
 * <code>[RoundToPrecision(PeterO.Numbers.EContext)](#RoundToPrecision_PeterO_Numbers_EContext)</code> - Rounds this object's value to a given precision, using the given rounding mode and range of exponent.
 * <code>[ScaleByPowerOfTwo(int)](#ScaleByPowerOfTwo_int)</code> - Returns a number similar to this number but with the scale adjusted.
 * <code>[ScaleByPowerOfTwo(int, PeterO.Numbers.EContext)](#ScaleByPowerOfTwo_int_PeterO_Numbers_EContext)</code> - Returns a number similar to this number but with the scale adjusted.
@@ -237,7 +237,7 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[Sign](#Sign)</code> - Gets this value's sign: -1 if negative; 1 if positive; 0 if zero.
 * <code>[public static readonly PeterO.Numbers.EFloat SignalingNaN;](#SignalingNaN)</code> - A not-a-number value that signals an invalid operation flag when it's passed as an argument to any arithmetic operation in arbitrary-precision binary floating-point number.
 * <code>[Sqrt(PeterO.Numbers.EContext)](#Sqrt_PeterO_Numbers_EContext)</code> - Finds the square root of this object's value.
-* <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to Sqrt.
+* <code>[SquareRoot(PeterO.Numbers.EContext)](#SquareRoot_PeterO_Numbers_EContext)</code> - <b>Obsolete:</b> Renamed to Sqrt.
 * <code>[Subtract(int)](#Subtract_int)</code> - Subtracts a 32-bit signed integer from this arbitrary-precision binary floating-point number and returns the result.
 * <code>[Subtract(long)](#Subtract_long)</code> - Subtracts a 64-bit signed integer from this arbitrary-precision binary floating-point number and returns the result.
 * <code>[Subtract(PeterO.Numbers.EFloat)](#Subtract_PeterO_Numbers_EFloat)</code> - Subtracts an arbitrary-precision binary floating-point number from this arbitrary-precision binary floating-point number and returns the result.
@@ -250,10 +250,10 @@ See the reproducibility note in the EDecimal class's documentation.
 * <code>[ToDoubleBits()](#ToDoubleBits)</code> - Converts this value to its closest equivalent as a 64-bit floating-point number, expressed as an integer in the IEEE 754 binary64 format.
 * <code>[ToEDecimal()](#ToEDecimal)</code> - Converts this value to an arbitrary-precision decimal number.
 * <code>[ToEInteger()](#ToEInteger)</code> - Converts this value to an arbitrary-precision integer.
-* <code>[ToEIntegerExact()](#ToEIntegerExact)</code> - <b>Deprecated:</b> Renamed to ToEIntegerIfExact.
+* <code>[ToEIntegerExact()](#ToEIntegerExact)</code> - <b>Obsolete:</b> Renamed to ToEIntegerIfExact.
 * <code>[ToEIntegerIfExact()](#ToEIntegerIfExact)</code> - Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part.
 * <code>[ToEngineeringString()](#ToEngineeringString)</code> - Converts this value to an arbitrary-precision decimal number, then returns the value of that decimal's ToEngineeringString method.
-* <code>[ToExtendedDecimal()](#ToExtendedDecimal)</code> - <b>Deprecated:</b> Renamed to ToEDecimal.
+* <code>[ToExtendedDecimal()](#ToExtendedDecimal)</code> - <b>Obsolete:</b> Renamed to ToEDecimal.
 * <code>[ToHalfBits()](#ToHalfBits)</code> - Converts this value to its closest equivalent as a binary floating-point number, expressed as an integer in the IEEE 754 binary16 format (also known as a "half-precision" floating-point number).
 * <code>[ToInt16Checked()](#ToInt16Checked)</code> - Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer after converting it to an integer by discarding its fractional part.
 * <code>[ToInt16IfExact()](#ToInt16IfExact)</code> - Converts this number's value to a 16-bit signed integer if it can fit in a 16-bit signed integer without rounding to a different numerical value.
@@ -1117,7 +1117,7 @@ The result of dividing this arbitrary-precision binary floating-point number by 
         PeterO.Numbers.EFloat divisor,
         PeterO.Numbers.EContext ctx);
 
-<b>Deprecated.</b> Renamed to DivRemNaturalScale.
+<b>Obsolete.</b> Renamed to DivRemNaturalScale.
 
 Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
@@ -1137,7 +1137,7 @@ A 2 element array consisting of the quotient and remainder in that order.
     public PeterO.Numbers.EFloat[] DivideAndRemainderNaturalScale(
         PeterO.Numbers.EFloat divisor);
 
-<b>Deprecated.</b> Renamed to DivRemNaturalScale.
+<b>Obsolete.</b> Renamed to DivRemNaturalScale.
 
 Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
@@ -4105,7 +4105,7 @@ A binary floating-point number rounded to the closest integer representable in t
     public PeterO.Numbers.EFloat RoundToIntegralExact(
         PeterO.Numbers.EContext ctx);
 
-<b>Deprecated.</b> Renamed to RoundToIntegerExact.
+<b>Obsolete.</b> Renamed to RoundToIntegerExact.
 
 Returns a binary floating-point number with the same value as this object but rounded to an integer, and signals an inexact flag if the result would be inexact.
 
@@ -4123,7 +4123,7 @@ A binary floating-point number rounded to the closest integer representable in t
     public PeterO.Numbers.EFloat RoundToIntegralNoRoundedFlag(
         PeterO.Numbers.EContext ctx);
 
-<b>Deprecated.</b> Renamed to RoundToIntegerNoRoundedFlag.
+<b>Obsolete.</b> Renamed to RoundToIntegerNoRoundedFlag.
 
 Returns a binary floating-point number with the same value as this object but rounded to an integer, without adding the  `FlagInexact`  or  `FlagRounded`  flags.
 
@@ -4254,7 +4254,7 @@ The square root. Signals the flag FlagInvalid and returns NaN if this object is 
     public PeterO.Numbers.EFloat SquareRoot(
         PeterO.Numbers.EContext ctx);
 
-<b>Deprecated.</b> Renamed to Sqrt.
+<b>Obsolete.</b> Renamed to Sqrt.
 
 Finds the square root of this object's value.
 
@@ -4439,7 +4439,7 @@ This object's value is infinity or not-a-number (NaN).
 
     public PeterO.Numbers.EInteger ToEIntegerExact();
 
-<b>Deprecated.</b> Renamed to ToEIntegerIfExact.
+<b>Obsolete.</b> Renamed to ToEIntegerIfExact.
 
 Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
@@ -4490,7 +4490,7 @@ A text string.
 
     public PeterO.Numbers.EDecimal ToExtendedDecimal();
 
-<b>Deprecated.</b> Renamed to ToEDecimal.
+<b>Obsolete.</b> Renamed to ToEDecimal.
 
 Converts this value to an arbitrary-precision decimal number.
 
