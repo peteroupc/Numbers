@@ -183,9 +183,9 @@ The elements described earlier are in the same order as the order of each bit of
 * <code>[CreateNaN(PeterO.Numbers.EInteger)](#CreateNaN_PeterO_Numbers_EInteger)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[CreateNaN(PeterO.Numbers.EInteger, bool, bool, PeterO.Numbers.EContext)](#CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext)</code> - Creates a not-a-number arbitrary-precision decimal number.
 * <code>[Decrement()](#Decrement)</code> - Returns one subtracted from this arbitrary-precision decimal number.
-* <code>[Divide(int)](#Divide_int)</code> - Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
-* <code>[Divide(long)](#Divide_long)</code> - Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
-* <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
+* <code>[Divide(int)](#Divide_int)</code> - Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, and 2/3); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
+* <code>[Divide(long)](#Divide_long)</code> - Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, and 2/3); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
+* <code>[Divide(PeterO.Numbers.EDecimal)](#Divide_PeterO_Numbers_EDecimal)</code> - Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, and 2/3); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
 * <code>[Divide(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result.
 * <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EDecimal)</code> - <b>Deprecated:</b> Renamed to DivRemNaturalScale.
 * <code>[DivideAndRemainderNaturalScale(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#DivideAndRemainderNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - <b>Deprecated:</b> Renamed to DivRemNaturalScale.
@@ -604,22 +604,6 @@ Adds this arbitrary-precision decimal floating-point number and a 64-bit signed 
 
 The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus a 64-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
-<a id="Add_PeterO_Numbers_EDecimal"></a>
-### Add
-
-    public PeterO.Numbers.EDecimal Add(
-        PeterO.Numbers.EDecimal otherValue);
-
-Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.
-
-<b>Parameters:</b>
-
- * <i>otherValue</i>: An arbitrary-precision decimal number.
-
-<b>Return Value:</b>
-
-The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
-
 <a id="Add_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Add
 
@@ -634,6 +618,22 @@ Adds this arbitrary-precision decimal floating-point number and another arbitrar
  * <i>otherValue</i>: The number to add to.
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+
+<b>Return Value:</b>
+
+The sum of the two numbers, that is, this arbitrary-precision decimal floating-point number plus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
+
+<a id="Add_PeterO_Numbers_EDecimal"></a>
+### Add
+
+    public PeterO.Numbers.EDecimal Add(
+        PeterO.Numbers.EDecimal otherValue);
+
+Adds this arbitrary-precision decimal floating-point number and another arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.
+
+<b>Parameters:</b>
+
+ * <i>otherValue</i>: An arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
@@ -736,37 +736,6 @@ Quiet NaN if this object or the other object is NaN, or 0 if both objects have t
 
 .
 
-<a id="CompareToTotal_PeterO_Numbers_EDecimal"></a>
-### CompareToTotal
-
-    public int CompareToTotal(
-        PeterO.Numbers.EDecimal other);
-
-Compares the values of this object and another object, imposing a total ordering on all possible values. In this method:
-
- * For objects with the same value, the one with the higher exponent has a greater "absolute value".
-
- * Negative zero is less than positive zero.
-
- * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
-
- * NaN has a higher "absolute value" than infinity.
-
- * Infinity has a higher "absolute value" than any finite number.
-
- * Negative numbers are less than positive numbers.
-
-<b>Parameters:</b>
-
- * <i>other</i>: An arbitrary-precision decimal number to compare with this one.
-
-<b>Return Value:</b>
-
-The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
- is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
-
-.
-
 <a id="CompareToTotal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### CompareToTotal
 
@@ -801,17 +770,17 @@ The number 0 if both objects have the same value, or -1 if this object is less t
 
 .
 
-<a id="CompareToTotalMagnitude_PeterO_Numbers_EDecimal"></a>
-### CompareToTotalMagnitude
+<a id="CompareToTotal_PeterO_Numbers_EDecimal"></a>
+### CompareToTotal
 
-    public int CompareToTotalMagnitude(
+    public int CompareToTotal(
         PeterO.Numbers.EDecimal other);
 
-Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs). In this method:
+Compares the values of this object and another object, imposing a total ordering on all possible values. In this method:
 
  * For objects with the same value, the one with the higher exponent has a greater "absolute value".
 
- * Negative zero and positive zero are considered equal.
+ * Negative zero is less than positive zero.
 
  * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
 
@@ -819,13 +788,15 @@ Compares the absolute values of this object and another object, imposing a total
 
  * Infinity has a higher "absolute value" than any finite number.
 
+ * Negative numbers are less than positive numbers.
+
 <b>Parameters:</b>
 
  * <i>other</i>: An arbitrary-precision decimal number to compare with this one.
 
 <b>Return Value:</b>
 
-The number 0 if both objects have the same value (ignoring their signs), or -1 if this object is less than the other value (ignoring their signs), or 1 if this object is greater (ignoring their signs). This implementation returns a positive number if  <i>other</i>
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
  is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
 
 .
@@ -860,6 +831,35 @@ Compares the values of this object and another object, imposing a total ordering
 <b>Return Value:</b>
 
 The number 0 if both objects have the same value (ignoring their signs), or -1 if this object is less than the other value (ignoring their signs), or 1 if this object is greater (ignoring their signs). Does not signal flags if either value is signaling NaN. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
+
+<a id="CompareToTotalMagnitude_PeterO_Numbers_EDecimal"></a>
+### CompareToTotalMagnitude
+
+    public int CompareToTotalMagnitude(
+        PeterO.Numbers.EDecimal other);
+
+Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs). In this method:
+
+ * For objects with the same value, the one with the higher exponent has a greater "absolute value".
+
+ * Negative zero and positive zero are considered equal.
+
+ * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
+
+ * NaN has a higher "absolute value" than infinity.
+
+ * Infinity has a higher "absolute value" than any finite number.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: An arbitrary-precision decimal number to compare with this one.
+
+<b>Return Value:</b>
+
+The number 0 if both objects have the same value (ignoring their signs), or -1 if this object is less than the other value (ignoring their signs), or 1 if this object is greater (ignoring their signs). This implementation returns a positive number if  <i>other</i>
  is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
 
 .
@@ -1120,22 +1120,6 @@ The parameter  <i>mantissa</i>
  or  <i>exponent</i>
  is null.
 
-<a id="CreateNaN_PeterO_Numbers_EInteger"></a>
-### CreateNaN
-
-    public static PeterO.Numbers.EDecimal CreateNaN(
-        PeterO.Numbers.EInteger diag);
-
-Creates a not-a-number arbitrary-precision decimal number.
-
-<b>Parameters:</b>
-
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision decimal floating-point number, use that object's  `UnsignedMantissa`  property.
-
-<b>Return Value:</b>
-
-A quiet not-a-number.
-
 <a id="CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext"></a>
 ### CreateNaN
 
@@ -1167,6 +1151,22 @@ An arbitrary-precision decimal number.
 The parameter  <i>diag</i>
  is null or is less than 0.
 
+<a id="CreateNaN_PeterO_Numbers_EInteger"></a>
+### CreateNaN
+
+    public static PeterO.Numbers.EDecimal CreateNaN(
+        PeterO.Numbers.EInteger diag);
+
+Creates a not-a-number arbitrary-precision decimal number.
+
+<b>Parameters:</b>
+
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision decimal floating-point number, use that object's  `UnsignedMantissa`  property.
+
+<b>Return Value:</b>
+
+A quiet not-a-number.
+
 <a id="Decrement"></a>
 ### Decrement
 
@@ -1184,7 +1184,7 @@ The given arbitrary-precision decimal number minus one.
     public PeterO.Numbers.EDecimal Divide(
         int intValue);
 
-Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
+Divides this arbitrary-precision decimal floating-point number by a 32-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, and 2/3); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
 
 <b>Parameters:</b>
 
@@ -1200,7 +1200,7 @@ The result of dividing this arbitrary-precision decimal floating-point number by
     public PeterO.Numbers.EDecimal Divide(
         long longValue);
 
-Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
+Divides this arbitrary-precision decimal floating-point number by a 64-bit signed integer and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, and 2/3); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
 
 <b>Parameters:</b>
 
@@ -1210,22 +1210,6 @@ Divides this arbitrary-precision decimal floating-point number by a 64-bit signe
 <b>Return Value:</b>
 
 The result of dividing this arbitrary-precision decimal floating-point number by a 64-bit signed integer. Returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other 64-bit signed integer) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Decimal128`  ) instead.
-
-<a id="Divide_PeterO_Numbers_EDecimal"></a>
-### Divide
-
-    public PeterO.Numbers.EDecimal Divide(
-        PeterO.Numbers.EDecimal divisor);
-
-Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
-
-<b>Parameters:</b>
-
- * <i>divisor</i>: The number to divide by.
-
-<b>Return Value:</b>
-
-The result of dividing this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number. Returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other arbitrary-precision decimal floating-point number) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Decimal128`  ) instead.
 
 <a id="Divide_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Divide
@@ -1248,15 +1232,13 @@ The result of dividing this arbitrary-precision decimal floating-point number by
  is null or  <i>ctx</i>
  's precision is 0, and the result would have a nonterminating decimal expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12); or, the rounding mode is ERounding.None and the result is not exact.
 
-<a id="DivideAndRemainderNaturalScale_PeterO_Numbers_EDecimal"></a>
-### DivideAndRemainderNaturalScale
+<a id="Divide_PeterO_Numbers_EDecimal"></a>
+### Divide
 
-    public PeterO.Numbers.EDecimal[] DivideAndRemainderNaturalScale(
+    public PeterO.Numbers.EDecimal Divide(
         PeterO.Numbers.EDecimal divisor);
 
-<b>Deprecated.</b> Renamed to DivRemNaturalScale.
-
-Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
+Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns the result; returns NaN instead if the result would have a nonterminating decimal expansion (including 1/3, 1/12, 1/7, and 2/3); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
 
 <b>Parameters:</b>
 
@@ -1264,7 +1246,7 @@ Calculates the quotient and remainder using the DivideToIntegerNaturalScale and 
 
 <b>Return Value:</b>
 
-A 2 element array consisting of the quotient and remainder in that order.
+The result of dividing this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number. Returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other arbitrary-precision decimal floating-point number) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating decimal expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Decimal128`  ) instead.
 
 <a id="DivideAndRemainderNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### DivideAndRemainderNaturalScale
@@ -1287,24 +1269,23 @@ Calculates the quotient and remainder using the DivideToIntegerNaturalScale and 
 
 A 2 element array consisting of the quotient and remainder in that order.
 
-<a id="DivideToExponent_PeterO_Numbers_EDecimal_int"></a>
-### DivideToExponent
+<a id="DivideAndRemainderNaturalScale_PeterO_Numbers_EDecimal"></a>
+### DivideAndRemainderNaturalScale
 
-    public PeterO.Numbers.EDecimal DivideToExponent(
-        PeterO.Numbers.EDecimal divisor,
-        int desiredExponentInt);
+    public PeterO.Numbers.EDecimal[] DivideAndRemainderNaturalScale(
+        PeterO.Numbers.EDecimal divisor);
 
-Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.
+<b>Deprecated.</b> Renamed to DivRemNaturalScale.
+
+Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
 
 <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>desiredExponentInt</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
-
 <b>Return Value:</b>
 
-The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
+A 2 element array consisting of the quotient and remainder in that order.
 
 <a id="DivideToExponent_PeterO_Numbers_EDecimal_int_PeterO_Numbers_EContext"></a>
 ### DivideToExponent
@@ -1350,20 +1331,20 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 
 The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
 
-<a id="DivideToExponent_PeterO_Numbers_EDecimal_long"></a>
+<a id="DivideToExponent_PeterO_Numbers_EDecimal_int"></a>
 ### DivideToExponent
 
     public PeterO.Numbers.EDecimal DivideToExponent(
         PeterO.Numbers.EDecimal divisor,
-        long desiredExponentSmall);
+        int desiredExponentInt);
 
-Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 64-bit signed integer) to the result, using the half-even rounding mode.
+Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 32-bit signed integer) to the result, using the half-even rounding mode.
 
 <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
- * <i>desiredExponentSmall</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
+ * <i>desiredExponentInt</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
 
 <b>Return Value:</b>
 
@@ -1413,6 +1394,25 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 
 The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
 
+<a id="DivideToExponent_PeterO_Numbers_EDecimal_long"></a>
+### DivideToExponent
+
+    public PeterO.Numbers.EDecimal DivideToExponent(
+        PeterO.Numbers.EDecimal divisor,
+        long desiredExponentSmall);
+
+Divides two arbitrary-precision decimal numbers, and gives a particular exponent (expressed as a 64-bit signed integer) to the result, using the half-even rounding mode.
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
+
+ * <i>desiredExponentSmall</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
+
+<b>Return Value:</b>
+
+The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
+
 <a id="DivideToExponent_PeterO_Numbers_EDecimal_PeterO_Numbers_EInteger_PeterO_Numbers_ERounding"></a>
 ### DivideToExponent
 
@@ -1434,25 +1434,6 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 <b>Return Value:</b>
 
 The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the rounding mode is ERounding.None and the result is not exact.
-
-<a id="DivideToExponent_PeterO_Numbers_EDecimal_PeterO_Numbers_EInteger"></a>
-### DivideToExponent
-
-    public PeterO.Numbers.EDecimal DivideToExponent(
-        PeterO.Numbers.EDecimal divisor,
-        PeterO.Numbers.EInteger exponent);
-
-Divides two arbitrary-precision decimal numbers, and gives a particular exponent to the result, using the half-even rounding mode.
-
-<b>Parameters:</b>
-
- * <i>divisor</i>: The number to divide by.
-
- * <i>exponent</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
-
-<b>Return Value:</b>
-
-The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
 
 <a id="DivideToExponent_PeterO_Numbers_EDecimal_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### DivideToExponent
@@ -1476,21 +1457,24 @@ Divides two arbitrary-precision decimal numbers, and gives a particular exponent
 
 The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the context defines an exponent range and the desired exponent is outside that range. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
 
-<a id="DivideToIntegerNaturalScale_PeterO_Numbers_EDecimal"></a>
-### DivideToIntegerNaturalScale
+<a id="DivideToExponent_PeterO_Numbers_EDecimal_PeterO_Numbers_EInteger"></a>
+### DivideToExponent
 
-    public PeterO.Numbers.EDecimal DivideToIntegerNaturalScale(
-        PeterO.Numbers.EDecimal divisor);
+    public PeterO.Numbers.EDecimal DivideToExponent(
+        PeterO.Numbers.EDecimal divisor,
+        PeterO.Numbers.EInteger exponent);
 
-Divides two arbitrary-precision decimal numbers, and returns the integer part of the result, rounded down, with the preferred exponent set to this value's exponent minus the divisor's exponent.
+Divides two arbitrary-precision decimal numbers, and gives a particular exponent to the result, using the half-even rounding mode.
 
 <b>Parameters:</b>
 
  * <i>divisor</i>: The number to divide by.
 
+ * <i>exponent</i>: The desired exponent. A negative number places the cutoff point to the right of the usual decimal point (so a negative number means the number of decimal places to round to). A positive number places the cutoff point to the left of the usual decimal point.
+
 <b>Return Value:</b>
 
-The integer part of the quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
+The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
 
 <a id="DivideToIntegerNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### DivideToIntegerNaturalScale
@@ -1512,6 +1496,22 @@ Divides this object by another object, and returns the integer part of the resul
 <b>Return Value:</b>
 
 The integer part of the quotient of the two objects. Signals FlagInvalid and returns not-a-number (NaN) if the return value would overflow the exponent range. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
+
+<a id="DivideToIntegerNaturalScale_PeterO_Numbers_EDecimal"></a>
+### DivideToIntegerNaturalScale
+
+    public PeterO.Numbers.EDecimal DivideToIntegerNaturalScale(
+        PeterO.Numbers.EDecimal divisor);
+
+Divides two arbitrary-precision decimal numbers, and returns the integer part of the result, rounded down, with the preferred exponent set to this value's exponent minus the divisor's exponent.
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
+
+<b>Return Value:</b>
+
+The integer part of the quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
 
 <a id="DivideToIntegerZeroScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### DivideToIntegerZeroScale
@@ -1551,22 +1551,6 @@ Divides this object by another decimal number and returns a result with the same
 
 The quotient of the two numbers. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
 
-<a id="DivRemNaturalScale_PeterO_Numbers_EDecimal"></a>
-### DivRemNaturalScale
-
-    public PeterO.Numbers.EDecimal[] DivRemNaturalScale(
-        PeterO.Numbers.EDecimal divisor);
-
-Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by  `DivideToIntegerNaturalScale` , and the remainder is calculated as though by  `RemainderNaturalScale` .
-
-<b>Parameters:</b>
-
- * <i>divisor</i>: The number to divide by.
-
-<b>Return Value:</b>
-
-An array of two items: the first is the result of the division as an arbitrary-precision decimal floating-point number, and the second is the remainder as an arbitrary-precision decimal floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.
-
 <a id="DivRemNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### DivRemNaturalScale
 
@@ -1581,6 +1565,22 @@ Divides this arbitrary-precision decimal floating-point number by another arbitr
  * <i>divisor</i>: The number to divide by.
 
  * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's  `HasFlags`  is true and the integer part of the division result doesn't fit the precision and exponent range without rounding. Can be null, in which the precision is unlimited and no additional rounding, other than the rounding down to an integer after division, is needed.
+
+<b>Return Value:</b>
+
+An array of two items: the first is the result of the division as an arbitrary-precision decimal floating-point number, and the second is the remainder as an arbitrary-precision decimal floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.
+
+<a id="DivRemNaturalScale_PeterO_Numbers_EDecimal"></a>
+### DivRemNaturalScale
+
+    public PeterO.Numbers.EDecimal[] DivRemNaturalScale(
+        PeterO.Numbers.EDecimal divisor);
+
+Divides this arbitrary-precision decimal floating-point number by another arbitrary-precision decimal floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by  `DivideToIntegerNaturalScale` , and the remainder is calculated as though by  `RemainderNaturalScale` .
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
 
 <b>Return Value:</b>
 
@@ -1932,72 +1932,6 @@ Creates an arbitrary-precision decimal number from a 32-bit binary floating-poin
 An arbitrary-precision decimal number with the same value as  <i>value</i>
 .
 
-<a id="FromString_byte"></a>
-### FromString
-
-    public static PeterO.Numbers.EDecimal FromString(
-        byte[] bytes);
-
-Creates an arbitrary-precision decimal number from a sequence of bytes (interpreted as text) that represents a number. See  `FromString(String, int, int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
-
-<b>Parameters:</b>
-
- * <i>bytes</i>: A sequence that represents a number.
-
-<b>Return Value:</b>
-
-An arbitrary-precision decimal number with the same value as the given sequence of bytes (interpreted as text).
-
-<b>Exceptions:</b>
-
- * System.FormatException:
-The parameter  <i>bytes</i>
- is not a correctly formatted number sequence.
-
-<a id="FromString_byte_int_int"></a>
-### FromString
-
-    public static PeterO.Numbers.EDecimal FromString(
-        byte[] bytes,
-        int offset,
-        int length);
-
-Creates an arbitrary-precision decimal number from a sequence of bytes (interpreted as text) that represents a number. See  `FromString(String, int, int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
-
-<b>Parameters:</b>
-
- * <i>bytes</i>: A sequence that represents a number.
-
- * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>bytes</i>
- begins.
-
- * <i>length</i>: The length, in bytes, of the desired portion of  <i>bytes</i>
- (but not more than  <i>bytes</i>
- 's length).
-
-<b>Return Value:</b>
-
-An arbitrary-precision decimal number with the same value as the given sequence of bytes (interpreted as text).
-
-<b>Exceptions:</b>
-
- * System.FormatException:
-The parameter  <i>bytes</i>
- is not a correctly formatted number sequence.
-
- * System.ArgumentNullException:
-The parameter  <i>bytes</i>
- is null.
-
- * System.ArgumentException:
-Either  <i>offset</i>
- or  <i>length</i>
- is less than 0 or greater than  <i>bytes</i>
- 's length, or  <i>bytes</i>
- 's length minus  <i>offset</i>
- is less than  <i>length</i>
-.
-
 <a id="FromString_byte_int_int_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -2053,6 +1987,50 @@ Either  <i>offset</i>
  is less than  <i>length</i>
 .
 
+<a id="FromString_byte_int_int"></a>
+### FromString
+
+    public static PeterO.Numbers.EDecimal FromString(
+        byte[] bytes,
+        int offset,
+        int length);
+
+Creates an arbitrary-precision decimal number from a sequence of bytes (interpreted as text) that represents a number. See  `FromString(String, int, int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
+
+<b>Parameters:</b>
+
+ * <i>bytes</i>: A sequence that represents a number.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>bytes</i>
+ begins.
+
+ * <i>length</i>: The length, in bytes, of the desired portion of  <i>bytes</i>
+ (but not more than  <i>bytes</i>
+ 's length).
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number with the same value as the given sequence of bytes (interpreted as text).
+
+<b>Exceptions:</b>
+
+ * System.FormatException:
+The parameter  <i>bytes</i>
+ is not a correctly formatted number sequence.
+
+ * System.ArgumentNullException:
+The parameter  <i>bytes</i>
+ is null.
+
+ * System.ArgumentException:
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>bytes</i>
+ 's length, or  <i>bytes</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
 <a id="FromString_byte_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -2078,71 +2056,27 @@ An arbitrary-precision decimal number with the same value as the given sequence 
 The parameter  <i>bytes</i>
  is null.
 
-<a id="FromString_char"></a>
+<a id="FromString_byte"></a>
 ### FromString
 
     public static PeterO.Numbers.EDecimal FromString(
-        char[] chars);
+        byte[] bytes);
 
-Creates an arbitrary-precision decimal number from a sequence of  `char`  s that represents a number. See  `FromString(String, int, int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
+Creates an arbitrary-precision decimal number from a sequence of bytes (interpreted as text) that represents a number. See  `FromString(String, int, int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
 
 <b>Parameters:</b>
 
- * <i>chars</i>: A sequence that represents a number.
+ * <i>bytes</i>: A sequence that represents a number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number with the same value as the given sequence of  `char`  s.
+An arbitrary-precision decimal number with the same value as the given sequence of bytes (interpreted as text).
 
 <b>Exceptions:</b>
 
  * System.FormatException:
-The parameter  <i>chars</i>
+The parameter  <i>bytes</i>
  is not a correctly formatted number sequence.
-
-<a id="FromString_char_int_int"></a>
-### FromString
-
-    public static PeterO.Numbers.EDecimal FromString(
-        char[] chars,
-        int offset,
-        int length);
-
-Creates an arbitrary-precision decimal number from a sequence of  `char`  s that represents a number. See  `FromString(String, int, int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
-
-<b>Parameters:</b>
-
- * <i>chars</i>: A sequence that represents a number.
-
- * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>chars</i>
- begins.
-
- * <i>length</i>: The length, in code units, of the desired portion of  <i>chars</i>
- (but not more than  <i>chars</i>
- 's length).
-
-<b>Return Value:</b>
-
-An arbitrary-precision decimal number with the same value as the given sequence of  `char`  s.
-
-<b>Exceptions:</b>
-
- * System.FormatException:
-The parameter  <i>chars</i>
- is not a correctly formatted number sequence.
-
- * System.ArgumentNullException:
-The parameter  <i>chars</i>
- is null.
-
- * System.ArgumentException:
-Either  <i>offset</i>
- or  <i>length</i>
- is less than 0 or greater than  <i>chars</i>
- 's length, or  <i>chars</i>
- 's length minus  <i>offset</i>
- is less than  <i>length</i>
-.
 
 <a id="FromString_char_int_int_PeterO_Numbers_EContext"></a>
 ### FromString
@@ -2199,6 +2133,50 @@ Either  <i>offset</i>
  is less than  <i>length</i>
 .
 
+<a id="FromString_char_int_int"></a>
+### FromString
+
+    public static PeterO.Numbers.EDecimal FromString(
+        char[] chars,
+        int offset,
+        int length);
+
+Creates an arbitrary-precision decimal number from a sequence of  `char`  s that represents a number. See  `FromString(String, int, int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
+
+<b>Parameters:</b>
+
+ * <i>chars</i>: A sequence that represents a number.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>chars</i>
+ begins.
+
+ * <i>length</i>: The length, in code units, of the desired portion of  <i>chars</i>
+ (but not more than  <i>chars</i>
+ 's length).
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number with the same value as the given sequence of  `char`  s.
+
+<b>Exceptions:</b>
+
+ * System.FormatException:
+The parameter  <i>chars</i>
+ is not a correctly formatted number sequence.
+
+ * System.ArgumentNullException:
+The parameter  <i>chars</i>
+ is null.
+
+ * System.ArgumentException:
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>chars</i>
+ 's length, or  <i>chars</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
 <a id="FromString_char_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -2224,73 +2202,27 @@ An arbitrary-precision decimal number with the same value as the given sequence 
 The parameter  <i>chars</i>
  is null.
 
-<a id="FromString_string"></a>
+<a id="FromString_char"></a>
 ### FromString
 
     public static PeterO.Numbers.EDecimal FromString(
-        string str);
+        char[] chars);
 
-Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int,
-            int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
+Creates an arbitrary-precision decimal number from a sequence of  `char`  s that represents a number. See  `FromString(String, int, int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A string that represents a number.
+ * <i>chars</i>: A sequence that represents a number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number with the same value as the given string.
+An arbitrary-precision decimal number with the same value as the given sequence of  `char`  s.
 
 <b>Exceptions:</b>
 
  * System.FormatException:
-The parameter  <i>str</i>
- is not a correctly formatted number string.
-
-<a id="FromString_string_int_int"></a>
-### FromString
-
-    public static PeterO.Numbers.EDecimal FromString(
-        string str,
-        int offset,
-        int length);
-
-Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int,
-            int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
-
-<b>Parameters:</b>
-
- * <i>str</i>: A string that represents a number.
-
- * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>str</i>
- begins.
-
- * <i>length</i>: The length, in code units, of the desired portion of  <i>str</i>
- (but not more than  <i>str</i>
- 's length).
-
-<b>Return Value:</b>
-
-An arbitrary-precision decimal number with the same value as the given string.
-
-<b>Exceptions:</b>
-
- * System.FormatException:
-The parameter  <i>str</i>
- is not a correctly formatted number string.
-
- * System.ArgumentNullException:
-The parameter  <i>str</i>
- is null.
-
- * System.ArgumentException:
-Either  <i>offset</i>
- or  <i>length</i>
- is less than 0 or greater than  <i>str</i>
- 's length, or  <i>str</i>
- 's length minus  <i>offset</i>
- is less than  <i>length</i>
-.
+The parameter  <i>chars</i>
+ is not a correctly formatted number sequence.
 
 <a id="FromString_string_int_int_PeterO_Numbers_EContext"></a>
 ### FromString
@@ -2347,6 +2279,51 @@ Either  <i>offset</i>
  is less than  <i>length</i>
 .
 
+<a id="FromString_string_int_int"></a>
+### FromString
+
+    public static PeterO.Numbers.EDecimal FromString(
+        string str,
+        int offset,
+        int length);
+
+Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int,
+            int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
+
+<b>Parameters:</b>
+
+ * <i>str</i>: A string that represents a number.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>str</i>
+ begins.
+
+ * <i>length</i>: The length, in code units, of the desired portion of  <i>str</i>
+ (but not more than  <i>str</i>
+ 's length).
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number with the same value as the given string.
+
+<b>Exceptions:</b>
+
+ * System.FormatException:
+The parameter  <i>str</i>
+ is not a correctly formatted number string.
+
+ * System.ArgumentNullException:
+The parameter  <i>str</i>
+ is null.
+
+ * System.ArgumentException:
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>str</i>
+ 's length, or  <i>str</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
 <a id="FromString_string_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -2372,6 +2349,29 @@ An arbitrary-precision decimal number with the same value as the given string.
  * System.ArgumentNullException:
 The parameter  <i>str</i>
  is null.
+
+<a id="FromString_string"></a>
+### FromString
+
+    public static PeterO.Numbers.EDecimal FromString(
+        string str);
+
+Creates an arbitrary-precision decimal number from a text string that represents a number. See  `FromString(String, int,
+            int, EContext)`  for more information. Note that calling the overload that takes an EContext is often much faster than creating the EDecimal then calling  `RoundToPrecision`  on that EDecimal, especially if the context specifies a precision limit and exponent range.
+
+<b>Parameters:</b>
+
+ * <i>str</i>: A string that represents a number.
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number with the same value as the given string.
+
+<b>Exceptions:</b>
+
+ * System.FormatException:
+The parameter  <i>str</i>
+ is not a correctly formatted number string.
 
 <a id="FromUInt16_ushort"></a>
 ### FromUInt16
@@ -2605,32 +2605,6 @@ Ln(this object)/Ln(baseValue). Signals the flag FlagInvalid and returns not-a-nu
 The parameter  <i>baseValue</i>
  is null.
 
-<a id="Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
-### Max
-
-    public static PeterO.Numbers.EDecimal Max(
-        PeterO.Numbers.EDecimal first,
-        PeterO.Numbers.EDecimal second);
-
-Gets the greater value between two decimal numbers.
-
-<b>Parameters:</b>
-
- * <i>first</i>: An arbitrary-precision decimal number.
-
- * <i>second</i>: Another arbitrary-precision decimal number.
-
-<b>Return Value:</b>
-
-The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger exponent. If the two numbers are negative and have the same value, returns the one with the smaller exponent.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>first</i>
- or  <i>second</i>
- is null.
-
 <a id="Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Max
 
@@ -2660,24 +2634,24 @@ The parameter  <i>first</i>
  or  <i>second</i>
  is null.
 
-<a id="MaxMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
-### MaxMagnitude
+<a id="Max_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
+### Max
 
-    public static PeterO.Numbers.EDecimal MaxMagnitude(
+    public static PeterO.Numbers.EDecimal Max(
         PeterO.Numbers.EDecimal first,
         PeterO.Numbers.EDecimal second);
 
-Gets the greater value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Max.
+Gets the greater value between two decimal numbers.
 
 <b>Parameters:</b>
 
- * <i>first</i>: The first value to compare.
+ * <i>first</i>: An arbitrary-precision decimal number.
 
- * <i>second</i>: The second value to compare.
+ * <i>second</i>: Another arbitrary-precision decimal number.
 
 <b>Return Value:</b>
 
-The larger value of the two numbers, ignoring their signs.
+The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger exponent. If the two numbers are negative and have the same value, returns the one with the smaller exponent.
 
 <b>Exceptions:</b>
 
@@ -2715,14 +2689,14 @@ The parameter  <i>first</i>
  or  <i>second</i>
  is null.
 
-<a id="Min_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
-### Min
+<a id="MaxMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
+### MaxMagnitude
 
-    public static PeterO.Numbers.EDecimal Min(
+    public static PeterO.Numbers.EDecimal MaxMagnitude(
         PeterO.Numbers.EDecimal first,
         PeterO.Numbers.EDecimal second);
 
-Gets the lesser value between two decimal numbers.
+Gets the greater value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Max.
 
 <b>Parameters:</b>
 
@@ -2732,7 +2706,7 @@ Gets the lesser value between two decimal numbers.
 
 <b>Return Value:</b>
 
-The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller exponent. If the two numbers are negative and have the same value, returns the one with the larger exponent.
+The larger value of the two numbers, ignoring their signs.
 
 <b>Exceptions:</b>
 
@@ -2770,14 +2744,14 @@ The parameter  <i>first</i>
  or  <i>second</i>
  is null.
 
-<a id="MinMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
-### MinMagnitude
+<a id="Min_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
+### Min
 
-    public static PeterO.Numbers.EDecimal MinMagnitude(
+    public static PeterO.Numbers.EDecimal Min(
         PeterO.Numbers.EDecimal first,
         PeterO.Numbers.EDecimal second);
 
-Gets the lesser value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Min.
+Gets the lesser value between two decimal numbers.
 
 <b>Parameters:</b>
 
@@ -2787,7 +2761,7 @@ Gets the lesser value between two values, ignoring their signs. If the absolute 
 
 <b>Return Value:</b>
 
-The smaller value of the two numbers, ignoring their signs.
+The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller exponent. If the two numbers are negative and have the same value, returns the one with the larger exponent.
 
 <b>Exceptions:</b>
 
@@ -2825,22 +2799,31 @@ The parameter  <i>first</i>
  or  <i>second</i>
  is null.
 
-<a id="MovePointLeft_int"></a>
-### MovePointLeft
+<a id="MinMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal"></a>
+### MinMagnitude
 
-    public PeterO.Numbers.EDecimal MovePointLeft(
-        int places);
+    public static PeterO.Numbers.EDecimal MinMagnitude(
+        PeterO.Numbers.EDecimal first,
+        PeterO.Numbers.EDecimal second);
 
-Returns a number similar to this number but with the decimal point moved to the left.
+Gets the lesser value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Min.
 
 <b>Parameters:</b>
 
- * <i>places</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
+ * <i>first</i>: The first value to compare.
+
+ * <i>second</i>: The second value to compare.
 
 <b>Return Value:</b>
 
-A number whose exponent is decreased by  <i>places</i>
-, but not to more than 0.
+The smaller value of the two numbers, ignoring their signs.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
 
 <a id="MovePointLeft_int_PeterO_Numbers_EContext"></a>
 ### MovePointLeft
@@ -2862,21 +2845,21 @@ Returns a number similar to this number but with the decimal point moved to the 
 A number whose exponent is decreased by  <i>places</i>
 , but not to more than 0.
 
-<a id="MovePointLeft_PeterO_Numbers_EInteger"></a>
+<a id="MovePointLeft_int"></a>
 ### MovePointLeft
 
     public PeterO.Numbers.EDecimal MovePointLeft(
-        PeterO.Numbers.EInteger bigPlaces);
+        int places);
 
 Returns a number similar to this number but with the decimal point moved to the left.
 
 <b>Parameters:</b>
 
- * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
+ * <i>places</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
 
 <b>Return Value:</b>
 
-A number whose exponent is decreased by  <i>bigPlaces</i>
+A number whose exponent is decreased by  <i>places</i>
 , but not to more than 0.
 
 <a id="MovePointLeft_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
@@ -2899,21 +2882,21 @@ Returns a number similar to this number but with the decimal point moved to the 
 A number whose exponent is decreased by  <i>bigPlaces</i>
 , but not to more than 0.
 
-<a id="MovePointRight_int"></a>
-### MovePointRight
+<a id="MovePointLeft_PeterO_Numbers_EInteger"></a>
+### MovePointLeft
 
-    public PeterO.Numbers.EDecimal MovePointRight(
-        int places);
+    public PeterO.Numbers.EDecimal MovePointLeft(
+        PeterO.Numbers.EInteger bigPlaces);
 
-Returns a number similar to this number but with the decimal point moved to the right.
+Returns a number similar to this number but with the decimal point moved to the left.
 
 <b>Parameters:</b>
 
- * <i>places</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
+ * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the left. If this number is negative, instead moves the decimal point to the right by this number's absolute value.
 
 <b>Return Value:</b>
 
-A number whose exponent is increased by  <i>places</i>
+A number whose exponent is decreased by  <i>bigPlaces</i>
 , but not to more than 0.
 
 <a id="MovePointRight_int_PeterO_Numbers_EContext"></a>
@@ -2936,21 +2919,21 @@ Returns a number similar to this number but with the decimal point moved to the 
 A number whose exponent is increased by  <i>places</i>
 , but not to more than 0.
 
-<a id="MovePointRight_PeterO_Numbers_EInteger"></a>
+<a id="MovePointRight_int"></a>
 ### MovePointRight
 
     public PeterO.Numbers.EDecimal MovePointRight(
-        PeterO.Numbers.EInteger bigPlaces);
+        int places);
 
 Returns a number similar to this number but with the decimal point moved to the right.
 
 <b>Parameters:</b>
 
- * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
+ * <i>places</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
 
 <b>Return Value:</b>
 
-A number whose exponent is increased by  <i>bigPlaces</i>
+A number whose exponent is increased by  <i>places</i>
 , but not to more than 0.
 
 <a id="MovePointRight_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
@@ -2967,6 +2950,23 @@ Returns a number similar to this number but with the decimal point moved to the 
  * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed.
+
+<b>Return Value:</b>
+
+A number whose exponent is increased by  <i>bigPlaces</i>
+, but not to more than 0.
+
+<a id="MovePointRight_PeterO_Numbers_EInteger"></a>
+### MovePointRight
+
+    public PeterO.Numbers.EDecimal MovePointRight(
+        PeterO.Numbers.EInteger bigPlaces);
+
+Returns a number similar to this number but with the decimal point moved to the right.
+
+<b>Parameters:</b>
+
+ * <i>bigPlaces</i>: The number of decimal places to move the decimal point to the right. If this number is negative, instead moves the decimal point to the left by this number's absolute value.
 
 <b>Return Value:</b>
 
@@ -3938,22 +3938,6 @@ Rounds this object's value to a given precision, using the given rounding mode a
 The closest value to this object's value, rounded to the specified precision. If  <i>ctx</i>
  is null or the precision and exponent range are unlimited, returns the same value as this object (or a quiet NaN if this object is a signaling NaN).
 
-<a id="Pow_int"></a>
-### Pow
-
-    public PeterO.Numbers.EDecimal Pow(
-        int exponentSmall);
-
-Raises this object's value to the given exponent.
-
-<b>Parameters:</b>
-
- * <i>exponentSmall</i>: The exponent to raise this object's value to.
-
-<b>Return Value:</b>
-
-This^exponent. Returns not-a-number (NaN) if this object and exponent are both 0.
-
 <a id="Pow_int_PeterO_Numbers_EContext"></a>
 ### Pow
 
@@ -3973,21 +3957,21 @@ Raises this object's value to the given exponent.
 
 This^exponent. Signals the flag FlagInvalid and returns NaN if this object and exponent are both 0.
 
-<a id="Pow_PeterO_Numbers_EDecimal"></a>
+<a id="Pow_int"></a>
 ### Pow
 
     public PeterO.Numbers.EDecimal Pow(
-        PeterO.Numbers.EDecimal exponent);
+        int exponentSmall);
 
-Raises this object's value to the given exponent, using unlimited precision.
+Raises this object's value to the given exponent.
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: An arbitrary-precision decimal number expressing the exponent to raise this object's value to.
+ * <i>exponentSmall</i>: The exponent to raise this object's value to.
 
 <b>Return Value:</b>
 
-This^exponent. Returns not-a-number (NaN) if the exponent has a fractional part.
+This^exponent. Returns not-a-number (NaN) if this object and exponent are both 0.
 
 <a id="Pow_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Pow
@@ -4009,6 +3993,22 @@ Raises this object's value to the given exponent.
 This^exponent. Signals the flag FlagInvalid and returns NaN if this object and exponent are both 0; or if this value is less than 0 and the exponent either has a fractional part or is infinity. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
  is null or the precision is unlimited (the context's Precision property is 0), and the exponent has a fractional part.
 
+<a id="Pow_PeterO_Numbers_EDecimal"></a>
+### Pow
+
+    public PeterO.Numbers.EDecimal Pow(
+        PeterO.Numbers.EDecimal exponent);
+
+Raises this object's value to the given exponent, using unlimited precision.
+
+<b>Parameters:</b>
+
+ * <i>exponent</i>: An arbitrary-precision decimal number expressing the exponent to raise this object's value to.
+
+<b>Return Value:</b>
+
+This^exponent. Returns not-a-number (NaN) if the exponent has a fractional part.
+
 <a id="Precision"></a>
 ### Precision
 
@@ -4026,7 +4026,7 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EDecimal PreRound(
         PeterO.Numbers.EContext ctx);
 
-Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation per the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.
+Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation in accordance with the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.
 
 <b>Parameters:</b>
 
@@ -4174,22 +4174,6 @@ Returns the remainder that would result when this arbitrary-precision decimal fl
 
 The remainder that would result when this arbitrary-precision decimal floating-point number is divided by another arbitrary-precision decimal floating-point number. Signals FlagDivideByZero and returns infinity if the divisor (this arbitrary-precision decimal floating-point number) is 0 and the dividend (the other arbitrary-precision decimal floating-point number) is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0, or if the result of the division doesn't fit the given precision.
 
-<a id="RemainderNaturalScale_PeterO_Numbers_EDecimal"></a>
-### RemainderNaturalScale
-
-    public PeterO.Numbers.EDecimal RemainderNaturalScale(
-        PeterO.Numbers.EDecimal divisor);
-
-Calculates the remainder of a number by the formula  `"this" - (("this" / "divisor") * "divisor")` .
-
-<b>Parameters:</b>
-
- * <i>divisor</i>: The number to divide by.
-
-<b>Return Value:</b>
-
-An arbitrary-precision decimal number.
-
 <a id="RemainderNaturalScale_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### RemainderNaturalScale
 
@@ -4204,6 +4188,22 @@ Calculates the remainder of a number by the formula "this" - (("this" / "divisor
  * <i>divisor</i>: The number to divide by.
 
  * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the return value to have a higher precision than given in this context. Flags will be set on the given context only if the context's  `HasFlags`  is true and the integer part of the division result doesn't fit the precision and exponent range without rounding. Can be null, in which the precision is unlimited and no additional rounding, other than the rounding down to an integer after division, is needed.
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number.
+
+<a id="RemainderNaturalScale_PeterO_Numbers_EDecimal"></a>
+### RemainderNaturalScale
+
+    public PeterO.Numbers.EDecimal RemainderNaturalScale(
+        PeterO.Numbers.EDecimal divisor);
+
+Calculates the remainder of a number by the formula  `"this" - (("this" / "divisor") * "divisor")` .
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
 
 <b>Return Value:</b>
 
@@ -4257,22 +4257,6 @@ Finds the remainder that results when dividing two arbitrary-precision decimal n
 
 The remainder of the two numbers. Signals FlagInvalid and returns not-a-number (NaN) if the divisor is 0, or if the result doesn't fit the given precision.
 
-<a id="RoundToExponent_int"></a>
-### RoundToExponent
-
-    public PeterO.Numbers.EDecimal RoundToExponent(
-        int exponentSmall);
-
-Returns an arbitrary-precision decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
-
-<b>Parameters:</b>
-
- * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
-
-<b>Return Value:</b>
-
-An arbitrary-precision decimal number rounded to the closest value representable for the given exponent.
-
 <a id="RoundToExponent_int_PeterO_Numbers_EContext"></a>
 ### RoundToExponent
 
@@ -4311,17 +4295,17 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 An arbitrary-precision decimal number rounded to the given negative number of decimal places.
 
-<a id="RoundToExponent_PeterO_Numbers_EInteger"></a>
+<a id="RoundToExponent_int"></a>
 ### RoundToExponent
 
     public PeterO.Numbers.EDecimal RoundToExponent(
-        PeterO.Numbers.EInteger exponent);
+        int exponentSmall);
 
 Returns an arbitrary-precision decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
+ * <i>exponentSmall</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
 <b>Return Value:</b>
 
@@ -4360,6 +4344,22 @@ Returns an arbitrary-precision decimal number with the same value as this object
  * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
  * <i>rounding</i>: Desired mode for rounding this number's value.
+
+<b>Return Value:</b>
+
+An arbitrary-precision decimal number rounded to the closest value representable for the given exponent.
+
+<a id="RoundToExponent_PeterO_Numbers_EInteger"></a>
+### RoundToExponent
+
+    public PeterO.Numbers.EDecimal RoundToExponent(
+        PeterO.Numbers.EInteger exponent);
+
+Returns an arbitrary-precision decimal number with the same value as this object but rounded to a new exponent if necessary, using the HalfEven rounding mode. The resulting number's Exponent property will not necessarily be the given exponent; use the Quantize method instead to give the result a particular exponent.
+
+<b>Parameters:</b>
+
+ * <i>exponent</i>: The minimum exponent the result can have. This is the maximum number of fractional digits in the result, expressed as a negative number. Can also be positive, which eliminates lower-order places from the number. For example, -3 means round to the thousandth (10^-3, 0.0001), and 3 means round to the thousand (10^3, 1000). A value of 0 rounds the number to an integer.
 
 <b>Return Value:</b>
 
@@ -4507,24 +4507,6 @@ Rounds this object's value to a given precision, using the given rounding mode a
 The closest value to this object's value, rounded to the specified precision. Returns the same value as this object if  <i>ctx</i>
  is null or the precision and exponent range are unlimited.
 
-<a id="ScaleByPowerOfTen_int"></a>
-### ScaleByPowerOfTen
-
-    public PeterO.Numbers.EDecimal ScaleByPowerOfTen(
-        int places);
-
-Returns a number similar to this number but with the scale adjusted.
-
-<b>Parameters:</b>
-
- * <i>places</i>: The power of 10 to scale by.
-
-<b>Return Value:</b>
-
-A number whose exponent is increased by  <i>places</i>
-. For example, if  <i>places</i>
- is 5, "78E-2" becomes "78E+3" and has a bigger value.
-
 <a id="ScaleByPowerOfTen_int_PeterO_Numbers_EContext"></a>
 ### ScaleByPowerOfTen
 
@@ -4546,22 +4528,22 @@ A number whose exponent is generally increased by  <i>places</i>
 . For example, in general, if  <i>places</i>
  is 5, "78E-2" becomes "78E+3" and has a bigger value.
 
-<a id="ScaleByPowerOfTen_PeterO_Numbers_EInteger"></a>
+<a id="ScaleByPowerOfTen_int"></a>
 ### ScaleByPowerOfTen
 
     public PeterO.Numbers.EDecimal ScaleByPowerOfTen(
-        PeterO.Numbers.EInteger bigPlaces);
+        int places);
 
 Returns a number similar to this number but with the scale adjusted.
 
 <b>Parameters:</b>
 
- * <i>bigPlaces</i>: The power of 10 to scale by.
+ * <i>places</i>: The power of 10 to scale by.
 
 <b>Return Value:</b>
 
-A number whose exponent is increased by  <i>bigPlaces</i>
-. For example, if  <i>bigPlaces</i>
+A number whose exponent is increased by  <i>places</i>
+. For example, if  <i>places</i>
  is 5, "78E-2" becomes "78E+3" and has a bigger value.
 
 <a id="ScaleByPowerOfTen_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
@@ -4590,6 +4572,24 @@ A number whose exponent is generally increased by  <i>bigPlaces</i>
  * System.ArgumentNullException:
 The parameter  <i>bigPlaces</i>
  is null.
+
+<a id="ScaleByPowerOfTen_PeterO_Numbers_EInteger"></a>
+### ScaleByPowerOfTen
+
+    public PeterO.Numbers.EDecimal ScaleByPowerOfTen(
+        PeterO.Numbers.EInteger bigPlaces);
+
+Returns a number similar to this number but with the scale adjusted.
+
+<b>Parameters:</b>
+
+ * <i>bigPlaces</i>: The power of 10 to scale by.
+
+<b>Return Value:</b>
+
+A number whose exponent is increased by  <i>bigPlaces</i>
+. For example, if  <i>bigPlaces</i>
+ is 5, "78E-2" becomes "78E+3" and has a bigger value.
 
 <a id="Sqrt_PeterO_Numbers_EContext"></a>
 ### Sqrt
@@ -4660,22 +4660,6 @@ Subtracts a 64-bit signed integer from this arbitrary-precision decimal floating
 
 The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus a 64-bit signed integer. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
-<a id="Subtract_PeterO_Numbers_EDecimal"></a>
-### Subtract
-
-    public PeterO.Numbers.EDecimal Subtract(
-        PeterO.Numbers.EDecimal otherValue);
-
-Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.
-
-<b>Parameters:</b>
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
-<b>Return Value:</b>
-
-The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
-
 <a id="Subtract_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Subtract
 
@@ -4700,6 +4684,22 @@ The difference between the two numbers, that is, this arbitrary-precision decima
  * System.ArgumentNullException:
 The parameter  <i>otherValue</i>
  is null.
+
+<a id="Subtract_PeterO_Numbers_EDecimal"></a>
+### Subtract
+
+    public PeterO.Numbers.EDecimal Subtract(
+        PeterO.Numbers.EDecimal otherValue);
+
+Subtracts an arbitrary-precision decimal floating-point number from this arbitrary-precision decimal floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision decimal floating-point number's exponent and the other arbitrary-precision decimal floating-point number's exponent.
+
+<b>Parameters:</b>
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+<b>Return Value:</b>
+
+The difference between the two numbers, that is, this arbitrary-precision decimal floating-point number minus another arbitrary-precision decimal floating-point number. If this arbitrary-precision decimal floating-point number is not-a-number (NaN), returns NaN.
 
 <a id="ToByteChecked"></a>
 ### ToByteChecked

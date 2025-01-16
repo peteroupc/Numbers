@@ -852,7 +852,7 @@ Initializes an arbitrary-precision integer from a portion of an array of bytes. 
  * The last byte contains the lowest 8-bits, the next-to-last contains the next lowest 8 bits, and so on. For example, the number 300 can be encoded as  `0x01, 0x2C`  and 200 as  `0x00,
             0xC8` . (Note that the second example contains a set high bit in  `0xC8` , so an additional 0 is added at the start to ensure it's interpreted as positive.)
 
- * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and toggle each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as  `0xfe, 0x70`  and -52869 as  `0xff, 0x31, 0x7B` . (Note that the second example contains a cleared high bit in  `0x31, 0x7B` , so an additional 0xff is added at the start to ensure it's interpreted as negative.)
+ * To encode negative numbers, take the absolute value of the number, subtract by 1, encode the number into bytes, and reverse each bit of each byte. Any further bits that appear beyond the most significant bit of the number will be all ones. For example, the number -450 can be encoded as  `0xfe, 0x70`  and -52869 as  `0xff, 0x31, 0x7B` . (Note that the second example contains a cleared high bit in  `0x31, 0x7B` , so an additional 0xff is added at the start to ensure it's interpreted as negative.)
 
 For little-endian, the byte order is reversed from the byte order just discussed.
 
@@ -2697,7 +2697,7 @@ The parameter  <i>bthis</i>
         PeterO.Numbers.EInteger bthis,
         int bitCount);
 
-Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 &times; by, a value of 4 &times; by, and so on.
+Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 × by, a value of 4 × by, and so on.
 
 <b>Parameters:</b>
 
@@ -3152,7 +3152,7 @@ Finds the nth root of this instance's value, rounded down.
 
 <b>Parameters:</b>
 
- * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and so on.
+ * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and in general, if N, the N-th root.
 
 <b>Return Value:</b>
 
@@ -3168,7 +3168,7 @@ Finds the nth root of this instance's value, rounded down.
 
 <b>Parameters:</b>
 
- * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and so on.
+ * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and in general, if N, the N-th root.
 
 <b>Return Value:</b>
 
@@ -3190,7 +3190,7 @@ Calculates the nth root and the remainder.
 
 <b>Parameters:</b>
 
- * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and so on.
+ * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and in general, if N, the N-th root.
 
 <b>Return Value:</b>
 
@@ -3206,7 +3206,7 @@ Calculates the nth root and the remainder.
 
 <b>Parameters:</b>
 
- * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and so on.
+ * <i>root</i>: The root to find; must be 1 or greater. If this value is 2, this method finds the square root; if 3, the cube root, and in general, if N, the N-th root.
 
 <b>Return Value:</b>
 
@@ -3224,7 +3224,7 @@ The parameter  <i>root</i>
     public PeterO.Numbers.EInteger ShiftLeft(
         int numberBits);
 
-Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 &times; by, a value of 4 &times; by, and so on.
+Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3, by 8, a value of 4, by 16, and in general, a value of N, by 2^N, where N is 1 or greater.
 
 <b>Parameters:</b>
 
@@ -3240,7 +3240,7 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EInteger ShiftLeft(
         PeterO.Numbers.EInteger eshift);
 
-Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits given as an arbitrary-precision integer. A value of 1 doubles this value, a value of 2 multiplies it by 4, a value of 3 &times; by, a value of 4 &times; by, and so on.
+Returns an arbitrary-precision integer with the bits shifted to the left by a number of bits given as an arbitrary-precision integer. A value of 1 doubles this value, a value of 2 multiplies it by 4; a value of 3, by 8; a value of 4, by 16; and in general, a value of N, by 2^N, where N is 1 or greater.
 
 <b>Parameters:</b>
 

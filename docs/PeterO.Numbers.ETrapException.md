@@ -2,7 +2,6 @@
 
     public sealed class ETrapException :
         System.ArithmeticException,
-        System.Runtime.InteropServices._Exception,
         System.Runtime.Serialization.ISerializable
 
 Exception thrown for arithmetic trap errors. (The "E" stands for "extended", and has this prefix to group it with the other classes common to this library, particularly EDecimal, EFloat, and ERational.). This library may throw exceptions of this type in certain cases, notably when errors occur, and may supply messages to those exceptions (the message can be accessed through the  `Message`  property in.NET or the  `getMessage()`  method in Java). These messages are intended to be read by humans to help diagnose the error (or other cause of the exception); they are not intended to be parsed by computer programs, and the exact text of the messages may change at any time between versions of this library.
@@ -60,19 +59,6 @@ The parameter  <i>flags</i>
  doesn't include all the flags in the  <i>flag</i>
  parameter.
 
-<a id="Void_ctor_System_String"></a>
-### ETrapException Constructor
-
-    public ETrapException(
-        string message);
-
-Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
-
-<b>Parameters:</b>
-
- * <i>message</i>: The parameter  <i>message</i>
- is a text string.
-
 <a id="Void_ctor_System_String_System_Exception"></a>
 ### ETrapException Constructor
 
@@ -89,6 +75,19 @@ Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers
 
  * <i>innerException</i>: The parameter  <i>innerException</i>
  is an Exception object.
+
+<a id="Void_ctor_System_String"></a>
+### ETrapException Constructor
+
+    public ETrapException(
+        string message);
+
+Initializes a new instance of the [PeterO.Numbers.ETrapException](PeterO.Numbers.ETrapException.md) class.
+
+<b>Parameters:</b>
+
+ * <i>message</i>: The parameter  <i>message</i>
+ is a text string.
 
 <a id="Void_ctor"></a>
 ### ETrapException Constructor

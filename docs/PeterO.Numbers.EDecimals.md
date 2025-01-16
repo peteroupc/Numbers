@@ -47,7 +47,7 @@ A class that implements additional operations on arbitrary-precision decimal num
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical AND operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a nonnegative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001` , but not  `02001`  or  `99999`  ). The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010=01000` .
+Performs a logical AND operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a nonnegative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical AND operation sets each digit of the result to 1 if the corresponding digits of each logical operand are both 1, and to 0 otherwise. For example,  `01001 AND 111010=01000` .
 
 <b>Parameters:</b>
 
@@ -554,7 +554,7 @@ The parameter  <i>nc</i>
         PeterO.Numbers.EDecimal ed2,
         PeterO.Numbers.EContext ec);
 
-Performs a logical OR operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a nonnegative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001` , but not  `02001`  or  `99999`  ). The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise. For example,  `01001 OR 111010=111011` .
+Performs a logical OR operation on two decimal numbers in the form of <i>logical operands</i>. A  `logical operand`  is a nonnegative base-10 number with an Exponent property of 0 and no other base-10 digits than 0 or 1 (examples include  `01001`  and  `111001`  , but not  `02001`  or  `99999`  ). The logical OR operation sets each digit of the result to 1 if either or both of the corresponding digits of the logical operands are 1, and to 0 otherwise. For example,  `01001 OR 111010=111011` .
 
 <b>Parameters:</b>
 

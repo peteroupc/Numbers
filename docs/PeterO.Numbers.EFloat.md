@@ -481,22 +481,6 @@ Adds this arbitrary-precision binary floating-point number and a 64-bit signed i
 
 The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus a 64-bit signed integer. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.
 
-<a id="Add_PeterO_Numbers_EFloat"></a>
-### Add
-
-    public PeterO.Numbers.EFloat Add(
-        PeterO.Numbers.EFloat otherValue);
-
-Adds this arbitrary-precision binary floating-point number and another arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other arbitrary-precision binary floating-point number's exponent.
-
-<b>Parameters:</b>
-
- * <i>otherValue</i>: An arbitrary-precision binary floating-point number.
-
-<b>Return Value:</b>
-
-The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus another arbitrary-precision binary floating-point number. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.
-
 <a id="Add_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Add
 
@@ -511,6 +495,22 @@ Adds this arbitrary-precision binary floating-point number and another arbitrary
  * <i>otherValue</i>: The number to add to.
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and no rounding is needed.
+
+<b>Return Value:</b>
+
+The sum of the two numbers, that is, this arbitrary-precision binary floating-point number plus another arbitrary-precision binary floating-point number. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.
+
+<a id="Add_PeterO_Numbers_EFloat"></a>
+### Add
+
+    public PeterO.Numbers.EFloat Add(
+        PeterO.Numbers.EFloat otherValue);
+
+Adds this arbitrary-precision binary floating-point number and another arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other arbitrary-precision binary floating-point number's exponent.
+
+<b>Parameters:</b>
+
+ * <i>otherValue</i>: An arbitrary-precision binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -591,37 +591,6 @@ Quiet NaN if this object or the other object is NaN, or 0 if both objects have t
 
 .
 
-<a id="CompareToTotal_PeterO_Numbers_EFloat"></a>
-### CompareToTotal
-
-    public int CompareToTotal(
-        PeterO.Numbers.EFloat other);
-
-Compares the values of this object and another object, imposing a total ordering on all possible values. In this method:
-
- * For objects with the same value, the one with the higher exponent has a greater "absolute value".
-
- * Negative zero is less than positive zero.
-
- * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
-
- * NaN has a higher "absolute value" than infinity.
-
- * Infinity has a higher "absolute value" than any finite number.
-
- * Negative numbers are less than positive numbers.
-
-<b>Parameters:</b>
-
- * <i>other</i>: An arbitrary-precision binary floating-point number to compare with this one.
-
-<b>Return Value:</b>
-
-The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
- is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
-
-.
-
 <a id="CompareToTotal_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### CompareToTotal
 
@@ -656,23 +625,25 @@ The number 0 if both objects have the same value, or -1 if this object is less t
 
 .
 
-<a id="CompareToTotalMagnitude_PeterO_Numbers_EFloat"></a>
-### CompareToTotalMagnitude
+<a id="CompareToTotal_PeterO_Numbers_EFloat"></a>
+### CompareToTotal
 
-    public int CompareToTotalMagnitude(
+    public int CompareToTotal(
         PeterO.Numbers.EFloat other);
 
-Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs). In this method:
+Compares the values of this object and another object, imposing a total ordering on all possible values. In this method:
 
  * For objects with the same value, the one with the higher exponent has a greater "absolute value".
 
- * Negative zero and positive zero are considered equal.
+ * Negative zero is less than positive zero.
 
  * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
 
  * NaN has a higher "absolute value" than infinity.
 
  * Infinity has a higher "absolute value" than any finite number.
+
+ * Negative numbers are less than positive numbers.
 
 <b>Parameters:</b>
 
@@ -715,6 +686,35 @@ Compares the values of this object and another object, imposing a total ordering
 <b>Return Value:</b>
 
 The number 0 if both objects have the same value (ignoring their signs), or -1 if this object is less than the other value (ignoring their signs), or 1 if this object is greater (ignoring their signs). Does not signal flags if either value is signaling NaN. This implementation returns a positive number if  <i>other</i>
+ is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
+
+.
+
+<a id="CompareToTotalMagnitude_PeterO_Numbers_EFloat"></a>
+### CompareToTotalMagnitude
+
+    public int CompareToTotalMagnitude(
+        PeterO.Numbers.EFloat other);
+
+Compares the absolute values of this object and another object, imposing a total ordering on all possible values (ignoring their signs). In this method:
+
+ * For objects with the same value, the one with the higher exponent has a greater "absolute value".
+
+ * Negative zero and positive zero are considered equal.
+
+ * Quiet NaN has a higher "absolute value" than signaling NaN. If both objects are quiet NaN or both are signaling NaN, the one with the higher diagnostic information has a greater "absolute value".
+
+ * NaN has a higher "absolute value" than infinity.
+
+ * Infinity has a higher "absolute value" than any finite number.
+
+<b>Parameters:</b>
+
+ * <i>other</i>: An arbitrary-precision binary floating-point number to compare with this one.
+
+<b>Return Value:</b>
+
+The number 0 if both objects have the same value, or -1 if this object is less than the other value, or 1 if this object is greater. This implementation returns a positive number if  <i>other</i>
  is null, to conform to the.NET definition of CompareTo. This is the case even in the Java version of this library, for consistency's sake, even though implementations of  `Comparable.compareTo()`  in Java ought to throw an exception if they receive a null argument rather than treating null as less or greater than any object.
 
 .
@@ -972,22 +972,6 @@ The parameter  <i>mantissa</i>
  or  <i>exponent</i>
  is null.
 
-<a id="CreateNaN_PeterO_Numbers_EInteger"></a>
-### CreateNaN
-
-    public static PeterO.Numbers.EFloat CreateNaN(
-        PeterO.Numbers.EInteger diag);
-
-Creates a not-a-number arbitrary-precision binary number.
-
-<b>Parameters:</b>
-
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision binary floating-point number, use that object's  `UnsignedMantissa`  property.
-
-<b>Return Value:</b>
-
-A quiet not-a-number.
-
 <a id="CreateNaN_PeterO_Numbers_EInteger_bool_bool_PeterO_Numbers_EContext"></a>
 ### CreateNaN
 
@@ -1018,6 +1002,22 @@ An arbitrary-precision binary number.
  * System.ArgumentNullException:
 The parameter  <i>diag</i>
  is null or is less than 0.
+
+<a id="CreateNaN_PeterO_Numbers_EInteger"></a>
+### CreateNaN
+
+    public static PeterO.Numbers.EFloat CreateNaN(
+        PeterO.Numbers.EInteger diag);
+
+Creates a not-a-number arbitrary-precision binary number.
+
+<b>Parameters:</b>
+
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision binary floating-point number, use that object's  `UnsignedMantissa`  property.
+
+<b>Return Value:</b>
+
+A quiet not-a-number.
 
 <a id="Decrement"></a>
 ### Decrement
@@ -1073,22 +1073,6 @@ The result of dividing this arbitrary-precision binary floating-point number by 
  * System.DivideByZeroException:
 Attempted to divide by zero.
 
-<a id="Divide_PeterO_Numbers_EFloat"></a>
-### Divide
-
-    public PeterO.Numbers.EFloat Divide(
-        PeterO.Numbers.EFloat divisor);
-
-Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
-
-<b>Parameters:</b>
-
- * <i>divisor</i>: The number to divide by.
-
-<b>Return Value:</b>
-
-The result of dividing this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number. Returns infinity if the divisor (this arbitrary-precision binary floating-point number) is 0 and the dividend (the other arbitrary-precision binary floating-point number) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Binary64`  ) instead.
-
 <a id="Divide_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Divide
 
@@ -1110,15 +1094,13 @@ The result of dividing this arbitrary-precision binary floating-point number by 
  is null or  <i>ctx</i>
  's precision is 0, and the result would have a nonterminating binary expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12); or, the rounding mode is ERounding.None and the result is not exact.
 
-<a id="DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat"></a>
-### DivideAndRemainderNaturalScale
+<a id="Divide_PeterO_Numbers_EFloat"></a>
+### Divide
 
-    public PeterO.Numbers.EFloat[] DivideAndRemainderNaturalScale(
+    public PeterO.Numbers.EFloat Divide(
         PeterO.Numbers.EFloat divisor);
 
-<b>Deprecated.</b> Renamed to DivRemNaturalScale.
-
-Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
+Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns the result; returns NaN instead if the result would have a nonterminating binary expansion (including 1/3, 1/12, 1/7, 2/3, and so on); if this is not desired, use DivideToExponent, or use the Divide overload that takes an EContext.
 
 <b>Parameters:</b>
 
@@ -1126,7 +1108,7 @@ Calculates the quotient and remainder using the DivideToIntegerNaturalScale and 
 
 <b>Return Value:</b>
 
-A 2 element array consisting of the quotient and remainder in that order.
+The result of dividing this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number. Returns infinity if the divisor (this arbitrary-precision binary floating-point number) is 0 and the dividend (the other arbitrary-precision binary floating-point number) is nonzero. Returns not-a-number (NaN) if the divisor and the dividend are 0. Returns NaN if the result can't be exact because it would have a nonterminating binary expansion (examples include 1 divided by any multiple of 3, such as 1/3 or 1/12). If this is not desired, use DivideToExponent instead, or use the Divide overload that takes an  `EContext`  (such as  `EContext.Binary64`  ) instead.
 
 <a id="DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### DivideAndRemainderNaturalScale
@@ -1144,6 +1126,24 @@ Calculates the quotient and remainder using the DivideToIntegerNaturalScale and 
  * <i>divisor</i>: The number to divide by.
 
  * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's  `HasFlags`  is true and the integer part of the division result doesn't fit the precision and exponent range without rounding. Can be null, in which the precision is unlimited and no additional rounding, other than the rounding down to an integer after division, is needed.
+
+<b>Return Value:</b>
+
+A 2 element array consisting of the quotient and remainder in that order.
+
+<a id="DivideAndRemainderNaturalScale_PeterO_Numbers_EFloat"></a>
+### DivideAndRemainderNaturalScale
+
+    public PeterO.Numbers.EFloat[] DivideAndRemainderNaturalScale(
+        PeterO.Numbers.EFloat divisor);
+
+<b>Deprecated.</b> Renamed to DivRemNaturalScale.
+
+Calculates the quotient and remainder using the DivideToIntegerNaturalScale and the formula in RemainderNaturalScale.
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
 
 <b>Return Value:</b>
 
@@ -1237,22 +1237,6 @@ Divides two arbitrary-precision binary floating-point numbers, and gives a parti
 
 The quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the context defines an exponent range and the desired exponent is outside that range. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
 
-<a id="DivideToIntegerNaturalScale_PeterO_Numbers_EFloat"></a>
-### DivideToIntegerNaturalScale
-
-    public PeterO.Numbers.EFloat DivideToIntegerNaturalScale(
-        PeterO.Numbers.EFloat divisor);
-
-Divides two arbitrary-precision binary floating-point numbers, and returns the integer part of the result, rounded down, with the preferred exponent set to this value's exponent minus the divisor's exponent.
-
-<b>Parameters:</b>
-
- * <i>divisor</i>: The number to divide by.
-
-<b>Return Value:</b>
-
-The integer part of the quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
-
 <a id="DivideToIntegerNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### DivideToIntegerNaturalScale
 
@@ -1272,6 +1256,22 @@ Divides this object by another object, and returns the integer part of the resul
 <b>Return Value:</b>
 
 The integer part of the quotient of the two objects. Signals FlagInvalid and returns not-a-number (NaN) if the return value would overflow the exponent range. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
+
+<a id="DivideToIntegerNaturalScale_PeterO_Numbers_EFloat"></a>
+### DivideToIntegerNaturalScale
+
+    public PeterO.Numbers.EFloat DivideToIntegerNaturalScale(
+        PeterO.Numbers.EFloat divisor);
+
+Divides two arbitrary-precision binary floating-point numbers, and returns the integer part of the result, rounded down, with the preferred exponent set to this value's exponent minus the divisor's exponent.
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
+
+<b>Return Value:</b>
+
+The integer part of the quotient of the two objects. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0.
 
 <a id="DivideToIntegerZeroScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### DivideToIntegerZeroScale
@@ -1311,22 +1311,6 @@ Divides this object by another binary floating-point number and returns a result
 
 The quotient of the two numbers. Signals FlagDivideByZero and returns infinity if the divisor is 0 and the dividend is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0. Signals FlagInvalid and returns not-a-number (NaN) if the rounding mode is ERounding.None and the result is not exact.
 
-<a id="DivRemNaturalScale_PeterO_Numbers_EFloat"></a>
-### DivRemNaturalScale
-
-    public PeterO.Numbers.EFloat[] DivRemNaturalScale(
-        PeterO.Numbers.EFloat divisor);
-
-Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by  `DivideToIntegerNaturalScale` , and the remainder is calculated as though by  `RemainderNaturalScale` .
-
-<b>Parameters:</b>
-
- * <i>divisor</i>: The number to divide by.
-
-<b>Return Value:</b>
-
-An array of two items: the first is the result of the division as an arbitrary-precision binary floating-point number, and the second is the remainder as an arbitrary-precision binary floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.
-
 <a id="DivRemNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### DivRemNaturalScale
 
@@ -1341,6 +1325,22 @@ Divides this arbitrary-precision binary floating-point number by another arbitra
  * <i>divisor</i>: The number to divide by.
 
  * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the remainder to have a higher precision than given in this context. Flags will be set on the given context only if the context's  `HasFlags`  is true and the integer part of the division result doesn't fit the precision and exponent range without rounding. Can be null, in which the precision is unlimited and no additional rounding, other than the rounding down to an integer after division, is needed.
+
+<b>Return Value:</b>
+
+An array of two items: the first is the result of the division as an arbitrary-precision binary floating-point number, and the second is the remainder as an arbitrary-precision binary floating-point number. The result of division is the result of the method on the two operands, and the remainder is the result of the Remainder method on the two operands.
+
+<a id="DivRemNaturalScale_PeterO_Numbers_EFloat"></a>
+### DivRemNaturalScale
+
+    public PeterO.Numbers.EFloat[] DivRemNaturalScale(
+        PeterO.Numbers.EFloat divisor);
+
+Divides this arbitrary-precision binary floating-point number by another arbitrary-precision binary floating-point number and returns a two-item array containing the result of the division and the remainder, in that order. The result of division is calculated as though by  `DivideToIntegerNaturalScale` , and the remainder is calculated as though by  `RemainderNaturalScale` .
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
 
 <b>Return Value:</b>
 
@@ -1650,73 +1650,6 @@ Creates a binary floating-point number from a 32-bit floating-point number encod
 A binary floating-point number with the same floating-point value as  <i>value</i>
 .
 
-<a id="FromString_byte"></a>
-### FromString
-
-    public static PeterO.Numbers.EFloat FromString(
-        byte[] bytes);
-
-Creates a binary floating-point number from a sequence of bytes that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int,
-            int, EContext)`  method.
-
-<b>Parameters:</b>
-
- * <i>bytes</i>: A sequence of bytes to convert to a binary floating-point number.
-
-<b>Return Value:</b>
-
-The parsed number, converted to arbitrary-precision binary floating-point number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bytes</i>
- is null.
-
- * System.FormatException:
-The portion given of  <i>bytes</i>
- is not a correctly formatted number sequence.
-
-<a id="FromString_byte_int_int"></a>
-### FromString
-
-    public static PeterO.Numbers.EFloat FromString(
-        byte[] bytes,
-        int offset,
-        int length);
-
-Creates a binary floating-point number from a sequence of bytes that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
-
-<b>Parameters:</b>
-
- * <i>bytes</i>: A sequence of bytes to convert to a binary floating-point number.
-
- * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>bytes</i>
- begins.
-
- * <i>length</i>: The length, in code units, of the desired portion of  <i>bytes</i>
- (but not more than  <i>bytes</i>
- 's length).
-
-<b>Return Value:</b>
-
-An arbitrary-precision binary floating-point number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>bytes</i>
- is null.
-
- * System.ArgumentException:
-Either  <i>offset</i>
- or  <i>length</i>
- is less than 0 or greater than  <i>bytes</i>
- 's length, or  <i>bytes</i>
- 's length minus  <i>offset</i>
- is less than  <i>length</i>
-.
-
 <a id="FromString_byte_int_int_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -1771,6 +1704,46 @@ The portion given of  <i>bytes</i>
  is less than  <i>length</i>
 .
 
+<a id="FromString_byte_int_int"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        byte[] bytes,
+        int offset,
+        int length);
+
+Creates a binary floating-point number from a sequence of bytes that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>bytes</i>: A sequence of bytes to convert to a binary floating-point number.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>bytes</i>
+ begins.
+
+ * <i>length</i>: The length, in code units, of the desired portion of  <i>bytes</i>
+ (but not more than  <i>bytes</i>
+ 's length).
+
+<b>Return Value:</b>
+
+An arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>bytes</i>
+ is null.
+
+ * System.ArgumentException:
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>bytes</i>
+ 's length, or  <i>bytes</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
 <a id="FromString_byte_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -1796,17 +1769,18 @@ The parsed number, converted to arbitrary-precision binary floating-point number
 The parameter  <i>bytes</i>
  is null.
 
-<a id="FromString_char"></a>
+<a id="FromString_byte"></a>
 ### FromString
 
     public static PeterO.Numbers.EFloat FromString(
-        char[] chars);
+        byte[] bytes);
 
-Creates a binary floating-point number from a sequence of  `char`  s that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int, int, EContext)`  method.
+Creates a binary floating-point number from a sequence of bytes that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int,
+            int, EContext)`  method.
 
 <b>Parameters:</b>
 
- * <i>chars</i>: A sequence of  `char`  s to convert to a binary floating-point number.
+ * <i>bytes</i>: A sequence of bytes to convert to a binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -1815,52 +1789,12 @@ The parsed number, converted to arbitrary-precision binary floating-point number
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>chars</i>
+The parameter  <i>bytes</i>
  is null.
 
  * System.FormatException:
-The portion given of  <i>chars</i>
+The portion given of  <i>bytes</i>
  is not a correctly formatted number sequence.
-
-<a id="FromString_char_int_int"></a>
-### FromString
-
-    public static PeterO.Numbers.EFloat FromString(
-        char[] chars,
-        int offset,
-        int length);
-
-Creates a binary floating-point number from a sequence of  `char`  s that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
-
-<b>Parameters:</b>
-
- * <i>chars</i>: A sequence of  `char`  s to convert to a binary floating-point number.
-
- * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>chars</i>
- begins.
-
- * <i>length</i>: The length, in code units, of the desired portion of  <i>chars</i>
- (but not more than  <i>chars</i>
- 's length).
-
-<b>Return Value:</b>
-
-An arbitrary-precision binary floating-point number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>chars</i>
- is null.
-
- * System.ArgumentException:
-Either  <i>offset</i>
- or  <i>length</i>
- is less than 0 or greater than  <i>chars</i>
- 's length, or  <i>chars</i>
- 's length minus  <i>offset</i>
- is less than  <i>length</i>
-.
 
 <a id="FromString_char_int_int_PeterO_Numbers_EContext"></a>
 ### FromString
@@ -1916,6 +1850,46 @@ The portion given of  <i>chars</i>
  is less than  <i>length</i>
 .
 
+<a id="FromString_char_int_int"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        char[] chars,
+        int offset,
+        int length);
+
+Creates a binary floating-point number from a sequence of  `char`  s that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>chars</i>: A sequence of  `char`  s to convert to a binary floating-point number.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>chars</i>
+ begins.
+
+ * <i>length</i>: The length, in code units, of the desired portion of  <i>chars</i>
+ (but not more than  <i>chars</i>
+ 's length).
+
+<b>Return Value:</b>
+
+An arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>chars</i>
+ is null.
+
+ * System.ArgumentException:
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>chars</i>
+ 's length, or  <i>chars</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
 <a id="FromString_char_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -1941,18 +1915,17 @@ The parsed number, converted to arbitrary-precision binary floating-point number
 The parameter  <i>chars</i>
  is null.
 
-<a id="FromString_string"></a>
+<a id="FromString_char"></a>
 ### FromString
 
     public static PeterO.Numbers.EFloat FromString(
-        string str);
+        char[] chars);
 
-Creates a binary floating-point number from a text string that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int, int,
-            EContext)`  method.
+Creates a binary floating-point number from a sequence of  `char`  s that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int, int, EContext)`  method.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string to convert to a binary floating-point number.
+ * <i>chars</i>: A sequence of  `char`  s to convert to a binary floating-point number.
 
 <b>Return Value:</b>
 
@@ -1961,62 +1934,12 @@ The parsed number, converted to arbitrary-precision binary floating-point number
 <b>Exceptions:</b>
 
  * System.ArgumentNullException:
-The parameter  <i>str</i>
+The parameter  <i>chars</i>
  is null.
 
  * System.FormatException:
-The portion given of  <i>str</i>
- is not a correctly formatted number string.
-
-<a id="FromString_string_int_int"></a>
-### FromString
-
-    public static PeterO.Numbers.EFloat FromString(
-        string str,
-        int offset,
-        int length);
-
-Creates a binary floating-point number from a text string that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
-
-<b>Parameters:</b>
-
- * <i>str</i>: The parameter  <i>str</i>
- is a text string.
-
- * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>str</i>
- begins.
-
- * <i>length</i>: The length, in code units, of the desired portion of  <i>str</i>
- (but not more than  <i>str</i>
- 's length).
-
-<b>Return Value:</b>
-
-An arbitrary-precision binary floating-point number.
-
-<b>Exceptions:</b>
-
- *  T:System.ArgumentException:
-Either  <i> offset</i>
- or  <i> length</i>
- is less than 0 or greater than  <i>str</i>
- 's length, or  <i>             str</i>
- 's length minus  <i>offset</i>
- is less than  <i>length</i>
-.
-
- * System.ArgumentNullException:
-The parameter  <i>str</i>
- is null.
-
- * System.ArgumentException:
-Either  <i>offset</i>
- or  <i>length</i>
- is less than 0 or greater than  <i>str</i>
- 's length, or  <i>str</i>
- 's length minus  <i>offset</i>
- is less than  <i>length</i>
-.
+The portion given of  <i>chars</i>
+ is not a correctly formatted number sequence.
 
 <a id="FromString_string_int_int_PeterO_Numbers_EContext"></a>
 ### FromString
@@ -2073,6 +1996,56 @@ The portion given of  <i>str</i>
  is less than  <i>length</i>
 .
 
+<a id="FromString_string_int_int"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        string str,
+        int offset,
+        int length);
+
+Creates a binary floating-point number from a text string that represents a number. For more information, see the  `FromString(String, int, int, EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>str</i>: The parameter  <i>str</i>
+ is a text string.
+
+ * <i>offset</i>: An index starting at 0 showing where the desired portion of  <i>str</i>
+ begins.
+
+ * <i>length</i>: The length, in code units, of the desired portion of  <i>str</i>
+ (but not more than  <i>str</i>
+ 's length).
+
+<b>Return Value:</b>
+
+An arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ *  T:System.ArgumentException:
+Either  <i> offset</i>
+ or  <i> length</i>
+ is less than 0 or greater than  <i>str</i>
+ 's length, or  <i>             str</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
+ * System.ArgumentNullException:
+The parameter  <i>str</i>
+ is null.
+
+ * System.ArgumentException:
+Either  <i>offset</i>
+ or  <i>length</i>
+ is less than 0 or greater than  <i>str</i>
+ 's length, or  <i>str</i>
+ 's length minus  <i>offset</i>
+ is less than  <i>length</i>
+.
+
 <a id="FromString_string_PeterO_Numbers_EContext"></a>
 ### FromString
 
@@ -2097,6 +2070,33 @@ The parsed number, converted to arbitrary-precision binary floating-point number
  * System.ArgumentNullException:
 The parameter  <i>str</i>
  is null.
+
+<a id="FromString_string"></a>
+### FromString
+
+    public static PeterO.Numbers.EFloat FromString(
+        string str);
+
+Creates a binary floating-point number from a text string that represents a number, using an unlimited precision context. For more information, see the  `FromString(String, int, int,
+            EContext)`  method.
+
+<b>Parameters:</b>
+
+ * <i>str</i>: A text string to convert to a binary floating-point number.
+
+<b>Return Value:</b>
+
+The parsed number, converted to arbitrary-precision binary floating-point number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>str</i>
+ is null.
+
+ * System.FormatException:
+The portion given of  <i>str</i>
+ is not a correctly formatted number string.
 
 <a id="FromUInt16_ushort"></a>
 ### FromUInt16
@@ -2330,32 +2330,6 @@ Ln(this object)/Ln(baseValue). Signals the flag FlagInvalid and returns not-a-nu
 The parameter  <i>baseValue</i>
  is null.
 
-<a id="Max_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
-### Max
-
-    public static PeterO.Numbers.EFloat Max(
-        PeterO.Numbers.EFloat first,
-        PeterO.Numbers.EFloat second);
-
-Gets the greater value between two binary floating-point numbers.
-
-<b>Parameters:</b>
-
- * <i>first</i>: The first value to compare.
-
- * <i>second</i>: The second value to compare.
-
-<b>Return Value:</b>
-
-The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger exponent. If the two numbers are negative and have the same value, returns the one with the smaller exponent.
-
-<b>Exceptions:</b>
-
- * System.ArgumentNullException:
-The parameter  <i>first</i>
- or  <i>second</i>
- is null.
-
 <a id="Max_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Max
 
@@ -2385,14 +2359,14 @@ The parameter  <i>first</i>
  or  <i>second</i>
  is null.
 
-<a id="MaxMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
-### MaxMagnitude
+<a id="Max_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
+### Max
 
-    public static PeterO.Numbers.EFloat MaxMagnitude(
+    public static PeterO.Numbers.EFloat Max(
         PeterO.Numbers.EFloat first,
         PeterO.Numbers.EFloat second);
 
-Gets the greater value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Max.
+Gets the greater value between two binary floating-point numbers.
 
 <b>Parameters:</b>
 
@@ -2402,7 +2376,7 @@ Gets the greater value between two values, ignoring their signs. If the absolute
 
 <b>Return Value:</b>
 
-The larger value of the two numbers, ignoring their signs.
+The larger value of the two numbers. If one is positive zero and the other is negative zero, returns the positive zero. If the two numbers are positive and have the same value, returns the one with the larger exponent. If the two numbers are negative and have the same value, returns the one with the smaller exponent.
 
 <b>Exceptions:</b>
 
@@ -2440,14 +2414,14 @@ The parameter  <i>first</i>
  or  <i>second</i>
  is null.
 
-<a id="Min_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
-### Min
+<a id="MaxMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
+### MaxMagnitude
 
-    public static PeterO.Numbers.EFloat Min(
+    public static PeterO.Numbers.EFloat MaxMagnitude(
         PeterO.Numbers.EFloat first,
         PeterO.Numbers.EFloat second);
 
-Gets the lesser value between two binary floating-point numbers.
+Gets the greater value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Max.
 
 <b>Parameters:</b>
 
@@ -2457,7 +2431,7 @@ Gets the lesser value between two binary floating-point numbers.
 
 <b>Return Value:</b>
 
-The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller exponent. If the two numbers are negative and have the same value, returns the one with the larger exponent.
+The larger value of the two numbers, ignoring their signs.
 
 <b>Exceptions:</b>
 
@@ -2495,14 +2469,14 @@ The parameter  <i>first</i>
  or  <i>second</i>
  is null.
 
-<a id="MinMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
-### MinMagnitude
+<a id="Min_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
+### Min
 
-    public static PeterO.Numbers.EFloat MinMagnitude(
+    public static PeterO.Numbers.EFloat Min(
         PeterO.Numbers.EFloat first,
         PeterO.Numbers.EFloat second);
 
-Gets the lesser value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Min.
+Gets the lesser value between two binary floating-point numbers.
 
 <b>Parameters:</b>
 
@@ -2512,7 +2486,7 @@ Gets the lesser value between two values, ignoring their signs. If the absolute 
 
 <b>Return Value:</b>
 
-The smaller value of the two numbers, ignoring their signs.
+The smaller value of the two numbers. If one is positive zero and the other is negative zero, returns the negative zero. If the two numbers are positive and have the same value, returns the one with the smaller exponent. If the two numbers are negative and have the same value, returns the one with the larger exponent.
 
 <b>Exceptions:</b>
 
@@ -2550,22 +2524,31 @@ The parameter  <i>first</i>
  or  <i>second</i>
  is null.
 
-<a id="MovePointLeft_int"></a>
-### MovePointLeft
+<a id="MinMagnitude_PeterO_Numbers_EFloat_PeterO_Numbers_EFloat"></a>
+### MinMagnitude
 
-    public PeterO.Numbers.EFloat MovePointLeft(
-        int places);
+    public static PeterO.Numbers.EFloat MinMagnitude(
+        PeterO.Numbers.EFloat first,
+        PeterO.Numbers.EFloat second);
 
-Returns a number similar to this number but with the radix point moved to the left.
+Gets the lesser value between two values, ignoring their signs. If the absolute values are equal, has the same effect as Min.
 
 <b>Parameters:</b>
 
- * <i>places</i>: The number of binary digit places to move the radix point to the left. If this number is negative, instead moves the radix point to the right by this number's absolute value.
+ * <i>first</i>: The first value to compare.
+
+ * <i>second</i>: The second value to compare.
 
 <b>Return Value:</b>
 
-A number whose exponent is decreased by  <i>places</i>
-, but not to more than 0.
+The smaller value of the two numbers, ignoring their signs.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentNullException:
+The parameter  <i>first</i>
+ or  <i>second</i>
+ is null.
 
 <a id="MovePointLeft_int_PeterO_Numbers_EContext"></a>
 ### MovePointLeft
@@ -2587,21 +2570,21 @@ Returns a number similar to this number but with the radix point moved to the le
 A number whose exponent is decreased by  <i>places</i>
 , but not to more than 0.
 
-<a id="MovePointLeft_PeterO_Numbers_EInteger"></a>
+<a id="MovePointLeft_int"></a>
 ### MovePointLeft
 
     public PeterO.Numbers.EFloat MovePointLeft(
-        PeterO.Numbers.EInteger bigPlaces);
+        int places);
 
 Returns a number similar to this number but with the radix point moved to the left.
 
 <b>Parameters:</b>
 
- * <i>bigPlaces</i>: The number of binary digit places to move the radix point to the left. If this number is negative, instead moves the radix point to the right by this number's absolute value.
+ * <i>places</i>: The number of binary digit places to move the radix point to the left. If this number is negative, instead moves the radix point to the right by this number's absolute value.
 
 <b>Return Value:</b>
 
-A number whose exponent is decreased by  <i>bigPlaces</i>
+A number whose exponent is decreased by  <i>places</i>
 , but not to more than 0.
 
 <a id="MovePointLeft_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
@@ -2624,21 +2607,21 @@ Returns a number similar to this number but with the radix point moved to the le
 A number whose exponent is decreased by  <i>bigPlaces</i>
 , but not to more than 0.
 
-<a id="MovePointRight_int"></a>
-### MovePointRight
+<a id="MovePointLeft_PeterO_Numbers_EInteger"></a>
+### MovePointLeft
 
-    public PeterO.Numbers.EFloat MovePointRight(
-        int places);
+    public PeterO.Numbers.EFloat MovePointLeft(
+        PeterO.Numbers.EInteger bigPlaces);
 
-Returns a number similar to this number but with the radix point moved to the right.
+Returns a number similar to this number but with the radix point moved to the left.
 
 <b>Parameters:</b>
 
- * <i>places</i>: The number of binary digit places to move the radix point to the right. If this number is negative, instead moves the radix point to the left by this number's absolute value.
+ * <i>bigPlaces</i>: The number of binary digit places to move the radix point to the left. If this number is negative, instead moves the radix point to the right by this number's absolute value.
 
 <b>Return Value:</b>
 
-A number whose exponent is increased by  <i>places</i>
+A number whose exponent is decreased by  <i>bigPlaces</i>
 , but not to more than 0.
 
 <a id="MovePointRight_int_PeterO_Numbers_EContext"></a>
@@ -2661,21 +2644,21 @@ Returns a number similar to this number but with the radix point moved to the ri
 A number whose exponent is increased by  <i>places</i>
 , but not to more than 0.
 
-<a id="MovePointRight_PeterO_Numbers_EInteger"></a>
+<a id="MovePointRight_int"></a>
 ### MovePointRight
 
     public PeterO.Numbers.EFloat MovePointRight(
-        PeterO.Numbers.EInteger bigPlaces);
+        int places);
 
 Returns a number similar to this number but with the radix point moved to the right.
 
 <b>Parameters:</b>
 
- * <i>bigPlaces</i>: The number of binary digit places to move the radix point to the right. If this number is negative, instead moves the radix point to the left by this number's absolute value.
+ * <i>places</i>: The number of binary digit places to move the radix point to the right. If this number is negative, instead moves the radix point to the left by this number's absolute value.
 
 <b>Return Value:</b>
 
-A number whose exponent is increased by  <i>bigPlaces</i>
+A number whose exponent is increased by  <i>places</i>
 , but not to more than 0.
 
 <a id="MovePointRight_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
@@ -2692,6 +2675,23 @@ Returns a number similar to this number but with the radix point moved to the ri
  * <i>bigPlaces</i>: The number of binary digit places to move the radix point to the right. If this number is negative, instead moves the radix point to the left by this number's absolute value.
 
  * <i>ctx</i>: An arithmetic context to control the precision, rounding, and exponent range of the result. If  `HasFlags`  of the context is true, will also store the flags resulting from the operation (the flags are in addition to the pre-existing flags). Can be null, in which case the precision is unlimited and rounding isn't needed.
+
+<b>Return Value:</b>
+
+A number whose exponent is increased by  <i>bigPlaces</i>
+, but not to more than 0.
+
+<a id="MovePointRight_PeterO_Numbers_EInteger"></a>
+### MovePointRight
+
+    public PeterO.Numbers.EFloat MovePointRight(
+        PeterO.Numbers.EInteger bigPlaces);
+
+Returns a number similar to this number but with the radix point moved to the right.
+
+<b>Parameters:</b>
+
+ * <i>bigPlaces</i>: The number of binary digit places to move the radix point to the right. If this number is negative, instead moves the radix point to the left by this number's absolute value.
 
 <b>Return Value:</b>
 
@@ -3669,22 +3669,6 @@ Rounds this object's value to a given precision, using the given rounding mode a
 The closest value to this object's value, rounded to the specified precision. If  <i>ctx</i>
  is null or the precision and exponent range are unlimited, returns the same value as this object (or a quiet NaN if this object is a signaling NaN).
 
-<a id="Pow_int"></a>
-### Pow
-
-    public PeterO.Numbers.EFloat Pow(
-        int exponentSmall);
-
-Raises this object's value to the given exponent.
-
-<b>Parameters:</b>
-
- * <i>exponentSmall</i>: The exponent to raise this object's value to.
-
-<b>Return Value:</b>
-
-This^exponent. Returns not-a-number (NaN) if this object and exponent are both 0.
-
 <a id="Pow_int_PeterO_Numbers_EContext"></a>
 ### Pow
 
@@ -3704,21 +3688,21 @@ Raises this object's value to the given exponent.
 
 This^exponent. Signals the flag FlagInvalid and returns NaN if this object and exponent are both 0.
 
-<a id="Pow_PeterO_Numbers_EFloat"></a>
+<a id="Pow_int"></a>
 ### Pow
 
     public PeterO.Numbers.EFloat Pow(
-        PeterO.Numbers.EFloat exponent);
+        int exponentSmall);
 
-Raises this object's value to the given exponent, using unlimited precision.
+Raises this object's value to the given exponent.
 
 <b>Parameters:</b>
 
- * <i>exponent</i>: An arbitrary-precision binary floating-point number expressing the exponent to raise this object's value to.
+ * <i>exponentSmall</i>: The exponent to raise this object's value to.
 
 <b>Return Value:</b>
 
-This^exponent. Returns not-a-number (NaN) if the exponent has a fractional part.
+This^exponent. Returns not-a-number (NaN) if this object and exponent are both 0.
 
 <a id="Pow_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Pow
@@ -3740,6 +3724,22 @@ Raises this object's value to the given exponent.
 This^exponent. Signals the flag FlagInvalid and returns NaN if this object and exponent are both 0; or if this value is less than 0 and the exponent either has a fractional part or is infinity. Signals FlagInvalid and returns not-a-number (NaN) if the parameter  <i>ctx</i>
  is null or the precision is unlimited (the context's Precision property is 0), and the exponent has a fractional part.
 
+<a id="Pow_PeterO_Numbers_EFloat"></a>
+### Pow
+
+    public PeterO.Numbers.EFloat Pow(
+        PeterO.Numbers.EFloat exponent);
+
+Raises this object's value to the given exponent, using unlimited precision.
+
+<b>Parameters:</b>
+
+ * <i>exponent</i>: An arbitrary-precision binary floating-point number expressing the exponent to raise this object's value to.
+
+<b>Return Value:</b>
+
+This^exponent. Returns not-a-number (NaN) if the exponent has a fractional part.
+
 <a id="Precision"></a>
 ### Precision
 
@@ -3757,7 +3757,7 @@ An arbitrary-precision integer.
     public PeterO.Numbers.EFloat PreRound(
         PeterO.Numbers.EContext ctx);
 
-Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation per the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.
+Returns a number in which the value of this object is rounded to fit the maximum precision allowed if it has more significant digits than the maximum precision. The maximum precision allowed is given in an arithmetic context. This method is designed for preparing operands to a custom arithmetic operation in accordance with the "simplified" arithmetic given in Appendix A of the General Decimal Arithmetic Specification.
 
 <b>Parameters:</b>
 
@@ -3888,22 +3888,6 @@ Returns the remainder that would result when this arbitrary-precision binary flo
 
 The remainder that would result when this arbitrary-precision binary floating-point number is divided by another arbitrary-precision binary floating-point number. Signals FlagDivideByZero and returns infinity if the divisor (this arbitrary-precision binary floating-point number) is 0 and the dividend (the other arbitrary-precision binary floating-point number) is nonzero. Signals FlagInvalid and returns not-a-number (NaN) if the divisor and the dividend are 0, or if the result of the division doesn't fit the given precision.
 
-<a id="RemainderNaturalScale_PeterO_Numbers_EFloat"></a>
-### RemainderNaturalScale
-
-    public PeterO.Numbers.EFloat RemainderNaturalScale(
-        PeterO.Numbers.EFloat divisor);
-
-Calculates the remainder of a number by the formula  `"this" - (("this" / "divisor") * "divisor")` .
-
-<b>Parameters:</b>
-
- * <i>divisor</i>: The number to divide by.
-
-<b>Return Value:</b>
-
-An arbitrary-precision binary floating-point number.
-
 <a id="RemainderNaturalScale_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### RemainderNaturalScale
 
@@ -3918,6 +3902,22 @@ Calculates the remainder of a number by the formula "this" - (("this" / "divisor
  * <i>divisor</i>: The number to divide by.
 
  * <i>ctx</i>: An arithmetic context object to control the precision, rounding, and exponent range of the result. This context will be used only in the division portion of the remainder calculation; as a result, it's possible for the return value to have a higher precision than given in this context. Flags will be set on the given context only if the context's  `HasFlags`  is true and the integer part of the division result doesn't fit the precision and exponent range without rounding. Can be null, in which the precision is unlimited and no additional rounding, other than the rounding down to an integer after division, is needed.
+
+<b>Return Value:</b>
+
+An arbitrary-precision binary floating-point number.
+
+<a id="RemainderNaturalScale_PeterO_Numbers_EFloat"></a>
+### RemainderNaturalScale
+
+    public PeterO.Numbers.EFloat RemainderNaturalScale(
+        PeterO.Numbers.EFloat divisor);
+
+Calculates the remainder of a number by the formula  `"this" - (("this" / "divisor") * "divisor")` .
+
+<b>Parameters:</b>
+
+ * <i>divisor</i>: The number to divide by.
 
 <b>Return Value:</b>
 
@@ -4152,23 +4152,6 @@ Rounds this object's value to a given precision, using the given rounding mode a
 The closest value to this object's value, rounded to the specified precision. Returns the same value as this object if  <i>ctx</i>
  is null or the precision and exponent range are unlimited.
 
-<a id="ScaleByPowerOfTwo_int"></a>
-### ScaleByPowerOfTwo
-
-    public PeterO.Numbers.EFloat ScaleByPowerOfTwo(
-        int places);
-
-Returns a number similar to this number but with the scale adjusted.
-
-<b>Parameters:</b>
-
- * <i>places</i>: The parameter  <i>places</i>
- is a 32-bit signed integer.
-
-<b>Return Value:</b>
-
-An arbitrary-precision binary floating-point number.
-
 <a id="ScaleByPowerOfTwo_int_PeterO_Numbers_EContext"></a>
 ### ScaleByPowerOfTwo
 
@@ -4189,22 +4172,22 @@ Returns a number similar to this number but with the scale adjusted.
 
 An arbitrary-precision binary floating-point number.
 
-<a id="ScaleByPowerOfTwo_PeterO_Numbers_EInteger"></a>
+<a id="ScaleByPowerOfTwo_int"></a>
 ### ScaleByPowerOfTwo
 
     public PeterO.Numbers.EFloat ScaleByPowerOfTwo(
-        PeterO.Numbers.EInteger bigPlaces);
+        int places);
 
 Returns a number similar to this number but with the scale adjusted.
 
 <b>Parameters:</b>
 
- * <i>bigPlaces</i>: An arbitrary-precision integer.
+ * <i>places</i>: The parameter  <i>places</i>
+ is a 32-bit signed integer.
 
 <b>Return Value:</b>
 
-A number whose exponent is increased by  <i>bigPlaces</i>
-.
+An arbitrary-precision binary floating-point number.
 
 <a id="ScaleByPowerOfTwo_PeterO_Numbers_EInteger_PeterO_Numbers_EContext"></a>
 ### ScaleByPowerOfTwo
@@ -4230,6 +4213,23 @@ An arbitrary-precision binary floating-point number.
  * System.ArgumentNullException:
 The parameter  <i>bigPlaces</i>
  is null.
+
+<a id="ScaleByPowerOfTwo_PeterO_Numbers_EInteger"></a>
+### ScaleByPowerOfTwo
+
+    public PeterO.Numbers.EFloat ScaleByPowerOfTwo(
+        PeterO.Numbers.EInteger bigPlaces);
+
+Returns a number similar to this number but with the scale adjusted.
+
+<b>Parameters:</b>
+
+ * <i>bigPlaces</i>: An arbitrary-precision integer.
+
+<b>Return Value:</b>
+
+A number whose exponent is increased by  <i>bigPlaces</i>
+.
 
 <a id="Sqrt_PeterO_Numbers_EContext"></a>
 ### Sqrt
@@ -4301,22 +4301,6 @@ Subtracts a 64-bit signed integer from this arbitrary-precision binary floating-
 
 The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus a 64-bit signed integer. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.
 
-<a id="Subtract_PeterO_Numbers_EFloat"></a>
-### Subtract
-
-    public PeterO.Numbers.EFloat Subtract(
-        PeterO.Numbers.EFloat otherValue);
-
-Subtracts an arbitrary-precision binary floating-point number from this arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other arbitrary-precision binary floating-point number's exponent.
-
-<b>Parameters:</b>
-
- * <i>otherValue</i>: The number to subtract from this instance's value.
-
-<b>Return Value:</b>
-
-The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus another arbitrary-precision binary floating-point number. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.
-
 <a id="Subtract_PeterO_Numbers_EFloat_PeterO_Numbers_EContext"></a>
 ### Subtract
 
@@ -4341,6 +4325,22 @@ The difference between the two numbers, that is, this arbitrary-precision binary
  * System.ArgumentNullException:
 The parameter  <i>otherValue</i>
  is null.
+
+<a id="Subtract_PeterO_Numbers_EFloat"></a>
+### Subtract
+
+    public PeterO.Numbers.EFloat Subtract(
+        PeterO.Numbers.EFloat otherValue);
+
+Subtracts an arbitrary-precision binary floating-point number from this arbitrary-precision binary floating-point number and returns the result. The exponent for the result is the lower of this arbitrary-precision binary floating-point number's exponent and the other arbitrary-precision binary floating-point number's exponent.
+
+<b>Parameters:</b>
+
+ * <i>otherValue</i>: The number to subtract from this instance's value.
+
+<b>Return Value:</b>
+
+The difference between the two numbers, that is, this arbitrary-precision binary floating-point number minus another arbitrary-precision binary floating-point number. If this arbitrary-precision binary floating-point number is not-a-number (NaN), returns NaN.
 
 <a id="ToByteChecked"></a>
 ### ToByteChecked

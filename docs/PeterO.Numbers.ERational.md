@@ -727,28 +727,6 @@ The parameter  <i>numerator</i>
  or  <i>denominator</i>
  is null.
 
-<a id="CreateNaN_PeterO_Numbers_EInteger"></a>
-### CreateNaN
-
-    public static PeterO.Numbers.ERational CreateNaN(
-        PeterO.Numbers.EInteger diag);
-
-Creates a not-a-number arbitrary-precision rational number.
-
-<b>Parameters:</b>
-
- * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision rational number, use that object's  `UnsignedNumerator`  property.
-
-<b>Return Value:</b>
-
-An arbitrary-precision rational number.
-
-<b>Exceptions:</b>
-
- * System.ArgumentException:
-The parameter  <i>diag</i>
- is less than 0.
-
 <a id="CreateNaN_PeterO_Numbers_EInteger_bool_bool"></a>
 ### CreateNaN
 
@@ -780,6 +758,28 @@ The parameter  <i>diag</i>
  * System.ArgumentNullException:
 The parameter  <i>diag</i>
  is null.
+
+<a id="CreateNaN_PeterO_Numbers_EInteger"></a>
+### CreateNaN
+
+    public static PeterO.Numbers.ERational CreateNaN(
+        PeterO.Numbers.EInteger diag);
+
+Creates a not-a-number arbitrary-precision rational number.
+
+<b>Parameters:</b>
+
+ * <i>diag</i>: An integer, 0 or greater, to use as diagnostic information associated with this object. If none is needed, should be zero. To get the diagnostic information from another arbitrary-precision rational number, use that object's  `UnsignedNumerator`  property.
+
+<b>Return Value:</b>
+
+An arbitrary-precision rational number.
+
+<b>Exceptions:</b>
+
+ * System.ArgumentException:
+The parameter  <i>diag</i>
+ is less than 0.
 
 <a id="Decrement"></a>
 ### Decrement
@@ -999,6 +999,9 @@ An arbitrary-precision rational number.
 The parameter  <i>ef</i>
  is null.
 
+ * System.ArgumentException:
+doesn't satisfy den.Sign &gt;= 0.
+
 <a id="FromEFloat_PeterO_Numbers_EFloat"></a>
 ### FromEFloat
 
@@ -1020,6 +1023,9 @@ An arbitrary-precision rational number.
  * System.ArgumentNullException:
 The parameter  <i>ef</i>
  is null.
+
+ * System.ArgumentException:
+doesn't satisfy den.Sign &gt;= 0.
 
 <a id="FromEInteger_PeterO_Numbers_EInteger"></a>
 ### FromEInteger
@@ -1209,28 +1215,6 @@ Creates a binary rational number from a 32-bit floating-point number encoded in 
 A rational number with the same floating-point value as  <i>value</i>
 .
 
-<a id="FromString_byte"></a>
-### FromString
-
-    public static PeterO.Numbers.ERational FromString(
-        byte[] bytes);
-
-Creates a rational number from a sequence of bytes that represents a number. See  `FromString(String, int, int)`  for more information.
-
-<b>Parameters:</b>
-
- * <i>bytes</i>: A sequence of bytes that represents a number.
-
-<b>Return Value:</b>
-
-An arbitrary-precision rational number with the same value as the given sequence of bytes.
-
-<b>Exceptions:</b>
-
- * System.FormatException:
-The parameter  <i>bytes</i>
- is not a correctly formatted sequence of bytes.
-
 <a id="FromString_byte_int_int"></a>
 ### FromString
 
@@ -1249,7 +1233,7 @@ The format of the sequence of bytes generally consists of:
 
  * Optionally, "/" followed by the denominator in the form of one or more digits (these digits may begin with any number of zeros). If a denominator is not given, it's equal to 1.
 
-The sequence of bytes can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of uppercase and lowercase.
+The sequence of bytes can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
 
 All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of bytes is not allowed to contain white space characters, including spaces.
 
@@ -1287,27 +1271,27 @@ Either  <i>offset</i>
  is less than  <i>length</i>
 .
 
-<a id="FromString_char"></a>
+<a id="FromString_byte"></a>
 ### FromString
 
     public static PeterO.Numbers.ERational FromString(
-        char[] chars);
+        byte[] bytes);
 
-Creates a rational number from a sequence of  `char`  s that represents a number. See  `FromString(String, int, int)`  for more information.
+Creates a rational number from a sequence of bytes that represents a number. See  `FromString(String, int, int)`  for more information.
 
 <b>Parameters:</b>
 
- * <i>chars</i>: A sequence of  `char`  s that represents a number.
+ * <i>bytes</i>: A sequence of bytes that represents a number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number with the same value as the given sequence of  `char`  s.
+An arbitrary-precision rational number with the same value as the given sequence of bytes.
 
 <b>Exceptions:</b>
 
  * System.FormatException:
-The parameter  <i>chars</i>
- is not a correctly formatted sequence of  `char`  s.
+The parameter  <i>bytes</i>
+ is not a correctly formatted sequence of bytes.
 
 <a id="FromString_char_int_int"></a>
 ### FromString
@@ -1327,7 +1311,7 @@ The format of the sequence of  `char`  s generally consists of:
 
  * Optionally, "/" followed by the denominator in the form of one or more digits (these digits may begin with any number of zeros). If a denominator is not given, it's equal to 1.
 
-The sequence of  `char`  s can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of uppercase and lowercase.
+The sequence of  `char`  s can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lowercase.
 
 All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of  `char`  s is not allowed to contain white space characters, including spaces.
 
@@ -1365,27 +1349,27 @@ Either  <i>offset</i>
  is less than  <i>length</i>
 .
 
-<a id="FromString_string"></a>
+<a id="FromString_char"></a>
 ### FromString
 
     public static PeterO.Numbers.ERational FromString(
-        string str);
+        char[] chars);
 
-Creates a rational number from a text string that represents a number. See  `FromString(String, int, int)`  for more information.
+Creates a rational number from a sequence of  `char`  s that represents a number. See  `FromString(String, int, int)`  for more information.
 
 <b>Parameters:</b>
 
- * <i>str</i>: A string that represents a number.
+ * <i>chars</i>: A sequence of  `char`  s that represents a number.
 
 <b>Return Value:</b>
 
-An arbitrary-precision rational number with the same value as the given string.
+An arbitrary-precision rational number with the same value as the given sequence of  `char`  s.
 
 <b>Exceptions:</b>
 
  * System.FormatException:
-The parameter  <i>str</i>
- is not a correctly formatted number string.
+The parameter  <i>chars</i>
+ is not a correctly formatted sequence of  `char`  s.
 
 <a id="FromString_string_int_int"></a>
 ### FromString
@@ -1442,6 +1426,28 @@ Either  <i>offset</i>
  's length minus  <i>offset</i>
  is less than  <i>length</i>
 .
+
+<a id="FromString_string"></a>
+### FromString
+
+    public static PeterO.Numbers.ERational FromString(
+        string str);
+
+Creates a rational number from a text string that represents a number. See  `FromString(String, int, int)`  for more information.
+
+<b>Parameters:</b>
+
+ * <i>str</i>: A string that represents a number.
+
+<b>Return Value:</b>
+
+An arbitrary-precision rational number with the same value as the given string.
+
+<b>Exceptions:</b>
+
+ * System.FormatException:
+The parameter  <i>str</i>
+ is not a correctly formatted number string.
 
 <a id="FromUInt16_ushort"></a>
 ### FromUInt16
