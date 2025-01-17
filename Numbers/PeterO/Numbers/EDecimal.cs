@@ -4959,9 +4959,9 @@ namespace PeterO.Numbers {
     /// rounded to fit the maximum precision allowed if it has more
     /// significant digits than the maximum precision. The maximum
     /// precision allowed is given in an arithmetic context. This method is
-    /// designed for preparing operands to a custom arithmetic operation in
-    /// accordance with the "simplified" arithmetic given in Appendix A of
-    /// the General Decimal Arithmetic Specification.</summary>
+    /// designed for preparing operands to a custom arithmetic operation
+    /// per the "simplified" arithmetic given in Appendix A of the General
+    /// Decimal Arithmetic Specification.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
     /// the context is true, will also store the flags resulting from the

@@ -694,8 +694,8 @@ PositiveInfinity) : CreateNaN(
     /// <para>The sequence of <c>char</c> s can also be "-INF",
     /// "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed
     /// by any number of digits, or signaling NaN ("sNaN" /"-sNaN")
-    /// followed by any number of digits, all in any combination of upper
-    /// and lowercase.</para>
+    /// followed by any number of digits, all in any combination of
+    /// uppercase and lowercase.</para>
     /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of
@@ -757,8 +757,8 @@ PositiveInfinity) : CreateNaN(
     /// <para>The sequence of bytes can also be "-INF", "-Infinity",
     /// "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number
     /// of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any
-    /// number of digits, all in any combination of upper and lower
-    /// case.</para>
+    /// number of digits, all in any combination of uppercase and
+    /// lowercase.</para>
     /// <para>All characters mentioned earlier are the corresponding
     /// characters in the Basic Latin range. In particular, the digits must
     /// be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of

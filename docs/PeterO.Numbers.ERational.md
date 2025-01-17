@@ -1233,7 +1233,7 @@ The format of the sequence of bytes generally consists of:
 
  * Optionally, "/" followed by the denominator in the form of one or more digits (these digits may begin with any number of zeros). If a denominator is not given, it's equal to 1.
 
-The sequence of bytes can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lower case.
+The sequence of bytes can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of uppercase and lowercase.
 
 All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of bytes is not allowed to contain white space characters, including spaces.
 
@@ -1311,7 +1311,7 @@ The format of the sequence of  `char`  s generally consists of:
 
  * Optionally, "/" followed by the denominator in the form of one or more digits (these digits may begin with any number of zeros). If a denominator is not given, it's equal to 1.
 
-The sequence of  `char`  s can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of upper and lowercase.
+The sequence of  `char`  s can also be "-INF", "-Infinity", "Infinity", "INF", quiet NaN ("NaN" /"-NaN") followed by any number of digits, or signaling NaN ("sNaN" /"-sNaN") followed by any number of digits, all in any combination of uppercase and lowercase.
 
 All characters mentioned earlier are the corresponding characters in the Basic Latin range. In particular, the digits must be the basic digits 0 to 9 (U+0030 to U+0039). The sequence of  `char`  s is not allowed to contain white space characters, including spaces.
 
