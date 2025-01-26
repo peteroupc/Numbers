@@ -77,7 +77,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[FromUInt16(ushort)](#FromUInt16_ushort)</code> - Converts a 16-bit unsigned integer to an arbitrary-precision integer.
 * <code>[FromUInt32(uint)](#FromUInt32_uint)</code> - Converts a 32-bit signed integer to an arbitrary-precision integer.
 * <code>[FromUInt64(ulong)](#FromUInt64_ulong)</code> - Converts a 64-bit unsigned integer to an arbitrary-precision integer.
-* <code>[Gcd(PeterO.Numbers.EInteger)](#Gcd_PeterO_Numbers_EInteger)</code> - Returns the greatest common divisor of this integer and the given integer.
+* <code>[Gcd(PeterO.Numbers.EInteger)](#Gcd_PeterO_Numbers_EInteger)</code> - Returns the greatest common divisor of this integer and the specified integer.
 * <code>[GetBits(int, int)](#GetBits_int_int)</code> - Retrieves bits from this integer's two's-complement form.
 * <code>[GetDigitCount()](#GetDigitCount)</code> - <b>Obsolete:</b> This method may overflow. Use GetDigitCountAsEInteger instead.
 * <code>[GetDigitCountAsEInteger()](#GetDigitCountAsEInteger)</code> - Returns the number of decimal digits used by this integer, in the form of an arbitrary-precision integer.
@@ -179,7 +179,7 @@ Applications should instead use dedicated security libraries to handle big numbe
 * <code>[ToInt32Unchecked()](#ToInt32Unchecked)</code> - Converts this object's value to a 32-bit signed integer.
 * <code>[ToInt64Checked()](#ToInt64Checked)</code> - Converts this object's value to a 64-bit signed integer, throwing an exception if it can't fit.
 * <code>[ToInt64Unchecked()](#ToInt64Unchecked)</code> - Converts this object's value to a 64-bit signed integer.
-* <code>[ToRadixString(int)](#ToRadixString_int)</code> - Generates a string representing the value of this object, in the given radix.
+* <code>[ToRadixString(int)](#ToRadixString_int)</code> - Generates a string representing the value of this object, in the specified radix.
 * <code>[ToSByteChecked()](#ToSByteChecked)</code> - Converts this number's value to an 8-bit signed integer if it can fit in an 8-bit signed integer.
 * <code>[ToSByteUnchecked()](#ToSByteUnchecked)</code> - Converts this number to an 8-bit signed integer, returning the least-significant bits of this number's two's-complement form.
 * <code>[ToString()](#ToString)</code> - Converts this object to a text string in base 10.
@@ -973,7 +973,7 @@ Converts a sequence of bytes (interpreted as text) to an arbitrary-precision int
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer with the same value as the given sequence of bytes.
+An arbitrary-precision integer with the same value as the specified sequence of bytes.
 
 <b>Exceptions:</b>
 
@@ -1001,7 +1001,7 @@ Converts a sequence of  `char`  s to an arbitrary-precision integer in a given r
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer with the same value as the given sequence of  `char`  s.
+An arbitrary-precision integer with the same value as the specified sequence of  `char`  s.
 
 <b>Exceptions:</b>
 
@@ -1029,7 +1029,7 @@ Converts a string to an arbitrary-precision integer in a given radix.
 
 <b>Return Value:</b>
 
-An arbitrary-precision integer with the same value as the given string.
+An arbitrary-precision integer with the same value as the specified string.
 
 <b>Exceptions:</b>
 
@@ -1053,7 +1053,7 @@ Converts a portion of a sequence of bytes (interpreted as text) to an arbitrary-
 
 <b>Parameters:</b>
 
- * <i>bytes</i>: A sequence of bytes (interpreted as text). The desired portion of the sequence of bytes (interpreted as text) must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
+ * <i>bytes</i>: A sequence of bytes (interpreted as text). The desired portion of the sequence of bytes (interpreted as text) must contain only characters allowed by the specified radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
 
  * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of bytes (interpreted as text) can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic uppercase letter A to Z is allowed in the sequence of bytes (interpreted as text), the corresponding basic lowercase letter (U+0061 to U+007a) is allowed instead.
 
@@ -1087,7 +1087,7 @@ Converts a portion of a sequence of  `char`  s to an arbitrary-precision integer
 
 <b>Parameters:</b>
 
- * <i>cs</i>: A text sequence of  `char`  s. The desired portion of the sequence of  `char`  s must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
+ * <i>cs</i>: A text sequence of  `char`  s. The desired portion of the sequence of  `char`  s must contain only characters allowed by the specified radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
 
  * <i>radix</i>: A base from 2 to 36. Depending on the radix, the sequence of  `char`  s can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic uppercase letter A to Z is allowed in the sequence of  `char`  s, the corresponding basic lowercase letter (U+0061 to U+007a) is allowed instead.
 
@@ -1121,7 +1121,7 @@ Converts a portion of a string to an arbitrary-precision integer in a given radi
 
 <b>Parameters:</b>
 
- * <i>str</i>: A text string. The desired portion of the string must contain only characters allowed by the given radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
+ * <i>str</i>: A text string. The desired portion of the string must contain only characters allowed by the specified radix, except that it may start with a minus sign ("-", U+002D) to indicate a negative number. The desired portion is not allowed to contain white space characters, including spaces. The desired portion may start with any number of zeros.
 
  * <i>radix</i>: A base from 2 to 36. Depending on the radix, the string can use the basic digits 0 to 9 (U+0030 to U+0039) and then the basic uppercase letters A to Z (U+0041 to U+005A). For example, 0-9 in radix 10, and 0-9, then A-F in radix 16. Where a basic uppercase letter A to Z is allowed in the string, the corresponding basic lowercase letter (U+0061 to U+007a) is allowed instead.
 
@@ -1404,7 +1404,7 @@ The value of  <i>ulongValue</i>
     public PeterO.Numbers.EInteger Gcd(
         PeterO.Numbers.EInteger bigintSecond);
 
-Returns the greatest common divisor of this integer and the given integer. The greatest common divisor (GCD) is also known as the greatest common factor (GCF). This method works even if either or both integers are negative.
+Returns the greatest common divisor of this integer and the specified integer. The greatest common divisor (GCD) is also known as the greatest common factor (GCF). This method works even if either or both integers are negative.
 
 <b>Parameters:</b>
 
@@ -1412,7 +1412,7 @@ Returns the greatest common divisor of this integer and the given integer. The g
 
 <b>Return Value:</b>
 
-The greatest common divisor of this integer and the given integer.
+The greatest common divisor of this integer and the specified integer.
 
 <b>Exceptions:</b>
 
@@ -1545,7 +1545,7 @@ Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of n
 
 <b>Return Value:</b>
 
- `true`  if the given bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object's value; otherwise,  `false` .
+ `true`  if the specified bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object's value; otherwise,  `false` .
 
 <a id="GetSignedBit_PeterO_Numbers_EInteger"></a>
 ### GetSignedBit
@@ -1561,7 +1561,7 @@ Returns whether a bit is set in the two's-complement form (see [&#x22;Forms of n
 
 <b>Return Value:</b>
 
- `true`  if the given bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object's value; otherwise,  `false` .
+ `true`  if the specified bit is set in the two' s-complement form (see [&#x22;Forms of numbers&#x22;](PeterO.Numbers.EDecimal.md)"Forms of numbers" ) of this object's value; otherwise,  `false` .
 
 <b>Exceptions:</b>
 
@@ -1623,7 +1623,7 @@ Returns whether a bit is set in this number's absolute value.
 
 <b>Return Value:</b>
 
- `true`  if the given bit is set in this number's absolute value.
+ `true`  if the specified bit is set in this number's absolute value.
 
 <a id="GetUnsignedBit_PeterO_Numbers_EInteger"></a>
 ### GetUnsignedBit
@@ -1639,7 +1639,7 @@ Returns whether a bit is set in this number's absolute value.
 
 <b>Return Value:</b>
 
- `true`  if the given bit is set in this number's absolute value.
+ `true`  if the specified bit is set in this number's absolute value.
 
 <b>Exceptions:</b>
 
@@ -3502,7 +3502,7 @@ A 64-bit signed integer.
     public string ToRadixString(
         int radix);
 
-Generates a string representing the value of this object, in the given radix.
+Generates a string representing the value of this object, in the specified radix.
 
 <b>Parameters:</b>
 

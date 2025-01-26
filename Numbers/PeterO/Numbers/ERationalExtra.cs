@@ -203,7 +203,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Returns an arbitrary-precision rational number with the
-    /// same value as the given one but with its sign reversed.</summary>
+    /// same value as the specified one but with its sign
+    /// reversed.</summary>
     /// <param name='bigValue'>An arbitrary-precision rational number to
     /// negate.</param>
     /// <returns>An arbitrary-precision rational number.</returns>

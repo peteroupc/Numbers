@@ -191,9 +191,9 @@ namespace PeterO.Numbers {
     /// the sign reversed.</summary>
     /// <param name='bigValue'>An arbitrary-precision binary floating-point
     /// number.</param>
-    /// <returns>The negated form of the given number. If the given number
-    /// is positive zero, returns negative zero. Returns signaling NaN if
-    /// this value is signaling NaN.</returns>
+    /// <returns>The negated form of the specified number. If the specified
+    /// number is positive zero, returns negative zero. Returns signaling
+    /// NaN if this value is signaling NaN.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigValue'/> is null.</exception>
     public static EFloat operator -(EFloat bigValue) {

@@ -527,10 +527,11 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Gets the desired rounding mode when converting numbers
-    /// that can't be represented in the given precision and exponent
+    /// that can't be represented in the specified precision and exponent
     /// range.</summary>
     /// <value>The desired rounding mode when converting numbers that can't
-    /// be represented in the given precision and exponent range.</value>
+    /// be represented in the specified precision and exponent
+    /// range.</value>
     public ERounding Rounding {
       get {
         return this.rounding;
@@ -561,9 +562,9 @@ namespace PeterO.Numbers {
       }
     }
 
-    /// <summary>Creates a new arithmetic context using the given maximum
-    /// number of digits, an unlimited exponent range, and the HalfUp
-    /// rounding mode.</summary>
+    /// <summary>Creates a new arithmetic context using the specified
+    /// maximum number of digits, an unlimited exponent range, and the
+    /// HalfUp rounding mode.</summary>
     /// <param name='precision'>Maximum number of digits
     /// (precision).</param>
     /// <returns>A context object for arbitrary-precision arithmetic
@@ -578,8 +579,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Creates a new EContext object initialized with an
-    /// unlimited exponent range, and the given rounding mode and maximum
-    /// precision.</summary>
+    /// unlimited exponent range, and the specified rounding mode and
+    /// maximum precision.</summary>
     /// <param name='precision'>Maximum number of digits
     /// (precision).</param>
     /// <param name='rounding'>The parameter <paramref name='rounding'/> is
@@ -612,7 +613,7 @@ namespace PeterO.Numbers {
       false).WithUnlimitedExponents();
 
     /// <summary>Creates a new EContext object initialized with an
-    /// unlimited precision, an unlimited exponent range, and the given
+    /// unlimited precision, an unlimited exponent range, and the specified
     /// rounding mode.</summary>
     /// <param name='rounding'>The rounding mode for the new precision
     /// context.</param>
@@ -653,11 +654,11 @@ namespace PeterO.Numbers {
         this.traps);
     }
 
-    /// <summary>Determines whether a number can have the given Exponent
-    /// property under this arithmetic context.</summary>
+    /// <summary>Determines whether a number can have the specified
+    /// Exponent property under this arithmetic context.</summary>
     /// <param name='exponent'>An arbitrary-precision integer indicating
     /// the desired exponent.</param>
-    /// <returns><c>true</c> if a number can have the given Exponent
+    /// <returns><c>true</c> if a number can have the specified Exponent
     /// property under this arithmetic context; otherwise, <c>false</c>.
     /// If this context allows unlimited precision, returns true for the
     /// exponent EMax and any exponent less than EMax.</returns>
@@ -715,7 +716,7 @@ this.simplified +
     }
 
     /// <summary>Copies this EContext and sets the copy's "AdjustExponent"
-    /// property to the given value.</summary>
+    /// property to the specified value.</summary>
     /// <param name='adjustExponent'>The new value of the "AdjustExponent"
     /// property for the copy.</param>
     /// <returns>A context object for arbitrary-precision arithmetic
@@ -829,7 +830,7 @@ this.simplified +
     }
 
     /// <summary>Copies this arithmetic context and sets the copy's
-    /// "ClampNormalExponents" flag to the given value.</summary>
+    /// "ClampNormalExponents" flag to the specified value.</summary>
     /// <param name='clamp'>The desired value of the "ClampNormalExponents"
     /// flag.</param>
     /// <returns>A context object for arbitrary-precision arithmetic
@@ -897,7 +898,7 @@ this.simplified +
     }
 
     /// <summary>Copies this EContext and sets the copy's
-    /// "IsPrecisionInBits" property to the given value.</summary>
+    /// "IsPrecisionInBits" property to the specified value.</summary>
     /// <param name='isPrecisionBits'>The new value of the
     /// "IsPrecisionInBits" property for the copy.</param>
     /// <returns>A context object for arbitrary-precision arithmetic
@@ -941,7 +942,7 @@ this.simplified +
     }
 
     /// <summary>Copies this EContext and sets the copy's "IsSimplified"
-    /// property to the given value.</summary>
+    /// property to the specified value.</summary>
     /// <param name='simplified'>Desired value of the IsSimplified
     /// property.</param>
     /// <returns>A context object for arbitrary-precision arithmetic
@@ -962,9 +963,9 @@ this.simplified +
         this.traps);
     }
 
-    /// <summary>Copies this EContext with Traps set to the given value.
-    /// (Also sets HasFlags on the copy to <c>True</c>, but this may
-    /// change in version 2.0 of this library.).</summary>
+    /// <summary>Copies this EContext with Traps set to the specified
+    /// value. (Also sets HasFlags on the copy to <c>True</c>, but this
+    /// may change in version 2.0 of this library.).</summary>
     /// <param name='traps'>Flags representing the traps to enable. See the
     /// property "Traps".</param>
     /// <returns>A context object for arbitrary-precision arithmetic
@@ -1018,11 +1019,12 @@ this.simplified +
        return (this.Traps == 0) ? this : this.WithTraps(0).WithBlankFlags();
     }
 
-  /// <summary>Throws trap exceptions if the given context has flags set
-  /// that also have traps enabled for them in this context, and adds the
-  /// given context's flags to this context if HasFlags for this context
-  /// is true. This is not a general-purpose method; it is intended to
-  /// support custom implementations of arithmetic operations.</summary>
+  /// <summary>Throws trap exceptions if the specified context has flags
+  /// set that also have traps enabled for them in this context, and adds
+  /// the specified context's flags to this context if HasFlags for this
+  /// context is true. This is not a general-purpose method; it is
+  /// intended to support custom implementations of arithmetic
+  /// operations.</summary>
   /// <param name='result'>The result of the operation.</param>
   /// <param name='trappableContext'>An arithmetic context, usually a
   /// context returned by the GetNontrapping method. Can be null.</param>

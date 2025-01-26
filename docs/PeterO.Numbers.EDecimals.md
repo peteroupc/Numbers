@@ -7,31 +7,31 @@ A class that implements additional operations on arbitrary-precision decimal num
 ### Member Summary
 * <code>[And(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#And_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Performs a logical AND operation on two decimal numbers in the form of logical operands.
 * <code>[BooleanToEDecimal(bool, PeterO.Numbers.EContext)](#BooleanToEDecimal_bool_PeterO_Numbers_EContext)</code> - Converts a Boolean value (either true or false) to an arbitrary-precision decimal number.
-* <code>[Canonical(PeterO.Numbers.EDecimal)](#Canonical_PeterO_Numbers_EDecimal)</code> - Returns a canonical version of the given arbitrary-precision number object.
+* <code>[Canonical(PeterO.Numbers.EDecimal)](#Canonical_PeterO_Numbers_EDecimal)</code> - Returns a canonical version of the specified arbitrary-precision number object.
 * <code>[CompareTotal(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareTotal_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the values of one arbitrary-precision number object and another object, imposing a total ordering on all possible values.
 * <code>[CompareTotalMagnitude(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#CompareTotalMagnitude_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Compares the absolute values of two arbitrary-precision number objects, imposing a total ordering on all possible values (ignoring their signs).
-* <code>[Copy(PeterO.Numbers.EDecimal)](#Copy_PeterO_Numbers_EDecimal)</code> - Creates a copy of the given arbitrary-precision number object.
-* <code>[CopyAbs(PeterO.Numbers.EDecimal)](#CopyAbs_PeterO_Numbers_EDecimal)</code> - Returns an arbitrary-precision number object with the same value as the given number object but with a nonnegative sign (that is, the given number object's absolute value).
-* <code>[CopyNegate(PeterO.Numbers.EDecimal)](#CopyNegate_PeterO_Numbers_EDecimal)</code> - Returns an arbitrary-precision number object with the sign reversed from the given number object.
+* <code>[Copy(PeterO.Numbers.EDecimal)](#Copy_PeterO_Numbers_EDecimal)</code> - Creates a copy of the specified arbitrary-precision number object.
+* <code>[CopyAbs(PeterO.Numbers.EDecimal)](#CopyAbs_PeterO_Numbers_EDecimal)</code> - Returns an arbitrary-precision number object with the same value as the specified number object but with a nonnegative sign (that is, the specified number object's absolute value).
+* <code>[CopyNegate(PeterO.Numbers.EDecimal)](#CopyNegate_PeterO_Numbers_EDecimal)</code> - Returns an arbitrary-precision number object with the sign reversed from the specified number object.
 * <code>[CopySign(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#CopySign_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Returns an arbitrary-precision number object with the same value as the first given number object but with a the same sign (positive or negative) as the second given number object.
 * <code>[Int32ToEDecimal(int, PeterO.Numbers.EContext)](#Int32ToEDecimal_int_PeterO_Numbers_EContext)</code> - Creates an arbitrary-precision decimal number from a 32-bit signed integer.
 * <code>[Invert(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Invert_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Performs a logical NOT operation on an arbitrary-precision decimal number in the form of a logical operand.
-* <code>[IsCanonical(PeterO.Numbers.EDecimal)](#IsCanonical_PeterO_Numbers_EDecimal)</code> - Returns whether the given arbitrary-precision number object is in a canonical form.
-* <code>[IsFinite(PeterO.Numbers.EDecimal)](#IsFinite_PeterO_Numbers_EDecimal)</code> - Returns whether the given arbitrary-precision number object is neither null nor infinity nor not-a-number (NaN).
-* <code>[IsInfinite(PeterO.Numbers.EDecimal)](#IsInfinite_PeterO_Numbers_EDecimal)</code> - Returns whether the given arbitrary-precision number object is positive or negative infinity.
-* <code>[IsNaN(PeterO.Numbers.EDecimal)](#IsNaN_PeterO_Numbers_EDecimal)</code> - Returns whether the given arbitrary-precision number object is a not-a-number (NaN).
-* <code>[IsNormal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#IsNormal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns whether the given number is a normal number.
-* <code>[IsQuietNaN(PeterO.Numbers.EDecimal)](#IsQuietNaN_PeterO_Numbers_EDecimal)</code> - Returns whether the given arbitrary-precision number object is a quiet not-a-number (NaN).
-* <code>[IsSignalingNaN(PeterO.Numbers.EDecimal)](#IsSignalingNaN_PeterO_Numbers_EDecimal)</code> - Returns whether the given arbitrary-precision number object is a signaling not-a-number (NaN).
-* <code>[IsSigned(PeterO.Numbers.EDecimal)](#IsSigned_PeterO_Numbers_EDecimal)</code> - Returns whether the given arbitrary-precision number object is negative (including negative infinity, negative not-a-number [NaN], or negative zero).
-* <code>[IsSubnormal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#IsSubnormal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns whether the given number is a subnormal number.
-* <code>[IsZero(PeterO.Numbers.EDecimal)](#IsZero_PeterO_Numbers_EDecimal)</code> - Returns whether the given arbitrary-precision number object is zero (positive zero or negative zero).
+* <code>[IsCanonical(PeterO.Numbers.EDecimal)](#IsCanonical_PeterO_Numbers_EDecimal)</code> - Returns whether the specified arbitrary-precision number object is in a canonical form.
+* <code>[IsFinite(PeterO.Numbers.EDecimal)](#IsFinite_PeterO_Numbers_EDecimal)</code> - Returns whether the specified arbitrary-precision number object is neither null nor infinity nor not-a-number (NaN).
+* <code>[IsInfinite(PeterO.Numbers.EDecimal)](#IsInfinite_PeterO_Numbers_EDecimal)</code> - Returns whether the specified arbitrary-precision number object is positive or negative infinity.
+* <code>[IsNaN(PeterO.Numbers.EDecimal)](#IsNaN_PeterO_Numbers_EDecimal)</code> - Returns whether the specified arbitrary-precision number object is a not-a-number (NaN).
+* <code>[IsNormal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#IsNormal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns whether the specified number is a normal number.
+* <code>[IsQuietNaN(PeterO.Numbers.EDecimal)](#IsQuietNaN_PeterO_Numbers_EDecimal)</code> - Returns whether the specified arbitrary-precision number object is a quiet not-a-number (NaN).
+* <code>[IsSignalingNaN(PeterO.Numbers.EDecimal)](#IsSignalingNaN_PeterO_Numbers_EDecimal)</code> - Returns whether the specified arbitrary-precision number object is a signaling not-a-number (NaN).
+* <code>[IsSigned(PeterO.Numbers.EDecimal)](#IsSigned_PeterO_Numbers_EDecimal)</code> - Returns whether the specified arbitrary-precision number object is negative (including negative infinity, negative not-a-number [NaN], or negative zero).
+* <code>[IsSubnormal(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#IsSubnormal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns whether the specified number is a subnormal number.
+* <code>[IsZero(PeterO.Numbers.EDecimal)](#IsZero_PeterO_Numbers_EDecimal)</code> - Returns whether the specified arbitrary-precision number object is zero (positive zero or negative zero).
 * <code>[LogB(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#LogB_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns the base-10 exponent of an arbitrary-precision decimal number (when that number is expressed in scientific notation with one digit before the radix point).
 * <code>[NumberClass(PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#NumberClass_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds the number class for an arbitrary-precision decimal number object.
 * <code>[NumberClassString(int)](#NumberClassString_int)</code> - Converts a number class identifier (ranging from 0 through 9) to a text string.
 * <code>[Or(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Or_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Performs a logical OR operation on two decimal numbers in the form of logical operands.
 * <code>[Radix(PeterO.Numbers.EContext)](#Radix_PeterO_Numbers_EContext)</code> - Returns the number 10, the decimal radix.
-* <code>[Rescale(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Rescale_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value as this object but with the given exponent, expressed as an arbitrary-precision decimal number.
+* <code>[Rescale(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Rescale_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Returns an arbitrary-precision decimal number with the same value as this object but with the specified exponent, expressed as an arbitrary-precision decimal number.
 * <code>[Rotate(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#Rotate_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Rotates the digits of an arbitrary-precision decimal number's significand.
 * <code>[SameQuantum(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal)](#SameQuantum_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal)</code> - Returns whether two arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive, negative, or both).
 * <code>[ScaleB(PeterO.Numbers.EDecimal, PeterO.Numbers.EDecimal, PeterO.Numbers.EContext)](#ScaleB_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext)</code> - Finds an arbitrary-precision decimal number whose decimal point is moved a given number of places.
@@ -82,7 +82,7 @@ Converts a Boolean value (either true or false) to an arbitrary-precision decima
 
 Either 1 if  <i>b</i>
  is true, or 0 if  <i>b</i>
- is false.. The result will be rounded as specified by the given context, if any.
+ is false.. The result will be rounded as specified by the specified context, if any.
 
 <a id="Canonical_PeterO_Numbers_EDecimal"></a>
 ### Canonical
@@ -90,7 +90,7 @@ Either 1 if  <i>b</i>
     public static PeterO.Numbers.EDecimal Canonical(
         PeterO.Numbers.EDecimal ed);
 
-Returns a canonical version of the given arbitrary-precision number object. In this method, this method behaves like the Copy method.
+Returns a canonical version of the specified arbitrary-precision number object. In this method, this method behaves like the Copy method.
 
 <b>Parameters:</b>
 
@@ -173,7 +173,7 @@ The number 0 if both objects are null or equal (ignoring their signs), or -1 if 
     public static PeterO.Numbers.EDecimal Copy(
         PeterO.Numbers.EDecimal ed);
 
-Creates a copy of the given arbitrary-precision number object.
+Creates a copy of the specified arbitrary-precision number object.
 
 <b>Parameters:</b>
 
@@ -181,7 +181,7 @@ Creates a copy of the given arbitrary-precision number object.
 
 <b>Return Value:</b>
 
-A copy of the given arbitrary-precision number object.
+A copy of the specified arbitrary-precision number object.
 
 <b>Exceptions:</b>
 
@@ -195,7 +195,7 @@ The parameter  <i>ed</i>
     public static PeterO.Numbers.EDecimal CopyAbs(
         PeterO.Numbers.EDecimal ed);
 
-Returns an arbitrary-precision number object with the same value as the given number object but with a nonnegative sign (that is, the given number object's absolute value).
+Returns an arbitrary-precision number object with the same value as the specified number object but with a nonnegative sign (that is, the specified number object's absolute value).
 
 <b>Parameters:</b>
 
@@ -203,7 +203,7 @@ Returns an arbitrary-precision number object with the same value as the given nu
 
 <b>Return Value:</b>
 
-An arbitrary-precision number object with the same value as the given number object but with a nonnegative sign.
+An arbitrary-precision number object with the same value as the specified number object but with a nonnegative sign.
 
 <b>Exceptions:</b>
 
@@ -217,7 +217,7 @@ The parameter  <i>ed</i>
     public static PeterO.Numbers.EDecimal CopyNegate(
         PeterO.Numbers.EDecimal ed);
 
-Returns an arbitrary-precision number object with the sign reversed from the given number object.
+Returns an arbitrary-precision number object with the sign reversed from the specified number object.
 
 <b>Parameters:</b>
 
@@ -225,7 +225,7 @@ Returns an arbitrary-precision number object with the sign reversed from the giv
 
 <b>Return Value:</b>
 
-An arbitrary-precision number object with the sign reversed from the given number object.
+An arbitrary-precision number object with the sign reversed from the specified number object.
 
 <b>Exceptions:</b>
 
@@ -278,7 +278,7 @@ Creates an arbitrary-precision decimal number from a 32-bit signed integer.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number with the closest representable value to the given integer.
+An arbitrary-precision decimal number with the closest representable value to the specified integer.
 
 <a id="Invert_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Invert
@@ -306,7 +306,7 @@ The result of the logical NOT operation as a logical operand. Signals an invalid
     public static bool IsCanonical(
         PeterO.Numbers.EDecimal ed);
 
-Returns whether the given arbitrary-precision number object is in a canonical form. For the current version of EDecimal, all EDecimal objects are in a canonical form.
+Returns whether the specified arbitrary-precision number object is in a canonical form. For the current version of EDecimal, all EDecimal objects are in a canonical form.
 
 <b>Parameters:</b>
 
@@ -322,7 +322,7 @@ Always  `true` .
     public static bool IsFinite(
         PeterO.Numbers.EDecimal ed);
 
-Returns whether the given arbitrary-precision number object is neither null nor infinity nor not-a-number (NaN).
+Returns whether the specified arbitrary-precision number object is neither null nor infinity nor not-a-number (NaN).
 
 <b>Parameters:</b>
 
@@ -330,7 +330,7 @@ Returns whether the given arbitrary-precision number object is neither null nor 
 
 <b>Return Value:</b>
 
-Either  `true`  if the given arbitrary-precision number object is neither null nor infinity nor not-a-number (NaN), or  `false`  otherwise.
+Either  `true`  if the specified arbitrary-precision number object is neither null nor infinity nor not-a-number (NaN), or  `false`  otherwise.
 
 <a id="IsInfinite_PeterO_Numbers_EDecimal"></a>
 ### IsInfinite
@@ -338,7 +338,7 @@ Either  `true`  if the given arbitrary-precision number object is neither null n
     public static bool IsInfinite(
         PeterO.Numbers.EDecimal ed);
 
-Returns whether the given arbitrary-precision number object is positive or negative infinity.
+Returns whether the specified arbitrary-precision number object is positive or negative infinity.
 
 <b>Parameters:</b>
 
@@ -346,7 +346,7 @@ Returns whether the given arbitrary-precision number object is positive or negat
 
 <b>Return Value:</b>
 
-Either  `true`  if the given arbitrary-precision number object is positive or negative infinity, or  `false`  otherwise.
+Either  `true`  if the specified arbitrary-precision number object is positive or negative infinity, or  `false`  otherwise.
 
 <a id="IsNaN_PeterO_Numbers_EDecimal"></a>
 ### IsNaN
@@ -354,7 +354,7 @@ Either  `true`  if the given arbitrary-precision number object is positive or ne
     public static bool IsNaN(
         PeterO.Numbers.EDecimal ed);
 
-Returns whether the given arbitrary-precision number object is a not-a-number (NaN).
+Returns whether the specified arbitrary-precision number object is a not-a-number (NaN).
 
 <b>Parameters:</b>
 
@@ -371,17 +371,17 @@ Either  `true`  or  `false` .
         PeterO.Numbers.EDecimal ed,
         PeterO.Numbers.EContext ec);
 
-Returns whether the given number is a <i>normal</i> number. A <i>subnormal number</i> is a nonzero finite number whose Exponent property (or the number's exponent when that number is expressed in scientific notation with one digit before the radix point) is less than the minimum possible exponent for that number. A <i>normal number</i> is nonzero and finite, but not subnormal.
+Returns whether the specified number is a <i>normal</i> number. A <i>subnormal number</i> is a nonzero finite number whose Exponent property (or the number's exponent when that number is expressed in scientific notation with one digit before the radix point) is less than the minimum possible exponent for that number. A <i>normal number</i> is nonzero and finite, but not subnormal.
 
 <b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
- * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is  `true` , a nonzero number is normal if the number's exponent (when that number is expressed in scientific notation with one nonzero digit before the radix point) is at least the given context's EMax property (for example, if EMax is -100, 2.3456 * 10 <sup>-99</sup> is normal, but 2.3456 * 10 <sup>-102</sup> is not). If AdjustExponent of the given context is  `false` , a nonzero number is subnormal if the number's Exponent property is at least given context's EMax property (for example, if EMax is -100, 23456 * 10 <sup>-99</sup> is normal, but 23456 * 10 <sup>-102</sup> is not).
+ * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the specified context is  `true` , a nonzero number is normal if the number's exponent (when that number is expressed in scientific notation with one nonzero digit before the radix point) is at least the specified context's EMax property (for example, if EMax is -100, 2.3456 * 10 <sup>-99</sup> is normal, but 2.3456 * 10 <sup>-102</sup> is not). If AdjustExponent of the specified context is  `false` , a nonzero number is subnormal if the number's Exponent property is at least given context's EMax property (for example, if EMax is -100, 23456 * 10 <sup>-99</sup> is normal, but 23456 * 10 <sup>-102</sup> is not).
 
 <b>Return Value:</b>
 
-Either  `true`  if the given number is subnormal, or  `false`  otherwise. Returns  `true`  if the given context is null or HasExponentRange of the given context is  `false` .
+Either  `true`  if the specified number is subnormal, or  `false`  otherwise. Returns  `true`  if the specified context is null or HasExponentRange of the specified context is  `false` .
 
 <a id="IsQuietNaN_PeterO_Numbers_EDecimal"></a>
 ### IsQuietNaN
@@ -389,7 +389,7 @@ Either  `true`  if the given number is subnormal, or  `false`  otherwise. Return
     public static bool IsQuietNaN(
         PeterO.Numbers.EDecimal ed);
 
-Returns whether the given arbitrary-precision number object is a quiet not-a-number (NaN).
+Returns whether the specified arbitrary-precision number object is a quiet not-a-number (NaN).
 
 <b>Parameters:</b>
 
@@ -405,7 +405,7 @@ Either  `true`  or  `false` .
     public static bool IsSignalingNaN(
         PeterO.Numbers.EDecimal ed);
 
-Returns whether the given arbitrary-precision number object is a signaling not-a-number (NaN).
+Returns whether the specified arbitrary-precision number object is a signaling not-a-number (NaN).
 
 <b>Parameters:</b>
 
@@ -421,7 +421,7 @@ Either  `true`  or  `false` .
     public static bool IsSigned(
         PeterO.Numbers.EDecimal ed);
 
-Returns whether the given arbitrary-precision number object is negative (including negative infinity, negative not-a-number [NaN], or negative zero).
+Returns whether the specified arbitrary-precision number object is negative (including negative infinity, negative not-a-number [NaN], or negative zero).
 
 <b>Parameters:</b>
 
@@ -438,17 +438,17 @@ Either  `true`  or  `false` .
         PeterO.Numbers.EDecimal ed,
         PeterO.Numbers.EContext ec);
 
-Returns whether the given number is a <i>subnormal</i> number. A <i>subnormal number</i> is a nonzero finite number whose Exponent property (or the number's exponent when that number is expressed in scientific notation with one digit before the radix point) is less than the minimum possible exponent for that number.
+Returns whether the specified number is a <i>subnormal</i> number. A <i>subnormal number</i> is a nonzero finite number whose Exponent property (or the number's exponent when that number is expressed in scientific notation with one digit before the radix point) is less than the minimum possible exponent for that number.
 
 <b>Parameters:</b>
 
  * <i>ed</i>: An arbitrary-precision number object.
 
- * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the given context is  `true` , a nonzero number is subnormal if the number's exponent (when that number is expressed in scientific notation with one nonzero digit before the radix point) is less than the given context's EMax property (for example, if EMax is -100, 2.3456 * 10 <sup>-102</sup> is subnormal, but 2.3456 * 10 <sup>-99</sup> is not). If AdjustExponent of the given context is  `false` , a nonzero number is subnormal if the number's Exponent property is less than the given context's EMax property (for example, if EMax is -100, 23456 * 10 <sup>-102</sup> is subnormal, but 23456 * 10 <sup>-99</sup> is not).
+ * <i>ec</i>: A context specifying the exponent range of arbitrary-precision numbers. Can be null. If AdjustExponent of the specified context is  `true` , a nonzero number is subnormal if the number's exponent (when that number is expressed in scientific notation with one nonzero digit before the radix point) is less than the specified context's EMax property (for example, if EMax is -100, 2.3456 * 10 <sup>-102</sup> is subnormal, but 2.3456 * 10 <sup>-99</sup> is not). If AdjustExponent of the specified context is  `false` , a nonzero number is subnormal if the number's Exponent property is less than the specified context's EMax property (for example, if EMax is -100, 23456 * 10 <sup>-102</sup> is subnormal, but 23456 * 10 <sup>-99</sup> is not).
 
 <b>Return Value:</b>
 
-Either  `true`  if the given number is subnormal, or  `false`  otherwise. Returns  `false`  if the given context is null or HasExponentRange of the given context is  `false` .
+Either  `true`  if the specified number is subnormal, or  `false`  otherwise. Returns  `false`  if the specified context is null or HasExponentRange of the specified context is  `false` .
 
 <b>Exceptions:</b>
 
@@ -462,7 +462,7 @@ The parameter  <i>ed</i>
     public static bool IsZero(
         PeterO.Numbers.EDecimal ed);
 
-Returns whether the given arbitrary-precision number object is zero (positive zero or negative zero).
+Returns whether the specified arbitrary-precision number object is zero (positive zero or negative zero).
 
 <b>Parameters:</b>
 
@@ -470,7 +470,7 @@ Returns whether the given arbitrary-precision number object is zero (positive ze
 
 <b>Return Value:</b>
 
- `true`  if the given number has a value of zero (positive zero or negative zero); otherwise,  `false` .
+ `true`  if the specified number has a value of zero (positive zero or negative zero); otherwise,  `false` .
 
 <a id="LogB_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### LogB
@@ -489,7 +489,7 @@ Returns the base-10 exponent of an arbitrary-precision decimal number (when that
 
 <b>Return Value:</b>
 
-The base-10 exponent of the given number (when that number is expressed in scientific notation with one nonzero digit before the radix point). Signals DivideByZero and returns negative infinity if  <i>ed</i>
+The base-10 exponent of the specified number (when that number is expressed in scientific notation with one nonzero digit before the radix point). Signals DivideByZero and returns negative infinity if  <i>ed</i>
  is zero. Returns positive infinity if  <i>ed</i>
  is positive infinity or negative infinity.
 
@@ -516,7 +516,7 @@ Finds the number class for an arbitrary-precision decimal number object.
 
 <b>Return Value:</b>
 
-A 32-bit signed integer identifying the given number object, number class as follows: 0 = positive normal; 1 = negative normal, 2 = positive subnormal, 3 = negative subnormal, 4 = positive zero, 5 = negative zero, 6 = positive infinity, 7 = negative infinity, 8 = quiet not-a-number (NaN), 9 = signaling NaN.
+A 32-bit signed integer identifying the specified number object, number class as follows: 0 = positive normal; 1 = negative normal, 2 = positive subnormal, 3 = negative subnormal, 4 = positive zero, 5 = negative zero, 6 = positive infinity, 7 = negative infinity, 8 = quiet not-a-number (NaN), 9 = signaling NaN.
 
 <b>Exceptions:</b>
 
@@ -538,7 +538,7 @@ Converts a number class identifier (ranging from 0 through 9) to a text string. 
 
 <b>Return Value:</b>
 
-A text string identifying the given number class as follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 = "-Subnormal", 4 = "+Zero", 5 = "-Zero", 6 = "+Infinity", 7 = "-Infinity", 8 = "NaN", 9 = "sNaN".
+A text string identifying the specified number class as follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 = "-Subnormal", 4 = "+Zero", 5 = "-Zero", 6 = "+Infinity", 7 = "-Infinity", 8 = "NaN", 9 = "sNaN".
 
 <b>Exceptions:</b>
 
@@ -594,7 +594,7 @@ The number 10, or the closest representable number to 10 in the arithmetic conte
         PeterO.Numbers.EDecimal scale,
         PeterO.Numbers.EContext ec);
 
-Returns an arbitrary-precision decimal number with the same value as this object but with the given exponent, expressed as an arbitrary-precision decimal number. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
+Returns an arbitrary-precision decimal number with the same value as this object but with the specified exponent, expressed as an arbitrary-precision decimal number. Note that this is not always the same as rounding to a given number of decimal places, since it can fail if the difference between this value's exponent and the desired exponent is too big, depending on the maximum precision. If rounding to a number of decimal places is desired, it's better to use the RoundToExponent and RoundToIntegral methods instead.
 
 <b>Remark:</b> This method can be used to implement fixed-point decimal arithmetic, in which a fixed number of digits come after the decimal point. A fixed-point decimal arithmetic in which no digits come after the decimal point (a desired exponent of 0) is considered an "integer arithmetic" .
 
@@ -609,7 +609,7 @@ Returns an arbitrary-precision decimal number with the same value as this object
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number with the same value as this object but with the exponent changed. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the given precision without rounding, or if the arithmetic context defines an exponent range and the given exponent is outside that range.
+An arbitrary-precision decimal number with the same value as this object but with the exponent changed. Signals FlagInvalid and returns not-a-number (NaN) if the result can't fit the specified precision without rounding, or if the arithmetic context defines an exponent range and the specified exponent is outside that range.
 
 <a id="Rotate_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### Rotate
@@ -625,13 +625,13 @@ Rotates the digits of an arbitrary-precision decimal number's significand.
 
  * <i>ed</i>: An arbitrary-precision number containing the significand to rotate. If this significand contains more digits than the precision, the most-significant digits are chopped off the significand before the rotation begins.
 
- * <i>ed2</i>: An arbitrary-precision number indicating the number of digits to rotate the first operand's significand. Must be an integer with an exponent of 0. If this parameter is positive, the significand is shifted to the left by the given number of digits and the most-significant digits shifted out of the significand become the least-significant digits instead. If this parameter is negative, the significand is shifted to the right by the given number of digits and the least-significant digits shifted out of the significand become the most-significant digits instead.
+ * <i>ed2</i>: An arbitrary-precision number indicating the number of digits to rotate the first operand's significand. Must be an integer with an exponent of 0. If this parameter is positive, the significand is shifted to the left by the specified number of digits and the most-significant digits shifted out of the significand become the least-significant digits instead. If this parameter is negative, the significand is shifted to the right by the specified number of digits and the least-significant digits shifted out of the significand become the most-significant digits instead.
 
  * <i>ec</i>: An arithmetic context to control the precision of arbitrary-precision numbers. If this parameter is null or specifies an unlimited precision, this method has the same behavior as  `Shift` .
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number whose significand is rotated the given number of digits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
+An arbitrary-precision decimal number whose significand is rotated the specified number of digits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
  is a signaling NaN or if  <i>ed2</i>
  is not an integer, is negative, has an exponent other than 0, or has an absolute value that exceeds the maximum precision specified in the context.
 
@@ -659,7 +659,7 @@ Returns whether two arbitrary-precision numbers have the same exponent, they bot
 
 <b>Return Value:</b>
 
-Either  `true`  if the given arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive, negative, or both); otherwise,  `false` .
+Either  `true`  if the specified arbitrary-precision numbers have the same exponent, they both are not-a-number (NaN), or they both are infinity (positive, negative, or both); otherwise,  `false` .
 
 <a id="ScaleB_PeterO_Numbers_EDecimal_PeterO_Numbers_EDecimal_PeterO_Numbers_EContext"></a>
 ### ScaleB
@@ -681,7 +681,7 @@ Finds an arbitrary-precision decimal number whose decimal point is moved a given
 
 <b>Return Value:</b>
 
-The given arbitrary-precision decimal number whose decimal point is moved the given number of places. Signals an invalid operation and returns not-a-number (NaN) if  <i>ed2</i>
+The given arbitrary-precision decimal number whose decimal point is moved the specified number of places. Signals an invalid operation and returns not-a-number (NaN) if  <i>ed2</i>
  is infinity or NaN, has an Exponent property other than 0. Signals an invalid operation and returns not-a-number (NaN) if  <i>ec</i>
  defines a limited precision and exponent range and if  <i>ed2</i>
  's absolute value is greater than twice the sum of the context's EMax property and its Precision property.
@@ -707,13 +707,13 @@ Shifts the digits of an arbitrary-precision decimal number's significand.
 
  * <i>ed</i>: An arbitrary-precision number containing the significand to shift.
 
- * <i>ed2</i>: An arbitrary-precision number indicating the number of digits to shift the first operand's significand. Must be an integer with an exponent of 0. If this parameter is positive, the significand is shifted to the left by the given number of digits. If this parameter is negative, the significand is shifted to the right by the given number of digits.
+ * <i>ed2</i>: An arbitrary-precision number indicating the number of digits to shift the first operand's significand. Must be an integer with an exponent of 0. If this parameter is positive, the significand is shifted to the left by the specified number of digits. If this parameter is negative, the significand is shifted to the right by the specified number of digits.
 
  * <i>ec</i>: An arithmetic context to control the precision of arbitrary-precision numbers. Can be null.
 
 <b>Return Value:</b>
 
-An arbitrary-precision decimal number whose significand is shifted the given number of digits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
+An arbitrary-precision decimal number whose significand is shifted the specified number of digits. Signals an invalid operation and returns NaN (not-a-number) if  <i>ed2</i>
  is a signaling NaN or if  <i>ed2</i>
  is not an integer, is negative, has an exponent other than 0, or has an absolute value that exceeds the maximum precision specified in the context.
 

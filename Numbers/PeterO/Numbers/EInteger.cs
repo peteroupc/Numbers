@@ -576,7 +576,7 @@ namespace PeterO.Numbers {
     /// corresponding basic lowercase letter (U+0061 to U+007a) is allowed
     /// instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
-    /// given string.</returns>
+    /// specified string.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='str'/> is null.</exception>
     /// <exception cref='FormatException'>The string is empty or in an
@@ -591,7 +591,7 @@ namespace PeterO.Numbers {
     /// <summary>Converts a portion of a string to an arbitrary-precision
     /// integer in a given radix.</summary>
     /// <param name='str'>A text string. The desired portion of the string
-    /// must contain only characters allowed by the given radix, except
+    /// must contain only characters allowed by the specified radix, except
     /// that it may start with a minus sign ("-", U+002D) to indicate a
     /// negative number. The desired portion is not allowed to contain
     /// white space characters, including spaces. The desired portion may
@@ -705,7 +705,7 @@ namespace PeterO.Numbers {
     /// the sequence of <c>char</c> s, the corresponding basic lowercase
     /// letter (U+0061 to U+007a) is allowed instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
-    /// given sequence of <c>char</c> s.</returns>
+    /// specified sequence of <c>char</c> s.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='cs'/> is null.</exception>
     /// <exception cref='FormatException'>The sequence of <c>char</c> s is
@@ -721,7 +721,7 @@ namespace PeterO.Numbers {
     /// arbitrary-precision integer in a given radix.</summary>
     /// <param name='cs'>A text sequence of <c>char</c> s. The desired
     /// portion of the sequence of <c>char</c> s must contain only
-    /// characters allowed by the given radix, except that it may start
+    /// characters allowed by the specified radix, except that it may start
     /// with a minus sign ("-", U+002D) to indicate a negative number. The
     /// desired portion is not allowed to contain white space characters,
     /// including spaces. The desired portion may start with any number of
@@ -842,7 +842,7 @@ namespace PeterO.Numbers {
     /// sequence of bytes, the corresponding basic lowercase letter (U+0061
     /// to U+007a) is allowed instead.</param>
     /// <returns>An arbitrary-precision integer with the same value as the
-    /// given sequence of bytes.</returns>
+    /// specified sequence of bytes.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bytes'/> is null.</exception>
     /// <exception cref='FormatException'>The sequence of bytes
@@ -861,8 +861,8 @@ namespace PeterO.Numbers {
     /// Standard.</summary>
     /// <param name='bytes'>A sequence of bytes (interpreted as text). The
     /// desired portion of the sequence of bytes (interpreted as text) must
-    /// contain only characters allowed by the given radix, except that it
-    /// may start with a minus sign ("-", U+002D) to indicate a negative
+    /// contain only characters allowed by the specified radix, except that
+    /// it may start with a minus sign ("-", U+002D) to indicate a negative
     /// number. The desired portion is not allowed to contain white space
     /// characters, including spaces. The desired portion may start with
     /// any number of zeros.</param>
@@ -2946,13 +2946,13 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Returns the greatest common divisor of this integer and
-    /// the given integer. The greatest common divisor (GCD) is also known
-    /// as the greatest common factor (GCF). This method works even if
-    /// either or both integers are negative.</summary>
+    /// the specified integer. The greatest common divisor (GCD) is also
+    /// known as the greatest common factor (GCF). This method works even
+    /// if either or both integers are negative.</summary>
     /// <param name='bigintSecond'>Another arbitrary-precision integer. Can
     /// be negative.</param>
-    /// <returns>The greatest common divisor of this integer and the given
-    /// integer.</returns>
+    /// <returns>The greatest common divisor of this integer and the
+    /// specified integer.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigintSecond'/> is null.</exception>
     /// <exception cref='DivideByZeroException'>Attempted to divide by
@@ -3946,7 +3946,7 @@ maxDigitEstimate : retval +
     /// <param name='bigIndex'>The index, starting at zero, of the bit to
     /// test, where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
-    /// <returns><c>true</c> if the given bit is set in the two'
+    /// <returns><c>true</c> if the specified bit is set in the two'
     /// s-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value; otherwise, <c>false</c>.</returns>
@@ -3996,7 +3996,7 @@ maxDigitEstimate : retval +
     /// <param name='index'>The index, starting at 0, of the bit to test,
     /// where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
-    /// <returns><c>true</c> if the given bit is set in the two'
+    /// <returns><c>true</c> if the specified bit is set in the two'
     /// s-complement form (see
     /// <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
     /// this object's value; otherwise, <c>false</c>.</returns>
@@ -4124,7 +4124,7 @@ maxDigitEstimate : retval +
     /// <param name='bigIndex'>The index, starting at zero, of the bit to
     /// test, where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
-    /// <returns><c>true</c> if the given bit is set in this number's
+    /// <returns><c>true</c> if the specified bit is set in this number's
     /// absolute value.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='bigIndex'/> is null.</exception>
@@ -4152,7 +4152,7 @@ maxDigitEstimate : retval +
     /// <param name='index'>The index, starting at 0, of the bit to test,
     /// where 0 is the least significant bit, 1 is the next least
     /// significant bit, and so on.</param>
-    /// <returns><c>true</c> if the given bit is set in this number's
+    /// <returns><c>true</c> if the specified bit is set in this number's
     /// absolute value.</returns>
     public bool GetUnsignedBit(int index) {
       if (index < 0) {
@@ -6400,7 +6400,7 @@ this.Pow(EInteger.FromInt64(longPower));
     }
 
     /// <summary>Generates a string representing the value of this object,
-    /// in the given radix.</summary>
+    /// in the specified radix.</summary>
     /// <param name='radix'>A radix from 2 through 36. For example, to
     /// generate a hexadecimal (base-16) string, specify 16. To generate a
     /// decimal (base-10) string, specify 10.</param>

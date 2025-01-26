@@ -234,7 +234,7 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Gets an arbitrary-precision decimal number with the same
-    /// value as the given one, but with the sign reversed.</summary>
+    /// value as the specified one, but with the sign reversed.</summary>
     /// <param name='bigValue'>An arbitrary-precision decimal number to
     /// negate.</param>
     /// <returns>An arbitrary-precision decimal number. If this value is

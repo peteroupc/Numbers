@@ -1319,7 +1319,7 @@ Binary16SignifAreaBits;
     /// operation (the flags are in addition to the pre-existing flags).
     /// <i>This parameter can't be null, as π can never be represented
     /// exactly.</i>.</param>
-    /// <returns>The constant π rounded to the given precision. Signals
+    /// <returns>The constant π rounded to the specified precision. Signals
     /// FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
@@ -2042,11 +2042,12 @@ Binary16SignifAreaBits;
     /// will be used only in the division portion of the remainder
     /// calculation; as a result, it's possible for the remainder to have a
     /// higher precision than given in this context. Flags will be set on
-    /// the given context only if the context's <c>HasFlags</c> is true and
-    /// the integer part of the division result doesn't fit the precision
-    /// and exponent range without rounding. Can be null, in which the
-    /// precision is unlimited and no additional rounding, other than the
-    /// rounding down to an integer after division, is needed.</param>
+    /// the specified context only if the context's <c>HasFlags</c> is true
+    /// and the integer part of the division result doesn't fit the
+    /// precision and exponent range without rounding. Can be null, in
+    /// which the precision is unlimited and no additional rounding, other
+    /// than the rounding down to an integer after division, is
+    /// needed.</param>
     /// <returns>A 2 element array consisting of the quotient and remainder
     /// in that order.</returns>
     [Obsolete("Renamed to DivRemNaturalScale.")]
@@ -2069,10 +2070,10 @@ Binary16SignifAreaBits;
     /// same exponent as this value. If the precision given in the context
     /// is other than 0, calls the Quantize method with both arguments
     /// equal to the result of the operation (and can signal FlagInvalid
-    /// and return NaN if the result doesn't fit the given precision). If
-    /// <c>HasFlags</c> of the context is true, will also store the flags
-    /// resulting from the operation (the flags are in addition to the
-    /// pre-existing flags). Can be null, in which case the default
+    /// and return NaN if the result doesn't fit the specified precision).
+    /// If <c>HasFlags</c> of the context is true, will also store the
+    /// flags resulting from the operation (the flags are in addition to
+    /// the pre-existing flags). Can be null, in which case the default
     /// rounding mode is HalfEven.</param>
     /// <returns>The quotient of the two objects. Signals FlagDivideByZero
     /// and returns infinity if the divisor is 0 and the dividend is
@@ -2131,10 +2132,10 @@ Binary16SignifAreaBits;
     /// same exponent as this value. If the precision given in the context
     /// is other than 0, calls the Quantize method with both arguments
     /// equal to the result of the operation (and can signal FlagInvalid
-    /// and return NaN if the result doesn't fit the given precision). If
-    /// <c>HasFlags</c> of the context is true, will also store the flags
-    /// resulting from the operation (the flags are in addition to the
-    /// pre-existing flags). Can be null, in which case the default
+    /// and return NaN if the result doesn't fit the specified precision).
+    /// If <c>HasFlags</c> of the context is true, will also store the
+    /// flags resulting from the operation (the flags are in addition to
+    /// the pre-existing flags). Can be null, in which case the default
     /// rounding mode is HalfEven.</param>
     /// <returns>The quotient of the two objects. Signals FlagDivideByZero
     /// and returns infinity if the divisor is 0 and the dividend is
@@ -2227,7 +2228,7 @@ Binary16SignifAreaBits;
     /// exponent will be set to 0. Signals FlagDivideByZero and returns
     /// infinity if the divisor is 0 and the dividend is nonzero. Signals
     /// FlagInvalid and returns not-a-number (NaN) if the divisor and the
-    /// dividend are 0, or if the result doesn't fit the given
+    /// dividend are 0, or if the result doesn't fit the specified
     /// precision.</returns>
     public EFloat DivideToIntegerZeroScale(
       EFloat divisor,
@@ -2287,11 +2288,12 @@ Binary16SignifAreaBits;
     /// will be used only in the division portion of the remainder
     /// calculation; as a result, it's possible for the remainder to have a
     /// higher precision than given in this context. Flags will be set on
-    /// the given context only if the context's <c>HasFlags</c> is true and
-    /// the integer part of the division result doesn't fit the precision
-    /// and exponent range without rounding. Can be null, in which the
-    /// precision is unlimited and no additional rounding, other than the
-    /// rounding down to an integer after division, is needed.</param>
+    /// the specified context only if the context's <c>HasFlags</c> is true
+    /// and the integer part of the division result doesn't fit the
+    /// precision and exponent range without rounding. Can be null, in
+    /// which the precision is unlimited and no additional rounding, other
+    /// than the rounding down to an integer after division, is
+    /// needed.</param>
     /// <returns>An array of two items: the first is the result of the
     /// division as an arbitrary-precision binary floating-point number,
     /// and the second is the remainder as an arbitrary-precision binary
@@ -2362,7 +2364,7 @@ Binary16SignifAreaBits;
     /// results are generally not exact.</i> (Unlike in the General Binary
     /// Arithmetic Specification, any rounding mode is allowed.).</param>
     /// <returns>Exponential of this object. If this object's value is 1,
-    /// returns an approximation to " e" within the given precision.
+    /// returns an approximation to " e" within the specified precision.
     /// Signals FlagInvalid and returns not-a-number (NaN) if the parameter
     /// <paramref name='ctx'/> is null or the precision is unlimited (the
     /// context's Precision property is 0).</returns>
@@ -3017,14 +3019,14 @@ Binary16SignifAreaBits;
       return MathValue.Negate(this, context);
     }
 
-    /// <summary>Finds the largest value that's smaller than the given
+    /// <summary>Finds the largest value that's smaller than the specified
     /// value.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision and exponent range of the result. The rounding mode from
     /// this context is ignored. If <c>HasFlags</c> of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags).</param>
-    /// <returns>Returns the largest value that's less than the given
+    /// <returns>Returns the largest value that's less than the specified
     /// value. Returns negative infinity if the result is negative
     /// infinity. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// parameter <paramref name='ctx'/> is null, the precision is 0, or
@@ -3033,17 +3035,18 @@ Binary16SignifAreaBits;
       return MathValue.NextMinus(this, ctx);
     }
 
-    /// <summary>Finds the smallest value that's greater than the given
+    /// <summary>Finds the smallest value that's greater than the specified
     /// value.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision and exponent range of the result. The rounding mode from
     /// this context is ignored. If <c>HasFlags</c> of the context is true,
     /// will also store the flags resulting from the operation (the flags
     /// are in addition to the pre-existing flags).</param>
-    /// <returns>Returns the smallest value that's greater than the given
-    /// value.Signals FlagInvalid and returns not-a-number (NaN) if the
-    /// parameter <paramref name='ctx'/> is null, the precision is 0, or
-    /// <paramref name='ctx'/> has an unlimited exponent range.</returns>
+    /// <returns>Returns the smallest value that's greater than the
+    /// specified value.Signals FlagInvalid and returns not-a-number (NaN)
+    /// if the parameter <paramref name='ctx'/> is null, the precision is
+    /// 0, or <paramref name='ctx'/> has an unlimited exponent
+    /// range.</returns>
     public EFloat NextPlus(EContext ctx) {
       return MathValue.NextPlus(this, ctx);
     }
@@ -3070,9 +3073,9 @@ Binary16SignifAreaBits;
       return MathValue.NextToward(this, otherValue, ctx);
     }
 
-    /// <summary>Rounds this object's value to a given precision, using the
-    /// given rounding mode and range of exponent, and also converts
-    /// negative zero to positive zero. The idiom
+    /// <summary>Rounds this object's value to the specified precision,
+    /// using the specified rounding mode and range of exponent, and also
+    /// converts negative zero to positive zero. The idiom
     /// <c>EDecimal.SignalingNaN.Plus(ctx)</c> is useful for triggering an
     /// invalid operation and returning not-a-number (NaN) for custom
     /// arithmetic operations.</summary>
@@ -3088,8 +3091,8 @@ Binary16SignifAreaBits;
       return MathValue.Plus(this, ctx);
     }
 
-    /// <summary>Raises this object's value to the given exponent, using
-    /// unlimited precision.</summary>
+    /// <summary>Raises this object's value to the specified exponent,
+    /// using unlimited precision.</summary>
     /// <param name='exponent'>An arbitrary-precision binary floating-point
     /// number expressing the exponent to raise this object's value
     /// to.</param>
@@ -3099,7 +3102,7 @@ Binary16SignifAreaBits;
       return this.Pow(exponent, null);
     }
 
-    /// <summary>Raises this object's value to the given
+    /// <summary>Raises this object's value to the specified
     /// exponent.</summary>
     /// <param name='exponent'>An arbitrary-precision binary floating-point
     /// number expressing the exponent to raise this object's value
@@ -3121,7 +3124,7 @@ Binary16SignifAreaBits;
       return MathValue.Power(this, exponent, ctx);
     }
 
-    /// <summary>Raises this object's value to the given
+    /// <summary>Raises this object's value to the specified
     /// exponent.</summary>
     /// <param name='exponentSmall'>The exponent to raise this object's
     /// value to.</param>
@@ -3137,7 +3140,7 @@ Binary16SignifAreaBits;
       return this.Pow(EFloat.FromInt64(exponentSmall), ctx);
     }
 
-    /// <summary>Raises this object's value to the given
+    /// <summary>Raises this object's value to the specified
     /// exponent.</summary>
     /// <param name='exponentSmall'>The exponent to raise this object's
     /// value to.</param>
@@ -3219,9 +3222,9 @@ Binary16SignifAreaBits;
     /// <returns>A binary floating-point number with the same value as this
     /// object but with the exponent changed. Signals FlagInvalid and
     /// returns not-a-number (NaN) if this object is infinity, if the
-    /// rounded result can't fit the given precision, or if the context
-    /// defines an exponent range and the given exponent is outside that
-    /// range.</returns>
+    /// rounded result can't fit the specified precision, or if the context
+    /// defines an exponent range and the specified exponent is outside
+    /// that range.</returns>
     public EFloat Quantize(
       EInteger desiredExponent,
       EContext ctx) {
@@ -3271,9 +3274,9 @@ Binary16SignifAreaBits;
     /// <returns>A binary floating-point number with the same value as this
     /// object but with the exponent changed. Signals FlagInvalid and
     /// returns not-a-number (NaN) if this object is infinity, if the
-    /// rounded result can't fit the given precision, or if the context
-    /// defines an exponent range and the given exponent is outside that
-    /// range.</returns>
+    /// rounded result can't fit the specified precision, or if the context
+    /// defines an exponent range and the specified exponent is outside
+    /// that range.</returns>
     public EFloat Quantize(
       int desiredExponentInt,
       EContext ctx) {
@@ -3311,9 +3314,9 @@ Binary16SignifAreaBits;
     /// case the default rounding mode is HalfEven.</param>
     /// <returns>A binary floating-point number with the same value as this
     /// object but with the exponent changed. Signals FlagInvalid and
-    /// returns not-a-number (NaN) if the result can't fit the given
+    /// returns not-a-number (NaN) if the result can't fit the specified
     /// precision without rounding, or if the arithmetic context defines an
-    /// exponent range and the given exponent is outside that
+    /// exponent range and the specified exponent is outside that
     /// range.</returns>
     public EFloat Quantize(
       EFloat otherValue,
@@ -3361,7 +3364,7 @@ Binary16SignifAreaBits;
     /// dividend (the other arbitrary-precision binary floating-point
     /// number) is nonzero. Signals FlagInvalid and returns not-a-number
     /// (NaN) if the divisor and the dividend are 0, or if the result of
-    /// the division doesn't fit the given precision.</returns>
+    /// the division doesn't fit the specified precision.</returns>
     public EFloat Remainder(
       EFloat divisor,
       EContext ctx) {
@@ -3380,7 +3383,7 @@ Binary16SignifAreaBits;
     /// EContext object.</param>
     /// <returns>The remainder of the two numbers. Signals FlagInvalid and
     /// returns not-a-number (NaN) if the divisor is 0, or if the result
-    /// doesn't fit the given precision.</returns>
+    /// doesn't fit the specified precision.</returns>
     public EFloat RemainderNoRoundAfterDivide(
       EFloat divisor,
       EContext ctx) {
@@ -3405,8 +3408,8 @@ Binary16SignifAreaBits;
     /// will be used only in the division portion of the remainder
     /// calculation; as a result, it's possible for the return value to
     /// have a higher precision than given in this context. Flags will be
-    /// set on the given context only if the context's <c>HasFlags</c> is
-    /// true and the integer part of the division result doesn't fit the
+    /// set on the specified context only if the context's <c>HasFlags</c>
+    /// is true and the integer part of the division result doesn't fit the
     /// precision and exponent range without rounding. Can be null, in
     /// which the precision is unlimited and no additional rounding, other
     /// than the rounding down to an integer after division, is
@@ -3421,9 +3424,9 @@ Binary16SignifAreaBits;
         ctx);
     }
 
-    /// <summary>Finds the distance to the closest multiple of the given
-    /// divisor, based on the result of dividing this object's value by
-    /// another object's value.
+    /// <summary>Finds the distance to the closest multiple of the
+    /// specified divisor, based on the result of dividing this object's
+    /// value by another object's value.
     /// <list type=''>
     /// <item>If this and the other object divide evenly, the result is
     /// 0.</item>
@@ -3451,7 +3454,7 @@ Binary16SignifAreaBits;
     /// <returns>The distance of the closest multiple. Signals FlagInvalid
     /// and returns not-a-number (NaN) if the divisor is 0, or either the
     /// result of integer division (the quotient) or the remainder wouldn't
-    /// fit the given precision.</returns>
+    /// fit the specified precision.</returns>
     public EFloat RemainderNear(
       EFloat divisor,
       EContext ctx) {
@@ -3461,8 +3464,8 @@ Binary16SignifAreaBits;
     /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to a new exponent if necessary. The
     /// resulting number's Exponent property will not necessarily be the
-    /// given exponent; use the Quantize method instead to give the result
-    /// a particular exponent.</summary>
+    /// specified exponent; use the Quantize method instead to give the
+    /// result a particular exponent.</summary>
     /// <param name='exponent'>The minimum exponent the result can have.
     /// This is the maximum number of fractional digits in the result,
     /// expressed as a negative number. Can also be positive, which
@@ -3477,12 +3480,12 @@ Binary16SignifAreaBits;
     /// Can be null, in which case the default rounding mode is
     /// HalfEven.</param>
     /// <returns>A binary floating-point number rounded to the closest
-    /// value representable in the given precision. If the result can't fit
-    /// the precision, additional digits are discarded to make it fit.
+    /// value representable in the specified precision. If the result can't
+    /// fit the precision, additional digits are discarded to make it fit.
     /// Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
-    /// be changed to the given exponent when rounding, and the given
-    /// exponent is outside the valid range of the arithmetic
+    /// be changed to the specified exponent when rounding, and the
+    /// specified exponent is outside the valid range of the arithmetic
     /// context.</returns>
     public EFloat RoundToExponent(
       EInteger exponent,
@@ -3493,8 +3496,8 @@ Binary16SignifAreaBits;
     /// <summary>Returns a binary floating-point number with the same value
     /// as this object but rounded to a new exponent if necessary. The
     /// resulting number's Exponent property will not necessarily be the
-    /// given exponent; use the Quantize method instead to give the result
-    /// a particular exponent.</summary>
+    /// specified exponent; use the Quantize method instead to give the
+    /// result a particular exponent.</summary>
     /// <param name='exponentSmall'>The minimum exponent the result can
     /// have. This is the maximum number of fractional digits in the
     /// result, expressed as a negative number. Can also be positive, which
@@ -3509,12 +3512,12 @@ Binary16SignifAreaBits;
     /// Can be null, in which case the default rounding mode is
     /// HalfEven.</param>
     /// <returns>A binary floating-point number rounded to the closest
-    /// value representable in the given precision. If the result can't fit
-    /// the precision, additional digits are discarded to make it fit.
+    /// value representable in the specified precision. If the result can't
+    /// fit the precision, additional digits are discarded to make it fit.
     /// Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
-    /// be changed to the given exponent when rounding, and the given
-    /// exponent is outside the valid range of the arithmetic
+    /// be changed to the specified exponent when rounding, and the
+    /// specified exponent is outside the valid range of the arithmetic
     /// context.</returns>
     public EFloat RoundToExponent(
       int exponentSmall,
@@ -3523,11 +3526,11 @@ Binary16SignifAreaBits;
     }
 
     /// <summary>Returns a binary floating-point number with the same value
-    /// as this object but rounded to the given exponent, and signals an
-    /// inexact flag if the result would be inexact. The resulting number's
-    /// Exponent property will not necessarily be the given exponent; use
-    /// the Quantize method instead to give the result a particular
-    /// exponent.</summary>
+    /// as this object but rounded to the specified exponent, and signals
+    /// an inexact flag if the result would be inexact. The resulting
+    /// number's Exponent property will not necessarily be the specified
+    /// exponent; use the Quantize method instead to give the result a
+    /// particular exponent.</summary>
     /// <param name='exponent'>The minimum exponent the result can have.
     /// This is the maximum number of fractional digits in the result,
     /// expressed as a negative number. Can also be positive, which
@@ -3542,13 +3545,13 @@ Binary16SignifAreaBits;
     /// Can be null, in which case the default rounding mode is
     /// HalfEven.</param>
     /// <returns>A binary floating-point number rounded to the closest
-    /// value representable in the given precision. Signals FlagInvalid and
-    /// returns not-a-number (NaN) if the result can't fit the given
-    /// precision without rounding. Signals FlagInvalid and returns
-    /// not-a-number (NaN) if the arithmetic context defines an exponent
-    /// range, the new exponent must be changed to the given exponent when
-    /// rounding, and the given exponent is outside the valid range of the
-    /// arithmetic context.</returns>
+    /// value representable in the specified precision. Signals FlagInvalid
+    /// and returns not-a-number (NaN) if the result can't fit the
+    /// specified precision without rounding. Signals FlagInvalid and
+    /// returns not-a-number (NaN) if the arithmetic context defines an
+    /// exponent range, the new exponent must be changed to the specified
+    /// exponent when rounding, and the specified exponent is outside the
+    /// valid range of the arithmetic context.</returns>
     public EFloat RoundToExponentExact(
       EInteger exponent,
       EContext ctx) {
@@ -3556,9 +3559,9 @@ Binary16SignifAreaBits;
     }
 
     /// <summary>Returns a binary number with the same value as this object
-    /// but rounded to the given exponent. The resulting number's Exponent
-    /// property will not necessarily be the given exponent; use the
-    /// Quantize method instead to give the result a particular
+    /// but rounded to the specified exponent. The resulting number's
+    /// Exponent property will not necessarily be the specified exponent;
+    /// use the Quantize method instead to give the result a particular
     /// exponent.</summary>
     /// <param name='exponent'>The minimum exponent the result can have.
     /// This is the maximum number of fractional digits in the result,
@@ -3570,7 +3573,7 @@ Binary16SignifAreaBits;
     /// <param name='rounding'>Desired mode for rounding this object's
     /// value.</param>
     /// <returns>A binary number rounded to the closest value representable
-    /// in the given precision.</returns>
+    /// in the specified precision.</returns>
     public EFloat RoundToExponentExact(
       EInteger exponent,
       ERounding rounding) {
@@ -3581,11 +3584,11 @@ Binary16SignifAreaBits;
     }
 
     /// <summary>Returns a binary floating-point number with the same value
-    /// as this object but rounded to the given exponent represented as a
-    /// 32-bit signed integer, and signals an inexact flag if the result
+    /// as this object but rounded to the specified exponent represented as
+    /// a 32-bit signed integer, and signals an inexact flag if the result
     /// would be inexact. The resulting number's Exponent property will not
-    /// necessarily be the given exponent; use the Quantize method instead
-    /// to give the result a particular exponent.</summary>
+    /// necessarily be the specified exponent; use the Quantize method
+    /// instead to give the result a particular exponent.</summary>
     /// <param name='exponentSmall'>The minimum exponent the result can
     /// have. This is the maximum number of fractional digits in the
     /// result, expressed as a negative number. Can also be positive, which
@@ -3600,13 +3603,13 @@ Binary16SignifAreaBits;
     /// Can be null, in which case the default rounding mode is
     /// HalfEven.</param>
     /// <returns>A binary floating-point number rounded to the closest
-    /// value representable in the given precision. Signals FlagInvalid and
-    /// returns not-a-number (NaN) if the result can't fit the given
-    /// precision without rounding. Signals FlagInvalid and returns
-    /// not-a-number (NaN) if the arithmetic context defines an exponent
-    /// range, the new exponent must be changed to the given exponent when
-    /// rounding, and the given exponent is outside the valid range of the
-    /// arithmetic context.</returns>
+    /// value representable in the specified precision. Signals FlagInvalid
+    /// and returns not-a-number (NaN) if the result can't fit the
+    /// specified precision without rounding. Signals FlagInvalid and
+    /// returns not-a-number (NaN) if the arithmetic context defines an
+    /// exponent range, the new exponent must be changed to the specified
+    /// exponent when rounding, and the specified exponent is outside the
+    /// valid range of the arithmetic context.</returns>
     public EFloat RoundToExponentExact(
       int exponentSmall,
       EContext ctx) {
@@ -3625,12 +3628,13 @@ Binary16SignifAreaBits;
     /// Can be null, in which case the default rounding mode is
     /// HalfEven.</param>
     /// <returns>A binary floating-point number rounded to the closest
-    /// integer representable in the given precision. Signals FlagInvalid
-    /// and returns not-a-number (NaN) if the result can't fit the given
-    /// precision without rounding. Signals FlagInvalid and returns
-    /// not-a-number (NaN) if the arithmetic context defines an exponent
-    /// range, the new exponent must be changed to 0 when rounding, and 0
-    /// is outside the valid range of the arithmetic context.</returns>
+    /// integer representable in the specified precision. Signals
+    /// FlagInvalid and returns not-a-number (NaN) if the result can't fit
+    /// the specified precision without rounding. Signals FlagInvalid and
+    /// returns not-a-number (NaN) if the arithmetic context defines an
+    /// exponent range, the new exponent must be changed to 0 when
+    /// rounding, and 0 is outside the valid range of the arithmetic
+    /// context.</returns>
     public EFloat RoundToIntegerExact(EContext ctx) {
       return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
     }
@@ -3650,9 +3654,9 @@ Binary16SignifAreaBits;
     /// RoundToExponentExact). Can be null, in which case the default
     /// rounding mode is HalfEven.</param>
     /// <returns>A binary floating-point number rounded to the closest
-    /// integer representable in the given precision. If the result can't
-    /// fit the precision, additional digits are discarded to make it fit.
-    /// Signals FlagInvalid and returns not-a-number (NaN) if the
+    /// integer representable in the specified precision. If the result
+    /// can't fit the precision, additional digits are discarded to make it
+    /// fit. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
     /// be changed to 0 when rounding, and 0 is outside the valid range of
     /// the arithmetic context.</returns>
@@ -3670,12 +3674,13 @@ Binary16SignifAreaBits;
     /// Can be null, in which case the default rounding mode is
     /// HalfEven.</param>
     /// <returns>A binary floating-point number rounded to the closest
-    /// integer representable in the given precision. Signals FlagInvalid
-    /// and returns not-a-number (NaN) if the result can't fit the given
-    /// precision without rounding. Signals FlagInvalid and returns
-    /// not-a-number (NaN) if the arithmetic context defines an exponent
-    /// range, the new exponent must be changed to 0 when rounding, and 0
-    /// is outside the valid range of the arithmetic context.</returns>
+    /// integer representable in the specified precision. Signals
+    /// FlagInvalid and returns not-a-number (NaN) if the result can't fit
+    /// the specified precision without rounding. Signals FlagInvalid and
+    /// returns not-a-number (NaN) if the arithmetic context defines an
+    /// exponent range, the new exponent must be changed to 0 when
+    /// rounding, and 0 is outside the valid range of the arithmetic
+    /// context.</returns>
     [Obsolete("Renamed to RoundToIntegerExact.")]
     public EFloat RoundToIntegralExact(EContext ctx) {
       return MathValue.RoundToExponentExact(this, EInteger.Zero, ctx);
@@ -3693,9 +3698,9 @@ Binary16SignifAreaBits;
     /// RoundToExponentExact). Can be null, in which case the default
     /// rounding mode is HalfEven.</param>
     /// <returns>A binary floating-point number rounded to the closest
-    /// integer representable in the given precision. If the result can't
-    /// fit the precision, additional digits are discarded to make it fit.
-    /// Signals FlagInvalid and returns not-a-number (NaN) if the
+    /// integer representable in the specified precision. If the result
+    /// can't fit the precision, additional digits are discarded to make it
+    /// fit. Signals FlagInvalid and returns not-a-number (NaN) if the
     /// arithmetic context defines an exponent range, the new exponent must
     /// be changed to 0 when rounding, and 0 is outside the valid range of
     /// the arithmetic context.</returns>
@@ -3704,8 +3709,8 @@ Binary16SignifAreaBits;
       return MathValue.RoundToExponentNoRoundedFlag(this, EInteger.Zero, ctx);
     }
 
-    /// <summary>Rounds this object's value to a given precision, using the
-    /// given rounding mode and range of exponent.</summary>
+    /// <summary>Rounds this object's value to the specified precision,
+    /// using the specified rounding mode and range of exponent.</summary>
     /// <param name='ctx'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. If <c>HasFlags</c> of
     /// the context is true, will also store the flags resulting from the
@@ -3735,9 +3740,9 @@ Binary16SignifAreaBits;
     /// flag LostDigits if the input number has greater precision than
     /// allowed and was rounded to a different numerical value in order to
     /// fit the precision.</param>
-    /// <returns>This object rounded to the given precision. Returns this
-    /// object and signals no flags if <paramref name='ctx'/> is null or
-    /// specifies an unlimited precision, if this object is infinity or
+    /// <returns>This object rounded to the specified precision. Returns
+    /// this object and signals no flags if <paramref name='ctx'/> is null
+    /// or specifies an unlimited precision, if this object is infinity or
     /// not-a-number (including signaling NaN), or if the number's value
     /// has no more significant digits than the maximum precision given in
     /// <paramref name='ctx'/>.</returns>
@@ -4407,15 +4412,15 @@ Binary16SignifBits;
     }
 
     /// <summary>Returns a string representation of this number's value
-    /// after rounding that value to the given precision (using the given
-    /// arithmetic context, such as <c>EContext.Binary64</c>
-    ///  ). If the
-    /// number after rounding is neither infinity nor not-a-number (NaN),
-    /// returns the shortest decimal form of this number's value (in terms
-    /// of decimal digits starting with the first nonzero digit and ending
-    /// with the last nonzero digit) that results in the rounded number
-    /// after the decimal form is converted to binary floating-point format
-    /// (using the given arithmetic context).</summary>
+    /// after rounding that value to the specified precision (using the
+    /// specified arithmetic context, such as <c>EContext.Binary64</c>
+    ///  ).
+    /// If the number after rounding is neither infinity nor not-a-number
+    /// (NaN), returns the shortest decimal form of this number's value (in
+    /// terms of decimal digits starting with the first nonzero digit and
+    /// ending with the last nonzero digit) that results in the rounded
+    /// number after the decimal form is converted to binary floating-point
+    /// format (using the specified arithmetic context).</summary>
     /// <param name='ctx'>An arithmetic context to control precision (in
     /// bits), rounding, and exponent range of the rounded number. If
     /// <c>HasFlags</c>
@@ -4424,13 +4429,13 @@ Binary16SignifBits;
     /// pre-existing flags). Can be null. If this parameter is null or
     /// defines no maximum precision, returns the same value as the
     /// ToString() method.</param>
-    /// <returns>Shortest decimal form of this number's value for the given
-    /// arithmetic context. The text string will be in exponential notation
-    /// (expressed as a number 1 or greater, but less than 10, times a
-    /// power of 10) if the number's first nonzero decimal digit is more
-    /// than five digits after the decimal point, or if the number's
-    /// exponent is greater than 0 and its value is 10, 000, 000 or
-    /// greater.</returns>
+    /// <returns>Shortest decimal form of this number's value for the
+    /// specified arithmetic context. The text string will be in
+    /// exponential notation (expressed as a number 1 or greater, but less
+    /// than 10, times a power of 10) if the number's first nonzero decimal
+    /// digit is more than five digits after the decimal point, or if the
+    /// number's exponent is greater than 0 and its value is 10, 000, 000
+    /// or greater.</returns>
     /// <example>
     /// <para>The following example converts an EFloat number to its
     /// shortest round-tripping decimal form using the same precision as
@@ -4652,7 +4657,7 @@ Binary16SignifBits;
 
     /// <summary>Converts this value to an arbitrary-precision integer by
     /// discarding its fractional part and checking whether the resulting
-    /// integer overflows the given signed bit count.</summary>
+    /// integer overflows the specified signed bit count.</summary>
     /// <param name='maxBitLength'>The maximum number of signed bits the
     /// integer can have. The integer's value may not be less than
     /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
@@ -4667,7 +4672,7 @@ Binary16SignifBits;
 
     /// <summary>Converts this value to an arbitrary-precision integer,
     /// only if this number's value is an exact integer and that integer
-    /// does not overflow the given signed bit count.</summary>
+    /// does not overflow the specified signed bit count.</summary>
     /// <param name='maxBitLength'>The maximum number of signed bits the
     /// integer can have. The integer's value may not be less than
     /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>

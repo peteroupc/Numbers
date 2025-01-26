@@ -24,7 +24,7 @@ namespace PeterO.Numbers {
     /// <param name='ec'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. Can be null.</param>
     /// <returns>An arbitrary-precision decimal number with the closest
-    /// representable value to the given integer.</returns>
+    /// representable value to the specified integer.</returns>
     public static EDecimal Int32ToEDecimal(int i32, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
@@ -39,7 +39,7 @@ namespace PeterO.Numbers {
     /// null.</param>
     /// <returns>Either 1 if <paramref name='b'/> is true, or 0 if
     /// <paramref name='b'/> is false.. The result will be rounded as
-    /// specified by the given context, if any.</returns>
+    /// specified by the specified context, if any.</returns>
     public static EDecimal BooleanToEDecimal(bool b, EContext ec) {
       // NOTE: Not a miscellaneous operation in the General Decimal
       // Arithmetic Specification 1.70, but required since some of the
@@ -47,7 +47,7 @@ namespace PeterO.Numbers {
       return EDecimal.FromInt32(b ? 1 : 0).RoundToPrecision(ec);
     }
 
-    /// <summary>Returns whether the given arbitrary-precision number
+    /// <summary>Returns whether the specified arbitrary-precision number
     /// object is in a canonical form. For the current version of EDecimal,
     /// all EDecimal objects are in a canonical form.</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
@@ -64,28 +64,28 @@ namespace PeterO.Numbers {
       return true;
     }
 
-    /// <summary>Returns whether the given arbitrary-precision number
+    /// <summary>Returns whether the specified arbitrary-precision number
     /// object is neither null nor infinity nor not-a-number
     /// (NaN).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
-    /// <returns>Either <c>true</c> if the given arbitrary-precision number
-    /// object is neither null nor infinity nor not-a-number (NaN), or
-    /// <c>false</c> otherwise.</returns>
+    /// <returns>Either <c>true</c> if the specified arbitrary-precision
+    /// number object is neither null nor infinity nor not-a-number (NaN),
+    /// or <c>false</c> otherwise.</returns>
     public static bool IsFinite(EDecimal ed) {
       return ed != null && ed.IsFinite;
     }
 
-    /// <summary>Returns whether the given arbitrary-precision number
+    /// <summary>Returns whether the specified arbitrary-precision number
     /// object is positive or negative infinity.</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
-    /// <returns>Either <c>true</c> if the given arbitrary-precision number
-    /// object is positive or negative infinity, or <c>false</c>
+    /// <returns>Either <c>true</c> if the specified arbitrary-precision
+    /// number object is positive or negative infinity, or <c>false</c>
     /// otherwise.</returns>
     public static bool IsInfinite(EDecimal ed) {
       return ed != null && ed.IsInfinity();
     }
 
-    /// <summary>Returns whether the given arbitrary-precision number
+    /// <summary>Returns whether the specified arbitrary-precision number
     /// object is a not-a-number (NaN).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -93,7 +93,7 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsNaN();
     }
 
-    /// <summary>Returns whether the given number is a
+    /// <summary>Returns whether the specified number is a
     /// <i>normal</i> number. A
     /// <i>subnormal number</i> is a nonzero finite number whose Exponent
     /// property (or the number's exponent when that number is expressed in
@@ -104,26 +104,27 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <param name='ec'>A context specifying the exponent range of
     /// arbitrary-precision numbers. Can be null. If AdjustExponent of the
-    /// given context is <c>true</c>, a nonzero number is normal if the
-    /// number's exponent (when that number is expressed in scientific
+    /// specified context is <c>true</c>, a nonzero number is normal if
+    /// the number's exponent (when that number is expressed in scientific
     /// notation with one nonzero digit before the radix point) is at least
-    /// the given context's EMax property (for example, if EMax is -100,
-    /// 2.3456 * 10
+    /// the specified context's EMax property (for example, if EMax is
+    /// -100, 2.3456 * 10
     /// <sup>-99</sup> is normal, but 2.3456 * 10
-    /// <sup>-102</sup> is not). If AdjustExponent of the given context is
-    /// <c>false</c>, a nonzero number is subnormal if the number's
+    /// <sup>-102</sup> is not). If AdjustExponent of the specified context
+    /// is <c>false</c>, a nonzero number is subnormal if the number's
     /// Exponent property is at least given context's EMax property (for
     /// example, if EMax is -100, 23456 * 10
     /// <sup>-99</sup> is normal, but 23456 * 10
     /// <sup>-102</sup> is not).</param>
-    /// <returns>Either <c>true</c> if the given number is subnormal, or
-    /// <c>false</c> otherwise. Returns <c>true</c> if the given context is
-    /// null or HasExponentRange of the given context is <c>false</c>.</returns>
+    /// <returns>Either <c>true</c> if the specified number is subnormal,
+    /// or <c>false</c> otherwise. Returns <c>true</c> if the specified
+    /// context is null or HasExponentRange of the specified context is
+    /// <c>false</c>.</returns>
     public static bool IsNormal(EDecimal ed, EContext ec) {
       return ed != null && ed.IsFinite && !ed.IsZero && !IsSubnormal(ed, ec);
     }
 
-    /// <summary>Returns whether the given arbitrary-precision number
+    /// <summary>Returns whether the specified arbitrary-precision number
     /// object is a quiet not-a-number (NaN).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -131,7 +132,7 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsQuietNaN();
     }
 
-    /// <summary>Returns whether the given arbitrary-precision number
+    /// <summary>Returns whether the specified arbitrary-precision number
     /// object is negative (including negative infinity, negative
     /// not-a-number [NaN], or negative zero).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
@@ -140,7 +141,7 @@ namespace PeterO.Numbers {
       return ed != null && ed.IsNegative;
     }
 
-    /// <summary>Returns whether the given arbitrary-precision number
+    /// <summary>Returns whether the specified arbitrary-precision number
     /// object is a signaling not-a-number (NaN).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -160,7 +161,7 @@ namespace PeterO.Numbers {
     /// 9) to a text string. An arbitrary-precision number object can
     /// belong in one of ten number classes.</summary>
     /// <param name='nc'>An integer identifying a number class.</param>
-    /// <returns>A text string identifying the given number class as
+    /// <returns>A text string identifying the specified number class as
     /// follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =
     /// "-Subnormal", 4 = "+Zero", 5 = "-Zero", 6 = "+Infinity", 7 =
     /// "-Infinity", 8 = "NaN", 9 = "sNaN".</returns>
@@ -186,7 +187,7 @@ namespace PeterO.Numbers {
     /// exponent range of arbitrary-precision numbers. This is used only to
     /// distinguish between normal and subnormal numbers. Can be
     /// null.</param>
-    /// <returns>A 32-bit signed integer identifying the given number
+    /// <returns>A 32-bit signed integer identifying the specified number
     /// object, number class as follows: 0 = positive normal; 1 = negative
     /// normal, 2 = positive subnormal, 3 = negative subnormal, 4 =
     /// positive zero, 5 = negative zero, 6 = positive infinity, 7 =
@@ -214,7 +215,7 @@ namespace PeterO.Numbers {
         (ed.IsNegative ? 1 : 0);
     }
 
-    /// <summary>Returns whether the given number is a
+    /// <summary>Returns whether the specified number is a
     /// <i>subnormal</i> number. A
     /// <i>subnormal number</i> is a nonzero finite number whose Exponent
     /// property (or the number's exponent when that number is expressed in
@@ -223,21 +224,22 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <param name='ec'>A context specifying the exponent range of
     /// arbitrary-precision numbers. Can be null. If AdjustExponent of the
-    /// given context is <c>true</c>, a nonzero number is subnormal if the
-    /// number's exponent (when that number is expressed in scientific
+    /// specified context is <c>true</c>, a nonzero number is subnormal if
+    /// the number's exponent (when that number is expressed in scientific
     /// notation with one nonzero digit before the radix point) is less
-    /// than the given context's EMax property (for example, if EMax is
+    /// than the specified context's EMax property (for example, if EMax is
     /// -100, 2.3456 * 10
     /// <sup>-102</sup> is subnormal, but 2.3456 * 10
-    /// <sup>-99</sup> is not). If AdjustExponent of the given context is
-    /// <c>false</c>, a nonzero number is subnormal if the number's
-    /// Exponent property is less than the given context's EMax property
-    /// (for example, if EMax is -100, 23456 * 10
+    /// <sup>-99</sup> is not). If AdjustExponent of the specified context
+    /// is <c>false</c>, a nonzero number is subnormal if the number's
+    /// Exponent property is less than the specified context's EMax
+    /// property (for example, if EMax is -100, 23456 * 10
     /// <sup>-102</sup> is subnormal, but 23456 * 10
     /// <sup>-99</sup> is not).</param>
-    /// <returns>Either <c>true</c> if the given number is subnormal, or
-    /// <c>false</c> otherwise. Returns <c>false</c> if the given context
-    /// is null or HasExponentRange of the given context is <c>false</c>.</returns>
+    /// <returns>Either <c>true</c> if the specified number is subnormal,
+    /// or <c>false</c> otherwise. Returns <c>false</c> if the specified
+    /// context is null or HasExponentRange of the specified context is
+    /// <c>false</c>.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='ed'/> is null.</exception>
     public static bool IsSubnormal(EDecimal ed, EContext ec) {
@@ -255,10 +257,10 @@ namespace PeterO.Numbers {
       return false;
     }
 
-    /// <summary>Returns whether the given arbitrary-precision number
+    /// <summary>Returns whether the specified arbitrary-precision number
     /// object is zero (positive zero or negative zero).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
-    /// <returns><c>true</c> if the given number has a value of zero
+    /// <returns><c>true</c> if the specified number has a value of zero
     /// (positive zero or negative zero); otherwise, <c>false</c>.</returns>
     public static bool IsZero(EDecimal ed) {
       return ed != null && ed.IsZero;
@@ -271,9 +273,9 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision decimal number.</param>
     /// <param name='ec'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. Can be null.</param>
-    /// <returns>The base-10 exponent of the given number (when that number
-    /// is expressed in scientific notation with one nonzero digit before
-    /// the radix point). Signals DivideByZero and returns negative
+    /// <returns>The base-10 exponent of the specified number (when that
+    /// number is expressed in scientific notation with one nonzero digit
+    /// before the radix point). Signals DivideByZero and returns negative
     /// infinity if <paramref name='ed'/> is zero. Returns positive
     /// infinity if <paramref name='ed'/> is positive infinity or negative
     /// infinity.</returns>
@@ -305,7 +307,7 @@ namespace PeterO.Numbers {
     /// <param name='ec'>An arithmetic context to control the precision,
     /// rounding, and exponent range of the result. Can be null.</param>
     /// <returns>The given arbitrary-precision decimal number whose decimal
-    /// point is moved the given number of places. Signals an invalid
+    /// point is moved the specified number of places. Signals an invalid
     /// operation and returns not-a-number (NaN) if <paramref name='ed2'/>
     /// is infinity or NaN, has an Exponent property other than 0. Signals
     /// an invalid operation and returns not-a-number (NaN) if <paramref
@@ -357,16 +359,16 @@ namespace PeterO.Numbers {
     /// <param name='ed2'>An arbitrary-precision number indicating the
     /// number of digits to shift the first operand's significand. Must be
     /// an integer with an exponent of 0. If this parameter is positive,
-    /// the significand is shifted to the left by the given number of
+    /// the significand is shifted to the left by the specified number of
     /// digits. If this parameter is negative, the significand is shifted
-    /// to the right by the given number of digits.</param>
+    /// to the right by the specified number of digits.</param>
     /// <param name='ec'>An arithmetic context to control the precision of
     /// arbitrary-precision numbers. Can be null.</param>
     /// <returns>An arbitrary-precision decimal number whose significand is
-    /// shifted the given number of digits. Signals an invalid operation
-    /// and returns NaN (not-a-number) if <paramref name='ed2'/> is a
-    /// signaling NaN or if <paramref name='ed2'/> is not an integer, is
-    /// negative, has an exponent other than 0, or has an absolute value
+    /// shifted the specified number of digits. Signals an invalid
+    /// operation and returns NaN (not-a-number) if <paramref name='ed2'/>
+    /// is a signaling NaN or if <paramref name='ed2'/> is not an integer,
+    /// is negative, has an exponent other than 0, or has an absolute value
     /// that exceeds the maximum precision specified in the
     /// context.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -432,22 +434,22 @@ namespace PeterO.Numbers {
     /// <param name='ed2'>An arbitrary-precision number indicating the
     /// number of digits to rotate the first operand's significand. Must be
     /// an integer with an exponent of 0. If this parameter is positive,
-    /// the significand is shifted to the left by the given number of
+    /// the significand is shifted to the left by the specified number of
     /// digits and the most-significant digits shifted out of the
     /// significand become the least-significant digits instead. If this
     /// parameter is negative, the significand is shifted to the right by
-    /// the given number of digits and the least-significant digits shifted
-    /// out of the significand become the most-significant digits
+    /// the specified number of digits and the least-significant digits
+    /// shifted out of the significand become the most-significant digits
     /// instead.</param>
     /// <param name='ec'>An arithmetic context to control the precision of
     /// arbitrary-precision numbers. If this parameter is null or specifies
     /// an unlimited precision, this method has the same behavior as
     /// <c>Shift</c>.</param>
     /// <returns>An arbitrary-precision decimal number whose significand is
-    /// rotated the given number of digits. Signals an invalid operation
-    /// and returns NaN (not-a-number) if <paramref name='ed2'/> is a
-    /// signaling NaN or if <paramref name='ed2'/> is not an integer, is
-    /// negative, has an exponent other than 0, or has an absolute value
+    /// rotated the specified number of digits. Signals an invalid
+    /// operation and returns NaN (not-a-number) if <paramref name='ed2'/>
+    /// is a signaling NaN or if <paramref name='ed2'/> is not an integer,
+    /// is negative, has an exponent other than 0, or has an absolute value
     /// that exceeds the maximum precision specified in the
     /// context.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
@@ -585,11 +587,11 @@ namespace PeterO.Numbers {
           ed.CompareToTotalMagnitude(other, ec));
     }
 
-    /// <summary>Creates a copy of the given arbitrary-precision number
+    /// <summary>Creates a copy of the specified arbitrary-precision number
     /// object.</summary>
     /// <param name='ed'>An arbitrary-precision number object to
     /// copy.</param>
-    /// <returns>A copy of the given arbitrary-precision number
+    /// <returns>A copy of the specified arbitrary-precision number
     /// object.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='ed'/> is null.</exception>
@@ -600,7 +602,7 @@ namespace PeterO.Numbers {
       return ed.Copy();
     }
 
-    /// <summary>Returns a canonical version of the given
+    /// <summary>Returns a canonical version of the specified
     /// arbitrary-precision number object. In this method, this method
     /// behaves like the Copy method.</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
@@ -610,11 +612,12 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Returns an arbitrary-precision number object with the same
-    /// value as the given number object but with a nonnegative sign (that
-    /// is, the given number object's absolute value).</summary>
+    /// value as the specified number object but with a nonnegative sign
+    /// (that is, the specified number object's absolute value).</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the same value
-    /// as the given number object but with a nonnegative sign.</returns>
+    /// as the specified number object but with a nonnegative
+    /// sign.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='ed'/> is null.</exception>
     public static EDecimal CopyAbs(EDecimal ed) {
@@ -625,10 +628,10 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Returns an arbitrary-precision number object with the sign
-    /// reversed from the given number object.</summary>
+    /// reversed from the specified number object.</summary>
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>An arbitrary-precision number object with the sign
-    /// reversed from the given number object.</returns>
+    /// reversed from the specified number object.</returns>
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='ed'/> is null.</exception>
     public static EDecimal CopyNegate(EDecimal ed) {
@@ -669,7 +672,7 @@ namespace PeterO.Numbers {
     /// infinity (positive, negative, or both).</summary>
     /// <param name='ed1'>The first arbitrary-precision number.</param>
     /// <param name='ed2'>The second arbitrary-precision number.</param>
-    /// <returns>Either <c>true</c> if the given arbitrary-precision
+    /// <returns>Either <c>true</c> if the specified arbitrary-precision
     /// numbers have the same exponent, they both are not-a-number (NaN),
     /// or they both are infinity (positive, negative, or both); otherwise,
     /// <c>false</c>.</returns>
@@ -752,8 +755,8 @@ namespace PeterO.Numbers {
     }
 
     /// <summary>Returns an arbitrary-precision decimal number with the
-    /// same value as this object but with the given exponent, expressed as
-    /// an arbitrary-precision decimal number.
+    /// same value as this object but with the specified exponent,
+    /// expressed as an arbitrary-precision decimal number.
     /// <para>Note that this is not always the same as rounding to a given
     /// number of decimal places, since it can fail if the difference
     /// between this value's exponent and the desired exponent is too big,
@@ -778,10 +781,10 @@ namespace PeterO.Numbers {
     /// object.</param>
     /// <returns>An arbitrary-precision decimal number with the same value
     /// as this object but with the exponent changed. Signals FlagInvalid
-    /// and returns not-a-number (NaN) if the result can't fit the given
-    /// precision without rounding, or if the arithmetic context defines an
-    /// exponent range and the given exponent is outside that
-    /// range.</returns>
+    /// and returns not-a-number (NaN) if the result can't fit the
+    /// specified precision without rounding, or if the arithmetic context
+    /// defines an exponent range and the specified exponent is outside
+    /// that range.</returns>
     public static EDecimal Rescale(EDecimal ed, EDecimal scale, EContext ec) {
       if (ed == null || scale == null) {
         return InvalidOperation(ec);

@@ -264,7 +264,7 @@ this.unsignedNumerator.IsValueZero;
       }
     }
 
-    /// <summary>Creates a rational number with the given numerator and
+    /// <summary>Creates a rational number with the specified numerator and
     /// denominator.</summary>
     /// <param name='numeratorSmall'>The numerator.</param>
     /// <param name='denominatorSmall'>The denominator.</param>
@@ -277,7 +277,7 @@ this.unsignedNumerator.IsValueZero;
       return Create((EInteger)numeratorSmall, (EInteger)denominatorSmall);
     }
 
-    /// <summary>Creates a rational number with the given numerator and
+    /// <summary>Creates a rational number with the specified numerator and
     /// denominator.</summary>
     /// <param name='numeratorLong'>The numerator.</param>
     /// <param name='denominatorLong'>The denominator.</param>
@@ -290,7 +290,7 @@ this.unsignedNumerator.IsValueZero;
       return Create((EInteger)numeratorLong, (EInteger)denominatorLong);
     }
 
-    /// <summary>Creates a rational number with the given numerator and
+    /// <summary>Creates a rational number with the specified numerator and
     /// denominator.</summary>
     /// <param name='numerator'>The numerator.</param>
     /// <param name='denominator'>The denominator.</param>
@@ -608,7 +608,7 @@ PositiveInfinity) : CreateNaN(
     /// more information.</summary>
     /// <param name='str'>A string that represents a number.</param>
     /// <returns>An arbitrary-precision rational number with the same value
-    /// as the given string.</returns>
+    /// as the specified string.</returns>
     /// <exception cref='FormatException'>The parameter <paramref
     /// name='str'/> is not a correctly formatted number
     /// string.</exception>
@@ -669,7 +669,7 @@ PositiveInfinity) : CreateNaN(
     /// <param name='chars'>A sequence of <c>char</c> s that represents a
     /// number.</param>
     /// <returns>An arbitrary-precision rational number with the same value
-    /// as the given sequence of <c>char</c> s.</returns>
+    /// as the specified sequence of <c>char</c> s.</returns>
     /// <exception cref='FormatException'>The parameter <paramref
     /// name='chars'/> is not a correctly formatted sequence of <c>char</c>
     /// s.</exception>
@@ -732,7 +732,7 @@ PositiveInfinity) : CreateNaN(
     /// <param name='bytes'>A sequence of bytes that represents a
     /// number.</param>
     /// <returns>An arbitrary-precision rational number with the same value
-    /// as the given sequence of bytes.</returns>
+    /// as the specified sequence of bytes.</returns>
     /// <exception cref='FormatException'>The parameter <paramref
     /// name='bytes'/> is not a correctly formatted sequence of
     /// bytes.</exception>
@@ -2008,7 +2008,7 @@ PositiveInfinity) : CreateNaN(
     /// <summary>Converts this value to an arbitrary-precision integer by
     /// dividing the numerator by the denominator, discarding its
     /// fractional part, and checking whether the resulting integer
-    /// overflows the given signed bit count.</summary>
+    /// overflows the specified signed bit count.</summary>
     /// <param name='maxBitLength'>The maximum number of signed bits the
     /// integer can have. The integer's value may not be less than
     /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
@@ -2046,7 +2046,7 @@ PositiveInfinity) : CreateNaN(
 
     /// <summary>Converts this value to an arbitrary-precision integer,
     /// only if this number's value is an exact integer and that integer
-    /// does not overflow the given signed bit count.</summary>
+    /// does not overflow the specified signed bit count.</summary>
     /// <param name='maxBitLength'>The maximum number of signed bits the
     /// integer can have. The integer's value may not be less than
     /// -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
@@ -2144,7 +2144,7 @@ PositiveInfinity) : CreateNaN(
     }
 
     /// <summary>Converts this rational number to an arbitrary-precision
-    /// decimal number and rounds the result to the given
+    /// decimal number and rounds the result to the specified
     /// precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. If HasFlags
@@ -2152,7 +2152,7 @@ PositiveInfinity) : CreateNaN(
     /// the operation (the flags are in addition to the pre-existing
     /// flags). Can be null, in which case the precision is unlimited and
     /// no rounding is needed.</param>
-    /// <returns>The value of the rational number, rounded to the given
+    /// <returns>The value of the rational number, rounded to the specified
     /// precision. Returns not-a-number (NaN) if the context is null and
     /// the result can't be exact because it has a nonterminating decimal
     /// expansion.</returns>
@@ -2177,7 +2177,7 @@ PositiveInfinity) : CreateNaN(
 
     /// <summary>Converts this rational number to an arbitrary-precision
     /// decimal number, but if the result would have a nonterminating
-    /// decimal expansion, rounds that result to the given
+    /// decimal expansion, rounds that result to the specified
     /// precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. This context
@@ -2236,7 +2236,7 @@ PositiveInfinity) : CreateNaN(
     }
 
     /// <summary>Converts this rational number to an arbitrary-precision
-    /// decimal number and rounds the result to the given
+    /// decimal number and rounds the result to the specified
     /// precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. If HasFlags
@@ -2244,7 +2244,7 @@ PositiveInfinity) : CreateNaN(
     /// the operation (the flags are in addition to the pre-existing
     /// flags). Can be null, in which case the precision is unlimited and
     /// no rounding is needed.</param>
-    /// <returns>The value of the rational number, rounded to the given
+    /// <returns>The value of the rational number, rounded to the specified
     /// precision. Returns not-a-number (NaN) if the context is null and
     /// the result can't be exact because it has a nonterminating decimal
     /// expansion.</returns>
@@ -2255,7 +2255,7 @@ PositiveInfinity) : CreateNaN(
 
     /// <summary>Converts this rational number to an arbitrary-precision
     /// decimal number, but if the result would have a nonterminating
-    /// decimal expansion, rounds that result to the given
+    /// decimal expansion, rounds that result to the specified
     /// precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. This context
@@ -2284,14 +2284,14 @@ PositiveInfinity) : CreateNaN(
     }
 
     /// <summary>Converts this rational number to a binary floating-point
-    /// number and rounds that result to the given precision.</summary>
+    /// number and rounds that result to the specified precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. If HasFlags
     /// of the context is true, will also store the flags resulting from
     /// the operation (the flags are in addition to the pre-existing
     /// flags). Can be null, in which case the precision is unlimited and
     /// no rounding is needed.</param>
-    /// <returns>The value of the rational number, rounded to the given
+    /// <returns>The value of the rational number, rounded to the specified
     /// precision. Returns not-a-number (NaN) if the context is null and
     /// the result can't be exact because it has a nonterminating binary
     /// expansion.</returns>
@@ -2316,7 +2316,7 @@ PositiveInfinity) : CreateNaN(
 
     /// <summary>Converts this rational number to a binary floating-point
     /// number, but if the result would have a nonterminating binary
-    /// expansion, rounds that result to the given precision.</summary>
+    /// expansion, rounds that result to the specified precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. This context
     /// will be used only if the exact result would have a nonterminating
@@ -2372,14 +2372,14 @@ PositiveInfinity) : CreateNaN(
     }
 
     /// <summary>Converts this rational number to a binary floating-point
-    /// number and rounds that result to the given precision.</summary>
+    /// number and rounds that result to the specified precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. If HasFlags
     /// of the context is true, will also store the flags resulting from
     /// the operation (the flags are in addition to the pre-existing
     /// flags). Can be null, in which case the precision is unlimited and
     /// no rounding is needed.</param>
-    /// <returns>The value of the rational number, rounded to the given
+    /// <returns>The value of the rational number, rounded to the specified
     /// precision. Returns not-a-number (NaN) if the context is null and
     /// the result can't be exact because it has a nonterminating binary
     /// expansion.</returns>
@@ -2390,7 +2390,7 @@ PositiveInfinity) : CreateNaN(
 
     /// <summary>Converts this rational number to a binary floating-point
     /// number, but if the result would have a nonterminating binary
-    /// expansion, rounds that result to the given precision.</summary>
+    /// expansion, rounds that result to the specified precision.</summary>
     /// <param name='ctx'>An arithmetic context object to control the
     /// precision, rounding, and exponent range of the result. This context
     /// will be used only if the exact result would have a nonterminating
