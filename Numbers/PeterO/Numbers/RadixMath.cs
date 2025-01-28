@@ -6504,7 +6504,7 @@ EFloat)?.ToDouble()));
             (roundingOnOverflow == ERounding.Ceiling && neg) ||
             (roundingOnOverflow == ERounding.Floor && !neg))) {
           // Set to the highest possible value for
-          // the given precision
+          // the specified precision
           EInteger overflowMant = EInteger.Zero;
           FastInteger fastPrecision = FastInteger.FromBig(ctx.Precision);
           overflowMant = this.TryMultiplyByRadixPower(

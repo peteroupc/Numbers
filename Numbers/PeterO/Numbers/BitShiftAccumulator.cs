@@ -323,7 +323,7 @@ FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
     }
 
     private void ShiftBigToBits(int bits) {
-      // Shifts a number until it reaches the given number of bits,
+      // Shifts a number until it reaches the specified number of bits,
       // gathering information on whether the last bit discarded is set and
       // whether the discarded bits to the right of that bit are set. Assumes
       // that the big integer being shifted is positive.

@@ -190,11 +190,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EContext.ExponentWithinRange(PeterO.Numbers.EInteger)">
 
-            <summary>Determines whether a number can have the given Exponent
+            <summary>Determines whether a number can have the specified Exponent
             property under this arithmetic context.</summary>
             <param name='exponent'>An arbitrary-precision integer indicating
             the desired exponent.</param>
-            <returns><c>true</c> if a number can have the given Exponent
+            <returns><c>true</c> if a number can have the specified Exponent
             property under this arithmetic context; otherwise, <c>false</c>.
             If this context allows unlimited precision, returns true for the
             exponent EMax and any exponent less than EMax.</returns>
@@ -276,7 +276,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EContext.ForPrecision(System.Int32)">
 
-            <summary>Creates a new arithmetic context using the given maximum
+            <summary>Creates a new arithmetic context using the specified maximum
             number of digits, an unlimited exponent range, and the HalfUp
             rounding mode.</summary>
             <param name='precision'>Maximum number of digits
@@ -288,7 +288,7 @@
 <doc name="M:PeterO.Numbers.EContext.ForPrecisionAndRounding(System.Int32,PeterO.Numbers.ERounding)">
 
             <summary>Creates a new EContext object initialized with an
-            unlimited exponent range, and the given rounding mode and maximum
+            unlimited exponent range, and the specified rounding mode and maximum
             precision.</summary>
             <param name='precision'>Maximum number of digits
             (precision).</param>
@@ -301,7 +301,7 @@
 <doc name="M:PeterO.Numbers.EContext.ForRounding(PeterO.Numbers.ERounding)">
 
             <summary>Creates a new EContext object initialized with an
-            unlimited precision, an unlimited exponent range, and the given
+            unlimited precision, an unlimited exponent range, and the specified
             rounding mode.</summary>
             <param name='rounding'>The rounding mode for the new precision
             context.</param>
@@ -403,10 +403,10 @@
 <doc name="P:PeterO.Numbers.EContext.Rounding">
 
             <summary>Gets the desired rounding mode when converting numbers
-            that can't be represented in the given precision and exponent
+            that can't be represented in the specified precision and exponent
             range.</summary>
             <value>The desired rounding mode when converting numbers that can't
-            be represented in the given precision and exponent range.</value>
+            be represented in the specified precision and exponent range.</value>
 
 </doc>
 <doc name="M:PeterO.Numbers.EContext.ToString">
@@ -442,9 +442,8 @@
 </doc>
 <doc name="M:PeterO.Numbers.EContext.TriggerTraps``1(``0,PeterO.Numbers.EContext)">
 
-            <summary>Throws trap exceptions if the given context has flags set
-            that also have traps enabled for them in this context, and adds the
-            given context's flags to this context if HasFlags for this context
+            <summary>Throws trap exceptions if the specified context has flags set
+            that also have traps enabled for them in this context, and adds the specified context's flags to this context if HasFlags for this context
             is true. This is not a general-purpose method; it is intended to
             support custom implementations of arithmetic operations.</summary>
             <param name='result'>The result of the operation.</param>
@@ -471,7 +470,7 @@
 <doc name="M:PeterO.Numbers.EContext.WithAdjustExponent(System.Boolean)">
 
             <summary>Copies this EContext and sets the copy's "AdjustExponent"
-            property to the given value.</summary>
+            property to the specified value.</summary>
             <param name='adjustExponent'>The new value of the "AdjustExponent"
             property for the copy.</param>
             <returns>A context object for arbitrary-precision arithmetic
@@ -513,7 +512,7 @@
 <doc name="M:PeterO.Numbers.EContext.WithExponentClamp(System.Boolean)">
 
             <summary>Copies this arithmetic context and sets the copy's
-            "ClampNormalExponents" flag to the given value.</summary>
+            "ClampNormalExponents" flag to the specified value.</summary>
             <param name='clamp'>The desired value of the "ClampNormalExponents"
             flag.</param>
             <returns>A context object for arbitrary-precision arithmetic
@@ -561,7 +560,7 @@
 <doc name="M:PeterO.Numbers.EContext.WithPrecisionInBits(System.Boolean)">
 
             <summary>Copies this EContext and sets the copy's
-            "IsPrecisionInBits" property to the given value.</summary>
+            "IsPrecisionInBits" property to the specified value.</summary>
             <param name='isPrecisionBits'>The new value of the
             "IsPrecisionInBits" property for the copy.</param>
             <returns>A context object for arbitrary-precision arithmetic
@@ -581,7 +580,7 @@
 <doc name="M:PeterO.Numbers.EContext.WithSimplified(System.Boolean)">
 
             <summary>Copies this EContext and sets the copy's "IsSimplified"
-            property to the given value.</summary>
+            property to the specified value.</summary>
             <param name='simplified'>Desired value of the IsSimplified
             property.</param>
             <returns>A context object for arbitrary-precision arithmetic
@@ -590,7 +589,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EContext.WithTraps(System.Int32)">
 
-            <summary>Copies this EContext with Traps set to the given value.
+            <summary>Copies this EContext with Traps set to the specified value.
             (Also sets HasFlags on the copy to <c>True</c>, but this may
             change in version 2.0 of this library.).</summary>
             <param name='traps'>Flags representing the traps to enable. See the
@@ -1532,7 +1531,7 @@
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
             higher precision than given in this context. Flags will be set on
-            the given context only if the context's <c>HasFlags</c> is true and
+            the specified context only if the context's <c>HasFlags</c> is true and
             the integer part of the division result doesn't fit the precision
             and exponent range without rounding. Can be null, in which the
             precision is unlimited and no additional rounding, other than the
@@ -1661,7 +1660,7 @@
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
             higher precision than given in this context. Flags will be set on
-            the given context only if the context's <c>HasFlags</c> is true and
+            the specified context only if the context's <c>HasFlags</c> is true and
             the integer part of the division result doesn't fit the precision
             and exponent range without rounding. Can be null, in which the
             precision is unlimited and no additional rounding, other than the
@@ -1702,7 +1701,7 @@
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
-            and return NaN if the result doesn't fit the given precision). If
+            and return NaN if the result doesn't fit the specified precision). If
             <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
@@ -1769,7 +1768,7 @@
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
-            and return NaN if the result doesn't fit the given precision). If
+            and return NaN if the result doesn't fit the specified precision). If
             <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
@@ -1837,7 +1836,7 @@
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
-            and return NaN if the result doesn't fit the given precision). If
+            and return NaN if the result doesn't fit the specified precision). If
             <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
@@ -1920,7 +1919,7 @@
             exponent will be set to 0. Signals FlagDivideByZero and returns
             infinity if the divisor is 0 and the dividend is nonzero. Signals
             FlagInvalid and returns not-a-number (NaN) if the divisor and the
-            dividend are 0, or if the result doesn't fit the given
+            dividend are 0, or if the result doesn't fit the specified
             precision.</returns>
 
 </doc>
@@ -1977,7 +1976,7 @@
             results are generally not exact.</i> (Unlike in the General Decimal
             Arithmetic Specification, any rounding mode is allowed.).</param>
             <returns>Exponential of this object. If this object's value is 1,
-            returns an approximation to " e" within the given precision.
+            returns an approximation to " e" within the specified precision.
             Signals FlagInvalid and returns not-a-number (NaN) if the parameter
             <paramref name='ctx'/> is null or the precision is unlimited (the
             context's Precision property is 0).</returns>
@@ -2254,7 +2253,7 @@
             specifies a precision limit and exponent range.</summary>
             <param name='bytes'>A sequence that represents a number.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of bytes (interpreted as text).</returns>
+            as the specified sequence of bytes (interpreted as text).</returns>
             <exception cref='FormatException'>The parameter <paramref name='bytes'/> is not a correctly formatted number
             sequence.</exception>
 
@@ -2277,7 +2276,7 @@
             <c>RoundToPrecision</c> on that EDecimal, especially if the context
             specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of bytes (interpreted as text).</returns>
+            as the specified sequence of bytes (interpreted as text).</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
 
 </doc>
@@ -2296,7 +2295,7 @@
             <param name='length'>The length, in bytes, of the desired portion
             of <paramref name='bytes'/> (but not more than <paramref name='bytes'/> 's length).</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of bytes (interpreted as text).</returns>
+            as the specified sequence of bytes (interpreted as text).</returns>
             <exception cref='FormatException'>The parameter <paramref name='bytes'/> is not a correctly formatted number
             sequence.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
@@ -2350,7 +2349,7 @@
             <c>RoundToPrecision</c> on that EDecimal, especially if the context
             specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of bytes (interpreted as text).</returns>
+            as the specified sequence of bytes (interpreted as text).</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
             greater than <paramref name='bytes'/> 's length, or <paramref name='bytes'/> 's length minus <paramref name='offset'/> is less
@@ -2368,7 +2367,7 @@
             specifies a precision limit and exponent range.</summary>
             <param name='chars'>A sequence that represents a number.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of <c>char</c> s.</returns>
+            as the specified sequence of <c>char</c> s.</returns>
             <exception cref='FormatException'>The parameter <paramref name='chars'/> is not a correctly formatted number
             sequence.</exception>
 
@@ -2391,7 +2390,7 @@
             <c>RoundToPrecision</c> on that EDecimal, especially if the context
             specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of <c>char</c> s.</returns>
+            as the specified sequence of <c>char</c> s.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
 
 </doc>
@@ -2410,7 +2409,7 @@
             <param name='length'>The length, in code units, of the desired
             portion of <paramref name='chars'/> (but not more than <paramref name='chars'/> 's length).</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of <c>char</c> s.</returns>
+            as the specified sequence of <c>char</c> s.</returns>
             <exception cref='FormatException'>The parameter <paramref name='chars'/> is not a correctly formatted number
             sequence.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
@@ -2462,7 +2461,7 @@
             <c>RoundToPrecision</c> on that EDecimal, especially if the context
             specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given sequence of <c>char</c> s.</returns>
+            as the specified sequence of <c>char</c> s.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='chars'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
             greater than <paramref name='chars'/> 's length, or <paramref name='chars'/> 's length minus <paramref name='offset'/> is less
@@ -2480,7 +2479,7 @@
             range.</summary>
             <param name='str'>A string that represents a number.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given string.</returns>
+            as the specified string.</returns>
             <exception cref='FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
             string.</exception>
 
@@ -2501,7 +2500,7 @@
             <c>RoundToPrecision</c> on that EDecimal, especially if the context
             specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given string.</returns>
+            as the specified string.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
 
 </doc>
@@ -2520,7 +2519,7 @@
             <param name='length'>The length, in code units, of the desired
             portion of <paramref name='str'/> (but not more than <paramref name='str'/> 's length).</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given string.</returns>
+            as the specified string.</returns>
             <exception cref='FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
             string.</exception>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
@@ -2572,7 +2571,7 @@
             <c>RoundToPrecision</c> on that EDecimal, especially if the context
             specifies a precision limit and exponent range.</param>
             <returns>An arbitrary-precision decimal number with the same value
-            as the given string.</returns>
+            as the specified string.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
             <exception cref='ArgumentException'>Either <paramref name='offset'/> or <paramref name='length'/> is less than 0 or
             greater than <paramref name='str'/> 's length, or <paramref name='str'/> 's length minus <paramref name='offset'/> is less than
@@ -3184,14 +3183,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.NextMinus(PeterO.Numbers.EContext)">
 
-            <summary>Finds the largest value that's smaller than the given
+            <summary>Finds the largest value that's smaller than the specified
             value.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
             are in addition to the pre-existing flags).</param>
-            <returns>Returns the largest value that's less than the given
+            <returns>Returns the largest value that's less than the specified
             value. Returns negative infinity if the result is negative
             infinity. Signals FlagInvalid and returns not-a-number (NaN) if the
             parameter <paramref name='ctx'/> is null, the precision is 0, or
@@ -3200,14 +3199,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.NextPlus(PeterO.Numbers.EContext)">
 
-            <summary>Finds the smallest value that's greater than the given
+            <summary>Finds the smallest value that's greater than the specified
             value.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
             are in addition to the pre-existing flags).</param>
-            <returns>Returns the smallest value that's greater than the given
+            <returns>Returns the smallest value that's greater than the specified
             value.Signals FlagInvalid and returns not-a-number (NaN) if the
             parameter <paramref name='ctx'/> is null, the precision is 0, or
             <paramref name='ctx'/> has an unlimited exponent range.</returns>
@@ -3248,7 +3247,7 @@
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter can't be null, as π can never be represented
             exactly.</i>.</param>
-            <returns>The constant π rounded to the given precision. Signals
+            <returns>The constant π rounded to the specified precision. Signals
             FlagInvalid and returns not-a-number (NaN) if the parameter
             <paramref name='ctx'/> is null or the precision is unlimited (the
             context's Precision property is 0).</returns>
@@ -3256,8 +3255,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Plus(PeterO.Numbers.EContext)">
 
-            <summary>Rounds this object's value to a given precision, using the
-            given rounding mode and range of exponent, and also converts
+            <summary>Rounds this object's value to the specified precision, using the specified rounding mode and range of exponent, and also converts
             negative zero to positive zero. The idiom
             <c>EDecimal.SignalingNaN.Plus(ctx)</c> is useful for triggering an
             invalid operation and returning not-a-number (NaN) for custom
@@ -3280,7 +3278,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Pow(PeterO.Numbers.EDecimal)">
 
-            <summary>Raises this object's value to the given exponent, using
+            <summary>Raises this object's value to the specified exponent, using
             unlimited precision.</summary>
             <param name='exponent'>An arbitrary-precision decimal number
             expressing the exponent to raise this object's value to.</param>
@@ -3290,7 +3288,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Pow(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Raises this object's value to the given
+            <summary>Raises this object's value to the specified
             exponent.</summary>
             <param name='exponent'>An arbitrary-precision decimal number
             expressing the exponent to raise this object's value to.</param>
@@ -3311,7 +3309,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Pow(System.Int32)">
 
-            <summary>Raises this object's value to the given
+            <summary>Raises this object's value to the specified
             exponent.</summary>
             <param name='exponentSmall'>The exponent to raise this object's
             value to.</param>
@@ -3321,7 +3319,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.Pow(System.Int32,PeterO.Numbers.EContext)">
 
-            <summary>Raises this object's value to the given
+            <summary>Raises this object's value to the specified
             exponent.</summary>
             <param name='exponentSmall'>The exponent to raise this object's
             value to.</param>
@@ -3351,7 +3349,7 @@
             flag LostDigits if the input number has greater precision than
             allowed and was rounded to a different numerical value in order to
             fit the precision.</param>
-            <returns>This object rounded to the given precision. Returns this
+            <returns>This object rounded to the specified precision. Returns this
             object and signals no flags if <paramref name='ctx'/> is null or
             specifies an unlimited precision, if this object is infinity or
             not-a-number (including signaling NaN), or if the number's value
@@ -3399,9 +3397,9 @@
             case the default rounding mode is HalfEven.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as this object but with the exponent changed. Signals FlagInvalid
-            and returns not-a-number (NaN) if the result can't fit the given
+            and returns not-a-number (NaN) if the result can't fit the specified
             precision without rounding, or if the arithmetic context defines an
-            exponent range and the given exponent is outside that
+            exponent range and the specified exponent is outside that
             range.</returns>
 
 </doc>
@@ -3446,8 +3444,8 @@
             <returns>An arbitrary-precision decimal number with the same value
             as this object but with the exponent changed. Signals FlagInvalid
             and returns not-a-number (NaN) if this object is infinity, if the
-            rounded result can't fit the given precision, or if the context
-            defines an exponent range and the given exponent is outside that
+            rounded result can't fit the specified precision, or if the context
+            defines an exponent range and the specified exponent is outside that
             range.</returns>
 
 </doc>
@@ -3489,8 +3487,8 @@
             <returns>An arbitrary-precision decimal number with the same value
             as this object but with the exponent changed. Signals FlagInvalid
             and returns not-a-number (NaN) if this object is infinity, if the
-            rounded result can't fit the given precision, or if the context
-            defines an exponent range and the given exponent is outside that
+            rounded result can't fit the specified precision, or if the context
+            defines an exponent range and the specified exponent is outside that
             range.</returns>
 
 </doc>
@@ -3511,7 +3509,7 @@
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
             <param name='rounding'>A rounding mode to use in case the result
-            needs to be rounded to fit the given exponent.</param>
+            needs to be rounded to fit the specified exponent.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as this object but with the exponent changed. Returns not-a-number
             (NaN) if this object is infinity, or if the rounding mode is
@@ -3563,7 +3561,7 @@
             dividend (the other arbitrary-precision decimal floating-point
             number) is nonzero. Signals FlagInvalid and returns not-a-number
             (NaN) if the divisor and the dividend are 0, or if the result of
-            the division doesn't fit the given precision.</returns>
+            the division doesn't fit the specified precision.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RemainderNaturalScale(PeterO.Numbers.EDecimal)">
@@ -3584,7 +3582,7 @@
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the return value to
             have a higher precision than given in this context. Flags will be
-            set on the given context only if the context's <c>HasFlags</c> is
+            set on the specified context only if the context's <c>HasFlags</c> is
             true and the integer part of the division result doesn't fit the
             precision and exponent range without rounding. Can be null, in
             which the precision is unlimited and no additional rounding, other
@@ -3595,7 +3593,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RemainderNear(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Finds the distance to the closest multiple of the given
+            <summary>Finds the distance to the closest multiple of the specified
             divisor, based on the result of dividing this object's value by
             another object's value.
             <list type=''>
@@ -3625,14 +3623,14 @@
             <returns>The distance of the closest multiple. Signals FlagInvalid
             and returns not-a-number (NaN) if the divisor is 0, or either the
             result of integer division (the quotient) or the remainder wouldn't
-            fit the given precision.</returns>
+            fit the specified precision.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RemainderNoRoundAfterDivide(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
             <summary>Finds the remainder that results when dividing two
             arbitrary-precision decimal numbers, except the intermediate
-            division is not adjusted to fit the precision of the given
+            division is not adjusted to fit the precision of the specified
             arithmetic context. The value of this object is divided by the
             absolute value of the other object; the remainder has the same sign
             (positive or negative) as this object's value.</summary>
@@ -3645,7 +3643,7 @@
             Can be null, in which the precision is unlimited.</param>
             <returns>The remainder of the two numbers. Signals FlagInvalid and
             returns not-a-number (NaN) if the divisor is 0, or if the result
-            doesn't fit the given precision.</returns>
+            doesn't fit the specified precision.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger)">
@@ -3653,7 +3651,7 @@
             <summary>Returns an arbitrary-precision decimal number with the
             same value as this object but rounded to a new exponent if
             necessary, using the HalfEven rounding mode. The resulting number's
-            Exponent property will not necessarily be the given exponent; use
+            Exponent property will not necessarily be the specified exponent; use
             the Quantize method instead to give the result a particular
             exponent.</summary>
             <param name='exponent'>The minimum exponent the result can have.
@@ -3664,7 +3662,7 @@
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest value representable for the given exponent.</returns>
+            closest value representable for the specified exponent.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
@@ -3672,7 +3670,7 @@
             <summary>Returns an arbitrary-precision decimal number with the
             same value as this object but rounded to a new exponent if
             necessary. The resulting number's Exponent property will not
-            necessarily be the given exponent; use the Quantize method instead
+            necessarily be the specified exponent; use the Quantize method instead
             to give the result a particular exponent.</summary>
             <param name='exponent'>The minimum exponent the result can have.
             This is the maximum number of fractional digits in the result,
@@ -3688,11 +3686,11 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest value representable in the given precision. If the result
+            closest value representable in the specified precision. If the result
             can't fit the precision, additional digits are discarded to make it
             fit. Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
-            be changed to the given exponent when rounding, and the given
+            be changed to the specified exponent when rounding, and the specified
             exponent is outside the valid range of the arithmetic
             context.</returns>
 
@@ -3701,8 +3699,8 @@
 
             <summary>Returns an arbitrary-precision decimal number with the
             same value as this object but rounded to a new exponent if
-            necessary, using the given rounding mode. The resulting number's
-            Exponent property will not necessarily be the given exponent; use
+            necessary, using the specified rounding mode. The resulting number's
+            Exponent property will not necessarily be the specified exponent; use
             the Quantize method instead to give the result a particular
             exponent.</summary>
             <param name='exponent'>The minimum exponent the result can have.
@@ -3715,7 +3713,7 @@
             <param name='rounding'>Desired mode for rounding this number's
             value.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest value representable for the given exponent.</returns>
+            closest value representable for the specified exponent.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32)">
@@ -3723,7 +3721,7 @@
             <summary>Returns an arbitrary-precision decimal number with the
             same value as this object but rounded to a new exponent if
             necessary, using the HalfEven rounding mode. The resulting number's
-            Exponent property will not necessarily be the given exponent; use
+            Exponent property will not necessarily be the specified exponent; use
             the Quantize method instead to give the result a particular
             exponent.</summary>
             <param name='exponentSmall'>The minimum exponent the result can
@@ -3734,7 +3732,7 @@
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest value representable for the given exponent.</returns>
+            closest value representable for the specified exponent.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponent(System.Int32,PeterO.Numbers.EContext)">
@@ -3742,7 +3740,7 @@
             <summary>Returns an arbitrary-precision decimal number with the
             same value as this object but rounded to a new exponent if
             necessary. The resulting number's Exponent property will not
-            necessarily be the given exponent; use the Quantize method instead
+            necessarily be the specified exponent; use the Quantize method instead
             to give the result a particular exponent.</summary>
             <param name='exponentSmall'>The minimum exponent the result can
             have. This is the maximum number of fractional digits in the
@@ -3758,11 +3756,11 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest value representable in the given precision. If the result
+            closest value representable in the specified precision. If the result
             can't fit the precision, additional digits are discarded to make it
             fit. Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
-            be changed to the given exponent when rounding, and the given
+            be changed to the specified exponent when rounding, and the specified
             exponent is outside the valid range of the arithmetic
             context.</returns>
 
@@ -3772,7 +3770,7 @@
             <summary>Returns an arbitrary-precision decimal number with the
             same value as this object but rounded to a new exponent if
             necessary. The resulting number's Exponent property will not
-            necessarily be the given exponent; use the Quantize method instead
+            necessarily be the specified exponent; use the Quantize method instead
             to give the result a particular exponent.</summary>
             <param name='exponentSmall'>The minimum exponent the result can
             have. This is the maximum number of fractional digits in the
@@ -3781,19 +3779,19 @@
             means round to the thousandth (10^-3, 0.0001), and 3 means round to
             the thousand (10^3, 1000). A value of 0 rounds the number to an
             integer.</param>
-            <param name='rounding'>The desired mode to use to round the given
-            number to the given exponent.</param>
-            <returns>An arbitrary-precision decimal number rounded to the given
+            <param name='rounding'>The desired mode to use to round the specified
+            number to the specified exponent.</param>
+            <returns>An arbitrary-precision decimal number rounded to the specified
             negative number of decimal places.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 
             <summary>Returns an arbitrary-precision decimal number with the
-            same value as this object but rounded to the given exponent
+            same value as this object but rounded to the specified exponent
             represented as an arbitrary-precision integer, and signals an
             inexact flag if the result would be inexact. The resulting number's
-            Exponent property will not necessarily be the given exponent; use
+            Exponent property will not necessarily be the specified exponent; use
             the Quantize method instead to give the result a particular
             exponent.</summary>
             <param name='exponent'>The minimum exponent the result can have.
@@ -3810,22 +3808,22 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest value representable in the given precision. Signals
+            closest value representable in the specified precision. Signals
             FlagInvalid and returns not-a-number (NaN) if the result can't fit
-            the given precision without rounding. Signals FlagInvalid and
+            the specified precision without rounding. Signals FlagInvalid and
             returns not-a-number (NaN) if the arithmetic context defines an
-            exponent range, the new exponent must be changed to the given
-            exponent when rounding, and the given exponent is outside the
+            exponent range, the new exponent must be changed to the specified
+            exponent when rounding, and the specified exponent is outside the
             valid range of the arithmetic context.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.EContext)">
 
             <summary>Returns an arbitrary-precision decimal number with the
-            same value as this object but rounded to the given exponent
+            same value as this object but rounded to the specified exponent
             represented as a 32-bit signed integer, and signals an inexact flag
             if the result would be inexact. The resulting number's Exponent
-            property will not necessarily be the given exponent; use the
+            property will not necessarily be the specified exponent; use the
             Quantize method instead to give the result a particular
             exponent.</summary>
             <param name='exponentSmall'>The minimum exponent the result can
@@ -3842,22 +3840,22 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest value representable in the given precision. Signals
+            closest value representable in the specified precision. Signals
             FlagInvalid and returns not-a-number (NaN) if the result can't fit
-            the given precision without rounding. Signals FlagInvalid and
+            the specified precision without rounding. Signals FlagInvalid and
             returns not-a-number (NaN) if the arithmetic context defines an
-            exponent range, the new exponent must be changed to the given
-            exponent when rounding, and the given exponent is outside the
+            exponent range, the new exponent must be changed to the specified
+            exponent when rounding, and the specified exponent is outside the
             valid range of the arithmetic context.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToExponentExact(System.Int32,PeterO.Numbers.ERounding)">
 
             <summary>Returns an arbitrary-precision decimal number with the
-            same value as this object but rounded to the given exponent
+            same value as this object but rounded to the specified exponent
             represented as a 32-bit signed integer, and signals an inexact flag
             if the result would be inexact. The resulting number's Exponent
-            property will not necessarily be the given exponent; use the
+            property will not necessarily be the specified exponent; use the
             Quantize method instead to give the result a particular
             exponent.</summary>
             <param name='exponentSmall'>The minimum exponent the result can
@@ -3870,7 +3868,7 @@
             <param name='rounding'>Desired mode for rounding this object's
             value.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest value representable using the given exponent.</returns>
+            closest value representable using the specified exponent.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToIntegerExact(PeterO.Numbers.EContext)">
@@ -3887,9 +3885,9 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest integer representable in the given precision. Signals
+            closest integer representable in the specified precision. Signals
             FlagInvalid and returns not-a-number (NaN) if the result can't fit
-            the given precision without rounding. Signals FlagInvalid and
+            the specified precision without rounding. Signals FlagInvalid and
             returns not-a-number (NaN) if the arithmetic context defines an
             exponent range, the new exponent must be changed to 0 when
             rounding, and 0 is outside the valid range of the arithmetic
@@ -3913,7 +3911,7 @@
             RoundToExponentExact). Can be null, in which case the default
             rounding mode is HalfEven.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest integer representable in the given precision. If the result
+            closest integer representable in the specified precision. If the result
             can't fit the precision, additional digits are discarded to make it
             fit. Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
@@ -3933,9 +3931,9 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest integer representable in the given precision. Signals
+            closest integer representable in the specified precision. Signals
             FlagInvalid and returns not-a-number (NaN) if the result can't fit
-            the given precision without rounding. Signals FlagInvalid and
+            the specified precision without rounding. Signals FlagInvalid and
             returns not-a-number (NaN) if the arithmetic context defines an
             exponent range, the new exponent must be changed to 0 when
             rounding, and 0 is outside the valid range of the arithmetic
@@ -3956,7 +3954,7 @@
             RoundToExponentExact). Can be null, in which case the default
             rounding mode is HalfEven.</param>
             <returns>An arbitrary-precision decimal number rounded to the
-            closest integer representable in the given precision. If the result
+            closest integer representable in the specified precision. If the result
             can't fit the precision, additional digits are discarded to make it
             fit. Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
@@ -3966,8 +3964,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimal.RoundToPrecision(PeterO.Numbers.EContext)">
 
-            <summary>Rounds this object's value to a given precision, using the
-            given rounding mode and range of exponent.</summary>
+            <summary>Rounds this object's value to the specified precision, using the specified rounding mode and range of exponent.</summary>
             <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
@@ -4530,7 +4527,7 @@
 
             <summary>Converts this value to an arbitrary-precision integer by
             discarding its fractional part and checking whether the resulting
-            integer overflows the given signed bit count.</summary>
+            integer overflows the specified signed bit count.</summary>
             <param name='maxBitLength'>The maximum number of signed bits the
             integer can have. The integer's value may not be less than
             -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
@@ -4545,7 +4542,7 @@
 
             <summary>Converts this value to an arbitrary-precision integer,
             only if this number's value is an exact integer and that integer
-            does not overflow the given signed bit count.</summary>
+            does not overflow the specified signed bit count.</summary>
             <param name='maxBitLength'>The maximum number of signed bits the
             integer can have. The integer's value may not be less than
             -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
@@ -5106,7 +5103,7 @@
 <doc name="M:PeterO.Numbers.EDecimal.op_UnaryNegation(PeterO.Numbers.EDecimal)">
 
             <summary>Gets an arbitrary-precision decimal number with the same
-            value as the given one, but with the sign reversed.</summary>
+            value as the specified one, but with the sign reversed.</summary>
             <param name='bigValue'>An arbitrary-precision decimal number to
             negate.</param>
             <returns>An arbitrary-precision decimal number. If this value is
@@ -5159,12 +5156,12 @@
             null.</param>
             <returns>Either 1 if <paramref name='b'/> is true, or 0 if
             <paramref name='b'/> is false.. The result will be rounded as
-            specified by the given context, if any.</returns>
+            specified by the specified context, if any.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.Canonical(PeterO.Numbers.EDecimal)">
 
-            <summary>Returns a canonical version of the given
+            <summary>Returns a canonical version of the specified
             arbitrary-precision number object. In this method, this method
             behaves like the Copy method.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
@@ -5236,11 +5233,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.Copy(PeterO.Numbers.EDecimal)">
 
-            <summary>Creates a copy of the given arbitrary-precision number
+            <summary>Creates a copy of the specified arbitrary-precision number
             object.</summary>
             <param name='ed'>An arbitrary-precision number object to
             copy.</param>
-            <returns>A copy of the given arbitrary-precision number
+            <returns>A copy of the specified arbitrary-precision number
             object.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
 
@@ -5248,21 +5245,21 @@
 <doc name="M:PeterO.Numbers.EDecimals.CopyAbs(PeterO.Numbers.EDecimal)">
 
             <summary>Returns an arbitrary-precision number object with the same
-            value as the given number object but with a nonnegative sign (that
-            is, the given number object's absolute value).</summary>
+            value as the specified number object but with a nonnegative sign (that
+            is, the specified number object's absolute value).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>An arbitrary-precision number object with the same value
-            as the given number object but with a nonnegative sign.</returns>
+            as the specified number object but with a nonnegative sign.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.CopyNegate(PeterO.Numbers.EDecimal)">
 
             <summary>Returns an arbitrary-precision number object with the sign
-            reversed from the given number object.</summary>
+            reversed from the specified number object.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>An arbitrary-precision number object with the sign
-            reversed from the given number object.</returns>
+            reversed from the specified number object.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
 
 </doc>
@@ -5290,7 +5287,7 @@
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
             <returns>An arbitrary-precision decimal number with the closest
-            representable value to the given integer.</returns>
+            representable value to the specified integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.Invert(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
@@ -5320,7 +5317,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsCanonical(PeterO.Numbers.EDecimal)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is in a canonical form. For the current version of EDecimal,
             all EDecimal objects are in a canonical form.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
@@ -5329,27 +5326,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsFinite(PeterO.Numbers.EDecimal)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is neither null nor infinity nor not-a-number
             (NaN).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
-            <returns>Either <c>true</c> if the given arbitrary-precision number
+            <returns>Either <c>true</c> if the specified arbitrary-precision number
             object is neither null nor infinity nor not-a-number (NaN), or
             <c>false</c> otherwise.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsInfinite(PeterO.Numbers.EDecimal)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is positive or negative infinity.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
-            <returns>Either <c>true</c> if the given arbitrary-precision number
+            <returns>Either <c>true</c> if the specified arbitrary-precision number
             object is positive or negative infinity, or <c>false</c> otherwise.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsNaN(PeterO.Numbers.EDecimal)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is a not-a-number (NaN).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -5357,7 +5354,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsNormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Returns whether the given number is a
+            <summary>Returns whether the specified number is a
             <i>normal</i> number. A
             <i>subnormal number</i> is a nonzero finite number whose Exponent
             property (or the number's exponent when that number is expressed in
@@ -5367,27 +5364,26 @@
             subnormal.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <param name='ec'>A context specifying the exponent range of
-            arbitrary-precision numbers. Can be null. If AdjustExponent of the
-            given context is <c>true</c>, a nonzero number is normal if the
+            arbitrary-precision numbers. Can be null. If AdjustExponent of the specified context is <c>true</c>, a nonzero number is normal if the
             number's exponent (when that number is expressed in scientific
             notation with one nonzero digit before the radix point) is at least
-            the given context's EMax property (for example, if EMax is -100, 2.3456 *
+            the specified context's EMax property (for example, if EMax is -100, 2.3456 *
             10
             <sup>-99</sup> is normal, but 2.3456 * 10
-            <sup>-102</sup> is not). If AdjustExponent of the given context is
+            <sup>-102</sup> is not). If AdjustExponent of the specified context is
             <c>false</c>, a nonzero number is subnormal if the number's
             Exponent property is at least given context's EMax property (for example,
             if EMax is -100, 23456 * 10
             <sup>-99</sup> is normal, but 23456 * 10
             <sup>-102</sup> is not).</param>
-            <returns>Either <c>true</c> if the given number is subnormal, or
-            <c>false</c> otherwise. Returns <c>true</c> if the given context is
-            null or HasExponentRange of the given context is <c>false</c>.</returns>
+            <returns>Either <c>true</c> if the specified number is subnormal, or
+            <c>false</c> otherwise. Returns <c>true</c> if the specified context is
+            null or HasExponentRange of the specified context is <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsQuietNaN(PeterO.Numbers.EDecimal)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is a quiet not-a-number (NaN).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -5395,7 +5391,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsSignalingNaN(PeterO.Numbers.EDecimal)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is a signaling not-a-number (NaN).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -5403,7 +5399,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsSigned(PeterO.Numbers.EDecimal)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is negative (including negative infinity, negative
             not-a-number [NaN], or negative zero).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
@@ -5412,7 +5408,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsSubnormal(PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
-            <summary>Returns whether the given number is a
+            <summary>Returns whether the specified number is a
             <i>subnormal</i> number. A
             <i>subnormal number</i> is a nonzero finite number whose Exponent
             property (or the number's exponent when that number is expressed in
@@ -5420,31 +5416,30 @@
             than the minimum possible exponent for that number.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <param name='ec'>A context specifying the exponent range of
-            arbitrary-precision numbers. Can be null. If AdjustExponent of the
-            given context is <c>true</c>, a nonzero number is subnormal if the
+            arbitrary-precision numbers. Can be null. If AdjustExponent of the specified context is <c>true</c>, a nonzero number is subnormal if the
             number's exponent (when that number is expressed in scientific
             notation with one nonzero digit before the radix point) is less
-            than the given context's EMax property (for example, if EMax is -100,
+            than the specified context's EMax property (for example, if EMax is -100,
             2.3456 * 10
             <sup>-102</sup> is subnormal, but 2.3456 * 10
-            <sup>-99</sup> is not). If AdjustExponent of the given context is
+            <sup>-99</sup> is not). If AdjustExponent of the specified context is
             <c>false</c>, a nonzero number is subnormal if the number's
-            Exponent property is less than the given context's EMax property
+            Exponent property is less than the specified context's EMax property
             (for example, if EMax is -100, 23456 * 10
             <sup>-102</sup> is subnormal, but 23456 * 10
             <sup>-99</sup> is not).</param>
-            <returns>Either <c>true</c> if the given number is subnormal, or
-            <c>false</c> otherwise. Returns <c>false</c> if the given context
-            is null or HasExponentRange of the given context is <c>false</c>.</returns>
+            <returns>Either <c>true</c> if the specified number is subnormal, or
+            <c>false</c> otherwise. Returns <c>false</c> if the specified context
+            is null or HasExponentRange of the specified context is <c>false</c>.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EDecimals.IsZero(PeterO.Numbers.EDecimal)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is zero (positive zero or negative zero).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
-            <returns><c>true</c> if the given number has a value of zero
+            <returns><c>true</c> if the specified number has a value of zero
             (positive zero or negative zero); otherwise, <c>false</c>.</returns>
 
 </doc>
@@ -5457,7 +5452,7 @@
             <param name='ed'>An arbitrary-precision decimal number.</param>
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
-            <returns>The base-10 exponent of the given number (when that number
+            <returns>The base-10 exponent of the specified number (when that number
             is expressed in scientific notation with one nonzero digit before
             the radix point). Signals DivideByZero and returns negative
             infinity if <paramref name='ed'/> is zero. Returns positive
@@ -5476,7 +5471,7 @@
             exponent range of arbitrary-precision numbers. This is used only to
             distinguish between normal and subnormal numbers. Can be
             null.</param>
-            <returns>A 32-bit signed integer identifying the given number
+            <returns>A 32-bit signed integer identifying the specified number
             object, number class as follows: 0 = positive normal; 1 = negative
             normal, 2 = positive subnormal, 3 = negative subnormal, 4 =
             positive zero, 5 = negative zero, 6 = positive infinity, 7 =
@@ -5491,7 +5486,7 @@
             9) to a text string. An arbitrary-precision number object can
             belong in one of ten number classes.</summary>
             <param name='nc'>An integer identifying a number class.</param>
-            <returns>A text string identifying the given number class as
+            <returns>A text string identifying the specified number class as
             follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =
             "-Subnormal", 4 = "+Zero", 5 = "-Zero", 6 = "+Infinity", 7 =
             "-Infinity", 8 = "NaN", 9 = "sNaN".</returns>
@@ -5537,7 +5532,7 @@
 <doc name="M:PeterO.Numbers.EDecimals.Rescale(PeterO.Numbers.EDecimal,PeterO.Numbers.EDecimal,PeterO.Numbers.EContext)">
 
             <summary>Returns an arbitrary-precision decimal number with the
-            same value as this object but with the given exponent, expressed as
+            same value as this object but with the specified exponent, expressed as
             an arbitrary-precision decimal number.
             <para>Note that this is not always the same as rounding to a given
             number of decimal places, since it can fail if the difference
@@ -5563,9 +5558,9 @@
             object.</param>
             <returns>An arbitrary-precision decimal number with the same value
             as this object but with the exponent changed. Signals FlagInvalid
-            and returns not-a-number (NaN) if the result can't fit the given
+            and returns not-a-number (NaN) if the result can't fit the specified
             precision without rounding, or if the arithmetic context defines an
-            exponent range and the given exponent is outside that
+            exponent range and the specified exponent is outside that
             range.</returns>
 
 </doc>
@@ -5580,11 +5575,11 @@
             <param name='ed2'>An arbitrary-precision number indicating the
             number of digits to rotate the first operand's significand. Must be
             an integer with an exponent of 0. If this parameter is positive,
-            the significand is shifted to the left by the given number of
+            the significand is shifted to the left by the specified number of
             digits and the most-significant digits shifted out of the
             significand become the least-significant digits instead. If this
             parameter is negative, the significand is shifted to the right by
-            the given number of digits and the least-significant digits shifted
+            the specified number of digits and the least-significant digits shifted
             out of the significand become the most-significant digits
             instead.</param>
             <param name='ec'>An arithmetic context to control the precision of
@@ -5592,7 +5587,7 @@
             an unlimited precision, this method has the same behavior as
             <c>Shift</c>.</param>
             <returns>An arbitrary-precision decimal number whose significand is
-            rotated the given number of digits. Signals an invalid operation
+            rotated the specified number of digits. Signals an invalid operation
             and returns NaN (not-a-number) if <paramref name='ed2'/> is a
             signaling NaN or if <paramref name='ed2'/> is not an integer, is
             negative, has an exponent other than 0, or has an absolute value
@@ -5608,7 +5603,7 @@
             infinity (positive, negative, or both).</summary>
             <param name='ed1'>The first arbitrary-precision number.</param>
             <param name='ed2'>The second arbitrary-precision number.</param>
-            <returns>Either <c>true</c> if the given arbitrary-precision
+            <returns>Either <c>true</c> if the specified arbitrary-precision
             numbers have the same exponent, they both are not-a-number (NaN),
             or they both are infinity (positive, negative, or both); otherwise, <c>false</c>.</returns>
 
@@ -5624,7 +5619,7 @@
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
             <returns>The given arbitrary-precision decimal number whose decimal
-            point is moved the given number of places. Signals an invalid
+            point is moved the specified number of places. Signals an invalid
             operation and returns not-a-number (NaN) if <paramref name='ed2'/>
             is infinity or NaN, has an Exponent property other than 0. Signals
             an invalid operation and returns not-a-number (NaN) if <paramref name='ec'/> defines a limited precision and exponent range and if
@@ -5643,13 +5638,13 @@
             <param name='ed2'>An arbitrary-precision number indicating the
             number of digits to shift the first operand's significand. Must be
             an integer with an exponent of 0. If this parameter is positive,
-            the significand is shifted to the left by the given number of
+            the significand is shifted to the left by the specified number of
             digits. If this parameter is negative, the significand is shifted
-            to the right by the given number of digits.</param>
+            to the right by the specified number of digits.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. Can be null.</param>
             <returns>An arbitrary-precision decimal number whose significand is
-            shifted the given number of digits. Signals an invalid operation
+            shifted the specified number of digits. Signals an invalid operation
             and returns NaN (not-a-number) if <paramref name='ed2'/> is a
             signaling NaN or if <paramref name='ed2'/> is not an integer, is
             negative, has an exponent other than 0, or has an absolute value
@@ -6416,7 +6411,7 @@
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
             higher precision than given in this context. Flags will be set on
-            the given context only if the context's <c>HasFlags</c> is true and
+            the specified context only if the context's <c>HasFlags</c> is true and
             the integer part of the division result doesn't fit the precision
             and exponent range without rounding. Can be null, in which the
             precision is unlimited and no additional rounding, other than the
@@ -6548,7 +6543,7 @@
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the remainder to have a
             higher precision than given in this context. Flags will be set on
-            the given context only if the context's <c>HasFlags</c> is true and
+            the specified context only if the context's <c>HasFlags</c> is true and
             the integer part of the division result doesn't fit the precision
             and exponent range without rounding. Can be null, in which the
             precision is unlimited and no additional rounding, other than the
@@ -6572,7 +6567,7 @@
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
-            and return NaN if the result doesn't fit the given precision). If
+            and return NaN if the result doesn't fit the specified precision). If
             <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
@@ -6621,7 +6616,7 @@
             same exponent as this value. If the precision given in the context
             is other than 0, calls the Quantize method with both arguments
             equal to the result of the operation (and can signal FlagInvalid
-            and return NaN if the result doesn't fit the given precision). If
+            and return NaN if the result doesn't fit the specified precision). If
             <c>HasFlags</c> of the context is true, will also store the flags
             resulting from the operation (the flags are in addition to the
             pre-existing flags). Can be null, in which case the default
@@ -6704,7 +6699,7 @@
             exponent will be set to 0. Signals FlagDivideByZero and returns
             infinity if the divisor is 0 and the dividend is nonzero. Signals
             FlagInvalid and returns not-a-number (NaN) if the divisor and the
-            dividend are 0, or if the result doesn't fit the given
+            dividend are 0, or if the result doesn't fit the specified
             precision.</returns>
 
 </doc>
@@ -6771,7 +6766,7 @@
             <i>This parameter can't be null, as the exponential function's
             results are generally not exact.</i> (Unlike in the General Decimal Arithmetic Specification, any rounding mode is allowed.).</param>
             <returns>Exponential of this object. If this object's value is 1,
-            returns an approximation to " e" within the given precision.
+            returns an approximation to " e" within the specified precision.
             Signals FlagInvalid and returns not-a-number (NaN) if the parameter
             <paramref name='ctx'/> is null or the precision is unlimited (the
             context's Precision property is 0).</returns>
@@ -7913,14 +7908,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.NextMinus(PeterO.Numbers.EContext)">
 
-            <summary>Finds the largest value that's smaller than the given
+            <summary>Finds the largest value that's smaller than the specified
             value.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
             are in addition to the pre-existing flags).</param>
-            <returns>Returns the largest value that's less than the given
+            <returns>Returns the largest value that's less than the specified
             value. Returns negative infinity if the result is negative
             infinity. Signals FlagInvalid and returns not-a-number (NaN) if the
             parameter <paramref name='ctx'/> is null, the precision is 0, or
@@ -7929,14 +7924,14 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.NextPlus(PeterO.Numbers.EContext)">
 
-            <summary>Finds the smallest value that's greater than the given
+            <summary>Finds the smallest value that's greater than the specified
             value.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision and exponent range of the result. The rounding mode from
             this context is ignored. If <c>HasFlags</c> of the context is true,
             will also store the flags resulting from the operation (the flags
             are in addition to the pre-existing flags).</param>
-            <returns>Returns the smallest value that's greater than the given
+            <returns>Returns the smallest value that's greater than the specified
             value.Signals FlagInvalid and returns not-a-number (NaN) if the
             parameter <paramref name='ctx'/> is null, the precision is 0, or
             <paramref name='ctx'/> has an unlimited exponent range.</returns>
@@ -7977,7 +7972,7 @@
             operation (the flags are in addition to the pre-existing flags).
             <i>This parameter can't be null, as π can never be represented
             exactly.</i>.</param>
-            <returns>The constant π rounded to the given precision. Signals
+            <returns>The constant π rounded to the specified precision. Signals
             FlagInvalid and returns not-a-number (NaN) if the parameter
             <paramref name='ctx'/> is null or the precision is unlimited (the
             context's Precision property is 0).</returns>
@@ -7985,8 +7980,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Plus(PeterO.Numbers.EContext)">
 
-            <summary>Rounds this object's value to a given precision, using the
-            given rounding mode and range of exponent, and also converts
+            <summary>Rounds this object's value to the specified precision, using the specified rounding mode and range of exponent, and also converts
             negative zero to positive zero. The idiom
             <c>EDecimal.SignalingNaN.Plus(ctx)</c> is useful for triggering an
             invalid operation and returning not-a-number (NaN) for custom
@@ -8009,7 +8003,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Pow(PeterO.Numbers.EFloat)">
 
-            <summary>Raises this object's value to the given exponent, using
+            <summary>Raises this object's value to the specified exponent, using
             unlimited precision.</summary>
             <param name='exponent'>An arbitrary-precision binary floating-point
             number expressing the exponent to raise this object's value
@@ -8020,7 +8014,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Pow(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Raises this object's value to the given
+            <summary>Raises this object's value to the specified
             exponent.</summary>
             <param name='exponent'>An arbitrary-precision binary floating-point
             number expressing the exponent to raise this object's value
@@ -8042,7 +8036,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Pow(System.Int32)">
 
-            <summary>Raises this object's value to the given
+            <summary>Raises this object's value to the specified
             exponent.</summary>
             <param name='exponentSmall'>The exponent to raise this object's
             value to.</param>
@@ -8052,7 +8046,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.Pow(System.Int32,PeterO.Numbers.EContext)">
 
-            <summary>Raises this object's value to the given
+            <summary>Raises this object's value to the specified
             exponent.</summary>
             <param name='exponentSmall'>The exponent to raise this object's
             value to.</param>
@@ -8082,7 +8076,7 @@
             flag LostDigits if the input number has greater precision than
             allowed and was rounded to a different numerical value in order to
             fit the precision.</param>
-            <returns>This object rounded to the given precision. Returns this
+            <returns>This object rounded to the specified precision. Returns this
             object and signals no flags if <paramref name='ctx'/> is null or
             specifies an unlimited precision, if this object is infinity or
             not-a-number (including signaling NaN), or if the number's value
@@ -8129,9 +8123,9 @@
             case the default rounding mode is HalfEven.</param>
             <returns>A binary floating-point number with the same value as this
             object but with the exponent changed. Signals FlagInvalid and
-            returns not-a-number (NaN) if the result can't fit the given
+            returns not-a-number (NaN) if the result can't fit the specified
             precision without rounding, or if the arithmetic context defines an
-            exponent range and the given exponent is outside that
+            exponent range and the specified exponent is outside that
             range.</returns>
 
 </doc>
@@ -8176,8 +8170,8 @@
             <returns>A binary floating-point number with the same value as this
             object but with the exponent changed. Signals FlagInvalid and
             returns not-a-number (NaN) if this object is infinity, if the
-            rounded result can't fit the given precision, or if the context
-            defines an exponent range and the given exponent is outside that
+            rounded result can't fit the specified precision, or if the context
+            defines an exponent range and the specified exponent is outside that
             range.</returns>
 
 </doc>
@@ -8220,8 +8214,8 @@
             <returns>A binary floating-point number with the same value as this
             object but with the exponent changed. Signals FlagInvalid and
             returns not-a-number (NaN) if this object is infinity, if the
-            rounded result can't fit the given precision, or if the context
-            defines an exponent range and the given exponent is outside that
+            rounded result can't fit the specified precision, or if the context
+            defines an exponent range and the specified exponent is outside that
             range.</returns>
 
 </doc>
@@ -8267,7 +8261,7 @@
             dividend (the other arbitrary-precision binary floating-point
             number) is nonzero. Signals FlagInvalid and returns not-a-number
             (NaN) if the divisor and the dividend are 0, or if the result of
-            the division doesn't fit the given precision.</returns>
+            the division doesn't fit the specified precision.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RemainderNaturalScale(PeterO.Numbers.EFloat)">
@@ -8289,7 +8283,7 @@
             will be used only in the division portion of the remainder
             calculation; as a result, it's possible for the return value to
             have a higher precision than given in this context. Flags will be
-            set on the given context only if the context's <c>HasFlags</c> is
+            set on the specified context only if the context's <c>HasFlags</c> is
             true and the integer part of the division result doesn't fit the
             precision and exponent range without rounding. Can be null, in
             which the precision is unlimited and no additional rounding, other
@@ -8301,7 +8295,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RemainderNear(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Finds the distance to the closest multiple of the given
+            <summary>Finds the distance to the closest multiple of the specified
             divisor, based on the result of dividing this object's value by
             another object's value.
             <list type=''>
@@ -8331,7 +8325,7 @@
             <returns>The distance of the closest multiple. Signals FlagInvalid
             and returns not-a-number (NaN) if the divisor is 0, or either the
             result of integer division (the quotient) or the remainder wouldn't
-            fit the given precision.</returns>
+            fit the specified precision.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RemainderNoRoundAfterDivide(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
@@ -8348,15 +8342,14 @@
             EContext object.</param>
             <returns>The remainder of the two numbers. Signals FlagInvalid and
             returns not-a-number (NaN) if the divisor is 0, or if the result
-            doesn't fit the given precision.</returns>
+            doesn't fit the specified precision.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToExponent(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 
             <summary>Returns a binary floating-point number with the same value
             as this object but rounded to a new exponent if necessary. The
-            resulting number's Exponent property will not necessarily be the
-            given exponent; use the Quantize method instead to give the result
+            resulting number's Exponent property will not necessarily be the specified exponent; use the Quantize method instead to give the result
             a particular exponent.</summary>
             <param name='exponent'>The minimum exponent the result can have.
             This is the maximum number of fractional digits in the result,
@@ -8372,11 +8365,11 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>A binary floating-point number rounded to the closest
-            value representable in the given precision. If the result can't fit
+            value representable in the specified precision. If the result can't fit
             the precision, additional digits are discarded to make it fit.
             Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
-            be changed to the given exponent when rounding, and the given
+            be changed to the specified exponent when rounding, and the specified
             exponent is outside the valid range of the arithmetic
             context.</returns>
 
@@ -8385,8 +8378,7 @@
 
             <summary>Returns a binary floating-point number with the same value
             as this object but rounded to a new exponent if necessary. The
-            resulting number's Exponent property will not necessarily be the
-            given exponent; use the Quantize method instead to give the result
+            resulting number's Exponent property will not necessarily be the specified exponent; use the Quantize method instead to give the result
             a particular exponent.</summary>
             <param name='exponentSmall'>The minimum exponent the result can
             have. This is the maximum number of fractional digits in the
@@ -8402,11 +8394,11 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>A binary floating-point number rounded to the closest
-            value representable in the given precision. If the result can't fit
+            value representable in the specified precision. If the result can't fit
             the precision, additional digits are discarded to make it fit.
             Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
-            be changed to the given exponent when rounding, and the given
+            be changed to the specified exponent when rounding, and the specified
             exponent is outside the valid range of the arithmetic
             context.</returns>
 
@@ -8414,9 +8406,9 @@
 <doc name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.EContext)">
 
             <summary>Returns a binary floating-point number with the same value
-            as this object but rounded to the given exponent, and signals an
+            as this object but rounded to the specified exponent, and signals an
             inexact flag if the result would be inexact. The resulting number's
-            Exponent property will not necessarily be the given exponent; use
+            Exponent property will not necessarily be the specified exponent; use
             the Quantize method instead to give the result a particular
             exponent.</summary>
             <param name='exponent'>The minimum exponent the result can have.
@@ -8433,20 +8425,20 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>A binary floating-point number rounded to the closest
-            value representable in the given precision. Signals FlagInvalid and
-            returns not-a-number (NaN) if the result can't fit the given
+            value representable in the specified precision. Signals FlagInvalid and
+            returns not-a-number (NaN) if the result can't fit the specified
             precision without rounding. Signals FlagInvalid and returns
             not-a-number (NaN) if the arithmetic context defines an exponent
-            range, the new exponent must be changed to the given exponent when
-            rounding, and the given exponent is outside the valid range of
+            range, the new exponent must be changed to the specified exponent when
+            rounding, and the specified exponent is outside the valid range of
             the arithmetic context.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToExponentExact(PeterO.Numbers.EInteger,PeterO.Numbers.ERounding)">
 
             <summary>Returns a binary number with the same value as this object
-            but rounded to the given exponent. The resulting number's Exponent
-            property will not necessarily be the given exponent; use the
+            but rounded to the specified exponent. The resulting number's Exponent
+            property will not necessarily be the specified exponent; use the
             Quantize method instead to give the result a particular
             exponent.</summary>
             <param name='exponent'>The minimum exponent the result can have.
@@ -8459,16 +8451,16 @@
             <param name='rounding'>Desired mode for rounding this object's
             value.</param>
             <returns>A binary number rounded to the closest value representable
-            in the given precision.</returns>
+            in the specified precision.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToExponentExact(System.Int32,PeterO.Numbers.EContext)">
 
             <summary>Returns a binary floating-point number with the same value
-            as this object but rounded to the given exponent represented as a
+            as this object but rounded to the specified exponent represented as a
             32-bit signed integer, and signals an inexact flag if the result
             would be inexact. The resulting number's Exponent property will not
-            necessarily be the given exponent; use the Quantize method instead
+            necessarily be the specified exponent; use the Quantize method instead
             to give the result a particular exponent.</summary>
             <param name='exponentSmall'>The minimum exponent the result can
             have. This is the maximum number of fractional digits in the
@@ -8484,12 +8476,12 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>A binary floating-point number rounded to the closest
-            value representable in the given precision. Signals FlagInvalid and
-            returns not-a-number (NaN) if the result can't fit the given
+            value representable in the specified precision. Signals FlagInvalid and
+            returns not-a-number (NaN) if the result can't fit the specified
             precision without rounding. Signals FlagInvalid and returns
             not-a-number (NaN) if the arithmetic context defines an exponent
-            range, the new exponent must be changed to the given exponent when
-            rounding, and the given exponent is outside the valid range of
+            range, the new exponent must be changed to the specified exponent when
+            rounding, and the specified exponent is outside the valid range of
             the arithmetic context.</returns>
 
 </doc>
@@ -8507,8 +8499,8 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>A binary floating-point number rounded to the closest
-            integer representable in the given precision. Signals FlagInvalid
-            and returns not-a-number (NaN) if the result can't fit the given
+            integer representable in the specified precision. Signals FlagInvalid
+            and returns not-a-number (NaN) if the result can't fit the specified
             precision without rounding. Signals FlagInvalid and returns
             not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to 0 when rounding, and 0
@@ -8532,7 +8524,7 @@
             RoundToExponentExact). Can be null, in which case the default
             rounding mode is HalfEven.</param>
             <returns>A binary floating-point number rounded to the closest
-            integer representable in the given precision. If the result can't
+            integer representable in the specified precision. If the result can't
             fit the precision, additional digits are discarded to make it fit.
             Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
@@ -8552,8 +8544,8 @@
             Can be null, in which case the default rounding mode is
             HalfEven.</param>
             <returns>A binary floating-point number rounded to the closest
-            integer representable in the given precision. Signals FlagInvalid
-            and returns not-a-number (NaN) if the result can't fit the given
+            integer representable in the specified precision. Signals FlagInvalid
+            and returns not-a-number (NaN) if the result can't fit the specified
             precision without rounding. Signals FlagInvalid and returns
             not-a-number (NaN) if the arithmetic context defines an exponent
             range, the new exponent must be changed to 0 when rounding, and 0
@@ -8574,7 +8566,7 @@
             RoundToExponentExact). Can be null, in which case the default
             rounding mode is HalfEven.</param>
             <returns>A binary floating-point number rounded to the closest
-            integer representable in the given precision. If the result can't
+            integer representable in the specified precision. If the result can't
             fit the precision, additional digits are discarded to make it fit.
             Signals FlagInvalid and returns not-a-number (NaN) if the
             arithmetic context defines an exponent range, the new exponent must
@@ -8584,8 +8576,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloat.RoundToPrecision(PeterO.Numbers.EContext)">
 
-            <summary>Rounds this object's value to a given precision, using the
-            given rounding mode and range of exponent.</summary>
+            <summary>Rounds this object's value to the specified precision, using the specified rounding mode and range of exponent.</summary>
             <param name='ctx'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. If <c>HasFlags</c> of
             the context is true, will also store the flags resulting from the
@@ -9066,14 +9057,14 @@
 <doc name="M:PeterO.Numbers.EFloat.ToShortestString(PeterO.Numbers.EContext)">
 
             <summary>Returns a string representation of this number's value
-            after rounding that value to the given precision (using the given
+            after rounding that value to the specified precision (using the specified
             arithmetic context, such as <c>EContext.Binary64</c> ). If the
             number after rounding is neither infinity nor not-a-number (NaN),
             returns the shortest decimal form of this number's value (in terms
             of decimal digits starting with the first nonzero digit and ending
             with the last nonzero digit) that results in the rounded number
             after the decimal form is converted to binary floating-point format
-            (using the given arithmetic context).</summary>
+            (using the specified arithmetic context).</summary>
             <param name='ctx'>An arithmetic context to control precision (in
             bits), rounding, and exponent range of the rounded number. If
             <c>HasFlags</c> of the context is true, will also store the flags
@@ -9081,7 +9072,7 @@
             pre-existing flags). Can be null. If this parameter is null or
             defines no maximum precision, returns the same value as the
             ToString() method.</param>
-            <returns>Shortest decimal form of this number's value for the given
+            <returns>Shortest decimal form of this number's value for the specified
             arithmetic context. The text string will be in exponential notation
             (expressed as a number 1 or greater, but less than 10, times a
             power of 10) if the number's first nonzero decimal digit is more
@@ -9136,7 +9127,7 @@
 
             <summary>Converts this value to an arbitrary-precision integer by
             discarding its fractional part and checking whether the resulting
-            integer overflows the given signed bit count.</summary>
+            integer overflows the specified signed bit count.</summary>
             <param name='maxBitLength'>The maximum number of signed bits the
             integer can have. The integer's value may not be less than
             -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
@@ -9151,7 +9142,7 @@
 
             <summary>Converts this value to an arbitrary-precision integer,
             only if this number's value is an exact integer and that integer
-            does not overflow the given signed bit count.</summary>
+            does not overflow the specified signed bit count.</summary>
             <param name='maxBitLength'>The maximum number of signed bits the
             integer can have. The integer's value may not be less than
             -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
@@ -9717,7 +9708,7 @@
             the sign reversed.</summary>
             <param name='bigValue'>An arbitrary-precision binary floating-point
             number.</param>
-            <returns>The negated form of the given number. If the given number
+            <returns>The negated form of the specified number. If the specified number
             is positive zero, returns negative zero. Returns signaling NaN if
             this value is signaling NaN.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bigValue'/> is null.</exception>
@@ -9764,12 +9755,12 @@
             null.</param>
             <returns>Either 1 if <paramref name='b'/> is true, or 0 if
             <paramref name='b'/> is false.. The result will be rounded as
-            specified by the given context, if any.</returns>
+            specified by the specified context, if any.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.Canonical(PeterO.Numbers.EFloat)">
 
-            <summary>Returns a canonical version of the given
+            <summary>Returns a canonical version of the specified
             arbitrary-precision number object. In this method, this method
             behaves like the Copy method.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
@@ -9841,11 +9832,11 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.Copy(PeterO.Numbers.EFloat)">
 
-            <summary>Creates a copy of the given arbitrary-precision number
+            <summary>Creates a copy of the specified arbitrary-precision number
             object.</summary>
             <param name='ed'>An arbitrary-precision number object to
             copy.</param>
-            <returns>A copy of the given arbitrary-precision number
+            <returns>A copy of the specified arbitrary-precision number
             object.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
 
@@ -9853,21 +9844,21 @@
 <doc name="M:PeterO.Numbers.EFloats.CopyAbs(PeterO.Numbers.EFloat)">
 
             <summary>Returns an arbitrary-precision number object with the same
-            value as the given number object but with a nonnegative sign (that
-            is, the given number object's absolute value).</summary>
+            value as the specified number object but with a nonnegative sign (that
+            is, the specified number object's absolute value).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>An arbitrary-precision number object with the same value
-            as the given number object but with a nonnegative sign.</returns>
+            as the specified number object but with a nonnegative sign.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.CopyNegate(PeterO.Numbers.EFloat)">
 
             <summary>Returns an arbitrary-precision number object with the sign
-            reversed from the given number object.</summary>
+            reversed from the specified number object.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>An arbitrary-precision number object with the sign
-            reversed from the given number object.</returns>
+            reversed from the specified number object.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
 
 </doc>
@@ -9895,7 +9886,7 @@
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
             <returns>An arbitrary-precision binary floating-point number with
-            the closest representable value to the given integer.</returns>
+            the closest representable value to the specified integer.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.Invert(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
@@ -9924,7 +9915,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsCanonical(PeterO.Numbers.EFloat)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is in a canonical form. For the current version of EFloat,
             all EFloat objects are in a canonical form.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
@@ -9933,27 +9924,27 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsFinite(PeterO.Numbers.EFloat)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is neither null nor infinity nor not-a-number
             (NaN).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
-            <returns>Either <c>true</c> if the given arbitrary-precision number
+            <returns>Either <c>true</c> if the specified arbitrary-precision number
             object is neither null nor infinity nor not-a-number (NaN), or
             <c>false</c> otherwise.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsInfinite(PeterO.Numbers.EFloat)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is positive or negative infinity.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
-            <returns>Either <c>true</c> if the given arbitrary-precision number
+            <returns>Either <c>true</c> if the specified arbitrary-precision number
             object is positive or negative infinity, or <c>false</c> otherwise.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsNaN(PeterO.Numbers.EFloat)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is a not-a-number (NaN).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -9961,7 +9952,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsNormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Returns whether the given number is a
+            <summary>Returns whether the specified number is a
             <i>normal</i> number. A
             <i>subnormal number</i> is a nonzero finite number whose Exponent
             property (or the number's exponent when that number is expressed in
@@ -9971,27 +9962,26 @@
             subnormal.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <param name='ec'>A context specifying the exponent range of
-            arbitrary-precision numbers. Can be null. If AdjustExponent of the
-            given context is <c>true</c>, a nonzero number is normal if the
+            arbitrary-precision numbers. Can be null. If AdjustExponent of the specified context is <c>true</c>, a nonzero number is normal if the
             number's exponent (when that number is expressed in scientific
             notation with one nonzero digit before the radix point) is at least
-            the given context's EMax property (for example, if EMax is -100, 2.3456 *
+            the specified context's EMax property (for example, if EMax is -100, 2.3456 *
             10
             <sup>-99</sup> is normal, but 2.3456 * 10
-            <sup>-102</sup> is not). If AdjustExponent of the given context is
+            <sup>-102</sup> is not). If AdjustExponent of the specified context is
             <c>false</c>, a nonzero number is subnormal if the number's
             Exponent property is at least given context's EMax property (for example,
             if EMax is -100, 23456 * 10
             <sup>-99</sup> is normal, but 23456 * 10
             <sup>-102</sup> is not).</param>
-            <returns>Either <c>true</c> if the given number is subnormal, or
-            <c>false</c> otherwise. Returns <c>true</c> if the given context is
-            null or HasExponentRange of the given context is <c>false</c>.</returns>
+            <returns>Either <c>true</c> if the specified number is subnormal, or
+            <c>false</c> otherwise. Returns <c>true</c> if the specified context is
+            null or HasExponentRange of the specified context is <c>false</c>.</returns>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsQuietNaN(PeterO.Numbers.EFloat)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is a quiet not-a-number (NaN).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -9999,7 +9989,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsSignalingNaN(PeterO.Numbers.EFloat)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is a signaling not-a-number (NaN).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <returns>Either <c>true</c> or <c>false</c>.</returns>
@@ -10007,7 +9997,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsSigned(PeterO.Numbers.EFloat)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is negative (including negative infinity, negative
             not-a-number [NaN], or negative zero).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
@@ -10016,7 +10006,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsSubnormal(PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
-            <summary>Returns whether the given number is a
+            <summary>Returns whether the specified number is a
             <i>subnormal</i> number. A
             <i>subnormal number</i> is a nonzero finite number whose Exponent
             property (or the number's exponent when that number is expressed in
@@ -10024,31 +10014,30 @@
             than the minimum possible exponent for that number.</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
             <param name='ec'>A context specifying the exponent range of
-            arbitrary-precision numbers. Can be null. If AdjustExponent of the
-            given context is <c>true</c>, a nonzero number is subnormal if the
+            arbitrary-precision numbers. Can be null. If AdjustExponent of the specified context is <c>true</c>, a nonzero number is subnormal if the
             number's exponent (when that number is expressed in scientific
             notation with one nonzero digit before the radix point) is less
-            than the given context's EMax property (for example, if EMax is -100,
+            than the specified context's EMax property (for example, if EMax is -100,
             2.3456 * 10
             <sup>-102</sup> is subnormal, but 2.3456 * 10
-            <sup>-99</sup> is not). If AdjustExponent of the given context is
+            <sup>-99</sup> is not). If AdjustExponent of the specified context is
             <c>false</c>, a nonzero number is subnormal if the number's
-            Exponent property is less than the given context's EMax property
+            Exponent property is less than the specified context's EMax property
             (for example, if EMax is -100, 23456 * 10
             <sup>-102</sup> is subnormal, but 23456 * 10
             <sup>-99</sup> is not).</param>
-            <returns>Either <c>true</c> if the given number is subnormal, or
-            <c>false</c> otherwise. Returns <c>false</c> if the given context
-            is null or HasExponentRange of the given context is <c>false</c>.</returns>
+            <returns>Either <c>true</c> if the specified number is subnormal, or
+            <c>false</c> otherwise. Returns <c>false</c> if the specified context
+            is null or HasExponentRange of the specified context is <c>false</c>.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='ed'/> is null.</exception>
 
 </doc>
 <doc name="M:PeterO.Numbers.EFloats.IsZero(PeterO.Numbers.EFloat)">
 
-            <summary>Returns whether the given arbitrary-precision number
+            <summary>Returns whether the specified arbitrary-precision number
             object is zero (positive zero or negative zero).</summary>
             <param name='ed'>An arbitrary-precision number object.</param>
-            <returns><c>true</c> if the given number has a value of zero
+            <returns><c>true</c> if the specified number has a value of zero
             (positive zero or negative zero); otherwise, <c>false</c>.</returns>
 
 </doc>
@@ -10061,7 +10050,7 @@
             <param name='ed'>An arbitrary-precision binary number.</param>
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
-            <returns>The base-2 exponent of the given number (when that number
+            <returns>The base-2 exponent of the specified number (when that number
             is expressed in scientific notation with one nonzero digit before
             the radix point). Signals DivideByZero and returns negative
             infinity if <paramref name='ed'/> is zero. Returns positive
@@ -10080,7 +10069,7 @@
             exponent range of arbitrary-precision numbers. This is used only to
             distinguish between normal and subnormal numbers. Can be
             null.</param>
-            <returns>A 32-bit signed integer identifying the given number
+            <returns>A 32-bit signed integer identifying the specified number
             object, number class as follows: 0 = positive normal; 1 = negative
             normal, 2 = positive subnormal, 3 = negative subnormal, 4 =
             positive zero, 5 = negative zero, 6 = positive infinity, 7 =
@@ -10095,7 +10084,7 @@
             9) to a text string. An arbitrary-precision number object can
             belong in one of ten number classes.</summary>
             <param name='nc'>An integer identifying a number class.</param>
-            <returns>A text string identifying the given number class as
+            <returns>A text string identifying the specified number class as
             follows: 0 = "+Normal"; 1 = "-Normal", 2 = "+Subnormal", 3 =
             "-Subnormal", 4 = "+Zero", 5 = "-Zero", 6 = "+Infinity", 7 =
             "-Infinity", 8 = "NaN", 9 = "sNaN".</returns>
@@ -10140,7 +10129,7 @@
 <doc name="M:PeterO.Numbers.EFloats.Rescale(PeterO.Numbers.EFloat,PeterO.Numbers.EFloat,PeterO.Numbers.EContext)">
 
             <summary>Returns an arbitrary-precision binary number with the same
-            value as this object but with the given exponent, expressed as an
+            value as this object but with the specified exponent, expressed as an
             arbitrary-precision binary number.
             <para>Note that this is not always the same as rounding to a given
             number of binary places, since it can fail if the difference
@@ -10169,9 +10158,9 @@
             case the default rounding mode is HalfEven.</param>
             <returns>An arbitrary-precision binary number with the same value
             as this object but with the exponent changed. Signals FlagInvalid
-            and returns not-a-number (NaN) if the result can't fit the given
+            and returns not-a-number (NaN) if the result can't fit the specified
             precision without rounding, or if the arithmetic context defines an
-            exponent range and the given exponent is outside that
+            exponent range and the specified exponent is outside that
             range.</returns>
 
 </doc>
@@ -10186,10 +10175,10 @@
             <param name='ed2'>An arbitrary-precision number indicating the
             number of bits to rotate the first operand's significand. Must be
             an integer with an exponent of 0. If this parameter is positive,
-            the significand is shifted to the left by the given number of bits
+            the significand is shifted to the left by the specified number of bits
             and the most-significant bits shifted out of the significand become
             the least-significant bits instead. If this parameter is negative,
-            the number is shifted by the given number of bits and the
+            the number is shifted by the specified number of bits and the
             least-significant bits shifted out of the significand become the
             most-significant bits instead.</param>
             <param name='ec'>An arithmetic context to control the precision of
@@ -10197,7 +10186,7 @@
             an unlimited precision, this method has the same behavior as
             <c>Shift</c>.</param>
             <returns>An arbitrary-precision binary number whose significand is
-            rotated the given number of bits. Signals an invalid operation and
+            rotated the specified number of bits. Signals an invalid operation and
             returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
             NaN or if <paramref name='ed2'/> is not an integer, is negative,
             has an exponent other than 0, or has an absolute value that exceeds
@@ -10212,7 +10201,7 @@
             infinity (positive, negative, or both).</summary>
             <param name='ed1'>The first arbitrary-precision number.</param>
             <param name='ed2'>The second arbitrary-precision number.</param>
-            <returns>Either <c>true</c> if the given arbitrary-precision
+            <returns>Either <c>true</c> if the specified arbitrary-precision
             numbers have the same exponent, they both are not-a-number (NaN),
             or they both are infinity (positive, negative, or both); otherwise, <c>false</c>.</returns>
 
@@ -10228,7 +10217,7 @@
             <param name='ec'>An arithmetic context to control the precision,
             rounding, and exponent range of the result. Can be null.</param>
             <returns>The given arbitrary-precision binary number whose binary
-            point is moved the given number of places. Signals an invalid
+            point is moved the specified number of places. Signals an invalid
             operation and returns not-a-number (NaN) if <paramref name='ed2'/>
             is infinity or NaN, has an Exponent property other than 0. Signals
             an invalid operation and returns not-a-number (NaN) if <paramref name='ec'/> defines a limited precision and exponent range and if
@@ -10247,13 +10236,13 @@
             <param name='ed2'>An arbitrary-precision number indicating the
             number of bits to shift the first operand's significand. Must be an
             integer with an exponent of 0. If this parameter is positive, the
-            significand is shifted to the left by the given number of bits. If
+            significand is shifted to the left by the specified number of bits. If
             this parameter is negative, the significand is shifted to the right
-            by the given number of bits.</param>
+            by the specified number of bits.</param>
             <param name='ec'>An arithmetic context to control the precision of
             arbitrary-precision numbers. Can be null.</param>
             <returns>An arbitrary-precision binary number whose significand is
-            shifted the given number of bits. Signals an invalid operation and
+            shifted the specified number of bits. Signals an invalid operation and
             returns NaN (not-a-number) if <paramref name='ed2'/> is a signaling
             NaN or if <paramref name='ed2'/> is not an integer, is negative,
             has an exponent other than 0, or has an absolute value that exceeds
@@ -10883,8 +10872,7 @@
             16. Where a basic uppercase letter A to Z is allowed in the
             sequence of bytes, the corresponding basic lowercase letter
             (U+0061 to U+007a) is allowed instead.</param>
-            <returns>An arbitrary-precision integer with the same value as the
-            given sequence of bytes.</returns>
+            <returns>An arbitrary-precision integer with the same value as the specified sequence of bytes.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bytes'/> is null.</exception>
             <exception cref='FormatException'>The sequence of bytes
             (interpreted as text) is empty or in an invalid format.</exception>
@@ -10903,8 +10891,7 @@
             in radix 16. Where a basic uppercase letter A to Z is allowed in
             the sequence of <c>char</c> s, the corresponding basic lowercase
             letter (U+0061 to U+007a) is allowed instead.</param>
-            <returns>An arbitrary-precision integer with the same value as the
-            given sequence of <c>char</c> s.</returns>
+            <returns>An arbitrary-precision integer with the same value as the specified sequence of <c>char</c> s.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='cs'/> is null.</exception>
             <exception cref='FormatException'>The sequence of <c>char</c> s is
             empty or in an invalid format.</exception>
@@ -10923,8 +10910,7 @@
             basic uppercase letter A to Z is allowed in the string, the
             corresponding basic lowercase letter (U+0061 to U+007a) is allowed
             instead.</param>
-            <returns>An arbitrary-precision integer with the same value as the
-            given string.</returns>
+            <returns>An arbitrary-precision integer with the same value as the specified string.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='str'/> is null.</exception>
             <exception cref='FormatException'>The string is empty or in an
             invalid format.</exception>
@@ -10939,7 +10925,7 @@
             Standard.</summary>
             <param name='bytes'>A sequence of bytes (interpreted as text). The
             desired portion of the sequence of bytes (interpreted as text) must
-            contain only characters allowed by the given radix, except that it
+            contain only characters allowed by the specified radix, except that it
             may start with a minus sign ("-", U+002D) to indicate a negative
             number. The desired portion is not allowed to contain white space
             characters, including spaces. The desired portion may start with
@@ -10970,7 +10956,7 @@
             arbitrary-precision integer in a given radix.</summary>
             <param name='cs'>A text sequence of <c>char</c> s. The desired
             portion of the sequence of <c>char</c> s must contain only
-            characters allowed by the given radix, except that it may start
+            characters allowed by the specified radix, except that it may start
             with a minus sign ("-", U+002D) to indicate a negative number. The
             desired portion is not allowed to contain white space characters,
             including spaces. The desired portion may start with any number of
@@ -10999,7 +10985,7 @@
             <summary>Converts a portion of a string to an arbitrary-precision
             integer in a given radix.</summary>
             <param name='str'>A text string. The desired portion of the string
-            must contain only characters allowed by the given radix, except
+            must contain only characters allowed by the specified radix, except
             that it may start with a minus sign ("-", U+002D) to indicate a
             negative number. The desired portion is not allowed to contain
             white space characters, including spaces. The desired portion may
@@ -11191,12 +11177,12 @@
 <doc name="M:PeterO.Numbers.EInteger.Gcd(PeterO.Numbers.EInteger)">
 
             <summary>Returns the greatest common divisor of this integer and
-            the given integer. The greatest common divisor (GCD) is also known
+            the specified integer. The greatest common divisor (GCD) is also known
             as the greatest common factor (GCF). This method works even if
             either or both integers are negative.</summary>
             <param name='bigintSecond'>Another arbitrary-precision integer. Can
             be negative.</param>
-            <returns>The greatest common divisor of this integer and the given
+            <returns>The greatest common divisor of this integer and the specified
             integer.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bigintSecond'/> is null.</exception>
             <exception cref='DivideByZeroException'>Attempted to divide by
@@ -11306,7 +11292,7 @@
             <param name='bigIndex'>The index, starting at zero, of the bit to
             test, where 0 is the least significant bit, 1 is the next least
             significant bit, and so on.</param>
-            <returns><c>true</c> if the given bit is set in the two'
+            <returns><c>true</c> if the specified bit is set in the two'
             s-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
             this object's value; otherwise, <c>false</c>.</returns>
@@ -11322,7 +11308,7 @@
             <param name='index'>The index, starting at 0, of the bit to test,
             where 0 is the least significant bit, 1 is the next least
             significant bit, and so on.</param>
-            <returns><c>true</c> if the given bit is set in the two'
+            <returns><c>true</c> if the specified bit is set in the two'
             s-complement form (see
             <see cref='PeterO.Numbers.EDecimal'>"Forms of numbers"</see> ) of
             this object's value; otherwise, <c>false</c>.</returns>
@@ -11386,7 +11372,7 @@
             <param name='bigIndex'>The index, starting at zero, of the bit to
             test, where 0 is the least significant bit, 1 is the next least
             significant bit, and so on.</param>
-            <returns><c>true</c> if the given bit is set in this number's
+            <returns><c>true</c> if the specified bit is set in this number's
             absolute value.</returns>
             <exception cref='ArgumentNullException'>The parameter <paramref name='bigIndex'/> is null.</exception>
 
@@ -11398,7 +11384,7 @@
             <param name='index'>The index, starting at 0, of the bit to test,
             where 0 is the least significant bit, 1 is the next least
             significant bit, and so on.</param>
-            <returns><c>true</c> if the given bit is set in this number's
+            <returns><c>true</c> if the specified bit is set in this number's
             absolute value.</returns>
 
 </doc>
@@ -12145,7 +12131,7 @@
 <doc name="M:PeterO.Numbers.EInteger.ToRadixString(System.Int32)">
 
             <summary>Generates a string representing the value of this object,
-            in the given radix.</summary>
+            in the specified radix.</summary>
             <param name='radix'>A radix from 2 through 36. For example, to
             generate a hexadecimal (base-16) string, specify 16. To generate a
             decimal (base-10) string, specify 10.</param>
@@ -13010,7 +12996,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Create(PeterO.Numbers.EInteger,PeterO.Numbers.EInteger)">
 
-            <summary>Creates a rational number with the given numerator and
+            <summary>Creates a rational number with the specified numerator and
             denominator.</summary>
             <param name='numerator'>The numerator.</param>
             <param name='denominator'>The denominator.</param>
@@ -13023,7 +13009,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Create(System.Int32,System.Int32)">
 
-            <summary>Creates a rational number with the given numerator and
+            <summary>Creates a rational number with the specified numerator and
             denominator.</summary>
             <param name='numeratorSmall'>The numerator.</param>
             <param name='denominatorSmall'>The denominator.</param>
@@ -13034,7 +13020,7 @@
 </doc>
 <doc name="M:PeterO.Numbers.ERational.Create(System.Int64,System.Int64)">
 
-            <summary>Creates a rational number with the given numerator and
+            <summary>Creates a rational number with the specified numerator and
             denominator.</summary>
             <param name='numeratorLong'>The numerator.</param>
             <param name='denominatorLong'>The denominator.</param>
@@ -13368,7 +13354,7 @@
             <param name='bytes'>A sequence of bytes that represents a
             number.</param>
             <returns>An arbitrary-precision rational number with the same value
-            as the given sequence of bytes.</returns>
+            as the specified sequence of bytes.</returns>
             <exception cref='FormatException'>The parameter <paramref name='bytes'/> is not a correctly formatted sequence of
             bytes.</exception>
 
@@ -13419,7 +13405,7 @@
             <param name='chars'>A sequence of <c>char</c> s that represents a
             number.</param>
             <returns>An arbitrary-precision rational number with the same value
-            as the given sequence of <c>char</c> s.</returns>
+            as the specified sequence of <c>char</c> s.</returns>
             <exception cref='FormatException'>The parameter <paramref name='chars'/> is not a correctly formatted sequence of <c>char</c> s.</exception>
 
 </doc>
@@ -13468,7 +13454,7 @@
             more information.</summary>
             <param name='str'>A string that represents a number.</param>
             <returns>An arbitrary-precision rational number with the same value
-            as the given string.</returns>
+            as the specified string.</returns>
             <exception cref='FormatException'>The parameter <paramref name='str'/> is not a correctly formatted number
             string.</exception>
 
@@ -13937,7 +13923,7 @@
 <doc name="M:PeterO.Numbers.ERational.ToEDecimal(PeterO.Numbers.EContext)">
 
             <summary>Converts this rational number to an arbitrary-precision
-            decimal number and rounds the result to the given
+            decimal number and rounds the result to the specified
             precision.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. If HasFlags
@@ -13945,7 +13931,7 @@
             the operation (the flags are in addition to the pre-existing
             flags). Can be null, in which case the precision is unlimited and
             no rounding is needed.</param>
-            <returns>The value of the rational number, rounded to the given
+            <returns>The value of the rational number, rounded to the specified
             precision. Returns not-a-number (NaN) if the context is null and
             the result can't be exact because it has a nonterminating decimal
             expansion.</returns>
@@ -13955,7 +13941,7 @@
 
             <summary>Converts this rational number to an arbitrary-precision
             decimal number, but if the result would have a nonterminating
-            decimal expansion, rounds that result to the given
+            decimal expansion, rounds that result to the specified
             precision.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
@@ -13983,14 +13969,14 @@
 <doc name="M:PeterO.Numbers.ERational.ToEFloat(PeterO.Numbers.EContext)">
 
             <summary>Converts this rational number to a binary floating-point
-            number and rounds that result to the given precision.</summary>
+            number and rounds that result to the specified precision.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. If HasFlags
             of the context is true, will also store the flags resulting from
             the operation (the flags are in addition to the pre-existing
             flags). Can be null, in which case the precision is unlimited and
             no rounding is needed.</param>
-            <returns>The value of the rational number, rounded to the given
+            <returns>The value of the rational number, rounded to the specified
             precision. Returns not-a-number (NaN) if the context is null and
             the result can't be exact because it has a nonterminating binary
             expansion.</returns>
@@ -14000,7 +13986,7 @@
 
             <summary>Converts this rational number to a binary floating-point
             number, but if the result would have a nonterminating binary
-            expansion, rounds that result to the given precision.</summary>
+            expansion, rounds that result to the specified precision.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only if the exact result would have a nonterminating
@@ -14055,7 +14041,7 @@
 <doc name="M:PeterO.Numbers.ERational.ToExtendedDecimal(PeterO.Numbers.EContext)">
 
             <summary>Converts this rational number to an arbitrary-precision
-            decimal number and rounds the result to the given
+            decimal number and rounds the result to the specified
             precision.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. If HasFlags
@@ -14063,7 +14049,7 @@
             the operation (the flags are in addition to the pre-existing
             flags). Can be null, in which case the precision is unlimited and
             no rounding is needed.</param>
-            <returns>The value of the rational number, rounded to the given
+            <returns>The value of the rational number, rounded to the specified
             precision. Returns not-a-number (NaN) if the context is null and
             the result can't be exact because it has a nonterminating decimal
             expansion.</returns>
@@ -14073,7 +14059,7 @@
 
             <summary>Converts this rational number to an arbitrary-precision
             decimal number, but if the result would have a nonterminating
-            decimal expansion, rounds that result to the given
+            decimal expansion, rounds that result to the specified
             precision.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
@@ -14101,14 +14087,14 @@
 <doc name="M:PeterO.Numbers.ERational.ToExtendedFloat(PeterO.Numbers.EContext)">
 
             <summary>Converts this rational number to a binary floating-point
-            number and rounds that result to the given precision.</summary>
+            number and rounds that result to the specified precision.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. If HasFlags
             of the context is true, will also store the flags resulting from
             the operation (the flags are in addition to the pre-existing
             flags). Can be null, in which case the precision is unlimited and
             no rounding is needed.</param>
-            <returns>The value of the rational number, rounded to the given
+            <returns>The value of the rational number, rounded to the specified
             precision. Returns not-a-number (NaN) if the context is null and
             the result can't be exact because it has a nonterminating binary
             expansion.</returns>
@@ -14118,7 +14104,7 @@
 
             <summary>Converts this rational number to a binary floating-point
             number, but if the result would have a nonterminating binary
-            expansion, rounds that result to the given precision.</summary>
+            expansion, rounds that result to the specified precision.</summary>
             <param name='ctx'>An arithmetic context object to control the
             precision, rounding, and exponent range of the result. This context
             will be used only if the exact result would have a nonterminating
@@ -14332,7 +14318,7 @@
             <summary>Converts this value to an arbitrary-precision integer by
             dividing the numerator by the denominator, discarding its
             fractional part, and checking whether the resulting integer
-            overflows the given signed bit count.</summary>
+            overflows the specified signed bit count.</summary>
             <param name='maxBitLength'>The maximum number of signed bits the
             integer can have. The integer's value may not be less than
             -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
@@ -14348,7 +14334,7 @@
 
             <summary>Converts this value to an arbitrary-precision integer,
             only if this number's value is an exact integer and that integer
-            does not overflow the given signed bit count.</summary>
+            does not overflow the specified signed bit count.</summary>
             <param name='maxBitLength'>The maximum number of signed bits the
             integer can have. The integer's value may not be less than
             -(2^maxBitLength) or greater than (2^maxBitLength) - 1.</param>
@@ -14903,7 +14889,7 @@
 <doc name="M:PeterO.Numbers.ERational.op_UnaryNegation(PeterO.Numbers.ERational)">
 
             <summary>Returns an arbitrary-precision rational number with the
-            same value as the given one but with its sign reversed.</summary>
+            same value as the specified one but with its sign reversed.</summary>
             <param name='bigValue'>An arbitrary-precision rational number to
             negate.</param>
             <returns>An arbitrary-precision rational number.</returns>

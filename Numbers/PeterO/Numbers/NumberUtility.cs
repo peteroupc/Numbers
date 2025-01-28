@@ -843,7 +843,7 @@ MultiplyByPowerOfFive(v, eprecision).ShiftLeft(eprecision);
        IRadixMathHelper<THelper> helper,
        THelper val) {
        // Gets an upper bound on the number of digits in the integer
-       // part of the given number 'val'.
+       // part of the specified number 'val'.
        int flags = helper.GetFlags(val);
        if ((flags & BigNumberFlags.FlagSpecial) != 0) {
           // Infinity and NaN are not supported

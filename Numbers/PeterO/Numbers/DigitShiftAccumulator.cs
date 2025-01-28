@@ -714,7 +714,7 @@ FastInteger(
     }
 
     private void ShiftToDigitsBig(int digits, bool truncate) {
-      // Shifts a number until it reaches the given number of digits,
+      // Shifts a number until it reaches the specified number of digits,
       // gathering information on whether the last digit discarded is set
       // and whether the discarded digits to the right of that digit are set.
       // Assumes that the big integer being shifted is positive.

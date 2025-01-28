@@ -30,7 +30,7 @@ namespace PeterO {
       this.valueIrg = valueIrg;
     }
 
-    /// <summary>Returns either true or false, depending on the given
+    /// <summary>Returns either true or false, depending on the specified
     /// probability.</summary>
     /// <param name='p'>A probability from 0 through 1. 0 means always
     /// false, and 1 means always true.</param>
@@ -49,9 +49,9 @@ this.Uniform() < p;
       return this.UniformInt(2) == 0;
     }
 
-    /// <summary>Conceptually, generates either 1 or 0 the given number of
-    /// times, where either number is equally likely, and counts the number
-    /// of 1's generated.</summary>
+    /// <summary>Conceptually, generates either 1 or 0 the specified number
+    /// of times, where either number is equally likely, and counts the
+    /// number of 1's generated.</summary>
     /// <param name='trials'>The number of times to generate a random
     /// number, conceptually.</param>
     /// <returns>A 32-bit signed integer.</returns>
@@ -68,9 +68,9 @@ this.Uniform() < p;
       return this.valueIrg.GetBytes(bytes, offset, count);
     }
 
-    /// <summary>Conceptually, generates either 1 or 0 the given number of
-    /// times, where a 1 is generated at the given probability, and counts
-    /// the number of 1's generated.</summary>
+    /// <summary>Conceptually, generates either 1 or 0 the specified number
+    /// of times, where a 1 is generated at the specified probability, and
+    /// counts the number of 1's generated.</summary>
     /// <param name='trials'>The number of times to generate a random
     /// number, conceptually.</param>
     /// <param name='p'>The probability for each trial to succeed, from 0
@@ -173,7 +173,7 @@ this.Uniform() < p;
 
     /// <summary>Conceptually, generates either 1 or 0 until a 1 is
     /// generated, and counts the number of 0's generated. A 1 is generated
-    /// at the given probability.</summary>
+    /// at the specified probability.</summary>
     /// <param name='p'>A 64-bit floating-point number.</param>
     /// <returns>The number of failures until a success happens.</returns>
     public int Geometric(double p) {
@@ -221,7 +221,7 @@ this.Uniform() < p;
     }
 
     /// <summary>Generates a logarithmic normally-distributed number with
-    /// the given mean and standard deviation.</summary>
+    /// the specified mean and standard deviation.</summary>
     /// <param name='mean'>The desired mean.</param>
     /// <param name='sd'>Standard deviation.</param>
     /// <returns>A 64-bit floating-point number.</returns>
@@ -229,9 +229,9 @@ this.Uniform() < p;
       return Math.Exp(this.Normal(mean, sd));
     }
 
-    /// <summary>Conceptually, generates either 1 or 0 until the given
+    /// <summary>Conceptually, generates either 1 or 0 until the specified
     /// number of 1's are generated, and counts the number of 0's
-    /// generated. A 1 is generated at the given probability.</summary>
+    /// generated. A 1 is generated at the specified probability.</summary>
     /// <param name='trials'>The number of 1's to generate before the
     /// process stops.</param>
     /// <param name='p'>The probability for each trial to succeed, from 0
@@ -288,10 +288,10 @@ this.Uniform() < p;
       }
     }
 
-    /// <summary>Conceptually, generates either 1 or 0 the given number of
-    /// times until the given number of 1's are generated, and counts the
-    /// number of 0's generated. Either number has an equal probability of
-    /// being generated.</summary>
+    /// <summary>Conceptually, generates either 1 or 0 the specified number
+    /// of times until the specified number of 1's are generated, and
+    /// counts the number of 0's generated. Either number has an equal
+    /// probability of being generated.</summary>
     /// <param name='trials'>The number of 1's to generate before the
     /// process stops.</param>
     /// <returns>The number of 0's generated. Returns Int32.MaxValue if "p"
@@ -325,7 +325,7 @@ this.Uniform() < p;
       return s * Math.Cos(t);
     }
 
-    /// <summary>Generates a normally-distributed number with the given
+    /// <summary>Generates a normally-distributed number with the specified
     /// mean and standard deviation.</summary>
     /// <param name='mean'>The desired mean.</param>
     /// <param name='sd'>Standard deviation.</param>
@@ -335,8 +335,8 @@ this.Uniform() < p;
     }
 
     /// <summary>Generates a random integer such that the average of random
-    /// numbers approaches the given mean number when this method is called
-    /// repeatedly with the same mean.</summary>
+    /// numbers approaches the specified mean number when this method is
+    /// called repeatedly with the same mean.</summary>
     /// <param name='mean'>The expected mean of the random numbers.</param>
     /// <returns>A 32-bit signed integer.</returns>
     public int Poisson(double mean) {
@@ -369,7 +369,7 @@ this.Uniform() < p;
     }
 
     /// <summary>Returns a uniformly-distributed 64-bit floating-point
-    /// number from 0 and up, but less than the given number.</summary>
+    /// number from 0 and up, but less than the specified number.</summary>
     /// <param name='max'>Number that the randomly-generated number will be
     /// less than.</param>
     /// <returns>A 64-bit floating-point number.</returns>
@@ -460,7 +460,7 @@ this.UniformInt((int)diff) : (int)(minInclusive + this.UniformLong(diff));
     }
 
     /// <summary>Generates a random 32-bit signed integer 0 or greater and
-    /// less than the given number.</summary>
+    /// less than the specified number.</summary>
     /// <param name='maxExclusive'>One plus the largest possible value of
     /// the random number.</param>
     /// <returns>A 32-bit signed integer.</returns>
@@ -533,7 +533,7 @@ this.UniformInt((int)diff) : (int)(minInclusive + this.UniformLong(diff));
     }
 
     /// <summary>Generates a random 32-bit signed integer 0 or greater and
-    /// less than the given number.</summary>
+    /// less than the specified number.</summary>
     /// <param name='maxExclusive'>One plus the largest possible value of
     /// the random number.</param>
     /// <returns>A 64-bit signed integer.</returns>
