@@ -129,14 +129,13 @@ namespace PeterO.Numbers {
           }
           first = false;
           string str = (flag == EContext.FlagClamped) ? "Clamped" : ((flag ==
-                EContext.FlagDivideByZero) ? "DivideByZero" : ((flag ==
-                  EContext.FlagInexact) ? "Inexact" : ((flag ==
-                    EContext.FlagInvalid) ? "Invalid" : ((flag ==
-                      EContext.FlagOverflow) ? "Overflow" : ((flag ==
-                        EContext.FlagRounded) ? "Rounded" : ((flag ==
-                          EContext.FlagSubnormal) ? "Subnormal" : ((flag ==
-                            EContext.FlagUnderflow) ? "Underflow" :
-"Trap")))))));
+            EContext.FlagDivideByZero) ? "DivideByZero" : ((flag ==
+            EContext.FlagInexact) ? "Inexact" : ((flag ==
+            EContext.FlagInvalid) ? "Invalid" : ((flag ==
+            EContext.FlagOverflow) ? "Overflow" : ((flag ==
+            EContext.FlagRounded) ? "Rounded" : ((flag ==
+            EContext.FlagSubnormal) ? "Subnormal" : ((flag ==
+            EContext.FlagUnderflow) ? "Underflow" : "Trap")))))));
           sb.Append(str);
         }
       }

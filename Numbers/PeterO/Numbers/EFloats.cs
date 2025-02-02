@@ -51,9 +51,9 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Always <c>true</c>.</returns>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Usage",
-      "CA1801",
-      Justification = "Parameter 'ed' is deliberately unused.")]
+        "Microsoft.Usage",
+        "CA1801",
+        Justification = "Parameter 'ed' is deliberately unused.")]
     public static bool IsCanonical(EFloat ed) {
       // Deliberately unused because all objects are in a canonical
       // form regardless of their value. Removing the parameter
@@ -231,7 +231,7 @@ namespace PeterO.Numbers {
       if (ed.IsFinite && ec != null && !ed.IsZero && ec.HasExponentRange) {
         if (ec.AdjustExponent) {
           return ed.Exponent.Add(ed.Precision().Subtract(1)).CompareTo(
-              ec.EMin) < 0;
+            ec.EMin) < 0;
         } else {
           return ed.Exponent.CompareTo(ec.EMin) < 0;
         }
@@ -463,7 +463,7 @@ namespace PeterO.Numbers {
       EInteger mant = ed.UnsignedMantissa;
       EInteger mantprec = ed.Precision();
       if (ec != null && ec.HasMaxPrecision && mantprec.CompareTo(
-  ec.Precision) > 0) {
+        ec.Precision) > 0) {
         mant = mant.Remainder(EInteger.One.ShiftLeft(ec.Precision));
         mantprec = ec.Precision;
       }
@@ -527,7 +527,7 @@ namespace PeterO.Numbers {
     /// signal flags if either value is signaling NaN.</returns>
     public static int CompareTotal(EFloat ed, EFloat other, EContext ec) {
       return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1 :
-          ed.CompareToTotal(other, ec));
+        ed.CompareToTotal(other, ec));
     }
 
     /// <summary>Compares the absolute values of two arbitrary-precision
@@ -562,7 +562,7 @@ namespace PeterO.Numbers {
       EFloat other,
       EContext ec) {
       return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1 :
-          ed.CompareToTotalMagnitude(other, ec));
+        ed.CompareToTotalMagnitude(other, ec));
     }
 
     /// <summary>Creates a copy of the specified arbitrary-precision number
@@ -662,7 +662,7 @@ namespace PeterO.Numbers {
         return ed1.Exponent.Equals(ed2.Exponent);
       } else {
         return (ed1.IsNaN() && ed2.IsNaN()) || (ed1.IsInfinity() &&
-            ed2.IsInfinity());
+          ed2.IsInfinity());
       }
     }
 
@@ -689,10 +689,10 @@ namespace PeterO.Numbers {
       }
       if (ed.IsSignalingNaN()) {
         return EFloat.CreateNaN(
-          ed.UnsignedMantissa,
-          true,
-          ed.IsNegative,
-          ec);
+            ed.UnsignedMantissa,
+            true,
+            ed.IsNegative,
+            ec);
       }
       if (ed.IsFinite) {
         if (ed.IsZero) {

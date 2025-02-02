@@ -42,7 +42,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test20", "Test20\Test20.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test40", "Test40\Test40.csproj", "{00EB31B6-A805-4EFB-A64B-9F8176B2A1CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrimProgram", "TrimProgram\TrimProgram.csproj", "{2737f981-8aaf-414d-aaaf-56d7804bfcce}"
 EndProject
 Global
   GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,10 +73,6 @@ Global
     {00EB31B6-A805-4EFB-A64B-9F8176B2A1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
     {00EB31B6-A805-4EFB-A64B-9F8176B2A1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
     {00EB31B6-A805-4EFB-A64B-9F8176B2A1CC}.Release|Any CPU.Build.0 = Release|Any CPU
-    {2737f981-8aaf-414d-aaaf-56d7804bfcce}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-    {2737f981-8aaf-414d-aaaf-56d7804bfcce}.Debug|Any CPU.Build.0 = Debug|Any CPU
-    {2737f981-8aaf-414d-aaaf-56d7804bfcce}.Release|Any CPU.ActiveCfg = Release|Any CPU
-    {2737f981-8aaf-414d-aaaf-56d7804bfcce}.Release|Any CPU.Build.0 = Release|Any CPU
   EndGlobalSection
   GlobalSection(SolutionProperties) = preSolution
     HideSolutionNode = FALSE

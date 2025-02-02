@@ -28,8 +28,8 @@ namespace PeterO.Numbers {
       string s2,
       int offset2,
       int length2) {
-      // DebugUtility.Log(s1.Substring(offset1, length1));
-      // DebugUtility.Log(s2.Substring(offset2, length2));
+      // Console.WriteLine(s1.Substring(offset1, length1));
+      // Console.WriteLine(s2.Substring(offset2, length2));
       return s1.Substring(offset1, length1) + s2.Substring(offset2, length2);
     }
 

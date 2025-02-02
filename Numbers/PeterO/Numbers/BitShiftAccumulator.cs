@@ -39,7 +39,7 @@ namespace PeterO.Numbers {
     }
 
     public FastInteger OverestimateDigitLength() {
-       return this.GetDigitLength();
+      return this.GetDigitLength();
     }
 
     private static void VerifyKnownLength() {
@@ -55,7 +55,7 @@ namespace PeterO.Numbers {
       }
       if (preShift != null && preShift.Sign > 0) {
         this.knownBitLength = this.knownBitLength ?? this.CalcKnownBitLength();
-        // DebugUtility.Log("bits=" + bits + " pre=" + preShift + " known=" +
+        // Console.WriteLine("bits=" + bits + " pre=" + preShift + " known=" +
         // (//kbl) + " [" + this.shiftedBigInt + "]");
         if (this.knownBitLength.CompareTo(bits) <= 0) {
           // Known digit length is already small enough
@@ -67,7 +67,7 @@ namespace PeterO.Numbers {
         } else {
           FastInteger bitDiff = this.knownBitLength.Copy()
             .Subtract(bits);
-          // DebugUtility.Log("bitDiff=" + bitDiff);
+          // Console.WriteLine("bitDiff=" + bitDiff);
           int cmp = bitDiff.CompareTo(preShift);
           if (cmp <= 0) {
             // NOTE: For BitShiftAccumulator, truncating and shifting
@@ -123,7 +123,7 @@ namespace PeterO.Numbers {
     public int ShiftedIntMod(int mod) {
       if (mod < 1) {
         throw new ArgumentException("mod (" + mod +
-           ") is not greater or equal to 1");
+          ") is not greater or equal to 1");
       }
       switch (mod) {
         case 1:
@@ -263,7 +263,7 @@ namespace PeterO.Numbers {
               // the last one is set
               this.bitsAfterLeftmost |= 1;
               this.bitLeftmost = this.shiftedBigInt.GetSignedBit(bs - 1) ? 1 :
-0;
+                0;
             } else if (lowestSetBit.CompareTo(bs - 1) > 0) {
               // Means all discarded bits are zero
               this.bitLeftmost = 0;
@@ -277,7 +277,7 @@ namespace PeterO.Numbers {
               // the last one is set
               this.bitsAfterLeftmost |= 1;
               this.bitLeftmost = this.shiftedBigInt.GetSignedBit(bs - 1) ? 1 :
-0;
+                0;
             } else if (lowestSet > bs - 1) {
               // Means all discarded bits are zero
               this.bitLeftmost = 0;
@@ -314,12 +314,12 @@ namespace PeterO.Numbers {
         return new FastInteger(kb);
       }
       if (this.shiftedBigInt.IsZero) {
-         { return new FastInteger(1);
+        { return new FastInteger(1);
+        }
       }
-}
       long sbe = this.shiftedBigInt.GetSignedBitLengthAsInt64();
       return (sbe < Int32.MaxValue) ? new FastInteger((int)sbe) :
-FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
+        FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
     }
 
     private void ShiftBigToBits(int bits) {
@@ -368,7 +368,7 @@ FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
               // the last one is set
               this.bitsAfterLeftmost |= 1;
               this.bitLeftmost = this.shiftedBigInt.GetSignedBit(bs - 1) ? 1 :
-0;
+                0;
             } else if (lowestSetBit.CompareTo(bs - 1) > 0) {
               // Means all discarded bits are zero
               this.bitLeftmost = 0;
@@ -382,7 +382,7 @@ FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
               // the last one is set
               this.bitsAfterLeftmost |= 1;
               this.bitLeftmost = this.shiftedBigInt.GetSignedBit(bs - 1) ? 1 :
-0;
+                0;
             } else if (lowestSet > bs - 1) {
               // Means all discarded bits are zero
               this.bitLeftmost = 0;
@@ -441,7 +441,7 @@ FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
       this.bitsAfterLeftmost |= this.bitLeftmost;
       // Get the bottommost shift minus 1 bits
       this.bitsAfterLeftmost |= (shift > 1 && (this.shiftedSmall <<
-            (SmallBitLength - shift + 1)) != 0) ? 1 : 0;
+        (SmallBitLength - shift + 1)) != 0) ? 1 : 0;
       // Get the bit just above that bit
       this.bitLeftmost = (int)((this.shiftedSmall >> (shift - 1)) & 0x01);
       this.shiftedSmall >>= shift;
@@ -483,7 +483,7 @@ FastInteger.FromBig(this.shiftedBigInt.GetSignedBitLengthAsEInteger());
         this.bitsAfterLeftmost |= this.bitLeftmost;
         // Get the bottommost shift minus 1 bits
         this.bitsAfterLeftmost |= (shift > 1 && (this.shiftedSmall <<
-              (SmallBitLength - shift + 1)) != 0) ? 1 : 0;
+          (SmallBitLength - shift + 1)) != 0) ? 1 : 0;
         // Get the bit just above that bit
         this.bitLeftmost = (int)((this.shiftedSmall >> (shift - 1)) & 0x01);
         this.bitsAfterLeftmost = (this.bitsAfterLeftmost != 0) ? 1 : 0;

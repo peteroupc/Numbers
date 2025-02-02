@@ -550,7 +550,7 @@ namespace PeterO.Numbers {
     public bool IsFinite {
       get {
         return (this.flags & (BigNumberFlags.FlagInfinity |
-              BigNumberFlags.FlagNaN)) == 0;
+          BigNumberFlags.FlagNaN)) == 0;
       }
     }
 
@@ -612,8 +612,8 @@ namespace PeterO.Numbers {
     public int Sign {
       get {
         return (((this.flags & BigNumberFlags.FlagSpecial) == 0) &&
-            this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
-                BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
+          this.unsignedMantissa.IsValueZero) ? 0 : (((this.flags &
+          BigNumberFlags.FlagNegative) != 0) ? -1 : 1);
       }
     }
 
@@ -781,7 +781,7 @@ namespace PeterO.Numbers {
             (byte)((mantissaLong < 0) ? BigNumberFlags.FlagNegative : 0));
       } else {
         FastIntegerFixed fi = FastIntegerFixed.FromInt64(Math.Abs(
-              mantissaLong));
+          mantissaLong));
         return new EDecimal(
             fi,
             FastIntegerFixed.FromInt64(exponentLong),
@@ -933,7 +933,7 @@ namespace PeterO.Numbers {
         value[1] &= 0x7ffff;
         lvalue = unchecked((value[0] & 0xffffffffL) | ((long)value[1] << 32));
         int flags = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
-            BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
+          BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
         return (lvalue == 0 && !neg) ? (quiet ? NaN : SignalingNaN) :
           new EDecimal(
             FastIntegerFixed.FromInt64(lvalue),
@@ -1196,7 +1196,7 @@ namespace PeterO.Numbers {
     public static EDecimal FromSingleBits(int value) {
       bool neg = (value >> (EFloat.Binary32Bits - 1)) != 0;
       var floatExponent = (int)((value >> EFloat.Binary32SignifAreaBits) &
-((1 << EFloat.Binary32ExponentArea) - 1));
+        ((1 << EFloat.Binary32ExponentArea) - 1));
       int valueFpMantissa = value & ((1 << EFloat.Binary32SignifAreaBits) - 1);
       EInteger bigmant;
       if (floatExponent == ((1 << EFloat.Binary32ExponentArea) - 1)) {
@@ -1205,11 +1205,11 @@ namespace PeterO.Numbers {
         }
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (valueFpMantissa &
-(1 << (EFloat.Binary32SignifAreaBits - 1))) != 0;
+            (1 << (EFloat.Binary32SignifAreaBits - 1))) != 0;
         valueFpMantissa &= (1 << (EFloat.Binary32SignifAreaBits - 1)) - 1;
         bigmant = (EInteger)valueFpMantissa;
         value = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
-            BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
+          BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
         if (bigmant.IsZero && !neg) {
           return quiet ? NaN : SignalingNaN;
         }
@@ -1272,7 +1272,7 @@ namespace PeterO.Numbers {
       int ivalue = ((int)value) & 0xffff;
       bool neg = (ivalue >> (EFloat.Binary16Bits - 1)) != 0;
       var floatExponent = (int)((ivalue >> EFloat.Binary16SignifAreaBits) &
-((1 << EFloat.Binary16ExponentArea) - 1));
+        ((1 << EFloat.Binary16ExponentArea) - 1));
       int valueFpMantissa = ivalue & ((1 << EFloat.Binary16SignifAreaBits) - 1);
       EInteger bigmant;
       if (floatExponent == ((1 << EFloat.Binary16ExponentArea) - 1)) {
@@ -1281,11 +1281,11 @@ namespace PeterO.Numbers {
         }
         // Treat high bit of mantissa as quiet/signaling bit
         bool quiet = (valueFpMantissa &
-(1 << (EFloat.Binary16SignifAreaBits - 1))) != 0;
+            (1 << (EFloat.Binary16SignifAreaBits - 1))) != 0;
         valueFpMantissa &= (1 << (EFloat.Binary16SignifAreaBits - 1)) - 1;
         bigmant = (EInteger)valueFpMantissa;
         ivalue = (neg ? BigNumberFlags.FlagNegative : 0) | (quiet ?
-            BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
+          BigNumberFlags.FlagQuietNaN : BigNumberFlags.FlagSignalingNaN);
         if (bigmant.IsZero && !neg) {
           return quiet ? NaN : SignalingNaN;
         }
@@ -1809,7 +1809,7 @@ namespace PeterO.Numbers {
           if (ec.HasMaxPrecision) {
             EInteger etiny = ec.EMin.Subtract(ec.Precision.Subtract(1));
             etiny = etiny.Subtract(1); // Buffer in case of rounding
-            // DebugUtility.Log("adj: adjexp=" + adjExponent + " exp=" + exponent + "
+            // Console.WriteLine("adj: adjexp=" + adjExponent + " exp=" + exponent + "
             // etiny="+etiny);
             if (adjExponent.CompareTo(etiny) < 0) {
               return 2; // Underflow to zero
@@ -1817,7 +1817,7 @@ namespace PeterO.Numbers {
           } else {
             EInteger etiny = ec.EMin.Subtract(precisionInt - 1);
             etiny = etiny.Subtract(1); // Buffer in case of rounding
-            // DebugUtility.Log("adj: adjexp=" + adjExponent + " exp=" + exponent + "
+            // Console.WriteLine("adj: adjexp=" + adjExponent + " exp=" + exponent + "
             // etiny="+etiny);
             if (adjExponent.CompareTo(etiny) < 0) {
               return 3; // Underflow to zero
@@ -1835,7 +1835,7 @@ namespace PeterO.Numbers {
             ec.EMin.Subtract(ec.Precision.Subtract(1)) :
             ec.EMin.Subtract(precisionInt - 1);
           etiny = etiny.Subtract(1); // Buffer in case of rounding
-          // DebugUtility.Log("noadj: adjexp=" + adjExponent + " exp=" + exponent + "
+          // Console.WriteLine("noadj: adjexp=" + adjExponent + " exp=" + exponent + "
           // etiny="+etiny);
           if (adjExponent.CompareTo(etiny) < 0) {
             return 2; // Underflow to zero
@@ -2120,7 +2120,7 @@ namespace PeterO.Numbers {
     /// returns quiet NaN if this value is signaling NaN.</returns>
     public EDecimal Abs(EContext context) {
       return ((context == null || context == EContext.UnlimitedHalfEven) ?
-          ExtendedMathValue : MathValue).Abs(this, context);
+        ExtendedMathValue : MathValue).Abs(this, context);
     }
 
     /// <summary>Adds this arbitrary-precision decimal floating-point
@@ -2343,7 +2343,7 @@ namespace PeterO.Numbers {
         throw new InvalidOperationException("doesn't satisfy other.IsFinite");
       }
       #endif
-      // DebugUtility.Log("efexp=" + ef.Exponent);
+      // Console.WriteLine("efexp=" + ef.Exponent);
       if (ef.Exponent.CompareTo((EInteger)(-1000)) < 0) {
         // For very low exponents (less than -1000), the conversion to
         // decimal can take very long, so try this approach
@@ -2354,7 +2354,7 @@ namespace PeterO.Numbers {
             return (signA > 0) ? 1 : -1;
           }
         }
-        // DebugUtility.Log("edexp=" + ed.Exponent + ", efexp=" +
+        // Console.WriteLine("edexp=" + ed.Exponent + ", efexp=" +
         // ef.Exponent);
         EInteger bitCount = ef.Mantissa.GetUnsignedBitLengthAsEInteger();
         EInteger absexp = ef.Exponent.Abs();
@@ -2363,9 +2363,9 @@ namespace PeterO.Numbers {
           // using a different EFloat with the same significand but
           // with an exponent changed to be closer to 0
           EFloat trial = EFloat.Create(ef.Mantissa, EInteger.FromInt32(
-                -1000));
+            -1000));
           int trialcmp = CompareEDecimalToEFloat(ed, trial);
-          // DebugUtility.Log("trialcmp result="+trialcmp);
+          // Console.WriteLine("trialcmp result="+trialcmp);
           if (ef.Sign < 0 && trialcmp < 0) {
             // if float and decimal are negative and
             // decimal is less than trial float (which in turn is
@@ -2383,8 +2383,8 @@ namespace PeterO.Numbers {
         }
         EInteger[] thisAdjExpBounds = GetAdjustedExponentDecimalBounds(ed);
         EInteger otherAdjExp = GetAdjustedExponentBinary(ef);
-        // DebugUtility.Log("taexp=" + thisAdjExp + ", oaexp=" + otherAdjExp);
-        // DebugUtility.Log("td=" + ed.ToDouble() + ", tf=" + ef.ToDouble());
+        // Console.WriteLine("taexp=" + thisAdjExp + ", oaexp=" + otherAdjExp);
+        // Console.WriteLine("td=" + ed.ToDouble() + ", tf=" + ef.ToDouble());
         if (thisAdjExpBounds[0].Sign < 0 &&
           thisAdjExpBounds[0].CompareTo(-1000) >= 0 &&
           otherAdjExp.CompareTo(-4000) < 0) {
@@ -2414,7 +2414,7 @@ namespace PeterO.Numbers {
           otherAdjExp = otherAdjExp.Add(1).Abs();
           adjexp = EInteger.Min(divisor1, divisor2);
           ratio = otherAdjExp.Multiply(1000).Divide(adjexp);
-          // DebugUtility.Log("taexp=" + adjexp + ", oaexp=" +
+          // Console.WriteLine("taexp=" + adjexp + ", oaexp=" +
           // otherAdjExp + " ratio=" + ratio);
           if (ratio.CompareTo(3321) < 0) {
             // Binary abs. value is greater
@@ -2487,13 +2487,13 @@ namespace PeterO.Numbers {
         }
       }
       EDecimal otherDec = EDecimal.FromEFloat(ef);
-      /* DebugUtility.Log("Traditional compare");
-      DebugUtility.Log("ef="+ef);
+      /* Console.WriteLine("Traditional compare");
+      Console.WriteLine("ef="+ef);
       string ed0=""+ed;
       string od0=""+otherDec;
       if (!ed0.Equals(od0)) {
-        DebugUtility.Log("ed="+ed0);
-        DebugUtility.Log("od="+od0);
+        Console.WriteLine("ed="+ed0);
+        Console.WriteLine("od="+od0);
       }
       */
       return ed.CompareTo(otherDec);
@@ -3225,9 +3225,9 @@ namespace PeterO.Numbers {
       EDecimal divisor,
       EContext ctx) {
       return GetMathValue(ctx).DivideToIntegerNaturalScale(
-          this,
-          divisor,
-          ctx);
+        this,
+        divisor,
+        ctx);
     }
 
     /// <summary>Divides this object by another object, and returns the
@@ -3422,7 +3422,7 @@ namespace PeterO.Numbers {
     /// otherwise, <c>false</c>.</returns>
     public bool IsNaN() {
       return (this.flags & (BigNumberFlags.FlagQuietNaN |
-            BigNumberFlags.FlagSignalingNaN)) != 0;
+        BigNumberFlags.FlagSignalingNaN)) != 0;
     }
 
     /// <summary>Returns whether this object is negative
@@ -3431,7 +3431,7 @@ namespace PeterO.Numbers {
     /// otherwise, <c>false</c>.</returns>
     public bool IsNegativeInfinity() {
       return (this.flags & (BigNumberFlags.FlagInfinity |
-            BigNumberFlags.FlagNegative)) == (BigNumberFlags.FlagInfinity |
+        BigNumberFlags.FlagNegative)) == (BigNumberFlags.FlagInfinity |
           BigNumberFlags.FlagNegative);
     }
 
@@ -3441,7 +3441,7 @@ namespace PeterO.Numbers {
     /// otherwise, <c>false</c>.</returns>
     public bool IsPositiveInfinity() {
       return (this.flags & (BigNumberFlags.FlagInfinity |
-            BigNumberFlags.FlagNegative)) == BigNumberFlags.FlagInfinity;
+        BigNumberFlags.FlagNegative)) == BigNumberFlags.FlagInfinity;
     }
 
     /// <summary>Gets a value indicating whether this object is a quiet
@@ -3557,7 +3557,7 @@ namespace PeterO.Numbers {
         int flags = ctx.Flags;
         EContext tmpctx = null;
         EDecimal ret;
-        // DebugUtility.Log("cmp=" +
+        // Console.WriteLine("cmp=" +
         // value.CompareTo(EDecimal.Create(1, -1)) +
         // " add=" + value.Add(EDecimal.FromInt32(1)));
         if (value.CompareTo(EDecimal.Create(5, -1)) < 0) {
@@ -3612,7 +3612,7 @@ namespace PeterO.Numbers {
       } else if (ctx.IsSimplified) {
         EContext tmpctx = ctx.WithSimplified(false).WithBlankFlags();
         EDecimal ret = value.PreRound(ctx).LogN(baseValue.PreRound(ctx),
-            tmpctx);
+          tmpctx);
         if (ctx.HasFlags) {
           int flags = ctx.Flags;
           ctx.Flags = flags | tmpctx.Flags;
@@ -3647,7 +3647,7 @@ namespace PeterO.Numbers {
           flags |= EContext.FlagRounded | EContext.FlagInexact;
           if (baseValue.Pow(ret).CompareToValue(value) == 0) {
             EDecimal rtmp = ret.Quantize(EDecimal.FromInt32(1),
-                ctx.WithNoFlags());
+              ctx.WithNoFlags());
             if (!rtmp.IsNaN()) {
               flags &= ~(EContext.FlagRounded | EContext.FlagInexact);
               ret = rtmp;
@@ -3845,7 +3845,7 @@ namespace PeterO.Numbers {
           }
         } else {
           EInteger eintA = this.unsignedMantissa.ToEInteger().Multiply(
-              otherValue.unsignedMantissa.ToEInteger());
+            otherValue.unsignedMantissa.ToEInteger());
           return new EDecimal(
               FastIntegerFixed.FromBig(eintA),
               FastIntegerFixed.Add(this.exponent, otherValue.exponent),
@@ -4105,7 +4105,7 @@ namespace PeterO.Numbers {
     /// returns quiet NaN if this value is signaling NaN.</returns>
     public EDecimal Negate(EContext context) {
       return ((context == null || context == EContext.UnlimitedHalfEven) ?
-          ExtendedMathValue : MathValue).Negate(this, context);
+        ExtendedMathValue : MathValue).Negate(this, context);
     }
 
     /// <summary>Finds the largest value that's smaller than the specified
@@ -4538,8 +4538,8 @@ namespace PeterO.Numbers {
       EDecimal divisor,
       EContext ctx) {
       return this.Subtract(
-        this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
-        ctx);
+          this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
+          ctx);
     }
 
     /// <summary>Finds the distance to the closest multiple of the
@@ -5239,7 +5239,7 @@ namespace PeterO.Numbers {
           if (m != Int32.MinValue) {
             if (m % vtp == 0) {
               // Will fit in double without rounding
-              // DebugUtility.Log("m=" + m + " vtp=" + vtp);
+              // Console.WriteLine("m=" + m + " vtp=" + vtp);
               return IntegerToDoubleBits(m / vtp, 0, this.IsNegative);
             }
             // Shift significand to be a 53-bit number (which
@@ -5253,7 +5253,7 @@ namespace PeterO.Numbers {
             int divdCount = NumberUtility.BitLength(m);
             int divsCount = NumberUtility.BitLength(vtp);
             int dividendShift = (divdCount <= divsCount) ? ((divsCount -
-                  divdCount) + 53 + 1) : Math.Max(0,
+              divdCount) + 53 + 1) : Math.Max(0,
                 (53 + 1) - (divdCount - divsCount));
             long lquo = -1;
             long lrem = -1;
@@ -5443,7 +5443,7 @@ namespace PeterO.Numbers {
       }
       if (this.IsNegativeInfinity()) {
         return unchecked((short)(EFloat.Binary16Infinity +
-(1 << (EFloat.Binary16Bits - 1))));
+          (1 << (EFloat.Binary16Bits - 1))));
       }
       if (this.IsNegative && this.IsZero) {
         return unchecked((short)((int)1 << (EFloat.Binary16Bits - 1)));
@@ -5469,7 +5469,7 @@ namespace PeterO.Numbers {
           int iex = -this.exponent.ToInt32();
           int vtp = ValueTenPowers[iex];
           if (m >= -(1 << EFloat.Binary16SignifAreaBits) && m < (1 <<
-EFloat.Binary16SignifAreaBits)) {
+          EFloat.Binary16SignifAreaBits)) {
             if (m % vtp == 0) {
               return IntegerToHalfBits(m / vtp, 0, this.IsNegative);
             }
@@ -5524,22 +5524,22 @@ EFloat.Binary16SignifAreaBits)) {
                 ++nexp;
               }
               var smallmantissa = (int)(lquo &
-((1 << EFloat.Binary16SignifAreaBits) - 1));
+          ((1 << EFloat.Binary16SignifAreaBits) - 1));
               // NOTE: Assumed not to be subnormal
               smallmantissa |= (nexp + 1 - EFloat.Binary16EMin) <<
-EFloat.Binary16SignifAreaBits;
+          EFloat.Binary16SignifAreaBits;
               if (this.IsNegative) {
                 smallmantissa |= 1 << (EFloat.Binary16Bits - 1);
               }
               return unchecked((short)smallmantissa);
             }
           }
-          */ }
+          */
+        }
         if (this.exponent.CompareToInt(39) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? unchecked((short)(EFloat.Binary16Infinity +
-(1 << (EFloat.Binary16Bits - 1)))) :
-            (short)EFloat.Binary16Infinity;
+            (1 << (EFloat.Binary16Bits - 1)))) : (short)EFloat.Binary16Infinity;
         }
       }
       return this.ToEFloat(EContext.Binary16).ToHalfBits();
@@ -5565,7 +5565,7 @@ EFloat.Binary16SignifAreaBits;
       }
       if (this.IsNegativeInfinity()) {
         return unchecked((int)(EFloat.Binary32Infinity +
-(1 << (EFloat.Binary32Bits - 1))));
+          (1 << (EFloat.Binary32Bits - 1))));
       }
       if (this.IsNegative && this.IsZero) {
         return (int)1 << (EFloat.Binary32Bits - 1);
@@ -5589,7 +5589,7 @@ EFloat.Binary16SignifAreaBits;
           int iex = -this.exponent.ToInt32();
           int vtp = ValueTenPowers[iex];
           if (m >= -(1 << EFloat.Binary32SignifAreaBits) && m < (1 <<
-EFloat.Binary32SignifAreaBits)) {
+            EFloat.Binary32SignifAreaBits)) {
             if (m % vtp == 0) {
               return IntegerToSingleBits(m / vtp, 0, this.IsNegative);
             }
@@ -5602,7 +5602,7 @@ EFloat.Binary32SignifAreaBits)) {
             int divdCount = NumberUtility.BitLength(m);
             int divsCount = NumberUtility.BitLength(vtp);
             int dividendShift = (divdCount <= divsCount) ? ((divsCount -
-                  divdCount) + EFloat.Binary32SignifBits + 1) : Math.Max(0,
+              divdCount) + EFloat.Binary32SignifBits + 1) : Math.Max(0,
                 (EFloat.Binary32SignifBits + 1) - (divdCount - divsCount));
             long lquo = -1;
             long lrem = -1;
@@ -5644,10 +5644,10 @@ EFloat.Binary32SignifAreaBits)) {
                 ++nexp;
               }
               var smallmantissa = (int)(lquo &
-((1 << EFloat.Binary32SignifAreaBits) - 1));
+                ((1 << EFloat.Binary32SignifAreaBits) - 1));
               // NOTE: Assumed not to be subnormal
               smallmantissa |= (nexp + 1 - EFloat.Binary32EMin) <<
-EFloat.Binary32SignifAreaBits;
+                EFloat.Binary32SignifAreaBits;
               if (this.IsNegative) {
                 smallmantissa |= 1 << (EFloat.Binary32Bits - 1);
               }
@@ -5658,8 +5658,7 @@ EFloat.Binary32SignifAreaBits;
         if (this.exponent.CompareToInt(39) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? unchecked((int)(EFloat.Binary32Infinity +
-(1 << (EFloat.Binary32Bits - 1)))) :
-            EFloat.Binary32Infinity;
+            (1 << (EFloat.Binary32Bits - 1)))) : EFloat.Binary32Infinity;
         }
       }
       return this.ToEFloat(EContext.Binary32).ToSingleBits();
@@ -5789,8 +5788,8 @@ EFloat.Binary32SignifAreaBits;
 
     private bool EqualsInternal(EDecimal otherValue) {
       return (otherValue != null) && (this.flags == otherValue.flags &&
-          this.unsignedMantissa.Equals(otherValue.unsignedMantissa) &&
-          this.exponent.Equals(otherValue.exponent));
+        this.unsignedMantissa.Equals(otherValue.unsignedMantissa) &&
+        this.exponent.Equals(otherValue.exponent));
     }
 
     private static EInteger[] GetAdjustedExponentDecimalBounds(
@@ -5895,7 +5894,7 @@ EFloat.Binary32SignifAreaBits;
         EInteger bigexponent = this.Exponent;
         return (digitCountUpper.CompareTo(bigexponent.Abs()) < 0) ? true :
           ((digitCountLower.CompareTo(bigexponent.Abs()) > 0) ? false :
-            (this.CompareTo(-1) > 0 && this.CompareTo(1) < 0));
+          (this.CompareTo(-1) > 0 && this.CompareTo(1) < 0));
       }
     }
 
@@ -6090,7 +6089,7 @@ EFloat.Binary32SignifAreaBits;
     public EFloat ToEFloat(EContext ec) {
       EInteger bigintExp = this.Exponent;
       EInteger bigUnsignedMantissa = this.UnsignedMantissa;
-      // DebugUtility.Log("ToEFloat " + this.Exponent + "," + this.Mantissa);
+      // Console.WriteLine("ToEFloat " + this.Exponent + "," + this.Mantissa);
       if (this.IsNaN()) {
         return EFloat.CreateNaN(
             this.UnsignedMantissa,
@@ -6110,7 +6109,7 @@ EFloat.Binary32SignifAreaBits;
       }
       if (bigintExp.IsZero) {
         // Integer
-        // DebugUtility.Log("Integer");
+        // Console.WriteLine("Integer");
         return this.WithThisSign(EFloat.FromEInteger(bigUnsignedMantissa))
           .RoundToPrecision(ec);
       }
@@ -6133,22 +6132,22 @@ EFloat.Binary32SignifAreaBits;
           eTiny = eTiny.Subtract(2); // subtract 2 from proper eTiny to
           // trigger underflow (2, rather than 1, because of HalfUp mode)
           EFloat ret = EFloat.Create(EInteger.FromInt32(
-                this.IsNegative ? -1 : 1),
-              eTiny);
+            this.IsNegative ? -1 : 1),
+            eTiny);
           return ret.RoundToPrecision(ec);
         } else if (adjexpLowerBound.CompareTo(309) > 0) {
-          // DebugUtility.Log("Overflow A");
+          // Console.WriteLine("Overflow A");
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
         EInteger digitCountLower = bounds[0];
-        // DebugUtility.Log("DCL " + digitCountLower + "," + bigintExp);
+        // Console.WriteLine("DCL " + digitCountLower + "," + bigintExp);
         if (bigintExp.Sign >= 0 &&
           digitCountLower.Subtract(2).CompareTo(309) > 0) {
-          // DebugUtility.Log("Overflow B");
+          // Console.WriteLine("Overflow B");
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         } else if (ec.AdjustExponent &&
-              digitCountLower.Add(bigintExp).Subtract(2).CompareTo(309) > 0) {
-          // DebugUtility.Log("Overflow C");
+          digitCountLower.Add(bigintExp).Subtract(2).CompareTo(309) > 0) {
+          // Console.WriteLine("Overflow C");
           return EFloat.GetMathValue().SignalOverflow(ec, this.IsNegative);
         }
       }
@@ -6162,13 +6161,13 @@ EFloat.Binary32SignifAreaBits;
           }
         } else if (ec == EContext.Binary64) {
           if (bigintExp.CompareTo(309) > 0) {
-            // DebugUtility.Log("Overflow D");
+            // Console.WriteLine("Overflow D");
             return this.IsNegative ? EFloat.NegativeInfinity :
               EFloat.PositiveInfinity;
           }
         }
         // --- End optimizations for Binary32 and Binary64
-        // DebugUtility.Log("Scaled integer");
+        // Console.WriteLine("Scaled integer");
         EInteger bigmantissa = bigUnsignedMantissa;
         bigintExp = NumberUtility.FindPowerOfTenFromBig(bigintExp);
         bigmantissa *= (EInteger)bigintExp;
@@ -6176,7 +6175,7 @@ EFloat.Binary32SignifAreaBits;
           .RoundToPrecision(ec);
       } else {
         // Fractional number
-        // DebugUtility.Log("Fractional");
+        // Console.WriteLine("Fractional");
         EInteger scale = bigintExp;
         EInteger bigmantissa = bigUnsignedMantissa;
         EInteger negscale = -scale;
@@ -6374,7 +6373,7 @@ EFloat.Binary32SignifAreaBits;
         bool adjExponentNegative = adjustedExponent.Sign < 0;
         int intphase = adjustedExponent.Copy().Abs().Remainder(3).ToInt32();
         if (iszero && (adjustedExponent.CompareTo(threshold) < 0 || scaleSign <
-            0)) {
+          0)) {
           if (intphase == 1) {
             if (adjExponentNegative) {
               decimalPointAdjust.Increment();
@@ -6415,7 +6414,7 @@ EFloat.Binary32SignifAreaBits;
         adjustedExponent = newExponent;
       }
       if (mode == 2 || (adjustedExponent.CompareTo(threshold) >= 0 &&
-          scaleSign >= 0)) {
+        scaleSign >= 0)) {
         if (scaleSign > 0) {
           FastInteger decimalPoint = thisExponent.Copy().Add(builderLength);
           int cmp = decimalPoint.CompareToInt(0);
@@ -6688,7 +6687,7 @@ EFloat.Binary32SignifAreaBits;
       public FastIntegerFixed MultiplyByRadixPowerFastInt(
         FastIntegerFixed fbigint,
         FastIntegerFixed fpower) {
-        // DebugUtility.Log("mbrp "+fbigint+"/"+fpower);
+        // Console.WriteLine("mbrp "+fbigint+"/"+fpower);
         if (fbigint.IsValueZero) {
           return fbigint;
         }

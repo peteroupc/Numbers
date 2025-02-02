@@ -22,16 +22,18 @@ namespace PeterO.Numbers {
       if (tmpoffset < 0) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("offset(" + tmpoffset + ") is" +
-"\u0020less" + "\u0020than " + "0");
-}
+        } else {
+          throw new FormatException("offset(" + tmpoffset + ") is" +
+            "\u0020less" + "\u0020than " + "0");
+        }
       }
       if (tmpoffset > chars.Length) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("offset(" + tmpoffset + ") is" +
-"\u0020more" + "\u0020than " + chars.Length);
-}
+        } else {
+          throw new FormatException("offset(" + tmpoffset + ") is" +
+            "\u0020more" + "\u0020than " + chars.Length);
+        }
       }
       if (length <= 0) {
         if (length == 0) {
@@ -44,23 +46,26 @@ namespace PeterO.Numbers {
         if (!throwException) {
           return null;
         } else {
-  throw new FormatException("length(" + length + ") is less than " + "0");
- }
+          throw new FormatException("length(" + length + ") is less than " +
+            "0");
+        }
       }
       if (length > chars.Length) {
         if (!throwException) {
           return null;
         } else {
-  throw new FormatException("length(" + length + ") is more than " +
-chars.Length);
- }
+          throw new FormatException("length(" + length + ") is more than " +
+            chars.Length);
+        }
       }
       if (chars.Length - tmpoffset < length) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("chars's length minus " +
-tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
-}
+        } else {
+          throw new FormatException("chars's length minus " +
+            tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " +
+            length);
+        }
       }
       var negative = false;
       int endStr = tmpoffset + length;
@@ -90,12 +95,12 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       int i = tmpoffset;
       if (c < '0' || c > '9') {
         EDecimal ed = ParseSpecialValue(
-          chars,
-          i,
-          endStr,
-          negative,
-          ctx,
-          throwException);
+            chars,
+            i,
+            endStr,
+            negative,
+            ctx,
+            throwException);
         if (ed != null) {
           return ed;
         }
@@ -103,20 +108,20 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
         !ctx.IsSimplified) {
         return ParseOrdinaryNumberLimitedPrecision(
-          chars,
-          i,
-          endStr,
-          negative,
-          ctx,
-          throwException);
+            chars,
+            i,
+            endStr,
+            negative,
+            ctx,
+            throwException);
       } else {
         return ParseOrdinaryNumber(
-          chars,
-          i,
-          endStr,
-          negative,
-          ctx,
-          throwException);
+            chars,
+            i,
+            endStr,
+            negative,
+            ctx,
+            throwException);
       }
     }
 
@@ -136,11 +141,10 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
           (chars[i + 1] == 'N' || chars[i + 1] == 'n') &&
           (chars[i + 2] == 'F' || chars[i + 2] == 'f') &&
           (chars[i + 3] == 'I' || chars[i + 3] == 'i') && (chars[i + 4] ==
-            'N' ||
-            chars[i + 4] == 'n') && (chars[i + 5] == 'I' || chars[i + 5] ==
+          'N' || chars[i + 4] == 'n') && (chars[i + 5] == 'I' || chars[i + 5] ==
             'i') &&
           (chars[i + 6] == 'T' || chars[i + 6] == 't') && (chars[i + 7] ==
-            'Y' || chars[i + 7] == 'y')) {
+          'Y' || chars[i + 7] == 'y')) {
           if (ctx != null && ctx.IsSimplified && i < endStr) {
             if (!throwException) {
               return null;
@@ -155,7 +159,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       if (i + 3 == endStr) {
         if ((chars[i] == 'I' || chars[i] == 'i') &&
           (chars[i + 1] == 'N' || chars[i + 1] == 'n') && (chars[i + 2] ==
-            'F' || chars[i + 2] == 'f')) {
+          'F' || chars[i + 2] == 'f')) {
           if (ctx != null && ctx.IsSimplified && i < endStr) {
             if (!throwException) {
               return null;
@@ -170,8 +174,8 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       if (i + 3 <= endStr) {
         // Quiet NaN
         if ((chars[i] == 'N' || chars[i] == 'n') && (chars[i + 1] == 'A' ||
-            chars[i +
-              1] == 'a') && (chars[i + 2] == 'N' || chars[i + 2] == 'n')) {
+          chars[i +
+            1] == 'a') && (chars[i + 2] == 'N' || chars[i + 2] == 'n')) {
           if (ctx != null && ctx.IsSimplified && i < endStr) {
             if (!throwException) {
               return null;
@@ -183,9 +187,9 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
             BigNumberFlags.FlagQuietNaN;
           if (i + 3 == endStr) {
             return (!negative) ? EDecimal.NaN : new EDecimal(
-                FastIntegerFixed.Zero,
-                FastIntegerFixed.Zero,
-                (byte)flags2);
+              FastIntegerFixed.Zero,
+              FastIntegerFixed.Zero,
+              (byte)flags2);
           }
           i += 3;
           var digitCount = new FastInteger(0);
@@ -242,8 +246,8 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       if (i + 4 <= endStr) {
         // Signaling NaN
         if ((chars[i] == 'S' || chars[i] == 's') && (chars[i + 1] == 'N' ||
-            chars[i +
-              1] == 'n') && (chars[i + 2] == 'A' || chars[i + 2] == 'a') &&
+          chars[i +
+            1] == 'n') && (chars[i + 2] == 'A' || chars[i + 2] == 'a') &&
           (chars[i + 3] == 'N' || chars[i + 3] == 'n')) {
           if (ctx != null && ctx.IsSimplified && i < endStr) {
             if (!throwException) {
@@ -362,7 +366,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
           haveDigits = true;
           haveNonzeroDigit |= thisdigit != 0;
           if (beyondMax || (precisionPlusTwo.CompareTo(decimalPrec) < 0 &&
-              mantissaLong == Int64.MaxValue)) {
+            mantissaLong == Int64.MaxValue)) {
             // Well beyond maximum precision, significand is
             // max or bigger
             beyondMax = true;
@@ -387,7 +391,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
             digitEnd = i + 1;
           }
           if (mantissaLong < 922337203685477580L ||
-               (mantissaLong == 922337203685477580L && thisdigit <= 7)) {
+            (mantissaLong == 922337203685477580L && thisdigit <= 7)) {
             mantissaLong *= 10;
             mantissaLong += thisdigit;
           } else {
@@ -528,7 +532,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
         EInteger adjExpLowerBound = exp;
         EInteger eTiny = ctx.EMin.Subtract(ctx.Precision.Subtract(1));
         eTiny = eTiny.Subtract(1);
-        // DebugUtility.Log("exp=" + adjExpLowerBound + "~" +
+        // Console.WriteLine("exp=" + adjExpLowerBound + "~" +
         // adjExpUpperBound + ", emin={0} emax={1}", ctx.EMin, ctx.EMax);
         if (adjExpUpperBound.CompareTo(eTiny) < 0) {
           return EDecimal.SignalUnderflow(ctx, negative, zeroMantissa);
@@ -589,7 +593,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
           // String portion is a single digit
           var si = (int)(tch - '0');
           return negative ? ((si == 0) ? EDecimal.NegativeZero :
-              EDecimal.FromCache(-si)) : EDecimal.FromCache(si);
+            EDecimal.FromCache(-si)) : EDecimal.FromCache(si);
         }
       }
       digitStart = i;
@@ -773,9 +777,10 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
             if (!(chvi >= '0' && chvi <= '9')) {
               if (!throwException) {
                 return null;
-              } else { throw new ArgumentException("doesn't satisfy chvi>=" +
-"\u0020'0'" + "\u0020 &&" + "\u0020chvi<= '9'");
-}
+              } else {
+                throw new ArgumentException("doesn't satisfy chvi>=" +
+                  "\u0020'0'" + "\u0020 &&" + "\u0020chvi<= '9'");
+              }
             }
             #endif
             if (digitCount < 0 || digitCount >= 18) {
@@ -792,9 +797,10 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
             if (!(chvi >= '0' && chvi <= '9')) {
               if (!throwException) {
                 return null;
-              } else { throw new ArgumentException("doesn't satisfy chvi>=" +
-"\u0020'0'" + "\u0020 &&" + "\u0020chvi<= '9'");
-}
+              } else {
+                throw new ArgumentException("doesn't satisfy chvi>=" +
+                  "\u0020'0'" + "\u0020 &&" + "\u0020chvi<= '9'");
+              }
             }
             #endif
             if (digitCount < 0 || digitCount >= 18) {
@@ -846,7 +852,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
       fastIntScale = (newScale == null) ? FastIntegerFixed.FromInt32(
-          newScaleInt) : FastIntegerFixed.FromBig(newScale);
+        newScaleInt) : FastIntegerFixed.FromBig(newScale);
       if (mant == null) {
         fastIntMant = FastIntegerFixed.FromInt32(mantInt);
       } else if (mant.CanFitInInt32()) {
@@ -871,11 +877,11 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       bool throwException) {
       if (ctx == null) {
         return ParseOrdinaryNumberNoContext(
-          chars,
-          i,
-          endStr,
-          negative,
-          throwException);
+            chars,
+            i,
+            endStr,
+            negative,
+            throwException);
       }
       // NOTE: Negative sign at beginning was omitted
       // from the sequence portion
@@ -895,7 +901,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
           EDecimal cret;
           var si = (int)(tch - '0');
           cret = negative ? ((si == 0) ? EDecimal.NegativeZero :
-              EDecimal.FromCache(-si)) : EDecimal.FromCache(si);
+            EDecimal.FromCache(-si)) : EDecimal.FromCache(si);
           if (ctx != null) {
             cret = EDecimal.GetMathValue(ctx).RoundAfterConversion(cret, ctx);
           }
@@ -933,7 +939,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       var zerorun = 0;
       var realDigitEnd = -1;
       var realDecimalEnd = -1;
-      // DebugUtility.Log("round half=" + (// roundHalf) +
+      // Console.WriteLine("round half=" + (// roundHalf) +
       // " up=" + roundUp + " down=" + roundDown +
       // " maxprec=" + (ctx != null && ctx.HasMaxPrecision));
       for (; i < endStr; ++i) {
@@ -963,7 +969,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
               if (thisdigit >= 1 && thisdigit < 5) {
                 ignoreNextDigit = true;
               } else if (thisdigit > 5 || (thisdigit == 5 &&
-                  ctx.Rounding == ERounding.HalfUp)) {
+                ctx.Rounding == ERounding.HalfUp)) {
                 roundHalf = false;
                 roundUp = true;
                 ignoreNextDigit = true;
@@ -1050,19 +1056,19 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
         realDecimalEnd = i;
       }
       if (zerorun > 0 && lastdigit == 0 && (ctx == null ||
-          !ctx.HasFlagsOrTraps)) {
+        !ctx.HasFlagsOrTraps)) {
         decimalPrec -= zerorun;
         var nondec = 0;
         // NOTE: This check is apparently needed for correctness
         if (ctx == null || (!ctx.HasMaxPrecision ||
-            decimalPrec - ctx.Precision.ToInt32Checked() > zerorun)) {
+          decimalPrec - ctx.Precision.ToInt32Checked() > zerorun)) {
           if (haveDecimalPoint) {
             int decdigits = decimalDigitEnd - decimalDigitStart;
             nondec = Math.Min(decdigits, zerorun);
             decimalDigitEnd -= nondec;
             int remain = zerorun - nondec;
             digitEnd -= remain;
-            // DebugUtility.Log("remain={0} nondec={1}
+            // Console.WriteLine("remain={0} nondec={1}
             // newScale={2}",remain,nondec,newScaleInt);
             nondec = zerorun;
           } else {
@@ -1077,32 +1083,33 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
             newScale = newScale.Add(nondec);
           }
         }
-        // DebugUtility.Log("-->zerorun={0} prec={1} [whole={2}, dec={3}]
+        // Console.WriteLine("-->zerorun={0} prec={1} [whole={2}, dec={3}]
         // chars={4}",zerorun,decimalPrec,
         // digitEnd-digitStart, decimalDigitEnd-decimalDigitStart, chars);
       }
       // if (ctx != null) {
-      // DebugUtility.Log("roundup [prec=" + decimalPrec + ", ctxprec=" +
+      // Console.WriteLine("roundup [prec=" + decimalPrec + ", ctxprec=" +
       // (// ctx.Precision) + ", chars=" + (// chars.Substring(0, Math.Min(20,
       // chars.Length))) + "] " + (ctx.Rounding));
       // }
-      // DebugUtility.Log("digitRange="+digitStart+"-"+digitEnd+
+      // Console.WriteLine("digitRange="+digitStart+"-"+digitEnd+
       // "decdigitRange="+decimalDigitStart+"-"+decimalDigitEnd);
       if (
         roundUp && ctx != null &&
         ctx.Precision.CompareTo(decimalPrec) < 0) {
         int precdiff = decimalPrec - ctx.Precision.ToInt32Checked();
-        // DebugUtility.Log("precdiff = " + precdiff + " [prec=" + (// decimalPrec) +
+        // Console.WriteLine("precdiff = " + precdiff + " [prec=" + (// decimalPrec) +
         // ",
         // ctxprec=" + ctx.Precision + "]");
         if (precdiff > 1) {
           int precchop = precdiff - 1;
           decimalPrec -= precchop;
           int nondec = precchop;
-          // DebugUtility.Log("precchop=" + (precchop));
+          // Console.WriteLine("precchop=" + (precchop));
           if (haveDecimalPoint) {
             int decdigits = decimalDigitEnd - decimalDigitStart;
-            // DebugUtility.Log("decdigits=" + decdigits + " decprecchop=" + (decdigits));
+            // Console.WriteLine("decdigits=" + decdigits + " decprecchop=" +
+            // (decdigits));
             decimalDigitEnd -= nondec;
             int remain = precchop - nondec;
             digitEnd -= remain;
@@ -1201,7 +1208,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
         }
       }
       if (ctx != null && (mantInt > MaxSafeInt || (haveExponent &&
-            expInt > MaxSafeInt)) && ctx.HasExponentRange) {
+        expInt > MaxSafeInt)) && ctx.HasExponentRange) {
         EInteger ns;
         if (expInt <= MaxSafeInt && ctx != null) {
           ns = newScale ?? EInteger.FromInt32(newScaleInt);
@@ -1226,7 +1233,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
             decimalPrec,
             ns);
         if (mantInt == 0 && (expwithin == 1 || expwithin == 2 ||
-            expwithin == 3)) {
+          expwithin == 3)) {
           // Significand is zero
           ret = new EDecimal(
             FastIntegerFixed.FromInt32(0),
@@ -1255,7 +1262,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
           return ret;
         }
       }
-      // DebugUtility.Log("digitRange="+digitStart+"-"+digitEnd+
+      // Console.WriteLine("digitRange="+digitStart+"-"+digitEnd+
       // "decdigitRange="+decimalDigitStart+"-"+decimalDigitEnd);
       int de = digitEnd;
       int dde = decimalDigitEnd;
@@ -1274,9 +1281,10 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
             if (!(chvi >= '0' && chvi <= '9')) {
               if (!throwException) {
                 return null;
-              } else { throw new ArgumentException("doesn't satisfy chvi>=" +
-"\u0020'0'" + "\u0020 &&" + "\u0020chvi<= '9'");
-}
+              } else {
+                throw new ArgumentException("doesn't satisfy chvi>=" +
+                  "\u0020'0'" + "\u0020 &&" + "\u0020chvi<= '9'");
+              }
             }
             #endif
             if (digitCount < 0 || digitCount >= 18) {
@@ -1293,9 +1301,10 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
             if (!(chvi >= '0' && chvi <= '9')) {
               if (!throwException) {
                 return null;
-              } else { throw new ArgumentException("doesn't satisfy chvi>=" +
-"\u0020'0'" + "\u0020 &&" + "\u0020chvi<= '9'");
-}
+              } else {
+                throw new ArgumentException("doesn't satisfy chvi>=" +
+                  "\u0020'0'" + "\u0020 &&" + "\u0020chvi<= '9'");
+              }
             }
             #endif
             if (digitCount < 0 || digitCount >= 18) {
@@ -1311,7 +1320,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
           lv = -lv;
         }
         if (digitCount >= 0 && (!negative || lv != 0)) {
-          // DebugUtility.Log("lv="+lv+" expo="+expo);
+          // Console.WriteLine("lv="+lv+" expo="+expo);
           ret = EDecimal.Create(lv, (long)expo);
           if (ctx != null) {
             ret = EDecimal.GetMathValue(ctx).RoundAfterConversion(ret, ctx);
@@ -1351,8 +1360,8 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       FastIntegerFixed fastIntScale;
       FastIntegerFixed fastIntMant;
       fastIntScale = (newScale == null) ? FastIntegerFixed.FromInt32(
-          newScaleInt) : FastIntegerFixed.FromBig(newScale);
-      // DebugUtility.Log("fim="+ Chop(mant) + ", exp=" + fastIntScale);
+        newScaleInt) : FastIntegerFixed.FromBig(newScale);
+      // Console.WriteLine("fim="+ Chop(mant) + ", exp=" + fastIntScale);
       if (mant == null) {
         fastIntMant = FastIntegerFixed.FromInt32(mantInt);
       } else if (mant.CanFitInInt32()) {
@@ -1366,7 +1375,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
         fastIntScale,
         (byte)(negative ? BigNumberFlags.FlagNegative : 0));
       if (ctx != null) {
-        // DebugUtility.Log("rounding");
+        // Console.WriteLine("rounding");
         ret = EDecimal.GetMathValue(ctx).RoundAfterConversion(ret, ctx);
       }
       return ret;

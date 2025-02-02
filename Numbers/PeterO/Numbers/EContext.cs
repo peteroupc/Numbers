@@ -69,9 +69,9 @@ namespace PeterO.Numbers {
     /// is HalfUp.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext Basic =
       EContext.ForPrecisionAndRounding(9, ERounding.HalfUp);
@@ -80,9 +80,9 @@ namespace PeterO.Numbers {
     /// default rounding mode is HalfUp.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext BigDecimalJava =
       new EContext(0, ERounding.HalfUp, 0, 0, true)
@@ -96,9 +96,9 @@ namespace PeterO.Numbers {
     /// HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext Binary128 =
       EContext.ForPrecisionAndRounding(113, ERounding.HalfEven)
@@ -109,9 +109,9 @@ namespace PeterO.Numbers {
     /// HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext Binary16 =
       EContext.ForPrecisionAndRounding(11, ERounding.HalfEven)
@@ -122,9 +122,9 @@ namespace PeterO.Numbers {
     /// HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext Binary32 =
       EContext.ForPrecisionAndRounding(24, ERounding.HalfEven)
@@ -135,9 +135,9 @@ namespace PeterO.Numbers {
     /// HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext Binary64 =
       EContext.ForPrecisionAndRounding(53, ERounding.HalfEven)
@@ -153,9 +153,9 @@ namespace PeterO.Numbers {
     /// later versions.).</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext CliDecimal =
       new EContext(96, ERounding.HalfEven, 0, 28, true)
@@ -165,9 +165,9 @@ namespace PeterO.Numbers {
     /// format. The default rounding mode is HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext Decimal128 =
       new EContext(34, ERounding.HalfEven, -6143, 6144, true);
@@ -176,9 +176,9 @@ namespace PeterO.Numbers {
     /// format. The default rounding mode is HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext Decimal32 =
       new EContext(7, ERounding.HalfEven, -95, 96, true);
@@ -187,9 +187,9 @@ namespace PeterO.Numbers {
     /// format. The default rounding mode is HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext Decimal64 =
       new EContext(16, ERounding.HalfEven, -383, 384, true);
@@ -198,9 +198,9 @@ namespace PeterO.Numbers {
     /// mode HalfUp.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext Unlimited =
       EContext.ForPrecision(0);
@@ -209,9 +209,9 @@ namespace PeterO.Numbers {
     /// mode HalfEven.</summary>
     #if CODE_ANALYSIS
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Security",
-      "CA2104",
-      Justification = "This PrecisionContext is immutable")]
+        "Microsoft.Security",
+        "CA2104",
+        Justification = "This PrecisionContext is immutable")]
     #endif
     public static readonly EContext UnlimitedHalfEven =
       EContext.ForPrecision(0).WithRounding(ERounding.HalfEven);
@@ -571,11 +571,11 @@ namespace PeterO.Numbers {
     /// settings.</returns>
     public static EContext ForPrecision(int precision) {
       return new EContext(
-        precision,
-        ERounding.HalfUp,
-        0,
-        0,
-        false).WithUnlimitedExponents();
+          precision,
+          ERounding.HalfUp,
+          0,
+          0,
+          false).WithUnlimitedExponents();
     }
 
     /// <summary>Creates a new EContext object initialized with an
@@ -591,11 +591,11 @@ namespace PeterO.Numbers {
       int precision,
       ERounding rounding) {
       return new EContext(
-        precision,
-        rounding,
-        0,
-        0,
-        false).WithUnlimitedExponents();
+          precision,
+          rounding,
+          0,
+          0,
+          false).WithUnlimitedExponents();
     }
 
     private static readonly EContext ForRoundingHalfEven = new EContext(
@@ -627,11 +627,11 @@ namespace PeterO.Numbers {
         return ForRoundingDown;
       }
       return new EContext(
-        0,
-        rounding,
-        0,
-        0,
-        false).WithUnlimitedExponents();
+          0,
+          rounding,
+          0,
+          0,
+          false).WithUnlimitedExponents();
     }
 
     /// <summary>Initializes a new EContext that is a copy of another
@@ -640,18 +640,18 @@ namespace PeterO.Numbers {
     /// settings.</returns>
     public EContext Copy() {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        this.flags,
-        this.hasExponentRange,
-        this.hasFlags,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        this.traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          this.flags,
+          this.hasExponentRange,
+          this.hasFlags,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          this.traps);
     }
 
     /// <summary>Determines whether a number can have the specified
@@ -684,7 +684,7 @@ namespace PeterO.Numbers {
           bigint = bigint.Add(this.bigintPrecision).Subtract(1);
         }
         return (bigint.CompareTo(this.EMin) >= 0) &&
-(exponent.CompareTo(this.EMax) <= 0);
+          (exponent.CompareTo(this.EMax) <= 0);
       }
     }
 
@@ -701,8 +701,7 @@ namespace PeterO.Numbers {
         ", ClampNormalExponents=" + this.clampNormalExponents +
         ", AdjustExponent=" + this.adjustExponent + ", Flags=" +
         this.flags + ", HasFlags=" + this.hasFlags + ", IsSimplified=" +
-this.simplified +
-        "]";
+        this.simplified + "]";
     }
 
     /// <summary>Gets a value indicating whether this context has a mutable
@@ -723,18 +722,18 @@ this.simplified +
     /// settings.</returns>
     public EContext WithAdjustExponent(bool adjustExponent) {
       return new EContext(
-        adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        this.flags,
-        this.hasExponentRange,
-        this.hasFlags,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        this.traps);
+          adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          this.flags,
+          this.hasExponentRange,
+          this.hasFlags,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          this.traps);
     }
 
     /// <summary>Copies this arithmetic context and sets the copy's
@@ -751,18 +750,18 @@ this.simplified +
       EInteger exponentMin,
       EInteger exponentMax) {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        exponentMax,
-        exponentMin,
-        this.flags,
-        true,
-        this.hasFlags,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        this.traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          exponentMax,
+          exponentMin,
+          this.flags,
+          true,
+          this.hasFlags,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          this.traps);
     }
 
     /// <summary>Copies this EContext with <c>HasFlags</c> set to false, a
@@ -771,18 +770,18 @@ this.simplified +
     /// settings.</returns>
     public EContext WithNoFlagsOrTraps() {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        0,
-        this.hasExponentRange,
-        false,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        0);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          0,
+          this.hasExponentRange,
+          false,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          0);
     }
 
     /// <summary>Copies this EContext and gives it a particular precision
@@ -795,18 +794,18 @@ this.simplified +
     /// name='bigintPrecision'/> is null.</exception>
     public EContext WithBigPrecision(EInteger bigintPrecision) {
       return new EContext(
-        this.adjustExponent,
-        bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        this.flags,
-        this.hasExponentRange,
-        this.hasFlags,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        this.traps);
+          this.adjustExponent,
+          bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          this.flags,
+          this.hasExponentRange,
+          this.hasFlags,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          this.traps);
     }
 
     /// <summary>Copies this EContext with <c>HasFlags</c> set to true and
@@ -815,18 +814,18 @@ this.simplified +
     /// settings.</returns>
     public EContext WithBlankFlags() {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        0,
-        this.hasExponentRange,
-        true,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        this.traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          0,
+          this.hasExponentRange,
+          true,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          this.traps);
     }
 
     /// <summary>Copies this arithmetic context and sets the copy's
@@ -837,18 +836,18 @@ this.simplified +
     /// settings.</returns>
     public EContext WithExponentClamp(bool clamp) {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        clamp,
-        this.exponentMax,
-        this.exponentMin,
-        this.flags,
-        this.hasExponentRange,
-        this.hasFlags,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        this.traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          clamp,
+          this.exponentMax,
+          this.exponentMin,
+          this.flags,
+          this.hasExponentRange,
+          this.hasFlags,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          this.traps);
     }
 
     /// <summary>Copies this arithmetic context and sets the copy's
@@ -873,18 +872,18 @@ this.simplified +
     /// settings.</returns>
     public EContext WithNoFlags() {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        0,
-        this.hasExponentRange,
-        false,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        this.traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          0,
+          this.hasExponentRange,
+          false,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          this.traps);
     }
 
     /// <summary>Copies this EContext and gives it a particular precision
@@ -905,18 +904,18 @@ this.simplified +
     /// settings.</returns>
     public EContext WithPrecisionInBits(bool isPrecisionBits) {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        this.flags,
-        this.hasExponentRange,
-        this.hasFlags,
-        isPrecisionBits,
-        this.rounding,
-        this.simplified,
-        this.traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          this.flags,
+          this.hasExponentRange,
+          this.hasFlags,
+          isPrecisionBits,
+          this.rounding,
+          this.simplified,
+          this.traps);
     }
 
     /// <summary>Copies this EContext with the specified rounding
@@ -927,18 +926,18 @@ this.simplified +
     /// settings.</returns>
     public EContext WithRounding(ERounding rounding) {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        this.flags,
-        this.hasExponentRange,
-        this.hasFlags,
-        this.precisionInBits,
-        rounding,
-        this.simplified,
-        this.traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          this.flags,
+          this.hasExponentRange,
+          this.hasFlags,
+          this.precisionInBits,
+          rounding,
+          this.simplified,
+          this.traps);
     }
 
     /// <summary>Copies this EContext and sets the copy's "IsSimplified"
@@ -949,18 +948,18 @@ this.simplified +
     /// settings.</returns>
     public EContext WithSimplified(bool simplified) {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        this.flags,
-        this.hasExponentRange,
-        this.hasFlags,
-        this.precisionInBits,
-        this.rounding,
-        simplified,
-        this.traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          this.flags,
+          this.hasExponentRange,
+          this.hasFlags,
+          this.precisionInBits,
+          this.rounding,
+          simplified,
+          this.traps);
     }
 
     /// <summary>Copies this EContext with Traps set to the specified
@@ -974,18 +973,18 @@ this.simplified +
       // NOTE: Apparently HasFlags must be set to true because
       // some parts of code may treat HasFlags as HasFlagsOrTraps
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        this.flags,
-        this.hasExponentRange,
-        true,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          this.flags,
+          this.hasExponentRange,
+          true,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          traps);
     }
 
     /// <summary>Copies this EContext with an unlimited exponent
@@ -994,44 +993,44 @@ this.simplified +
     /// settings.</returns>
     public EContext WithUnlimitedExponents() {
       return new EContext(
-        this.adjustExponent,
-        this.bigintPrecision,
-        this.clampNormalExponents,
-        this.exponentMax,
-        this.exponentMin,
-        this.flags,
-        false,
-        this.hasFlags,
-        this.precisionInBits,
-        this.rounding,
-        this.simplified,
-        this.traps);
+          this.adjustExponent,
+          this.bigintPrecision,
+          this.clampNormalExponents,
+          this.exponentMax,
+          this.exponentMin,
+          this.flags,
+          false,
+          this.hasFlags,
+          this.precisionInBits,
+          this.rounding,
+          this.simplified,
+          this.traps);
     }
 
-  /// <summary>Returns this context if it doesn't set traps, or a context
-  /// without traps and with blank flags if it does, so that the
-  /// resulting context does not cause trap exceptions to occur. This is
-  /// not a general-purpose method; it is intended to support custom
-  /// implementations of arithmetic operations.</summary>
-  /// <returns>This context if it doesn't set traps, or a context without
-  /// traps and with blank flags if it does.</returns>
+    /// <summary>Returns this context if it doesn't set traps, or a context
+    /// without traps and with blank flags if it does, so that the
+    /// resulting context does not cause trap exceptions to occur. This is
+    /// not a general-purpose method; it is intended to support custom
+    /// implementations of arithmetic operations.</summary>
+    /// <returns>This context if it doesn't set traps, or a context without
+    /// traps and with blank flags if it does.</returns>
     public EContext GetNontrapping() {
-       return (this.Traps == 0) ? this : this.WithTraps(0).WithBlankFlags();
+      return (this.Traps == 0) ? this : this.WithTraps(0).WithBlankFlags();
     }
 
-  /// <summary>Throws trap exceptions if the specified context has flags
-  /// set that also have traps enabled for them in this context, and adds
-  /// the specified context's flags to this context if HasFlags for this
-  /// context is true. This is not a general-purpose method; it is
-  /// intended to support custom implementations of arithmetic
-  /// operations.</summary>
-  /// <param name='result'>The result of the operation.</param>
-  /// <param name='trappableContext'>An arithmetic context, usually a
-  /// context returned by the GetNontrapping method. Can be null.</param>
-  /// <typeparam name='T'>Data type for the result of the
-  /// operation.</typeparam>
-  /// <returns>The parameter <paramref name='result'/> if no trap
-  /// exceptions were thrown.</returns>
+    /// <summary>Throws trap exceptions if the specified context has flags
+    /// set that also have traps enabled for them in this context, and adds
+    /// the specified context's flags to this context if HasFlags for this
+    /// context is true. This is not a general-purpose method; it is
+    /// intended to support custom implementations of arithmetic
+    /// operations.</summary>
+    /// <param name='result'>The result of the operation.</param>
+    /// <param name='trappableContext'>An arithmetic context, usually a
+    /// context returned by the GetNontrapping method. Can be null.</param>
+    /// <typeparam name='T'>Data type for the result of the
+    /// operation.</typeparam>
+    /// <returns>The parameter <paramref name='result'/> if no trap
+    /// exceptions were thrown.</returns>
     public T TriggerTraps<T>(
       T result,
       EContext trappableContext) {
@@ -1046,8 +1045,8 @@ this.simplified +
         return result;
       }
       int mutexConditions = traps & (~(
-            EContext.FlagClamped | EContext.FlagInexact |
-            EContext.FlagRounded | EContext.FlagSubnormal));
+        EContext.FlagClamped | EContext.FlagInexact |
+        EContext.FlagRounded | EContext.FlagSubnormal));
       if (mutexConditions != 0) {
         for (var i = 0; i < 32; ++i) {
           int flag = mutexConditions & (1 << i);

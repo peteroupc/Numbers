@@ -15,52 +15,55 @@ namespace PeterO.Numbers {
         if (!throwException) {
           return null;
         } else {
-  throw new ArgumentException("radix(" + radix + ") is less than 2");
- }
+          throw new ArgumentException("radix(" + radix + ") is less than 2");
+        }
       }
       if (radix > 36) {
         if (!throwException) {
           return null;
         } else {
-  throw new ArgumentException("radix(" + radix + ") is more than 36");
- }
+          throw new ArgumentException("radix(" + radix + ") is more than 36");
+        }
       }
       if (index < 0) {
         if (!throwException) {
           return null;
         } else {
-  throw new ArgumentException("index(" + index + ") is less than " + "0");
- }
+          throw new ArgumentException("index(" + index + ") is less than " +
+            "0");
+        }
       }
       if (index > cs.Length) {
         if (!throwException) {
           return null;
         } else {
-  throw new ArgumentException("index(" + index + ") is more than " + cs.Length);
- }
+          throw new ArgumentException("index(" + index + ") is more than " +
+            cs.Length);
+        }
       }
       if (endIndex < 0) {
         if (!throwException) {
           return null;
         } else {
-  throw new ArgumentException("endIndex(" + endIndex + ") is less than 0");
- }
+          throw new ArgumentException("endIndex(" + endIndex + ") is less" +
+            "\u0020 than 0");
+        }
       }
       if (endIndex > cs.Length) {
         if (!throwException) {
           return null;
         } else {
-  throw new ArgumentException("endIndex(" + endIndex + ") is more than " +
-cs.Length);
- }
+          throw new ArgumentException("endIndex(" + endIndex + ") is more" +
+            "\u0020 than " + cs.Length);
+        }
       }
       if (endIndex < index) {
         if (!throwException) {
           return null;
         } else {
-  throw new ArgumentException("endIndex(" + endIndex + ") is less than " +
-index);
- }
+          throw new ArgumentException("endIndex(" + endIndex + ") is less" +
+            "\u0020 than " + index);
+        }
       }
       if (index == endIndex) {
         if (!throwException) {
@@ -129,9 +132,9 @@ index);
           if (!throwException) {
             return null;
           } else {
-  throw new InvalidOperationException("doesn't satisfy (endIndex - index) %" +
-"\u00204 == 0");
- }
+            throw new InvalidOperationException("doesn't satisfy (endIndex -" +
+              "\u0020 index) % " + "\u00204 == 0");
+          }
         }
         #endif
         while (index < endIndex) {
@@ -183,9 +186,9 @@ index);
         }
         int count = EInteger.CountWords(bigint);
         return (count == 0) ? EInteger.Zero : new EInteger(
-            count,
-            bigint,
-            negative);
+          count,
+          bigint,
+          negative);
       } else if (radix == 2) {
         // Special case for binary radix
         int leftover = effectiveLength & 15;
@@ -238,17 +241,17 @@ index);
         }
         int count = EInteger.CountWords(bigint);
         return (count == 0) ? EInteger.Zero : new EInteger(
-            count,
-            bigint,
-            negative);
+          count,
+          bigint,
+          negative);
       } else {
         return FromRadixSubstringGeneral(
-          cs,
-          radix,
-          index,
-          endIndex,
-          negative,
-          throwException);
+            cs,
+            radix,
+            index,
+            endIndex,
+            negative,
+            throwException);
       }
     }
 
@@ -262,21 +265,21 @@ index);
       if (endIndex - index > 72) {
         int midIndex = index + ((endIndex - index) / 2);
         EInteger eia = FromRadixSubstringGeneral(
-          cs,
-          radix,
-          index,
-          midIndex,
-          false,
-          throwException);
-        // DebugUtility.Log("eia="+eia);
+            cs,
+            radix,
+            index,
+            midIndex,
+            false,
+            throwException);
+        // Console.WriteLine("eia="+eia);
         EInteger eib = FromRadixSubstringGeneral(
-          cs,
-          radix,
-          midIndex,
-          endIndex,
-          false,
-          throwException);
-        // DebugUtility.Log("eib="+eib);
+            cs,
+            radix,
+            midIndex,
+            endIndex,
+            false,
+            throwException);
+        // Console.WriteLine("eib="+eib);
         EInteger mult = null;
         int intpow = endIndex - midIndex;
         if (radix == 10) {
@@ -289,22 +292,23 @@ index);
           eia = eia.Multiply(mult);
         }
         eia = eia.Add(eib);
-        // DebugUtility.Log("index={0} {1} {2} [pow={3}] [pow={4} ms, muladd={5} ms]",
+        // Console.WriteLine("index={0} {1} {2} [pow={3}] [pow={4} ms, muladd={5}
+        // ms]",
         // index, midIndex, endIndex, endIndex-midIndex, swPow.ElapsedMilliseconds,
         // swMulAdd.ElapsedMilliseconds);
         if (negative) {
           eia = eia.Negate();
         }
-        // DebugUtility.Log("eia now="+eia);
+        // Console.WriteLine("eia now="+eia);
         return eia;
       } else {
         return FromRadixSubstringInner(
-          cs,
-          radix,
-          index,
-          endIndex,
-          negative,
-          throwException);
+            cs,
+            radix,
+            index,
+            endIndex,
+            negative,
+            throwException);
       }
     }
 
@@ -337,7 +341,7 @@ index);
             }
             rv = (rv * 10) + digit;
           }
-          // DebugUtility.Log("short="+(negative ? -rv : rv));
+          // Console.WriteLine("short="+(negative ? -rv : rv));
           if (digitCount >= 0) {
             return EInteger.FromInt64(negative ? -rv : rv);
           }
@@ -415,7 +419,7 @@ index);
             for (int j = 0; j < bn; ++j) {
               int p;
               p = unchecked((((int)bigint[j]) & ShortMask) *
-                  10000);
+                10000);
               int p2 = ((int)carry) & ShortMask;
               p = unchecked(p + p2);
               bigint[j] = unchecked((short)p);
@@ -451,10 +455,10 @@ index);
             if (d <= overf) {
               bigint[0] = unchecked((short)(d + digit));
             } else if (EInteger.IncrementWords(
-                bigint,
-                0,
-                bigint.Length,
-                (short)digit) != 0) {
+              bigint,
+              0,
+              bigint.Length,
+              (short)digit) != 0) {
               bigint = EInteger.GrowForCarry(bigint, (short)1);
             }
           }
@@ -481,9 +485,9 @@ index);
           } else {
             if (haveSmallInt) {
               bigint[0] = unchecked((short)(smallInt &
-                    ShortMask));
+                ShortMask));
               bigint[1] = unchecked((short)((smallInt >> 16) &
-                    ShortMask));
+                ShortMask));
               haveSmallInt = false;
             }
             // Multiply by the radix
@@ -492,7 +496,7 @@ index);
             for (int j = 0; j < n; ++j) {
               int p;
               p = unchecked((((int)bigint[j]) & ShortMask) *
-                  radix);
+                radix);
               int p2 = ((int)carry) & ShortMask;
               p = unchecked(p + p2);
               bigint[j] = unchecked((short)p);
@@ -507,10 +511,10 @@ index);
               if (d <= maxShortPlusOneMinusRadix) {
                 bigint[0] = unchecked((short)(d + digit));
               } else if (EInteger.IncrementWords(
-                  bigint,
-                  0,
-                  bigint.Length,
-                  (short)digit) != 0) {
+                bigint,
+                0,
+                bigint.Length,
+                (short)digit) != 0) {
                 bigint = EInteger.GrowForCarry(bigint, (short)1);
               }
             }
@@ -519,14 +523,14 @@ index);
         if (haveSmallInt) {
           bigint[0] = unchecked((short)(smallInt & ShortMask));
           bigint[1] = unchecked((short)((smallInt >> 16) &
-                ShortMask));
+            ShortMask));
         }
       }
       int count = EInteger.CountWords(bigint);
       return (count == 0) ? EInteger.Zero : new EInteger(
-          count,
-          bigint,
-          negative);
+        count,
+        bigint,
+        negative);
     }
   }
 }

@@ -1,7 +1,7 @@
 <Project Sdk='Microsoft.NET.Sdk'>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0; net9.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0; net6.0</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Version>1.9</Version>
@@ -47,7 +47,7 @@ Version 1.8
   <PropertyGroup Condition=' &apos;$(Configuration)&apos;==&apos;Release&apos; '>
     <DebugType>none</DebugType>
     <DocumentationFile>bin\Release\netstandard2.0\Numbers.xml</DocumentationFile>
-    <AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>
+    <PublicSign>true</PublicSign><AssemblyOriginatorKeyFile>PeterO.snk</AssemblyOriginatorKeyFile>
   <CodeAnalysisRuleSet>rules.ruleset</CodeAnalysisRuleSet></PropertyGroup>
 
   <ItemGroup>
@@ -56,4 +56,4 @@ Version 1.8
     <PrivateAssets>all</PrivateAssets>
     <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
   </PackageReference>
-  <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.354'/><!-- PackageReference Include='Microsoft.CodeAnalysis.NetAnalyzers' PrivateAssets='All' Version='9.0.0-preview.24454.1' --></ItemGroup></Project>
+  <AdditionalFiles Include='stylecop.json'/><AdditionalFiles Include='rules.ruleset'/><PackageReference Include='StyleCop.Analyzers' PrivateAssets='All' Version='1.2.0-beta.354'/><PackageReference Include='Microsoft.CodeAnalysis.NetAnalyzers' PrivateAssets='All' Version='9.0.0-preview.24454.1'/></ItemGroup></Project>

@@ -19,38 +19,42 @@ namespace PeterO.Numbers {
       if (offset < 0) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("offset(" + offset + ") is not" +
-"\u0020greater" + "\u0020or equal to 0");
-}
+        } else {
+          throw new FormatException("offset(" + offset + ") is not" +
+            "\u0020greater" + "\u0020or equal to 0");
+        }
       }
       if (offset > chars.Length) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("offset(" + offset + ") is not" +
-"\u0020less" + "\u0020or" + "\u0020equal to " + chars.Length);
-}
+        } else {
+          throw new FormatException("offset(" + offset + ") is not" +
+            "\u0020less" + "\u0020or" + "\u0020equal to " + chars.Length);
+        }
       }
       if (length < 0) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("length(" + length + ") is not" +
-"\u0020greater or" + "\u0020equal to 0");
-}
+        } else {
+          throw new FormatException("length(" + length + ") is not" +
+            "\u0020greater or" + "\u0020equal to 0");
+        }
       }
       if (length > chars.Length) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("length(" + length + ") is not" +
-"\u0020less" + "\u0020or" + "\u0020equal to " + chars.Length);
-}
+        } else {
+          throw new FormatException("length(" + length + ") is not" +
+            "\u0020less" + "\u0020or" + "\u0020equal to " + chars.Length);
+        }
       }
       if (chars.Length - offset < length) {
         if (!throwException) {
           return null;
         } else {
-  throw new FormatException("str's length minus " + offset + "(" +
-(chars.Length - offset) + ") is not greater or equal to " + length);
- }
+          throw new FormatException("str's length minus " + offset + "(" +
+            (chars.Length - offset) + ") is not greater or equal to " + length);
+        }
       }
       EContext b64 = EContext.Binary64;
       if (ctx != null && ctx.HasMaxPrecision && ctx.HasExponentRange &&
@@ -70,13 +74,13 @@ namespace PeterO.Numbers {
           ++tmpoffset;
         }
         if (tmpoffset < endpos && ((chars[tmpoffset] >= '0' &&
-              chars[tmpoffset] <= '9') || chars[tmpoffset] == '.')) {
+          chars[tmpoffset] <= '9') || chars[tmpoffset] == '.')) {
           EFloat ef = DoubleEFloatFromString(
-            chars,
-            offset,
-            length,
-            ctx,
-            throwException);
+              chars,
+              offset,
+              length,
+              ctx,
+              throwException);
           if (ef != null) {
             return ef;
           }
@@ -176,7 +180,7 @@ namespace PeterO.Numbers {
             digitEnd = i + 1;
           }
           if (mantissaLong < 922337203685477580L ||
-               (mantissaLong == 922337203685477580L && thisdigit <= 7)) {
+            (mantissaLong == 922337203685477580L && thisdigit <= 7)) {
             mantissaLong *= 10;
             mantissaLong += thisdigit;
           } else {
@@ -362,7 +366,7 @@ namespace PeterO.Numbers {
       }
       EInteger adjExpUpperBound = exp.Add(decimalPrec).Subtract(1);
       EInteger adjExpLowerBound = exp;
-      // DebugUtility.Log("exp=" + adjExpLowerBound + "~" + (adjExpUpperBound));
+      // Console.WriteLine("exp=" + adjExpLowerBound + "~" + (adjExpUpperBound));
       if (adjExpUpperBound.CompareTo(-326) < 0) {
         return EFloat.SignalUnderflow(ctx, negative, zeroMantissa);
       } else if (adjExpLowerBound.CompareTo(309) > 0) {

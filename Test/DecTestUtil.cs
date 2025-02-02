@@ -9,7 +9,7 @@ namespace Test {
   public static class DecTestUtil {
     private const string TestLineRegex =
 
-  "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)";
+      "^([A-Za-z0-9_]+)\\s+([A-Za-z0-9_\\-]+)\\s+(\\'[^\\']*\\'|\\S+)\\s+(?:(\\S+)\\s+)?(?:(\\S+)\\s+)?->\\s+(\\S+)\\s*(.*)";
 
     private static readonly Regex ValuePropertyLine = new Regex(
       "^(\\w+)\\:\\s*(\\S+).*",
@@ -395,7 +395,7 @@ namespace Test {
     private static string ConvertOp(string s) {
       return s.Equals("S", StringComparison.Ordinal) ? "sNaN" :
         ((s.Equals("Q", StringComparison.Ordinal) || s.Equals("#",
-              StringComparison.Ordinal)) ? "NaN" : s);
+        StringComparison.Ordinal)) ? "NaN" : s);
     }
 
     private interface IExtendedNumber : IComparable<IExtendedNumber> {
@@ -510,9 +510,9 @@ namespace Test {
         IExtendedNumber c,
         EContext ctx) {
         return Create(this.ed.MultiplyAndSubtract(
-              ToValue(b),
-              ToValue(c),
-              ctx));
+          ToValue(b),
+          ToValue(c),
+          ctx));
       }
 
       public bool IsQuietNaN() {
@@ -535,7 +535,7 @@ namespace Test {
         var dn = other as DecimalNumber;
         EDecimal dned = dn == null ? null : dn.ed;
         return (this.ed == null) ? ((dned == null) ? 0 : -1) : (dned == null ?
-            1 : this.ed.CompareTo(dned));
+          1 : this.ed.CompareTo(dned));
       }
     }
 
@@ -546,7 +546,7 @@ namespace Test {
         var dn = other as BinaryNumber;
         EFloat dned = dn == null ? null : dn.ef;
         return (this.ef == null) ? ((dned == null) ? 0 : -1) : (dned == null ?
-            1 : this.ef.CompareTo(dned));
+          1 : this.ef.CompareTo(dned));
       }
 
       public static BinaryNumber Create(EFloat dec) {
@@ -731,9 +731,9 @@ namespace Test {
           int mantissa = words[0] & 0x7fffff;
           if (exponent == 255) {
             return (mantissa == 0) ? Create(neg ? EFloat.NegativeInfinity :
-                EFloat.PositiveInfinity) : (((mantissa &
-                    0x00400000) != 0) ? Create(EFloat.NaN) :
-                Create(EFloat.SignalingNaN));
+              EFloat.PositiveInfinity) : (((mantissa &
+              0x00400000) != 0) ? Create(EFloat.NaN) :
+              Create(EFloat.SignalingNaN));
           }
           if (exponent == 0) {
             if (mantissa == 0) {
@@ -764,10 +764,10 @@ namespace Test {
           int mantissaNonzero = mantissa | words[1];
           if (exponent == 2047) {
             return (mantissaNonzero == 0) ? Create(neg ?
-                EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
+              EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
               (((mantissa & 0x00080000) != 0) ? Create(EFloat.NaN) :
 
-                Create(EFloat.SignalingNaN));
+              Create(EFloat.SignalingNaN));
           }
           if (exponent == 0) {
             if (mantissaNonzero == 0) {
@@ -805,10 +805,10 @@ namespace Test {
           int mantissaNonzero = mantissa | words[3] | words[1] | words[2];
           if (exponent == 0x7fff) {
             return (mantissaNonzero == 0) ? Create(neg ?
-                EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
+              EFloat.NegativeInfinity : EFloat.PositiveInfinity) :
               (((mantissa & 0x00008000) != 0) ? Create(EFloat.NaN) :
 
-                Create(EFloat.SignalingNaN));
+              Create(EFloat.SignalingNaN));
           }
           if (exponent == 0) {
             if (mantissaNonzero == 0) {
@@ -932,7 +932,7 @@ namespace Test {
             (EInteger)2,
             ToValue(this).Exponent);
         return ToValue(this).Subtract(ToValue(bn)).Abs().CompareTo(
-            ulpdiff) <= 0;
+          ulpdiff) <= 0;
       }
 
       public void ComparePrint(IExtendedNumber bn) {
@@ -995,7 +995,7 @@ namespace Test {
       }
       // NOTE: ix < 2 includes cases where space is not found
       if (ix < 2 || (ln[ix - 1] != 'd' && ln[ix - 1] != 's' &&
-          ln[ix - 1] != 'q')) {
+        ln[ix - 1] != 'q')) {
         return 0;
       }
       string[] chunks = SplitAtSpaceRuns(ln);
@@ -1199,7 +1199,7 @@ namespace Test {
           return 0;
         }
         if (op2.IsInfinity() && op1.Abs(null).Equals(
-            BinaryNumber.FromString("1"))) {
+          BinaryNumber.FromString("1"))) {
           return 0;
         }
         expectedFlags &= ~EContext.FlagDivideByZero;
@@ -1513,7 +1513,7 @@ namespace Test {
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-                EContext.FlagInvalid)) == 0) {
+            EContext.FlagInvalid)) == 0) {
             d3 = op1.Add(op2, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1531,7 +1531,7 @@ namespace Test {
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-                EContext.FlagInvalid)) == 0) {
+            EContext.FlagInvalid)) == 0) {
             d3 = op1.Subtract(op2, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1549,7 +1549,7 @@ namespace Test {
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-                EContext.FlagInvalid)) == 0) {
+            EContext.FlagInvalid)) == 0) {
             d3 = op1.Multiply(op2, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1567,7 +1567,7 @@ namespace Test {
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-                EContext.FlagInvalid)) == 0) {
+            EContext.FlagInvalid)) == 0) {
             d3 = op1.Divide(op2, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1585,16 +1585,16 @@ namespace Test {
           Assert.AreEqual(result, d3, ln);
         }
         if (binaryFP && (
-            (op1.IsQuietNaN() && (op2.IsSignalingNaN() ||
-                op3.IsSignalingNaN())) ||
-            (op2.IsQuietNaN() && op3.IsSignalingNaN()))) {
+          (op1.IsQuietNaN() && (op2.IsSignalingNaN() ||
+          op3.IsSignalingNaN())) ||
+          (op2.IsQuietNaN() && op3.IsSignalingNaN()))) {
           // Don't check flags for binary test cases involving quiet
           // NaN followed by signaling NaN, as the semantics for
           // the invalid operation flag in those cases are different
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-                EContext.FlagInvalid)) == 0) {
+            EContext.FlagInvalid)) == 0) {
             d3 = op1.MultiplyAndAdd(op2, op3, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1612,7 +1612,7 @@ namespace Test {
           // than in the General Decimal Arithmetic Specification
         } else {
           if (exactResultCheck && (expectedFlags & (EContext.FlagInexact |
-                EContext.FlagInvalid)) == 0) {
+            EContext.FlagInvalid)) == 0) {
             d3 = op1.MultiplyAndSubtract(op2, op3, null);
             TestCommon.CompareTestEqual(result, d3, ln);
           }
@@ -1648,8 +1648,8 @@ namespace Test {
 
     private static string TrimQuotes(string str) {
       return (str == null || str.Length == 0 || (
-            str[0] != '\'' && str[0] != '\"' && str[str.Length - 1] != '\'' &&
-            str[str.Length - 1] != '\"')) ? str :
+        str[0] != '\'' && str[0] != '\"' && str[str.Length - 1] != '\'' &&
+        str[str.Length - 1] != '\"')) ? str :
         ValueQuotes.Replace(str, String.Empty);
     }
 
@@ -1708,7 +1708,7 @@ namespace Test {
             "extended",
             "1").Equals("1", StringComparison.Ordinal);
         bool clamp = GetKeyOrDefault(context, "clamp", "0").Equals("1",
-            StringComparison.Ordinal);
+          StringComparison.Ordinal);
         int precision = 0, minexponent = 0, maxexponent = 0;
         EContext ctx = null;
         string rounding = null;
@@ -1721,14 +1721,14 @@ namespace Test {
         // Skip tests that take null as input or output;
         // also skip tests that take a hex number format
         if (Contains(input1, "#") ||
-                 Contains(input2, "#") ||
-                 Contains(input3, "#") ||
-                 Contains(output, "#")) {
+          Contains(input2, "#") ||
+          Contains(input3, "#") ||
+          Contains(output, "#")) {
           return;
         }
         if (!extended && (Contains(input1, "sNaN") ||
-            Contains(input2, "sNaN") || Contains(input3, "sNaN") ||
-            Contains(output, "sNaN"))) {
+          Contains(input2, "sNaN") || Contains(input3, "sNaN") ||
+          Contains(output, "sNaN"))) {
           Console.WriteLine(ln);
         }
         if (name.Equals("S", StringComparison.Ordinal)) {
@@ -1836,12 +1836,12 @@ namespace Test {
 
         ctx = EContext.ForPrecision(precision)
           .WithExponentClamp(clamp).WithExponentRange(
-            minexponent,
-            maxexponent);
+          minexponent,
+          maxexponent);
         rounding = ToLowerCaseAscii(GetKeyOrDefault(
-              context,
-              "rounding",
-              "half_even"));
+          context,
+          "rounding",
+          "half_even"));
         if (rounding.Equals("half_up", StringComparison.Ordinal)) {
           ctx = ctx.WithRounding(ERounding.HalfUp);
         }
@@ -1877,7 +1877,7 @@ namespace Test {
         }
         op = ToLowerCaseAscii(op);
         if (op.Length > 3 && op.Substring(op.Length - 3).Equals("_eq",
-            StringComparison.Ordinal)) {
+          StringComparison.Ordinal)) {
           // Binary operators with both operands the same
           input2 = input1;
           op = op.Substring(0, op.Length - 3);
@@ -2141,7 +2141,7 @@ namespace Test {
               Assert.Fail(name + ": d3 must be null");
             }
             if (output != null && !d3.ToString().Equals(output,
-                StringComparison.Ordinal)) {
+              StringComparison.Ordinal)) {
               EDecimal d4 = EDecimal.FromString(output);
               {
                 object objectTemp = output;

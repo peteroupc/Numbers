@@ -9,8 +9,7 @@ namespace PeterO {
   /// <para><b>Thread safety:</b> The methods in this class are safe for
   /// concurrent use by multiple threads, as long as the underlying
   /// random byte generator is as well.</para></summary>
-  public sealed class RandomGenerator : IRandomGenExtended
-  {
+  public sealed class RandomGenerator : IRandomGenExtended {
     private readonly IRandomGen valueIrg;
     private readonly object valueNormalLock = new();
     private bool valueHaveLastNormal;
@@ -39,7 +38,7 @@ namespace PeterO {
       return p < 0 ?
         throw new ArgumentException("p(" + p + ") is less than 0") :
         p > 1 ? throw new ArgumentException("p(" + p + ") is more than 1") :
-this.Uniform() < p;
+        this.Uniform() < p;
     }
 
     /// <summary>Returns either true or false at a 50% chance
@@ -123,7 +122,7 @@ this.Uniform() < p;
     /// <returns>A 64-bit floating-point number.</returns>
     public double ChiSquared(int df) {
       return df <= 0 ? throw new ArgumentException("df(" + df + ") is not" +
-"\u0020greater than 0") : this.Gamma(df * 0.5, 2);
+        "\u0020greater than 0") : this.Gamma(df * 0.5, 2);
     }
 
     /// <summary>Not documented yet.</summary>
@@ -138,7 +137,7 @@ this.Uniform() < p;
     /// <returns>A 64-bit floating-point number.</returns>
     public double Gamma(double a, double b) {
       return b <= 0 ? throw new ArgumentException("b(" + b + ") is not" +
-"\u0020greater than 0") : this.Gamma(a) * b;
+        "\u0020greater than 0") : this.Gamma(a) * b;
     }
 
     /// <summary>Not documented yet.</summary>
@@ -365,7 +364,7 @@ this.Uniform() < p;
     public double Uniform(double min, double max) {
       return min >= max ?
         throw new ArgumentException("min(" + min + ") is not less than " +
-          max) : min + ((max - min) * this.Uniform());
+        max) : min + ((max - min) * this.Uniform());
     }
 
     /// <summary>Returns a uniformly-distributed 64-bit floating-point
@@ -411,7 +410,8 @@ this.Uniform() < p;
       } else {
         long diff = maxExclusive - minInclusive;
         return diff <= Int32.MaxValue ? minInclusive +
-this.UniformInt((int)diff) : (int)(minInclusive + this.UniformLong(diff));
+          this.UniformInt((int)diff) : (int)(minInclusive +
+          this.UniformLong(diff));
       }
     }
 
@@ -434,7 +434,7 @@ this.UniformInt((int)diff) : (int)(minInclusive + this.UniformLong(diff));
         return minInclusive + this.UniformLong(maxExclusive - minInclusive);
       } else {
         if ((maxExclusive < 0 && Int64.MaxValue + maxExclusive <
-            minInclusive) ||
+          minInclusive) ||
           (maxExclusive > 0 && Int64.MinValue + maxExclusive > minInclusive) ||
           minInclusive - maxExclusive < 0) {
           var b = new byte[8];
@@ -478,43 +478,43 @@ this.UniformInt((int)diff) : (int)(minInclusive + this.UniformLong(diff));
       var b = new byte[4];
       switch (maxExclusive) {
         case 2: {
-            _ = this.valueIrg.GetBytes(b, 0, 1);
-            return b[0] & 1;
-          }
+          _ = this.valueIrg.GetBytes(b, 0, 1);
+          return b[0] & 1;
+        }
         case 256: {
-            _ = this.valueIrg.GetBytes(b, 0, 1);
-            return b[0] & 1;
-          }
+          _ = this.valueIrg.GetBytes(b, 0, 1);
+          return b[0] & 1;
+        }
         default: {
+          while (true) {
+            int ib;
+            if (maxExclusive == 0x1000000) {
+              _ = this.valueIrg.GetBytes(b, 0, 3);
+              ib = b[0] & 0xff;
+              ib |= (b[1] & 0xff) << 8;
+              ib |= (b[2] & 0xff) << 16;
+              return ib;
+            }
+            if (maxExclusive == 0x10000) {
+              _ = this.valueIrg.GetBytes(b, 0, 2);
+              ib = b[0] & 0xff;
+              ib |= (b[1] & 0xff) << 8;
+              return ib;
+            }
+            int maxexc;
+            maxexc = Int32.MaxValue / maxExclusive * maxExclusive;
             while (true) {
-              int ib;
-              if (maxExclusive == 0x1000000) {
-                _ = this.valueIrg.GetBytes(b, 0, 3);
-                ib = b[0] & 0xff;
-                ib |= (b[1] & 0xff) << 8;
-                ib |= (b[2] & 0xff) << 16;
-                return ib;
-              }
-              if (maxExclusive == 0x10000) {
-                _ = this.valueIrg.GetBytes(b, 0, 2);
-                ib = b[0] & 0xff;
-                ib |= (b[1] & 0xff) << 8;
-                return ib;
-              }
-              int maxexc;
-              maxexc = Int32.MaxValue / maxExclusive * maxExclusive;
-              while (true) {
-                _ = this.valueIrg.GetBytes(b, 0, 4);
-                ib = b[0] & 0xff;
-                ib |= (b[1] & 0xff) << 8;
-                ib |= (b[2] & 0xff) << 16;
-                ib |= (b[3] & 0x7f) << 24;
-                if (ib < maxexc) {
-                  return ib % maxExclusive;
-                }
+              _ = this.valueIrg.GetBytes(b, 0, 4);
+              ib = b[0] & 0xff;
+              ib |= (b[1] & 0xff) << 8;
+              ib |= (b[2] & 0xff) << 16;
+              ib |= (b[3] & 0x7f) << 24;
+              if (ib < maxexc) {
+                return ib % maxExclusive;
               }
             }
           }
+        }
       }
     }
 

@@ -59,12 +59,12 @@ namespace Test {
     [Test]
     public void TestExponentWithinRange() {
       Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(
-  EInteger.FromString(
-            "-9999999")));
+        EInteger.FromString(
+          "-9999999")));
 
       Assert.IsTrue(EContext.Unlimited.ExponentWithinRange(
-  EInteger.FromString(
-            "9999999")));
+        EInteger.FromString(
+          "9999999")));
       try {
         EContext.Unlimited.ExponentWithinRange(null);
         Assert.Fail("Should have failed");
@@ -141,14 +141,14 @@ namespace Test {
         object objectTemp = EDecimal.PositiveInfinity;
         object objectTemp2 = EDecimal.FromString(
             "96148154858060747311034406200").RoundToPrecision(
-  EContext.CliDecimal);
+            EContext.CliDecimal);
         Assert.AreEqual(objectTemp, objectTemp2);
       }
       {
         object objectTemp = EDecimal.PositiveInfinity;
         object objectTemp2 = EDecimal.FromString(
             "90246605365627217170000000000").RoundToPrecision(
-  EContext.CliDecimal);
+            EContext.CliDecimal);
         Assert.AreEqual(objectTemp, objectTemp2);
       }
     }

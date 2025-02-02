@@ -21,38 +21,43 @@ namespace PeterO.Numbers {
       if (tmpoffset < 0) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("offset(" + tmpoffset + ") is" +
-"\u0020less" + "\u0020than " + "0");
-}
+        } else {
+          throw new FormatException("offset(" + tmpoffset + ") is" +
+            "\u0020less" + "\u0020than " + "0");
+        }
       }
       if (tmpoffset > chars.Length) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("offset(" + tmpoffset + ") is" +
-"\u0020more" + "\u0020than " + chars.Length);
-}
+        } else {
+          throw new FormatException("offset(" + tmpoffset + ") is" +
+            "\u0020more" + "\u0020than " + chars.Length);
+        }
       }
       if (length < 0) {
         if (!throwException) {
           return null;
         } else {
-  throw new FormatException("length(" + length + ") is less than " + "0");
- }
+          throw new FormatException("length(" + length + ") is less than " +
+            "0");
+        }
       }
       if (length > chars.Length) {
         if (!throwException) {
           return null;
         } else {
-  throw new FormatException("length(" + length + ") is more than " +
-chars.Length);
- }
+          throw new FormatException("length(" + length + ") is more than " +
+            chars.Length);
+        }
       }
       if (chars.Length - tmpoffset < length) {
         if (!throwException) {
           return null;
-        } else { throw new FormatException("chars's length minus " +
-tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
-}
+        } else {
+          throw new FormatException("chars's length minus " +
+            tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " +
+            length);
+        }
       }
       if (length == 0) {
         if (!throwException) {
@@ -79,11 +84,10 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
           (chars[i + 1] == 'N' || chars[i + 1] == 'n') &&
           (chars[i + 2] == 'F' || chars[i + 2] == 'f') &&
           (chars[i + 3] == 'I' || chars[i + 3] == 'i') && (chars[i + 4] ==
-            'N' ||
-            chars[i + 4] == 'n') && (chars[i + 5] == 'I' || chars[i + 5] ==
+          'N' || chars[i + 4] == 'n') && (chars[i + 5] == 'I' || chars[i + 5] ==
             'i') &&
           (chars[i + 6] == 'T' || chars[i + 6] == 't') && (chars[i + 7] ==
-            'Y' || chars[i + 7] == 'y')) {
+          'Y' || chars[i + 7] == 'y')) {
           return negative ? ERational.NegativeInfinity :
             ERational.PositiveInfinity;
         }
@@ -91,7 +95,7 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       if (i + 3 == endStr) {
         if ((chars[i] == 'I' || chars[i] == 'i') &&
           (chars[i + 1] == 'N' || chars[i + 1] == 'n') && (chars[i + 2] ==
-            'F' || chars[i + 2] == 'f')) {
+          'F' || chars[i + 2] == 'f')) {
           return negative ? ERational.NegativeInfinity :
             ERational.PositiveInfinity;
         }
@@ -100,8 +104,8 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       if (i + 3 <= endStr) {
         // Quiet NaN
         if ((chars[i] == 'N' || chars[i] == 'n') && (chars[i + 1] == 'A' ||
-            chars[i +
-              1] == 'a') && (chars[i + 2] == 'N' || chars[i + 2] == 'n')) {
+          chars[i +
+            1] == 'a') && (chars[i + 2] == 'N' || chars[i + 2] == 'n')) {
           if (i + 3 == endStr) {
             return (!negative) ? ERational.NaN : ERational.NaN.Negate();
           }
@@ -136,8 +140,8 @@ tmpoffset + "(" + (chars.Length - tmpoffset) + ") is less than " + length);
       if (i + 4 <= endStr) {
         // Signaling NaN
         if ((chars[i] == 'S' || chars[i] == 's') && (chars[i + 1] == 'N' ||
-            chars[i +
-              1] == 'n') && (chars[i + 2] == 'A' || chars[i + 2] == 'a') &&
+          chars[i +
+            1] == 'n') && (chars[i + 2] == 'A' || chars[i + 2] == 'a') &&
           (chars[i + 3] == 'N' || chars[i + 3] == 'n')) {
           if (i + 4 == endStr) {
             return (!negative) ? ERational.SignalingNaN :

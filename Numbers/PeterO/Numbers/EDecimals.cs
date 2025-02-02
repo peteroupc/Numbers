@@ -53,9 +53,9 @@ namespace PeterO.Numbers {
     /// <param name='ed'>An arbitrary-precision number object.</param>
     /// <returns>Always <c>true</c>.</returns>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-      "Microsoft.Usage",
-      "CA1801",
-      Justification = "Parameter 'ed' is deliberately unused.")]
+        "Microsoft.Usage",
+        "CA1801",
+        Justification = "Parameter 'ed' is deliberately unused.")]
     public static bool IsCanonical(EDecimal ed) {
       // Deliberately unused because all objects are in a canonical
       // form regardless of their value. Removing the parameter
@@ -249,7 +249,7 @@ namespace PeterO.Numbers {
       if (ed.IsFinite && ec != null && !ed.IsZero && ec.HasExponentRange) {
         if (ec.AdjustExponent) {
           return ed.Exponent.Add(ed.Precision().Subtract(1)).CompareTo(
-              ec.EMin) < 0;
+            ec.EMin) < 0;
         } else {
           return ed.Exponent.CompareTo(ec.EMin) < 0;
         }
@@ -549,7 +549,7 @@ namespace PeterO.Numbers {
     /// signal flags if either value is signaling NaN.</returns>
     public static int CompareTotal(EDecimal ed, EDecimal other, EContext ec) {
       return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1 :
-          ed.CompareToTotal(other, ec));
+        ed.CompareToTotal(other, ec));
     }
 
     /// <summary>Compares the absolute values of two arbitrary-precision
@@ -584,7 +584,7 @@ namespace PeterO.Numbers {
       EDecimal other,
       EContext ec) {
       return (ed == null) ? (other == null ? 0 : -1) : ((other == null) ? 1 :
-          ed.CompareToTotalMagnitude(other, ec));
+        ed.CompareToTotalMagnitude(other, ec));
     }
 
     /// <summary>Creates a copy of the specified arbitrary-precision number
@@ -684,7 +684,7 @@ namespace PeterO.Numbers {
         return ed1.Exponent.Equals(ed2.Exponent);
       } else {
         return (ed1.IsNaN() && ed2.IsNaN()) || (ed1.IsInfinity() &&
-            ed2.IsInfinity());
+          ed2.IsInfinity());
       }
     }
 
@@ -711,10 +711,10 @@ namespace PeterO.Numbers {
       }
       if (ed.IsSignalingNaN()) {
         return EDecimal.CreateNaN(
-          ed.UnsignedMantissa,
-          true,
-          ed.IsNegative,
-          ec);
+            ed.UnsignedMantissa,
+            true,
+            ed.IsNegative,
+            ec);
       }
       if (ed.IsFinite) {
         if (ed.IsZero) {
@@ -852,7 +852,7 @@ namespace PeterO.Numbers {
         smaller[i] &= bigger[i];
       }
       return EDecimal.FromEInteger(ToLogical(smaller,
-            10)).RoundToPrecision(ec);
+        10)).RoundToPrecision(ec);
     }
 
     /// <summary>Performs a logical NOT operation on an arbitrary-precision
@@ -898,7 +898,7 @@ namespace PeterO.Numbers {
         bigger[i] ^= smaller[i];
       }
       return EDecimal.FromEInteger(ToLogical(bigger, 10)).RoundToPrecision(
-  ec);
+        ec);
     }
 
     /// <summary>Performs a logical exclusive-OR (XOR) operation on two
@@ -937,7 +937,7 @@ namespace PeterO.Numbers {
         bigger[i] ^= smaller[i];
       }
       return EDecimal.FromEInteger(ToLogical(bigger, 10)).RoundToPrecision(
-  ec);
+        ec);
     }
 
     /// <summary>Performs a logical OR operation on two decimal numbers in
@@ -978,7 +978,7 @@ namespace PeterO.Numbers {
         bigger[i] |= smaller[i];
       }
       return EDecimal.FromEInteger(ToLogical(bigger, 10)).RoundToPrecision(
-  ec);
+        ec);
     }
 
     internal static EInteger ToLogical(byte[] bytes, int iradix) {
@@ -1044,9 +1044,9 @@ namespace PeterO.Numbers {
       }
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
           ed.Mantissa.Sign < 0) ? null : FromLogical(
-            ed.UnsignedMantissa,
-            ec,
-            iradix);
+          ed.UnsignedMantissa,
+          ec,
+          iradix);
     }
 
     internal static byte[] FromLogical(EFloat ed, EContext ec, int iradix) {
@@ -1057,9 +1057,9 @@ namespace PeterO.Numbers {
       // IsPrecisionInBits here
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
           ed.Mantissa.Sign < 0) ? null : FromLogical(
-            ed.UnsignedMantissa,
-            ec,
-            iradix);
+          ed.UnsignedMantissa,
+          ec,
+          iradix);
     }
   }
 }

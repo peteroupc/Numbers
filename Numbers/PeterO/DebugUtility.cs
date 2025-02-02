@@ -9,7 +9,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 // Use directives rather than the Conditional attribute,
-  // to avoid the chance of logging statements leaking in release builds
+// to avoid the chance of logging statements leaking in release builds
 #if DEBUGLOG
 namespace PeterO {
   internal static class DebugUtility {
@@ -29,13 +29,13 @@ namespace PeterO {
       Type t,
       string name,
       Type[] parameters) {
-#if NET40 || NET20
-        return t.GetMethod(name, new[] { parameter });
-#else
-{
+      #if NET40 || NET20
+      return t.GetMethod(name, new[] { parameter });
+      #else
+      {
         return t?.GetRuntimeMethod(name, parameters);
       }
-#endif
+      #endif
     }
 
     // [RequiresUnreferencedCode("Do not use in AOT or reflection-free
@@ -48,20 +48,20 @@ namespace PeterO {
           wr = writer;
         }
         if (wr != null) {
-#if !NET20 && !NET40
+          #if !NET20 && !NET40
           System.Diagnostics.Debug.WriteLine(str);
-#endif
+          #endif
           wr(str);
           return;
         } else {
-#if !NET20 && !NET40
+          #if !NET20 && !NET40
           System.Diagnostics.Debug.WriteLine(str);
           return;
-#else
-{
- throw new NotSupportedException("System.Console not found");
-}
-#endif
+          #else
+          {
+            throw new NotSupportedException("System.Console not found");
+          }
+          #endif
         }
       }
       Type[] types = new[] { typeof(string) };

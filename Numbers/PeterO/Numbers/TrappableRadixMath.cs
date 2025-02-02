@@ -30,9 +30,9 @@ namespace PeterO.Numbers {
       EContext ctx) {
       EContext tctx = (ctx == null) ? ctx : ctx.GetNontrapping();
       T result = this.math.DivideToIntegerNaturalScale(
-        thisValue,
-        divisor,
-        tctx);
+          thisValue,
+          divisor,
+          tctx);
       return ctx == null ? result : ctx.TriggerTraps(result, tctx);
     }
 
@@ -64,10 +64,10 @@ namespace PeterO.Numbers {
       bool roundAfterDivide) {
       EContext tctx = (ctx == null) ? ctx : ctx.GetNontrapping();
       T result = this.math.Remainder(
-        thisValue,
-        divisor,
-        tctx,
-        roundAfterDivide);
+          thisValue,
+          divisor,
+          tctx,
+          roundAfterDivide);
       return ctx == null ? result : ctx.TriggerTraps(result, tctx);
     }
 
@@ -136,10 +136,10 @@ namespace PeterO.Numbers {
       EContext ctx) {
       EContext tctx = (ctx == null) ? ctx : ctx.GetNontrapping();
       T result = this.math.DivideToExponent(
-        thisValue,
-        divisor,
-        desiredExponent,
-        tctx);
+          thisValue,
+          divisor,
+          desiredExponent,
+          tctx);
       return ctx == null ? result : ctx.TriggerTraps(result, tctx);
     }
 
@@ -186,10 +186,10 @@ namespace PeterO.Numbers {
       EContext ctx) {
       EContext tctx = (ctx == null) ? ctx : ctx.GetNontrapping();
       T result = this.math.MultiplyAndAdd(
-        thisValue,
-        multiplicand,
-        augend,
-        tctx);
+          thisValue,
+          multiplicand,
+          augend,
+          tctx);
       return ctx == null ? result : ctx.TriggerTraps(result, tctx);
     }
 
@@ -235,9 +235,9 @@ namespace PeterO.Numbers {
       EContext ctx) {
       EContext tctx = (ctx == null) ? ctx : ctx.GetNontrapping();
       T result = this.math.RoundToExponentNoRoundedFlag(
-        thisValue,
-        exponent,
-        ctx);
+          thisValue,
+          exponent,
+          ctx);
       return ctx == null ? result : ctx.TriggerTraps(result, tctx);
     }
 
@@ -260,10 +260,10 @@ namespace PeterO.Numbers {
       EContext ctx) {
       EContext tctx = (ctx == null) ? ctx : ctx.GetNontrapping();
       T result = this.math.CompareToWithContext(
-        thisValue,
-        otherValue,
-        treatQuietNansAsSignaling,
-        tctx);
+          thisValue,
+          otherValue,
+          treatQuietNansAsSignaling,
+          tctx);
       return ctx == null ? result : ctx.TriggerTraps(result, tctx);
     }
 
@@ -295,10 +295,10 @@ namespace PeterO.Numbers {
       bool roundToOperandPrecision) {
       EContext tctx = (ctx == null) ? ctx : ctx.GetNontrapping();
       T result = this.math.AddEx(
-        thisValue,
-        other,
-        ctx,
-        roundToOperandPrecision);
+          thisValue,
+          other,
+          ctx,
+          roundToOperandPrecision);
       return ctx == null ? result : ctx.TriggerTraps(result, tctx);
     }
   }

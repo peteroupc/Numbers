@@ -50,9 +50,9 @@ namespace Test {
       // var sw3 = new System.Diagnostics.Stopwatch();
       for (var i = 0; i < 10000; ++i) {
         if (i % 100 == 0) {
-        // Console.WriteLine(i + " sw=" +
-        // sw.ElapsedMilliseconds + ", " + (sw2.ElapsedMilliseconds) +
-        // ", " + (sw3.ElapsedMilliseconds));
+          // Console.WriteLine(i + " sw=" +
+          // sw.ElapsedMilliseconds + ", " + (sw2.ElapsedMilliseconds) +
+          // ", " + (sw3.ElapsedMilliseconds));
         }
         // sw3.Start();
         EDecimal ed = RandomObjects.RandomEDecimal(fr);

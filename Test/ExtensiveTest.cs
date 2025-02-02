@@ -85,10 +85,10 @@ namespace Test {
       Console.WriteLine("Time: " + (sw.ElapsedMilliseconds / 1000.0) + " s");
       // Number processing time
       Console.WriteLine("ProcTime: " + (valueSwProcessing.ElapsedMilliseconds /
-          1000.0) + " s");
+        1000.0) + " s");
       // Ratio of number processing time to total running time
       Console.WriteLine("Rate: " + (valueSwProcessing.ElapsedMilliseconds *
-          100.0 / sw.ElapsedMilliseconds) + "%");
+        100.0 / sw.ElapsedMilliseconds) + "%");
       // System.IO.File.WriteAllLines("slow.dectest",slowlines.ToArray());
     }
   }

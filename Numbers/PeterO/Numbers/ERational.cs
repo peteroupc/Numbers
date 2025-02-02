@@ -44,9 +44,9 @@ namespace PeterO.Numbers {
         Justification = "ERational is immutable")]
     public static readonly ERational NegativeInfinity =
       new ERational(
-        FastIntegerFixed.Zero,
-        FastIntegerFixed.One,
-        (byte)(BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative));
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.One,
+      (byte)(BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative));
 
     /// <summary>A rational number for negative zero.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -55,9 +55,9 @@ namespace PeterO.Numbers {
         Justification = "ERational is immutable")]
     public static readonly ERational NegativeZero =
       new ERational(
-          FastIntegerFixed.Zero,
-          FastIntegerFixed.One,
-          (byte)BigNumberFlags.FlagNegative);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.One,
+      (byte)BigNumberFlags.FlagNegative);
 
     /// <summary>The rational number one.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -74,9 +74,9 @@ namespace PeterO.Numbers {
         Justification = "ERational is immutable")]
     public static readonly ERational PositiveInfinity =
       new ERational(
-        FastIntegerFixed.Zero,
-        FastIntegerFixed.One,
-        (byte)BigNumberFlags.FlagInfinity);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.One,
+      (byte)BigNumberFlags.FlagInfinity);
 
     /// <summary>A signaling not-a-number value.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -85,9 +85,9 @@ namespace PeterO.Numbers {
         Justification = "ERational is immutable")]
     public static readonly ERational SignalingNaN =
       new ERational(
-        FastIntegerFixed.Zero,
-        FastIntegerFixed.One,
-        (byte)BigNumberFlags.FlagSignalingNaN);
+      FastIntegerFixed.Zero,
+      FastIntegerFixed.One,
+      (byte)BigNumberFlags.FlagSignalingNaN);
 
     /// <summary>The rational number ten.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
@@ -211,8 +211,7 @@ namespace PeterO.Numbers {
     public bool IsZero {
       get {
         return ((this.flags & (BigNumberFlags.FlagInfinity |
-                BigNumberFlags.FlagNaN)) == 0) &&
-this.unsignedNumerator.IsValueZero;
+          BigNumberFlags.FlagNaN)) == 0) && this.unsignedNumerator.IsValueZero;
       }
     }
 
@@ -225,7 +224,7 @@ this.unsignedNumerator.IsValueZero;
         return false;
       }
       if (this.denominator.IsEvenNumber &&
-           !this.unsignedNumerator.IsEvenNumber) {
+        !this.unsignedNumerator.IsEvenNumber) {
         // Even denominator, odd numerator, so not an integer
         return false;
       }
@@ -249,7 +248,7 @@ this.unsignedNumerator.IsValueZero;
     public int Sign {
       get {
         return ((this.flags & (BigNumberFlags.FlagInfinity |
-                BigNumberFlags.FlagNaN)) != 0) ? (this.IsNegative ? -1 : 1) :
+          BigNumberFlags.FlagNaN)) != 0) ? (this.IsNegative ? -1 : 1) :
           (this.unsignedNumerator.IsValueZero ? 0 : (this.IsNegative ? -1 : 1));
       }
     }
@@ -323,9 +322,9 @@ this.unsignedNumerator.IsValueZero;
         denominator = denominator.Negate();
       }
       return new ERational(
-         FastIntegerFixed.FromBig(numerator),
-         FastIntegerFixed.FromBig(denominator),
-         bflags);
+          FastIntegerFixed.FromBig(numerator),
+          FastIntegerFixed.FromBig(denominator),
+          bflags);
     }
 
     /// <summary>Creates a not-a-number arbitrary-precision rational
@@ -379,8 +378,8 @@ this.unsignedNumerator.IsValueZero;
       flags |= signaling ? BigNumberFlags.FlagSignalingNaN :
         BigNumberFlags.FlagQuietNaN;
       return new ERational(FastIntegerFixed.FromBig(diag),
-  FastIntegerFixed.One,
-  (byte)flags);
+        FastIntegerFixed.One,
+        (byte)flags);
     }
 
     /// <summary>Converts a 64-bit floating-point number to a rational
@@ -440,10 +439,10 @@ this.unsignedNumerator.IsValueZero;
       }
       if (!ef.IsFinite) {
         return ef.IsInfinity() ? (ef.IsNegative ? NegativeInfinity :
-PositiveInfinity) : CreateNaN(
-                 ef.UnsignedMantissa,
-                 ef.IsSignalingNaN(),
-                 ef.IsNegative);
+          PositiveInfinity) : CreateNaN(
+            ef.UnsignedMantissa,
+            ef.IsSignalingNaN(),
+            ef.IsNegative);
       }
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
@@ -468,11 +467,11 @@ PositiveInfinity) : CreateNaN(
         num = -(EInteger)num;
       }
       ERational rat = ERational.Create(num, den);
-#if DEBUG
+      #if DEBUG
       if (!(den.Sign >= 0)) {
         throw new ArgumentException("doesn't satisfy den.Sign >= 0");
       }
-#endif
+      #endif
 
       return (ef.IsNegative && num.Sign == 0) ? rat.Negate() : rat;
     }
@@ -492,10 +491,10 @@ PositiveInfinity) : CreateNaN(
       }
       if (!ef.IsFinite) {
         return ef.IsInfinity() ? (ef.IsNegative ? NegativeInfinity :
-PositiveInfinity) : CreateNaN(
-                 ef.UnsignedMantissa,
-                 ef.IsSignalingNaN(),
-                 ef.IsNegative);
+          PositiveInfinity) : CreateNaN(
+            ef.UnsignedMantissa,
+            ef.IsSignalingNaN(),
+            ef.IsNegative);
       }
       EInteger num = ef.Mantissa;
       EInteger exp = ef.Exponent;
@@ -519,11 +518,11 @@ PositiveInfinity) : CreateNaN(
         num = -(EInteger)num;
       }
       ERational rat = ERational.Create(num, den);
-#if DEBUG
+      #if DEBUG
       if (!(den.Sign >= 0)) {
         throw new ArgumentException("doesn't satisfy den.Sign >= 0");
       }
-#endif
+      #endif
 
       return (ef.IsNegative && num.Sign == 0) ? rat.Negate() : rat;
     }
@@ -660,7 +659,7 @@ PositiveInfinity) : CreateNaN(
       string str,
       int offset,
       int length) {
-       return ERationalTextString.FromString(str, offset, length, true);
+      return ERationalTextString.FromString(str, offset, length, true);
     }
 
     /// <summary>Creates a rational number from a sequence of <c>char</c> s
@@ -723,7 +722,7 @@ PositiveInfinity) : CreateNaN(
       char[] chars,
       int offset,
       int length) {
-       return ERationalCharArrayString.FromString(chars, offset, length, true);
+      return ERationalCharArrayString.FromString(chars, offset, length, true);
     }
 
     /// <summary>Creates a rational number from a sequence of bytes that
@@ -786,7 +785,7 @@ PositiveInfinity) : CreateNaN(
       byte[] bytes,
       int offset,
       int length) {
-       return ERationalByteArrayString.FromString(bytes, offset, length, true);
+      return ERationalByteArrayString.FromString(bytes, offset, length, true);
     }
 
     /// <summary>Compares the absolute values of this object and another
@@ -978,7 +977,7 @@ PositiveInfinity) : CreateNaN(
       }
       if (this.IsInfinity()) {
         return otherValue.IsInfinity() ? ((this.IsNegative ==
-              otherValue.IsNegative) ? this : NaN) : this;
+          otherValue.IsNegative) ? this : NaN) : this;
       }
       if (otherValue.IsInfinity()) {
         return otherValue;
@@ -1109,9 +1108,9 @@ PositiveInfinity) : CreateNaN(
       }
       // Compare the number of bits of the products
       EInteger bitsADUpper = ea.GetUnsignedBitLengthAsEInteger().Add(
-          ed.GetUnsignedBitLengthAsEInteger());
+        ed.GetUnsignedBitLengthAsEInteger());
       EInteger bitsBCUpper = eb.GetUnsignedBitLengthAsEInteger().Add(
-          ec.GetUnsignedBitLengthAsEInteger());
+        ec.GetUnsignedBitLengthAsEInteger());
       EInteger bitsADLower = bitsADUpper.Subtract(1);
       EInteger bitsBCLower = bitsBCUpper.Subtract(1);
       if (bitsADLower.CompareTo(bitsBCUpper) > 0) {
@@ -1151,14 +1150,14 @@ PositiveInfinity) : CreateNaN(
       if (cmp == 0) {
         if (first.IsNegative) {
           return (!second.IsNegative) ? second :
-(first.Denominator.CompareTo(second.Denominator) > 0 ?
+            (first.Denominator.CompareTo(second.Denominator) > 0 ?
 
-              first : second);
+            first : second);
         } else {
           return second.IsNegative ? first :
-(first.Denominator.CompareTo(second.Denominator) < 0 ?
+            (first.Denominator.CompareTo(second.Denominator) < 0 ?
 
-              first : second);
+            first : second);
         }
       }
       return cmp > 0 ? first : second;
@@ -1211,8 +1210,8 @@ PositiveInfinity) : CreateNaN(
       if (cmp == 0) {
         if (first.IsNegative) {
           return (!second.IsNegative) ? first : (
-              first.Denominator.CompareTo(second.Denominator) < 0 ?
-              first : second);
+            first.Denominator.CompareTo(second.Denominator) < 0 ?
+            first : second);
         } else {
           return second.IsNegative ? second : (
               first.Denominator.CompareTo(second.Denominator) > 0 ?
@@ -1404,8 +1403,8 @@ PositiveInfinity) : CreateNaN(
           return this.IsNegative ? 1 : -1;
         }
         thisIntDec = EFloat.FromEInteger(this.UnsignedNumerator).Divide(
-            EFloat.FromEInteger(this.Denominator),
-            EContext.ForPrecisionAndRounding(256, ERounding.Down));
+          EFloat.FromEInteger(this.Denominator),
+          EContext.ForPrecisionAndRounding(256, ERounding.Down));
         if (thisIntDec.CompareTo(otherAbs) > 0) {
           // Truncated absolute value is greater than other's untruncated
           // absolute value
@@ -1530,8 +1529,8 @@ PositiveInfinity) : CreateNaN(
         // Conservative approximation of this rational number's absolute value,
         // as a decimal number. The true value will be greater or equal.
         thisIntDec = EDecimal.FromEInteger(this.UnsignedNumerator).Divide(
-            EDecimal.FromEInteger(this.Denominator),
-            EContext.ForPrecisionAndRounding(20, ERounding.Down));
+          EDecimal.FromEInteger(this.Denominator),
+          EContext.ForPrecisionAndRounding(20, ERounding.Down));
         if (thisIntDec.CompareTo(otherAbs) > 0) {
           // Truncated absolute value is greater than other's untruncated
           // absolute value
@@ -1607,7 +1606,7 @@ PositiveInfinity) : CreateNaN(
       bool resultNeg = this.IsNegative ^ otherValue.IsNegative;
       if (this.IsInfinity()) {
         return otherValue.IsInfinity() ? NaN : (resultNeg ? NegativeInfinity :
-            PositiveInfinity);
+          PositiveInfinity);
       }
       if (otherValue.IsInfinity()) {
         return resultNeg ? NegativeZero : Zero;
@@ -1699,7 +1698,7 @@ PositiveInfinity) : CreateNaN(
     /// otherwise, <c>false</c>.</returns>
     public bool IsNegativeInfinity() {
       return (this.flags & (BigNumberFlags.FlagInfinity |
-            BigNumberFlags.FlagNegative)) ==
+        BigNumberFlags.FlagNegative)) ==
         (BigNumberFlags.FlagInfinity | BigNumberFlags.FlagNegative);
     }
 
@@ -1709,7 +1708,7 @@ PositiveInfinity) : CreateNaN(
     /// otherwise, <c>false</c>.</returns>
     public bool IsPositiveInfinity() {
       return (this.flags & (BigNumberFlags.FlagInfinity |
-            BigNumberFlags.FlagNegative)) == BigNumberFlags.FlagInfinity;
+        BigNumberFlags.FlagNegative)) == BigNumberFlags.FlagInfinity;
     }
 
     /// <summary>Returns whether this object is a quiet not-a-number
@@ -2034,7 +2033,7 @@ PositiveInfinity) : CreateNaN(
       EInteger numBits = unum.GetUnsignedBitLengthAsEInteger();
       EInteger denBits = uden.GetUnsignedBitLengthAsEInteger();
       if (numBits.Subtract(2).Subtract(denBits).CompareTo(maxBitLength) >
-0) {
+        0) {
         throw new OverflowException("Value out of range");
       }
       unum = this.ToEInteger();
@@ -2076,7 +2075,7 @@ PositiveInfinity) : CreateNaN(
       EInteger numBits = unum.GetUnsignedBitLengthAsEInteger();
       EInteger denBits = uden.GetUnsignedBitLengthAsEInteger();
       if (numBits.Subtract(2).Subtract(denBits).CompareTo(maxBitLength) >
-0) {
+        0) {
         throw new OverflowException("Value out of range");
       }
       unum = this.ToEIntegerIfExact();
@@ -2119,7 +2118,7 @@ PositiveInfinity) : CreateNaN(
         throw new OverflowException("Value is infinity or NaN");
       }
       if (this.denominator.IsEvenNumber &&
-           !this.unsignedNumerator.IsEvenNumber) {
+        !this.unsignedNumerator.IsEvenNumber) {
         // Even denominator, odd numerator, so not an integer
         throw new ArithmeticException("Value is not an integer");
       }
@@ -2453,7 +2452,7 @@ PositiveInfinity) : CreateNaN(
         }
       }
       return (this.unsignedNumerator.IsValueZero && this.IsNegative) ? ("-0/" +
-          this.Denominator) : (this.Numerator + "/" + this.Denominator);
+        this.Denominator) : (this.Numerator + "/" + this.Denominator);
     }
 
     /// <summary>Adds one to an arbitrary-precision rational
@@ -2833,7 +2832,7 @@ PositiveInfinity) : CreateNaN(
     /// return value will store 2^64 plus this value instead.</returns>
     public static ERational FromInt64AsUnsigned(long longerValue) {
       return longerValue >= 0 ? FromInt64(longerValue) :
-           FromEInteger(EInteger.FromInt64AsUnsigned(longerValue));
+        FromEInteger(EInteger.FromInt64AsUnsigned(longerValue));
     }
 
     /// <summary>Converts a 64-bit signed integer to an arbitrary-precision

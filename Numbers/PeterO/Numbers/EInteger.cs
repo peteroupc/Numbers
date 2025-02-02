@@ -396,7 +396,7 @@ namespace PeterO.Numbers {
         }
         if (odd) {
           newreg[evenedLen >> 1] = unchecked((short)(((int)bytes[offset]) &
-                0xff));
+            0xff));
         }
         numIsNegative = (bytes[offset] & 0x80) != 0;
       }
@@ -1061,10 +1061,10 @@ namespace PeterO.Numbers {
             return new EInteger(wcount, sumreg, this.negative);
           }
         }
-        // DebugUtility.Log("" + this + " + " + bigintAugend);
+        // Console.WriteLine("" + this + " + " + bigintAugend);
         var wordLength2 = (int)Math.Max(
-            this.words.Length,
-            bigintAugend.words.Length);
+          this.words.Length,
+          bigintAugend.words.Length);
         sumreg = new short[wordLength2];
         int carry;
         int desiredLength = Math.Max(addendCount, augendCount);
@@ -1162,8 +1162,8 @@ namespace PeterO.Numbers {
       #endif
       short borrow;
       var wordLength = (int)Math.Max(
-          minuend.words.Length,
-          subtrahend.words.Length);
+        minuend.words.Length,
+        subtrahend.words.Length);
       var diffReg = new short[wordLength];
       if (words1Size == words2Size) {
         if (Compare(minuend.words, 0, subtrahend.words, 0, (int)words1Size) >=
@@ -1192,13 +1192,13 @@ namespace PeterO.Numbers {
       } else if (words1Size > words2Size) {
         // words1 is greater than words2
         borrow = (short)SubtractInternal(
-            diffReg,
-            0,
-            minuend.words,
-            0,
-            subtrahend.words,
-            0,
-            words2Size);
+          diffReg,
+          0,
+          minuend.words,
+          0,
+          subtrahend.words,
+          0,
+          words2Size);
         Array.Copy(
           minuend.words,
           words2Size,
@@ -1213,13 +1213,13 @@ namespace PeterO.Numbers {
       } else {
         // words1 is less than words2
         borrow = (short)SubtractInternal(
-            diffReg,
-            0,
-            subtrahend.words,
-            0,
-            minuend.words,
-            0,
-            words1Size);
+          diffReg,
+          0,
+          subtrahend.words,
+          0,
+          minuend.words,
+          0,
+          words1Size);
         Array.Copy(
           subtrahend.words,
           words1Size,
@@ -1523,7 +1523,7 @@ namespace PeterO.Numbers {
     public EInteger Subtract(int intValue) {
       return (intValue == Int32.MinValue) ?
         this.Subtract(EInteger.FromInt32(intValue)) : ((intValue == 0) ?
-          this : this.Add(-intValue));
+        this : this.Add(-intValue));
     }
 
     /// <summary>Multiplies this arbitrary-precision integer by a 32-bit
@@ -1642,7 +1642,7 @@ namespace PeterO.Numbers {
         // where dividend is 0)
         return EInteger.Zero;
       }
-      // DebugUtility.Log("divide " + this + " " + bigintDivisor);
+      // Console.WriteLine("divide " + this + " " + bigintDivisor);
       if (words1Size <= 2 && words2Size <= 2 && this.CanFitInInt32() &&
         bigintDivisor.CanFitInInt32()) {
         int valueASmall = this.ToInt32Checked();
@@ -1672,9 +1672,9 @@ namespace PeterO.Numbers {
           --quotwordCount;
         }
         return (quotwordCount != 0) ? new EInteger(
-            quotwordCount,
-            quotReg,
-            this.negative ^ bigintDivisor.negative) : EInteger.Zero;
+          quotwordCount,
+          quotReg,
+          this.negative ^ bigintDivisor.negative) : EInteger.Zero;
       }
       // ---- General case
       quotReg = new short[(int)(words1Size - words2Size + 1)];
@@ -1692,8 +1692,8 @@ namespace PeterO.Numbers {
       quotwordCount = CountWords(quotReg);
       quotReg = ShortenArray(quotReg, quotwordCount);
       return (quotwordCount != 0) ? new EInteger(quotwordCount,
-          quotReg,
-          this.negative ^ bigintDivisor.negative) :
+        quotReg,
+        this.negative ^ bigintDivisor.negative) :
         EInteger.Zero;
     }
 
@@ -2208,7 +2208,7 @@ namespace PeterO.Numbers {
           blocksB);
         if (quot != null) {
           size = Math.Min(blocksB, quot.Length - (i * blocksB));
-          // DebugUtility.Log("quot len=" + quot.Length + ",bb=" + blocksB +
+          // Console.WriteLine("quot len=" + quot.Length + ",bb=" + blocksB +
           // ",size=" + size + " [" + countA + "," + countB + "]");
           if (size > 0) {
             Array.Copy(
@@ -2266,9 +2266,9 @@ namespace PeterO.Numbers {
         --len;
       }
       return (len == 0) ? "\"0\"" : ("\"" + new EInteger(
-            len,
-            words,
-            false).ToString() + "\"");
+        len,
+        words,
+        false).ToString() + "\"");
     }
 
     private static void GeneralDivide(
@@ -2343,11 +2343,11 @@ namespace PeterO.Numbers {
         }
         if (countA - countB + 1 < 0) {
           throw new ArgumentException("(countA-countB+1)(" + (countA -
-              countB + 1) + ") is less than 0");
+            countB + 1) + ") is less than 0");
         }
         if (countA - countB + 1 > quot.Length) {
           throw new ArgumentException("(countA-countB+1)(" + (countA -
-              countB + 1) + ") is more than " + quot.Length);
+            countB + 1) + ") is more than " + quot.Length);
         }
         if ((quot.Length - posQuot) < (countA - countB + 1)) {
           throw new ArgumentException("quot's length minus " + posQuot + "(" +
@@ -2528,7 +2528,7 @@ namespace PeterO.Numbers {
         int quorem0 = (dividend >> 31) == 0 ? (dividend / pieceBHighInt) :
           unchecked((int)(((long)dividend & 0xffffffffL) / pieceBHighInt));
         int quorem1 = unchecked(dividend - (quorem0 * pieceBHighInt));
-        // DebugUtility.Log("{0:X8}/{1:X4} = {2:X8},{3:X4}",
+        // Console.WriteLine("{0:X8}/{1:X4} = { 2:X8},{3:X4}",
         // dividend, pieceBHigh, quorem0, quorem1);
         long t = (((long)quorem1) << 16) | (divnext & 0xffffL);
         // NOTE: quorem0 won't be higher than (1<< 16)+1 as long as
@@ -2779,29 +2779,29 @@ namespace PeterO.Numbers {
         switch (divisor.words[0]) {
           case 2:
             smallRemainder = (int)FastDivideAndRemainderTwo(
-                quotient,
-                0,
-                this.words,
-                0,
-                words1Size);
+              quotient,
+              0,
+              this.words,
+              0,
+              words1Size);
             break;
           case 10:
             smallRemainder = (int)FastDivideAndRemainderTen(
-                quotient,
-                0,
-                this.words,
-                0,
-                words1Size);
+              quotient,
+              0,
+              this.words,
+              0,
+              words1Size);
             break;
           default:
-            // DebugUtility.Log("smalldiv=" + (divisor.words[0]));
+            // Console.WriteLine("smalldiv=" + (divisor.words[0]));
             smallRemainder = ((int)FastDivideAndRemainder(
-                  quotient,
-                  0,
-                  this.words,
-                  0,
-                  words1Size,
-                  divisor.words[0])) & ShortMask;
+              quotient,
+              0,
+              this.words,
+              0,
+              words1Size,
+              divisor.words[0])) & ShortMask;
             break;
         }
         int count = this.wordCount;
@@ -2844,7 +2844,7 @@ namespace PeterO.Numbers {
             EInteger.FromInt64(remainderLong),
           };
         }
-        // DebugUtility.Log("int64divrem {0}/{1}"
+        // Console.WriteLine("int64divrem {0}/{1}"
         // , this.ToInt64Checked(), divisor.ToInt64Checked());
       }
       // --- General case
@@ -3000,7 +3000,7 @@ namespace PeterO.Numbers {
         }
         EInteger eia = thisValue;
         EInteger eib = bigintSecond;
-        // DebugUtility.Log("wc="+eia.wordCount+"/"+eib.wordCount);
+        // Console.WriteLine("wc="+eia.wordCount+"/"+eib.wordCount);
         while (eib.wordCount > 3) {
           // Lehmer's algorithm
           EInteger eiaa, eibb, eicc, eidd;
@@ -3020,7 +3020,7 @@ namespace PeterO.Numbers {
                 eia.Multiply(eicc).Add(eib.Multiply(eidd));
               eia = ta;
               eib = tb;
-              // DebugUtility.Log("z tawc="+eia.wordCount+"/"+eib.wordCount);
+              // Console.WriteLine("z tawc="+eia.wordCount+"/"+eib.wordCount);
               break;
             }
             EInteger eiq = eiee.Add(eiaa).Divide(eifc);
@@ -3030,15 +3030,15 @@ namespace PeterO.Numbers {
                 eia.Multiply(eiaa).Add(eib.Multiply(eibb));
               EInteger tb = eibb.IsZero ? eia.Remainder(eib) :
                 eia.Multiply(eicc).Add(eib.Multiply(eidd));
-              // DebugUtility.Log("eia/b="+eia.wordCount+"/"+eib.wordCount);
-              // DebugUtility.Log("eiaa/bb="+eiaa.wordCount+"/"+eibb.wordCount);
+              // Console.WriteLine("eia/b="+eia.wordCount+"/"+eib.wordCount);
+              // Console.WriteLine("eiaa/bb="+eiaa.wordCount+"/"+eibb.wordCount);
               eia = ta;
               eib = tb;
               break;
             } else if (eiq.CanFitInInt32() &&
               eidd.CanFitInInt32() && eicc.CanFitInInt32()) {
               EInteger t = eiff;
-              // DebugUtility.Log("eiq eiffccdd="+eiff.wordCount+"/"+
+              // Console.WriteLine("eiq eiffccdd="+eiff.wordCount+"/"+
               // eicc.wordCount+"/"+eidd.wordCount);
               int eiqi = eiq.ToInt32Checked();
               eiff = eiee.Subtract(eiff.Multiply(eiqi));
@@ -3048,12 +3048,12 @@ namespace PeterO.Numbers {
               eiaa = t;
               t = eidd;
               eidd = eibb.Subtract((long)eidd.ToInt32Checked() * eiqi);
-              // DebugUtility.Log("->eiffccdd="+eiff.wordCount+"/"+
+              // Console.WriteLine("->eiffccdd="+eiff.wordCount+"/"+
               // eicc.wordCount+"/"+eidd.wordCount);
               eibb = t;
             } else {
               EInteger t = eiff;
-              // DebugUtility.Log("eiffccdd="+eiff.wordCount+"/"+
+              // Console.WriteLine("eiffccdd="+eiff.wordCount+"/"+
               // eicc.wordCount+"/"+eidd.wordCount);
               eiff = eiee.Subtract(eiff.Multiply(eiq));
               eiee = t;
@@ -3062,7 +3062,7 @@ namespace PeterO.Numbers {
               eiaa = t;
               t = eidd;
               eidd = eibb.Subtract(eidd.Multiply(eiq));
-              // DebugUtility.Log("->eiffccdd="+eiff.wordCount+"/"+
+              // Console.WriteLine("->eiffccdd="+eiff.wordCount+"/"+
               // eicc.wordCount+"/"+eidd.wordCount);
               eibb = t;
             }
@@ -3210,19 +3210,19 @@ namespace PeterO.Numbers {
       #endif
 
       if (longa == 0 || longb == 0) {
-        // DebugUtility.Log("LHalfGCD failed");
+        // Console.WriteLine("LHalfGCD failed");
         return new long[] { longa, longb, 1, 0, 0, 1 };
       }
       long olonga = longa;
       long olongb = longb;
       var ret = new long[6];
-      // DebugUtility.Log("LHalfGCD " + longa + " " + longb);
+      // Console.WriteLine("LHalfGCD " + longa + " " + longb);
       checked {
         int ln = Math.Max(LBL(longa), LBL(longb));
         int lnmin = Math.Min(LBL(longa), LBL(longb));
         int ls = (ln >> 1) + 1;
         if (lnmin <= ls) {
-          // DebugUtility.Log("LHalfGCD failed: nmin<= s");
+          // Console.WriteLine("LHalfGCD failed: nmin<= s");
           return new long[] { longa, longb, 1, 0, 0, 1 };
         }
         if (lnmin > ((ln * 3) >> 2) + 2) {
@@ -3371,14 +3371,14 @@ namespace PeterO.Numbers {
       EInteger oeia = eia;
       EInteger oeib = eib;
       if (eia.IsZero || eib.IsZero) {
-        // DebugUtility.Log("HalfGCD failed");
+        // Console.WriteLine("HalfGCD failed");
         return new EInteger[] {
           eia, eib, EInteger.One, EInteger.Zero,
           EInteger.Zero, EInteger.One,
         };
       }
       var ret = new EInteger[6];
-      // DebugUtility.Log("HalfGCD " + eia + " " + eib);
+      // Console.WriteLine("HalfGCD " + eia + " " + eib);
       if (eia.CanFitInInt64() && eib.CanFitInInt64()) {
         long[] lret = LHalfGCD(eia.ToInt64Checked(), eib.ToInt64Checked());
         if (lret == null) {
@@ -3394,7 +3394,7 @@ namespace PeterO.Numbers {
       long ln = ein.CanFitInInt64() ? ein.ToInt64Checked() : -1;
       EInteger eis = ein.ShiftRight(1).Add(1);
       if (einmin.CompareTo(eis) <= 0) {
-        // DebugUtility.Log("HalfGCD failed: nmin<= s");
+        // Console.WriteLine("HalfGCD failed: nmin<= s");
         return new EInteger[] {
           eia, eib, EInteger.One, EInteger.Zero,
           EInteger.Zero, EInteger.One,
@@ -3439,11 +3439,11 @@ namespace PeterO.Numbers {
       ret[1] = eib;
       /*
       for (int k = 0; k < 6; ++k) {
-        DebugUtility.Log("ret_afterloop1_"+ k + "=" +
+        Console.WriteLine("ret_afterloop1_"+ k + "=" +
            ret[k].ToRadixString(16));
       }
       */ while (MaxBitLength(ret[0], ret[1]).CompareTo(
-          ein.Multiply(3).ShiftRight(2).Add(1)) > 0 &&
+        ein.Multiply(3).ShiftRight(2).Add(1)) > 0 &&
         BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0) {
         if (ret[0].Sign < 0 || ret[1].Sign < 0) {
           throw new InvalidOperationException(
@@ -3452,11 +3452,11 @@ namespace PeterO.Numbers {
         }
         SDivStep(ret, eis);
         // for (int k = 0; k < 6; ++k) {
-        // DebugUtility.Log("ret_loop2_"+ k + "=" + ret[k].ToRadixString(16));
+        // Console.WriteLine("ret_loop2_"+ k + "=" + ret[k].ToRadixString(16));
         // }
       }
       // for (int k = 0; k < 6; ++k) {
-      // DebugUtility.Log("ret_afterloop2_"+ k + "=" +
+      // Console.WriteLine("ret_afterloop2_"+ k + "=" +
       // ret[k].ToRadixString(16));
       // }
       eia = ret[0];
@@ -3480,9 +3480,9 @@ namespace PeterO.Numbers {
           throw new InvalidOperationException("Internal error");
         }
         EInteger ma, mb, mc, md;
-        // DebugUtility.Log("m "+Arrays.toString(new
+        // Console.WriteLine("m "+Arrays.toString(new
         // EInteger[] { ret[2], ret[3], ret[4], ret[5]}));
-        // DebugUtility.Log("m' "+Arrays.toString(new
+        // Console.WriteLine("m' "+Arrays.toString(new
         // EInteger[] { ret2[2], ret2[3], ret2[4], ret2[5]}));
         ma = ret[2].Multiply(ret2[2]).Add(ret[3].Multiply(ret2[4]));
         mb = ret[2].Multiply(ret2[3]).Add(ret[3].Multiply(ret2[5]));
@@ -3492,12 +3492,12 @@ namespace PeterO.Numbers {
         ret[3] = mb;
         ret[4] = mc;
         ret[5] = md;
-        // DebugUtility.Log("newm "+Arrays.toString(ret));
+        // Console.WriteLine("newm "+Arrays.toString(ret));
       }
       ret[0] = eia;
       ret[1] = eib;
       // for (int k = 0; k < 6; ++k) {
-      // DebugUtility.Log("ret_afterloop3["+k+"]=" +
+      // Console.WriteLine("ret_afterloop3["+k+"]=" +
       // ret[k].ToRadixString(16));
       // }
       while (BL(ret[0].Subtract(ret[1])).CompareTo(eis) > 0) {
@@ -3505,7 +3505,7 @@ namespace PeterO.Numbers {
           throw new InvalidOperationException("Internal error");
         }
         SDivStep(ret, eis);
-        // DebugUtility.Log("[sdiv2]ret="+Arrays.toString(ret));
+        // Console.WriteLine("[sdiv2]ret="+Arrays.toString(ret));
       }
       #if DEBUG
       /* EInteger[] ret3 = SlowSgcd(oeia, oeib);
@@ -3552,26 +3552,26 @@ namespace PeterO.Numbers {
         if (ein.CompareTo(48) < 0) {
           break;
         }
-        // DebugUtility.Log("eia=" + ret[0].ToRadixString(16));
-        // DebugUtility.Log("eib=" + ret[1].ToRadixString(16));
+        // Console.WriteLine("eia=" + ret[0].ToRadixString(16));
+        // Console.WriteLine("eib=" + ret[1].ToRadixString(16));
         EInteger nhalf = ein.ShiftRight(1);
         EInteger eiah = ret[0].ShiftRight(nhalf);
         EInteger eial = ret[0].LowBits(nhalf);
         EInteger eibh = ret[1].ShiftRight(nhalf);
         EInteger eibl = ret[1].LowBits(nhalf);
-        // DebugUtility.Log("eiah->" + eiah.ToRadixString(16));
-        // DebugUtility.Log("eibh->" + eibh.ToRadixString(16));
+        // Console.WriteLine("eiah->" + eiah.ToRadixString(16));
+        // Console.WriteLine("eibh->" + eibh.ToRadixString(16));
         EInteger[] hgcd = HalfGCD(eiah, eibh);
         if (hgcd == null) {
-          // DebugUtility.Log("hgcd failed");
+          // Console.WriteLine("hgcd failed");
           break;
         }
         eia = eial.Multiply(hgcd[5]).Subtract(eibl.Multiply(hgcd[3]));
         eib = eibl.Multiply(hgcd[2]).Subtract(eial.Multiply(hgcd[4]));
         eia = eia.Add(hgcd[0].ShiftLeft(nhalf));
         eib = eib.Add(hgcd[1].ShiftLeft(nhalf));
-        // DebugUtility.Log("eia->" + eia.ToRadixString(16));
-        // DebugUtility.Log("eib->" + eib.ToRadixString(16));
+        // Console.WriteLine("eia->" + eia.ToRadixString(16));
+        // Console.WriteLine("eib->" + eib.ToRadixString(16));
         if (eia.Sign < 0 || eib.Sign < 0) {
           /*var sb = new StringBuilder();
           sb.Append("eia=" + ret[0] + "\n");
@@ -3590,8 +3590,8 @@ namespace PeterO.Numbers {
         ret[0] = eia;
         ret[1] = eib;
       }
-      // DebugUtility.Log("eia final "+eia.ToRadixString(16));
-      // DebugUtility.Log("eib final "+eib.ToRadixString(16));
+      // Console.WriteLine("eia final "+eia.ToRadixString(16));
+      // Console.WriteLine("eib final "+eib.ToRadixString(16));
       return BaseGcd(ret[0], ret[1]);
     }
 
@@ -3652,20 +3652,19 @@ namespace PeterO.Numbers {
           }
           if (value >= 1000000000L) {
             retval += (value >= 1000000000000000000L) ? 19 : ((value >=
-                  100000000000000000L) ? 18 : ((value >= 10000000000000000L) ?
-                  17 : ((value >= 1000000000000000L) ? 16 :
-                    ((value >= 100000000000000L) ? 15 : ((value
-                          >= 10000000000000L) ?
-                        14 : ((value >= 1000000000000L) ? 13 : ((value
-                              >= 100000000000L) ? 12 : ((value >=
-10000000000L) ?
-                              11 : ((value >= 1000000000L) ? 10 : 9)))))))));
+              100000000000000000L) ? 18 : ((value >= 10000000000000000L) ?
+                17 : ((value >= 1000000000000000L) ? 16 :
+              ((value >= 100000000000000L) ? 15 : ((value
+              >= 10000000000000L) ?
+              14 : ((value >= 1000000000000L) ? 13 : ((value
+              >= 100000000000L) ? 12 : ((value >= 10000000000L) ?
+                11 : ((value >= 1000000000L) ? 10 : 9)))))))));
           } else {
             var v2 = (int)value;
             retval += (v2 >= 100000000) ? 9 : ((v2 >= 10000000) ? 8 : ((v2 >=
-                    1000000) ? 7 : ((v2 >= 100000) ? 6 : ((v2
-                        >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ?
-                          3 : ((v2 >= 10) ? 2 : 1)))))));
+              1000000) ? 7 : ((v2 >= 100000) ? 6 : ((v2
+              >= 10000) ? 5 : ((v2 >= 1000) ? 4 : ((v2 >= 100) ?
+              3 : ((v2 >= 10) ? 2 : 1)))))));
           }
           break;
         }
@@ -3712,11 +3711,11 @@ namespace PeterO.Numbers {
         }
         if (bitlen <= 2135) {
           retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                minDigits)) >= 0 ? maxDigits : minDigits;
+            minDigits)) >= 0 ? maxDigits : minDigits;
           break;
         } else if (bitlen < 50000) {
           retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                minDigits + 1)) >= 0 ? maxDigits + 1 : minDigits + 1;
+            minDigits + 1)) >= 0 ? maxDigits + 1 : minDigits + 1;
           break;
         }
         short[] tempReg = null;
@@ -3773,7 +3772,7 @@ namespace PeterO.Numbers {
             while (!done && (wci--) > 0) {
               int curValue = ((int)dividend[wci]) & ShortMask;
               int currentDividend = unchecked((int)(curValue |
-                    ((int)remainderShort << 16)));
+                ((int)remainderShort << 16)));
               quo = currentDividend / 10000;
               if (!firstdigit && quo != 0) {
                 firstdigit = true;
@@ -3783,8 +3782,8 @@ namespace PeterO.Numbers {
                 // NOTE: Bitlength accurate for wci<1000000 here, only as
                 // an approximation
                 bitlen = (wci < 1000000) ? GetUnsignedBitLengthEx(
-                    quo,
-                    wci + 1) :
+                  quo,
+                  wci + 1) :
                   Int32.MaxValue;
                 if (bitlen <= 2135) {
                   // (x*631305) >> 21 is an approximation
@@ -3808,9 +3807,8 @@ namespace PeterO.Numbers {
                     int maxDigitEstimate = maxDigits + 4;
                     int minDigitEstimate = minDigits + 4;
                     retval += ei.Abs().CompareTo(NumberUtility.FindPowerOfTen(
-                          minDigitEstimate)) >= 0 ? retval +
-maxDigitEstimate : retval +
-                      minDigitEstimate;
+                      minDigitEstimate)) >= 0 ? retval + maxDigitEstimate :
+                      retval + minDigitEstimate;
                     done = true;
                     break;
                   }
@@ -3818,7 +3816,7 @@ maxDigitEstimate : retval +
                   // Much more accurate approximation
                   // Approximation of ln(2)/ln(10)
                   minDigits = 1 + (int)(((long)(bitlen - 1) * 661971961083L) >>
-                      41);
+                    41);
                   maxDigits = 1 + (int)(((long)bitlen * 661971961083L) >> 41);
                   if (minDigits == maxDigits) {
                     // Number of digits is the same for
@@ -3907,18 +3905,18 @@ maxDigitEstimate : retval +
           retSetBitLong += 16;
         } else {
           int rsb = (((c << 15) & ShortMask) != 0) ? 0 : ((((c <<
-                    14) & ShortMask) != 0) ? 1 : ((((c <<
-                      13) & ShortMask) != 0) ? 2 : ((((c <<
-                        12) & ShortMask) != 0) ? 3 : ((((c << 11) &
-                        0xffff) != 0) ? 4 : ((((c << 10) & ShortMask) != 0) ?
-                      5 : ((((c << 9) & ShortMask) != 0) ? 6 : ((((c <<
-                                8) & ShortMask) != 0) ? 7 : ((((c << 7) &
-                ShortMask) != 0) ? 8 : ((((c << 6) & ShortMask) != 0) ? 9 :
-                              ((((c << 5) & ShortMask) != 0) ? 10 : ((((c <<
-                4) & ShortMask) != 0) ? 11 : ((((c << 3) &
-                                        0xffff) != 0) ? 12 : ((((c << 2) &
-                                          0xffff) != 0) ? 13 : ((((c << 1) &
-                ShortMask) != 0) ? 14 : 15))))))))))))));
+            14) & ShortMask) != 0) ? 1 : ((((c <<
+            13) & ShortMask) != 0) ? 2 : ((((c <<
+            12) & ShortMask) != 0) ? 3 : ((((c << 11) &
+                  0xffff) != 0) ? 4 : ((((c << 10) & ShortMask) != 0) ?
+                5 : ((((c << 9) & ShortMask) != 0) ? 6 : ((((c <<
+            8) & ShortMask) != 0) ? 7 : ((((c << 7) &
+                  ShortMask) != 0) ? 8 : ((((c << 6) & ShortMask) != 0) ? 9 :
+                ((((c << 5) & ShortMask) != 0) ? 10 : ((((c <<
+            4) & ShortMask) != 0) ? 11 : ((((c << 3) &
+                  0xffff) != 0) ? 12 : ((((c << 2) &
+            0xffff) != 0) ? 13 : ((((c << 1) &
+            ShortMask) != 0) ? 14 : 15))))))))))))));
           retSetBitLong += rsb;
           return retSetBitLong;
         }
@@ -4343,7 +4341,7 @@ maxDigitEstimate : retval +
       if (bigintMult.wordCount == 1 && bigintMult.words[0] == 1) {
         return bigintMult.negative ? this.Negate() : this;
       }
-      // DebugUtility.Log("multiply " + this + " " + bigintMult);
+      // Console.WriteLine("multiply " + this + " " + bigintMult);
       short[] productreg;
       int productwordCount;
       var needShorten = true;
@@ -4576,7 +4574,7 @@ maxDigitEstimate : retval +
           continue;
         } else {
           ret = (v == 1) ? ret.Add(wts[i]) : ((v == -1) ? ret.Subtract(
-                wts[i]) : ret.Add(wts[i].Multiply(v)));
+            wts[i]) : ret.Add(wts[i].Multiply(v)));
         }
       }
       return ret.Divide(divisor);
@@ -4790,7 +4788,7 @@ maxDigitEstimate : retval +
         return EInteger.One;
       }
       return (longPower < Int32.MaxValue) ? this.Pow((int)longPower) :
-this.Pow(EInteger.FromInt64(longPower));
+        this.Pow(EInteger.FromInt64(longPower));
     }
 
     /// <summary>Raises an arbitrary-precision integer to a
@@ -4827,8 +4825,8 @@ this.Pow(EInteger.FromInt64(longPower));
       if (!this.IsPowerOfTwo) {
         bitLength = bitLength.Subtract(1);
       }
-      // DebugUtility.Log("sizeNeeded=" + bitLength.Multiply(bigPower));
-      // DebugUtility.Log("bigPower=" + bigPower);
+      // Console.WriteLine("sizeNeeded=" + bitLength.Multiply(bigPower));
+      // Console.WriteLine("bigPower=" + bigPower);
       if (bigPower.CanFitInInt32()) {
         return this.Pow(bigPower.ToInt32Checked());
       }
@@ -5204,11 +5202,11 @@ this.Pow(EInteger.FromInt64(longPower));
             Array.Copy(this.words, 0, result, 0, intOtherWordCount);
           } else {
             short shortMask = unchecked((short)((1 << bitRemainder) - 1));
-            // DebugUtility.Log("wc={0} bc={1} br={2}
+            // Console.WriteLine("wc={0} bc={1} br={2}
             // sm={3}",otherWordCount,bitCount,bitRemainder,shortMask);
             Array.Copy(this.words, 0, result, 0, intOtherWordCount - 1);
             result[intOtherWordCount - 1] = unchecked((short)(
-                  this.words[intOtherWordCount - 1] & shortMask));
+              this.words[intOtherWordCount - 1] & shortMask));
           }
           smallerCount = CountWords(result);
           return (smallerCount == 0) ? EInteger.Zero : new
@@ -5266,11 +5264,11 @@ this.Pow(EInteger.FromInt64(longPower));
             Array.Copy(this.words, 0, result, 0, intOtherWordCount);
           } else {
             short shortMask = unchecked((short)((1 << bitRemainder) - 1));
-            // DebugUtility.Log("wc={0} bc={1} br={2} sm={3}
+            // Console.WriteLine("wc={0} bc={1} br={2} sm={3}
             // big",otherWordCount,bigBitCount,bitRemainder,shortMask);
             Array.Copy(this.words, 0, result, 0, intOtherWordCount - 1);
             result[intOtherWordCount - 1] = unchecked((short)(
-                  this.words[intOtherWordCount - 1] & shortMask));
+              this.words[intOtherWordCount - 1] & shortMask));
           }
           smallerCount = CountWords(result);
           return (smallerCount == 0) ? EInteger.Zero : new
@@ -5864,13 +5862,13 @@ this.Pow(EInteger.FromInt64(longPower));
       // NOTE: Assumes this value is at least as high as the subtrahend
       // and both numbers are nonnegative
       var borrow = (short)SubtractInternal(
-          words,
-          0,
-          words,
-          0,
-          subtrahendWords,
-          0,
-          subtrahendCount);
+        words,
+        0,
+        words,
+        0,
+        subtrahendWords,
+        0,
+        subtrahendCount);
       if (borrow != 0) {
         DecrementWords(
           words,
@@ -6254,7 +6252,7 @@ this.Pow(EInteger.FromInt64(longPower));
       if (this.wordCount >= 100) {
         var rightBuilder = new StringBuilder();
         long digits = ((long)estimatedHalfDigitCountPerWord[radix] *
-            this.wordCount) / 16;
+          this.wordCount) / 16;
         EInteger pow = null;
         if (radix == 10) {
           pow = NumberUtility.FindPowerOfTen(digits);
@@ -6264,7 +6262,7 @@ this.Pow(EInteger.FromInt64(longPower));
             EInteger.FromInt32(radix).Pow(EInteger.FromInt64(digits));
         }
         EInteger[] divrem = this.DivRem(pow);
-        // DebugUtility.Log("divrem wc=" + divrem[0].wordCount + " wc=" + (//
+        // Console.WriteLine("divrem wc=" + divrem[0].wordCount + " wc=" + (//
         // divrem[1].wordCount));
         divrem[0].ToRadixStringGeneral(outputSB, radix);
         divrem[1].ToRadixStringGeneral(rightBuilder, radix);
@@ -6318,7 +6316,7 @@ this.Pow(EInteger.FromInt64(longPower));
             // Divide by 10000
             while ((wci--) > 0) {
               int currentDividend = unchecked((int)((((int)tempReg[wci]) &
-                      0xffff) | ((int)remainderShort << 16)));
+                0xffff) | ((int)remainderShort << 16)));
               quo = currentDividend / 10000;
               tempReg[wci] = unchecked((short)quo);
               rem = currentDividend - (10000 * quo);
@@ -6381,7 +6379,7 @@ this.Pow(EInteger.FromInt64(longPower));
           // Divide by radix
           while ((wci--) > 0) {
             int currentDividend = unchecked((int)((((int)tempReg[wci]) &
-                    0xffff) | ((int)remainderShort << 16)));
+              0xffff) | ((int)remainderShort << 16)));
             quo = currentDividend / radix;
             tempReg[wci] = unchecked((short)quo);
             rem = currentDividend - (radix * quo);
@@ -6583,7 +6581,7 @@ this.Pow(EInteger.FromInt64(longPower));
       short[] words2,
       int words2Start,
       int words2Count) {
-      // DebugUtility.Log("AsymmetricMultiply " + words1Count + " " +
+      // Console.WriteLine("AsymmetricMultiply " + words1Count + " " +
       // words2Count + " [r=" + resultStart + " t=" + tempStart + " a=" +
       // words1Start + " b=" + words2Start + "]");
       #if DEBUG
@@ -6757,7 +6755,7 @@ this.Pow(EInteger.FromInt64(longPower));
       }
 
       if (words1Count == 1 || (words1Count == 2 && words1[words1Start + 1] ==
-          0)) {
+        0)) {
         switch (words1[words1Start]) {
           case 0:
             // words1 is zero, so result is 0
@@ -6847,7 +6845,7 @@ this.Pow(EInteger.FromInt64(longPower));
         int wordsRem = words2Count % words1Count;
         int evenmult = (words2Count / words1Count) & 1;
         int i;
-        // DebugUtility.Log("counts=" + words1Count + "," + words2Count +
+        // Console.WriteLine("counts=" + words1Count + "," + words2Count +
         // " res=" + (resultStart + words1Count) + " temp=" + (tempStart +
         // (words1Count << 1)) + " rem=" + wordsRem + " evenwc=" + evenmult);
         if (wordsRem == 0) {
@@ -6935,7 +6933,7 @@ this.Pow(EInteger.FromInt64(longPower));
               (short)1);
           }
         } else if ((words1Count + words2Count) >= (words1Count << 2)) {
-          // DebugUtility.Log("Chunked Linear Multiply long");
+          // Console.WriteLine("Chunked Linear Multiply long");
           ChunkedLinearMultiply(
             resultArr,
             resultStart,
@@ -6977,7 +6975,7 @@ this.Pow(EInteger.FromInt64(longPower));
           resultArr[resultStart + words1Count + words1Count] = carry;
         } else {
           var t2 = new short[words1Count << 2];
-          // DebugUtility.Log("Chunked Linear Multiply Short");
+          // Console.WriteLine("Chunked Linear Multiply Short");
           ChunkedLinearMultiply(
             resultArr,
             resultStart,
@@ -7037,7 +7035,7 @@ this.Pow(EInteger.FromInt64(longPower));
             tempInt = (((int)(tempInt >> 16)) & ShortMask) + a1b1low +
               a0b0high + (((int)(d >> 16)) & ShortMask) +
               a1b1high - (((int)s) & ShortMask) + (((int)c[csi + 2]) &
-                ShortMask);
+              ShortMask);
             c[csi + 2] = (short)(((int)tempInt) & ShortMask);
 
             tempInt = (((int)(tempInt >> 16)) & ShortMask) + a1b1high +
@@ -7059,7 +7057,7 @@ this.Pow(EInteger.FromInt64(longPower));
             } else {
               s = (short)0;
               d = (((int)valueA0 - valueA1) & ShortMask) * (((int)valueB1 -
-                    valueB0) & ShortMask);
+                valueB0) & ShortMask);
             }
             int valueA0B0 = valueA0 * valueB0;
             int a0b0high = (valueA0B0 >> 16) & ShortMask;
@@ -7078,7 +7076,7 @@ this.Pow(EInteger.FromInt64(longPower));
             tempInt = (((int)(tempInt >> 16)) & ShortMask) + a1b1low +
               a0b0high + (((int)(d >> 16)) & ShortMask) +
               a1b1high - (((int)s) & ShortMask) + (((int)c[csi + 2]) &
-                ShortMask);
+              ShortMask);
             c[csi + 2] = (short)(((int)tempInt) & ShortMask);
 
             tempInt = (((int)(tempInt >> 16)) & ShortMask) + a1b1high +
@@ -7119,7 +7117,7 @@ this.Pow(EInteger.FromInt64(longPower));
             } else {
               s = (short)first1MinusFirst0;
               d = (((int)s) & ShortMask) * (((int)valueB0 - valueB1) &
-                  ShortMask);
+                ShortMask);
             }
             int valueA0B0 = valueA0 * valueB0;
             c[csi] = (short)(((int)valueA0B0) & ShortMask);
@@ -7127,11 +7125,11 @@ this.Pow(EInteger.FromInt64(longPower));
             int valueA1B1 = valueA1 * valueB1;
             int tempInt;
             tempInt = a0b0high + (((int)valueA0B0) & ShortMask) + (((int)d) &
-                0xffff) + (((int)valueA1B1) & ShortMask);
+              0xffff) + (((int)valueA1B1) & ShortMask);
             c[csi + 1] = (short)tempInt;
             tempInt = valueA1B1 + (((int)(tempInt >> 16)) & ShortMask) +
               a0b0high + (((int)(d >> 16)) & ShortMask) + (((int)(valueA1B1 >>
-                    16)) & ShortMask) - (((int)s) & ShortMask);
+              16)) & ShortMask) - (((int)s) & ShortMask);
             c[csi + 2] = (short)tempInt;
             tempInt >>= 16;
             c[csi + 3] = (short)tempInt;
@@ -7147,7 +7145,7 @@ this.Pow(EInteger.FromInt64(longPower));
             } else {
               s = (short)0;
               d = (((int)valueA0 - valueA1) & ShortMask) * (((int)valueB1 -
-                    valueB0) & ShortMask);
+                valueB0) & ShortMask);
             }
             int valueA0B0 = valueA0 * valueB0;
             int a0b0high = (valueA0B0 >> 16) & ShortMask;
@@ -7156,12 +7154,12 @@ this.Pow(EInteger.FromInt64(longPower));
             int valueA1B1 = valueA1 * valueB1;
             int tempInt;
             tempInt = a0b0high + (((int)valueA0B0) & ShortMask) + (((int)d) &
-                0xffff) + (((int)valueA1B1) & ShortMask);
+              0xffff) + (((int)valueA1B1) & ShortMask);
             c[csi + 1] = (short)tempInt;
 
             tempInt = valueA1B1 + (((int)(tempInt >> 16)) & ShortMask) +
               a0b0high + (((int)(d >> 16)) & ShortMask) + (((int)(valueA1B1 >>
-                    16)) & ShortMask) - (((int)s) & ShortMask);
+              16)) & ShortMask) - (((int)s) & ShortMask);
 
             c[csi + 2] = (short)tempInt;
             tempInt >>= 16;
@@ -7219,7 +7217,7 @@ this.Pow(EInteger.FromInt64(longPower));
       int c;
       long d;
       unchecked {
-        // DebugUtility.Log("ops={0:X4}{1:X4}{2:X4}{3:X4} {4:X4}{5:X4}{6:X4}{7:X4}",
+        // Console.WriteLine("ops={0:X4}{1:X4}{2:X4}{3:X4} {4:X4}{5:X4}{6:X4}{7:X4}",
         // words1[astart + 3], words1[astart + 2], words1[astart + 1], words1[astart],
         // words2[bstart + 3], words2[bstart + 2], words2[bstart + 1],
         // words2[bstart]);
@@ -7248,7 +7246,7 @@ this.Pow(EInteger.FromInt64(longPower));
         result[rstart + 3] = (short)(p >> 16);
         p = a1 * b1;
         p += d;
-        // DebugUtility.Log("opsx={0:X16} {1:X16}",a1,b1);
+        // Console.WriteLine("opsx={0:X16} {1:X16}",a1,b1);
         result[rstart + 4] = (short)p;
         result[rstart + 5] = (short)(p >> 16);
         result[rstart + 6] = (short)(p >> 32);
@@ -7590,11 +7588,11 @@ this.Pow(EInteger.FromInt64(longPower));
         int d;
         int e;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart]) &
-            0xffff);
+          0xffff);
         result[rstart] = (short)p;
         e = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 1]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
@@ -7604,11 +7602,11 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 1] = c;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                1]) & ShortMask);
+          1]) & ShortMask);
         p += e;
         result[rstart + 2] = (short)p;
         result[rstart + 3] = (short)(p >>
-            16);
+          16);
       }
     }
 
@@ -7623,11 +7621,11 @@ this.Pow(EInteger.FromInt64(longPower));
         int d;
         int e;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart]) &
-            0xffff);
+          0xffff);
         result[rstart] = (short)p;
         e = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 1]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
@@ -7637,13 +7635,13 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 1] = c;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 2]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
         c <<= 1;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                1]) & ShortMask);
+          1]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7652,11 +7650,11 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 2] = c;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 3]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                2]) & ShortMask);
+          2]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7665,16 +7663,16 @@ this.Pow(EInteger.FromInt64(longPower));
         e += ((int)c) & ShortMask;
         c = (short)e;
         e = d + (((int)e >> 16) &
-            0xffff);
+          0xffff);
         result[rstart + 3] = c;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                3]) & ShortMask);
+          3]) & ShortMask);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
         c <<= 1;
         p = (((int)words1[astart + 2]) & ShortMask) * (((int)words1[astart +
-                2]) & ShortMask);
+          2]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7683,7 +7681,7 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 4] = c;
         p = (((int)words1[astart + 2]) & ShortMask) * (((int)words1[astart +
-                3]) & ShortMask);
+          3]) & ShortMask);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
@@ -7691,14 +7689,14 @@ this.Pow(EInteger.FromInt64(longPower));
         e += ((int)c) & ShortMask;
         c = (short)e;
         e = d + (((int)e >> 16) &
-            0xffff);
+          0xffff);
         result[rstart + (2 * 4) - 3] = c;
         p = (((int)words1[astart + 3]) & ShortMask) * (((int)words1[astart +
-                3]) & ShortMask);
+          3]) & ShortMask);
         p += e;
         result[rstart + 6] = (short)p;
         result[rstart + 7] = (short)(p >>
-            16);
+          16);
       }
     }
 
@@ -7713,11 +7711,11 @@ this.Pow(EInteger.FromInt64(longPower));
         int d;
         int e;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart]) &
-            0xffff);
+          0xffff);
         result[rstart] = (short)p;
         e = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 1]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
@@ -7727,13 +7725,13 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 1] = c;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 2]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
         c <<= 1;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                1]) & ShortMask);
+          1]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7742,11 +7740,11 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 2] = c;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 3]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                2]) & ShortMask);
+          2]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7755,21 +7753,21 @@ this.Pow(EInteger.FromInt64(longPower));
         e += ((int)c) & ShortMask;
         c = (short)e;
         e = d + (((int)e >> 16) &
-            0xffff);
+          0xffff);
         result[rstart + 3] = c;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 4]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                3]) & ShortMask);
+          3]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
         c <<= 1;
         p = (((int)words1[astart + 2]) & ShortMask) * (((int)words1[astart +
-                2]) & ShortMask);
+          2]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7778,16 +7776,16 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 4] = c;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 5]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                4]) & ShortMask);
+          4]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 2]) & ShortMask) * (((int)words1[astart +
-                3]) & ShortMask);
+          3]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7796,26 +7794,26 @@ this.Pow(EInteger.FromInt64(longPower));
         e += ((int)c) & ShortMask;
         c = (short)e;
         e = d + (((int)e >> 16) &
-            0xffff);
+          0xffff);
         result[rstart + 5] = c;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 6]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                5]) & ShortMask);
+          5]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 2]) & ShortMask) * (((int)words1[astart +
-                4]) & ShortMask);
+          4]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
         c <<= 1;
         p = (((int)words1[astart + 3]) & ShortMask) * (((int)words1[astart +
-                3]) & ShortMask);
+          3]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7824,21 +7822,21 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 6] = c;
         p = (((int)words1[astart]) & ShortMask) * (((int)words1[astart + 7]) &
-            0xffff);
+          0xffff);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                6]) & ShortMask);
+          6]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 2]) & ShortMask) * (((int)words1[astart +
-                5]) & ShortMask);
+          5]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 3]) & ShortMask) * (((int)words1[astart +
-                4]) & ShortMask);
+          4]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7847,26 +7845,26 @@ this.Pow(EInteger.FromInt64(longPower));
         e += ((int)c) & ShortMask;
         c = (short)e;
         e = d + (((int)e >> 16) &
-            0xffff);
+          0xffff);
         result[rstart + 7] = c;
         p = (((int)words1[astart + 1]) & ShortMask) * (((int)words1[astart +
-                7]) & ShortMask);
+          7]) & ShortMask);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 2]) & ShortMask) * (((int)words1[astart +
-                6]) & ShortMask);
+          6]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 3]) & ShortMask) * (((int)words1[astart +
-                5]) & ShortMask);
+          5]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
         c <<= 1;
         p = (((int)words1[astart + 4]) & ShortMask) * (((int)words1[astart +
-                4]) & ShortMask);
+          4]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7875,16 +7873,16 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 8] = c;
         p = (((int)words1[astart + 2]) & ShortMask) * (((int)words1[astart +
-                7]) & ShortMask);
+          7]) & ShortMask);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 3]) & ShortMask) * (((int)words1[astart +
-                6]) & ShortMask);
+          6]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 4]) & ShortMask) * (((int)words1[astart +
-                5]) & ShortMask);
+          5]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7893,21 +7891,21 @@ this.Pow(EInteger.FromInt64(longPower));
         e += ((int)c) & ShortMask;
         c = (short)e;
         e = d + (((int)e >> 16) &
-            0xffff);
+          0xffff);
         result[rstart + 9] = c;
         p = (((int)words1[astart + 3]) & ShortMask) * (((int)words1[astart +
-                7]) & ShortMask);
+          7]) & ShortMask);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 4]) & ShortMask) * (((int)words1[astart +
-                6]) & ShortMask);
+          6]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
         c <<= 1;
         p = (((int)words1[astart + 5]) & ShortMask) * (((int)words1[astart +
-                5]) & ShortMask);
+          5]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7916,11 +7914,11 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 10] = c;
         p = (((int)words1[astart + 4]) & ShortMask) * (((int)words1[astart +
-                7]) & ShortMask);
+          7]) & ShortMask);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         p = (((int)words1[astart + 5]) & ShortMask) * (((int)words1[astart +
-                6]) & ShortMask);
+          6]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7929,16 +7927,16 @@ this.Pow(EInteger.FromInt64(longPower));
         e += ((int)c) & ShortMask;
         c = (short)e;
         e = d + (((int)e >> 16) &
-            0xffff);
+          0xffff);
         result[rstart + 11] = c;
         p = (((int)words1[astart + 5]) & ShortMask) * (((int)words1[astart +
-                7]) & ShortMask);
+          7]) & ShortMask);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
         c <<= 1;
         p = (((int)words1[astart + 6]) & ShortMask) * (((int)words1[astart +
-                6]) & ShortMask);
+          6]) & ShortMask);
         p += ((int)c) & ShortMask;
         c = (short)p;
         d += ((int)p >> 16) & ShortMask;
@@ -7947,7 +7945,7 @@ this.Pow(EInteger.FromInt64(longPower));
         e = d + (((int)e >> 16) & ShortMask);
         result[rstart + 12] = c;
         p = (((int)words1[astart + 6]) & ShortMask) * (((int)words1[astart +
-                7]) & ShortMask);
+          7]) & ShortMask);
         c = (short)p;
         d = ((int)p >> 16) & ShortMask;
         d = (int)((d << 1) + (((int)c >> 15) & 1));
@@ -7955,10 +7953,10 @@ this.Pow(EInteger.FromInt64(longPower));
         e += ((int)c) & ShortMask;
         c = (short)e;
         e = d + (((int)e >> 16) &
-            0xffff);
+          0xffff);
         result[rstart + 13] = c;
         p = (((int)words1[astart + 7]) & ShortMask) * (((int)words1[astart +
-                7]) & ShortMask);
+          7]) & ShortMask);
         p += e;
         result[rstart + 14] = (short)p;
         result[rstart + 15] =
@@ -8031,12 +8029,12 @@ this.Pow(EInteger.FromInt64(longPower));
 
       if (acount + bcount < 0) {
         throw new ArgumentException("acount plus bcount(" + (acount +
-            bcount) + ") is less than 0");
+          bcount) + ") is less than 0");
       }
 
       if (acount + bcount > productArr.Length) {
         throw new ArgumentException("acount plus bcount(" + (acount +
-            bcount) + ") is more than " + productArr.Length);
+          bcount) + ") is more than " + productArr.Length);
       }
 
       if (productArr.Length - cstart < acount + bcount) {
@@ -8281,7 +8279,7 @@ this.Pow(EInteger.FromInt64(longPower));
         short tmp = words1[words1Start];
         words1[words1Start] = (short)(tmp - words2);
         if ((((int)words1[words1Start]) & ShortMask) <= (((int)tmp) &
-            ShortMask)) {
+          ShortMask)) {
           return 0;
         }
         for (int i = 1; i < n; ++i) {
@@ -8306,7 +8304,7 @@ this.Pow(EInteger.FromInt64(longPower));
         tmpInt = dividendHigh >> 31;
         dividendHigh <<= 1;
         dividendHigh = unchecked((int)(dividendHigh | ((int)((dividendLow >>
-                    31) & 1))));
+          31) & 1))));
         dividendLow <<= 1;
         tmpInt |= dividendHigh;
         // unsigned greater-than-or-equal check
@@ -8318,7 +8316,7 @@ this.Pow(EInteger.FromInt64(longPower));
         }
       }
       return returnRemainder ? unchecked((short)(((int)dividendHigh) &
-            0xffff)) : unchecked((short)(((int)dividendLow) &
+        0xffff)) : unchecked((short)(((int)dividendLow) &
             0xffff));
     }
 
@@ -8439,8 +8437,8 @@ this.Pow(EInteger.FromInt64(longPower));
             rem = currentDividend - (idivisor * quo);
           } else {
             quo = ((int)DivideUnsigned(
-                  currentDividend,
-                  divisorSmall)) & ShortMask;
+              currentDividend,
+              divisorSmall)) & ShortMask;
             quotientReg[qs] = unchecked((short)quo);
             rem = unchecked(currentDividend - (idivisor * quo));
           }
@@ -8459,7 +8457,7 @@ this.Pow(EInteger.FromInt64(longPower));
       short remainder = 0;
       while ((i--) > 0) {
         int dividendSmall = unchecked((int)((((int)dividendReg[i]) &
-                ShortMask) | ((int)remainder << 16)));
+          ShortMask) | ((int)remainder << 16)));
         remainder = RemainderUnsigned(
             dividendSmall,
             divisorSmall);
@@ -8523,7 +8521,7 @@ this.Pow(EInteger.FromInt64(longPower));
         short tmp = words1[words1Start];
         words1[words1Start] = (short)(tmp + words2);
         if ((((int)words1[words1Start]) & ShortMask) >= (((int)tmp) &
-            ShortMask)) {
+          ShortMask)) {
           return 0;
         }
         for (int i = 1; i < n; ++i) {
@@ -8719,7 +8717,7 @@ this.Pow(EInteger.FromInt64(longPower));
       short[] words2,
       int words2Start, // size count
       int count) {
-      // DebugUtility.Log("RecursiveMultiply " + count + " " + count +
+      // Console.WriteLine("RecursiveMultiply " + count + " " + count +
       // " [r=" + resultStart + " t=" + tempStart + " a=" + words1Start +
       // " b=" + words2Start + "]");
       #if DEBUG
@@ -8928,7 +8926,7 @@ this.Pow(EInteger.FromInt64(longPower));
           if (countA <= count2 && countB <= count2) {
             // Both words1 and words2 are smaller than half the
             // count (their high parts are 0)
-            // DebugUtility.Log("Can be smaller: " + AN + "," + BN + "," +
+            // Console.WriteLine("Can be smaller: " + AN + "," + BN + "," +
             // (count2));
             Array.Clear((short[])resultArr, resultStart + count, count);
             if (count2 == 8) {
@@ -8966,7 +8964,7 @@ this.Pow(EInteger.FromInt64(longPower));
               words1Start + count2,
               count2) > 0 ? 0 : count2;
           var tmpvar = (int)(words1Start + (count2 ^
-                offset2For1));
+            offset2For1));
           // Abs(LowA - HighA)
           SubtractInternal(
             resultArr,
@@ -9324,7 +9322,7 @@ this.Pow(EInteger.FromInt64(longPower));
       unchecked {
         valueBint = ((int)words2[words2Start]) & ShortMask;
         valueBint |= (count > 1) ? (((long)words2[words2Start + 1]) &
-            ShortMask) << 16 : 0;
+          ShortMask) << 16 : 0;
         for (int j = 0; j < count; j += 2) {
           p = ((int)words1[words1Start + j]) & ShortMask;
           if (j + 1 < count) {
@@ -9444,7 +9442,7 @@ this.Pow(EInteger.FromInt64(longPower));
         for (int j = 0; j < words2Count; ++j) {
           int p;
           p = unchecked((((int)words2[words2Start + j]) & ShortMask) *
-              valueBint);
+            valueBint);
           p = unchecked(p + carry);
           resultArr[resultStart + j] = unchecked((short)p);
           carry = (p >> 16) & ShortMask;
@@ -9457,7 +9455,7 @@ this.Pow(EInteger.FromInt64(longPower));
           for (int j = 0; j < words2Count; ++j, ++resultPos) {
             int p;
             p = unchecked((((int)words2[words2Start + j]) & ShortMask) *
-                valueBint);
+              valueBint);
             p = unchecked(p + carry);
             p = unchecked(p + (((int)resultArr[resultPos]) & ShortMask));
             resultArr[resultPos] = unchecked((short)p);
@@ -9472,7 +9470,7 @@ this.Pow(EInteger.FromInt64(longPower));
         for (int j = 0; j < words1Count; ++j) {
           int p;
           p = unchecked((((int)words1[words1Start + j]) & ShortMask) *
-              valueBint);
+            valueBint);
           p = unchecked(p + carry);
           resultArr[resultStart + j] = unchecked((short)p);
           carry = (p >> 16) & ShortMask;
@@ -9485,7 +9483,7 @@ this.Pow(EInteger.FromInt64(longPower));
           for (int j = 0; j < words1Count; ++j, ++resultPos) {
             int p;
             p = unchecked((((int)words1[words1Start + j]) & ShortMask) *
-                valueBint);
+              valueBint);
             p = unchecked(p + carry);
             p = unchecked(p + (((int)resultArr[resultPos]) & ShortMask));
             resultArr[resultPos] = unchecked((short)p);
@@ -9574,8 +9572,8 @@ this.Pow(EInteger.FromInt64(longPower));
           for (int i = n; i > 0; --i) {
             u = r[rstart + i - 1];
             r[rstart + i - 1] = (short)((((((int)u) & ShortMask) >>
-                    (int)shiftBits) & ShortMask) | (((int)carry) &
-                  0xffff));
+              (int)shiftBits) & ShortMask) | (((int)carry) &
+                0xffff));
             carry = (short)((((int)u) & ShortMask) << (int)(16 - shiftBits));
           }
         }
@@ -9594,7 +9592,7 @@ this.Pow(EInteger.FromInt64(longPower));
           for (int i = n; i > 0; --i) {
             u = r[rstart + i - 1];
             r[rstart + i - 1] = (short)(((((int)u) & ShortMask) >>
-                  (int)shiftBits) | (((int)carry) & ShortMask));
+              (int)shiftBits) | (((int)carry) & ShortMask));
             carry = (short)((((int)u) & ShortMask) << (int)(16 - shiftBits));
           }
         }
@@ -9649,7 +9647,7 @@ this.Pow(EInteger.FromInt64(longPower));
         int cm1 = words1Count - 1;
         for (var i = 0; i < cm1; i += 1) {
           u = (((int)words1[astart]) & ShortMask) - (((int)words2[bstart]) &
-              0xffff) - (int)((u >> 31) & 1);
+            0xffff) - (int)((u >> 31) & 1);
           c[cstart++] = (short)u;
           ++astart;
           ++bstart;
@@ -9674,13 +9672,13 @@ this.Pow(EInteger.FromInt64(longPower));
       int cm1 = words2Count - 1;
       for (var i = 0; i < cm1; i += 1) {
         u = unchecked((((int)words1[astart]) & ShortMask) -
-            (((int)words2[bstart]) & ShortMask) - (int)((u >> 31) & 1));
+          (((int)words2[bstart]) & ShortMask) - (int)((u >> 31) & 1));
         c[cstart++] = unchecked((short)u);
         ++astart;
         ++bstart;
       }
       u = 0 - unchecked((((int)words2[bstart]) & ShortMask) - (int)((u >>
-              31) & 1));
+        31) & 1));
       c[cstart++] = unchecked((short)u);
       return (int)((u >> 31) & 1);
     }
@@ -9713,7 +9711,7 @@ this.Pow(EInteger.FromInt64(longPower));
       }
       if (odd) {
         u = unchecked((((int)words1[astart]) & mask) -
-            (((int)words2[bstart]) & mask) - (int)((u >> 31) & 1));
+          (((int)words2[bstart]) & mask) - (int)((u >> 31) & 1));
         c[cstart++] = unchecked((short)u);
         ++astart;
         ++bstart;
@@ -9728,7 +9726,7 @@ this.Pow(EInteger.FromInt64(longPower));
       DecrementWords(words1, words1Start, n, (short)1);
       for (var i = 0; i < n; ++i) {
         words1[words1Start + i] = unchecked((short)(~words1[words1Start +
-                i]));
+          i]));
       }
     }
 
@@ -9782,10 +9780,10 @@ this.Pow(EInteger.FromInt64(longPower));
       EInteger ret = this.ShiftRight(shift);
       // NOTE: ret is an upper bound of the root
       if (ret.Sign > 0) {
-        // DebugUtility.Log("this->"+this+" initial->"+ret);
+        // Console.WriteLine("this->"+this+" initial->"+ret);
         while (true) {
           EInteger oldret = ret;
-          // DebugUtility.Log(" thiswc -> " + this.wordCount +
+          // Console.WriteLine(" thiswc -> " + this.wordCount +
           // " :: wc -> " + ret.wordCount + (ret.wordCount==1 ?
           // ("=>"+this) : ""));
           ret = this.Divide(ret.Pow(rm1)).Add(ret.Multiply(rm1)).Divide(root);
@@ -9856,13 +9854,13 @@ this.Pow(EInteger.FromInt64(longPower));
         bigintX = this;
         EInteger eshift = EInteger.Zero;
         if (valueEBitLength.CompareTo(EInteger.FromInt64(totalBits).Subtract(
-              1)) < 0) {
+          1)) < 0) {
           long targetLength = bitLengthEven ? totalBits : (totalBits - 1);
           eshift = EInteger.FromInt64(targetLength).Subtract(valueEBitLength);
           bigintX = bigintX.ShiftLeft(eshift);
         }
-        // DebugUtility.Log("this=" + (this.ToRadixString(16)));
-        // DebugUtility.Log("bigx=" + (bigintX.ToRadixString(16)));
+        // Console.WriteLine("this=" + (this.ToRadixString(16)));
+        // Console.WriteLine("bigx=" + (bigintX.ToRadixString(16)));
         short[] ww = bigintX.words;
         var w1 = new short[wordsPerPart];
         var w2 = new short[wordsPerPart];
@@ -9880,9 +9878,9 @@ this.Pow(EInteger.FromInt64(longPower));
         var e2 = new EInteger(CountWords(w2), w2, false);
         var e3 = new EInteger(CountWords(w3), w3, false);
         EInteger[] srem = e3.SqrtRemInternal(true);
-        // DebugUtility.Log("sqrt0({0})[depth={3}] = {1},{2}"
+        // Console.WriteLine("sqrt0({0})[depth={3}] = { 1},{2}"
         // , e3, srem[0], srem[1], 0);
-        // DebugUtility.Log("sqrt1({0})[depth={3}] = {1},{2}"
+        // Console.WriteLine("sqrt1({0})[depth={3}] = { 1},{2}"
         // , e3, srem2[0], srem2[1], 0);
         // if (!srem[0].Equals(srem2[0]) || !srem[1].Equals(srem2[1])) {
         // throw new InvalidOperationException(this.ToString());
@@ -9895,7 +9893,7 @@ this.Pow(EInteger.FromInt64(longPower));
         EInteger sqrem = qrem[1].ShiftLeft(
             valueEBitsPerPart).Add(e1).Subtract(
             qrem[0].Multiply(qrem[0]));
-        // DebugUtility.Log("sqrem=" + sqrem + ",sqroot=" + sqroot);
+        // Console.WriteLine("sqrem=" + sqrem + ",sqroot=" + sqroot);
         if (sqrem.Sign < 0) {
           if (useRem) {
             sqrem = sqrem.Add(sqroot.ShiftLeft(1)).Subtract(EInteger.One);
@@ -9922,7 +9920,7 @@ this.Pow(EInteger.FromInt64(longPower));
       bigintY = EInteger.One.ShiftLeft(valueEPowerBits);
       do {
         bigintX = bigintY;
-        // DebugUtility.Log("" + thisValue + " " + bigintX);
+        // Console.WriteLine("" + thisValue + " " + bigintX);
         bigintY = thisValue / (EInteger)bigintX;
         bigintY += bigintX;
         bigintY >>= 1;

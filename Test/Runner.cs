@@ -11,7 +11,7 @@ namespace PeterO {
   /// <summary>Description of Runner.</summary>
   public static class Runner {
     public static void Main() {
-new Test.EDecimalTest().TestToString();
+      new Test.EDecimalTest().TestToString();
     }
   }
 }
