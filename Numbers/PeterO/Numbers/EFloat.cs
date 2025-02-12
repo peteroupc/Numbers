@@ -3420,8 +3420,8 @@ namespace PeterO.Numbers {
       EFloat divisor,
       EContext ctx) {
       return this.Subtract(
-          this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
-          ctx);
+        this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
+        ctx);
     }
 
     /// <summary>Finds the distance to the closest multiple of the

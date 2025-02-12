@@ -328,9 +328,9 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2225",
-        Justification = "Class implements an alternate method named ToByteChecked.")]
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToByteChecked.")]
     public static explicit operator byte(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -420,9 +420,9 @@ namespace PeterO.Numbers {
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2225",
-        Justification = "Class implements an alternate method named ToSByteChecked.")]
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToSByteChecked.")]
     public static explicit operator sbyte(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -456,9 +456,9 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2225",
-        Justification = "Class implements an alternate method named ToInt16Checked.")]
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToInt16Checked.")]
     public static explicit operator short(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -549,9 +549,9 @@ namespace PeterO.Numbers {
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2225",
-        Justification = "Class implements an alternate method named ToUInt16Checked.")]
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToUInt16Checked.")]
     public static explicit operator ushort(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -585,9 +585,9 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2225",
-        Justification = "Class implements an alternate method named ToInt32Checked.")]
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToInt32Checked.")]
     public static explicit operator int(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -676,9 +676,9 @@ namespace PeterO.Numbers {
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2225",
-        Justification = "Class implements an alternate method named ToUInt32Checked.")]
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToUInt32Checked.")]
     public static explicit operator uint(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -713,9 +713,9 @@ namespace PeterO.Numbers {
     /// <exception cref='ArgumentNullException'>The parameter <paramref
     /// name='input'/> is null.</exception>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2225",
-        Justification = "Class implements an alternate method named ToInt64Checked.")]
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToInt64Checked.")]
     public static explicit operator long(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));
@@ -805,9 +805,9 @@ namespace PeterO.Numbers {
     /// name='input'/> is null.</exception>
     [CLSCompliant(false)]
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Microsoft.Usage",
-        "CA2225",
-        Justification = "Class implements an alternate method named ToUInt64Checked.")]
+      "Microsoft.Usage",
+      "CA2225",
+      Justification = "Class implements an alternate method named ToUInt64Checked.")]
     public static explicit operator ulong(ERational input) {
       if (input == null) {
         throw new ArgumentNullException(nameof(input));

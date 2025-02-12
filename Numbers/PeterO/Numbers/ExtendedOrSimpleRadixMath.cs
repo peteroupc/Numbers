@@ -101,8 +101,8 @@ namespace PeterO.Numbers {
     public T NextMinus(T thisValue, EContext ctx) {
       return (ctx == null || !ctx.IsSimplified) ?
         this.ext.NextMinus(thisValue, ctx) : this.simp.NextMinus(
-        thisValue,
-        ctx);
+          thisValue,
+          ctx);
     }
 
     public T NextToward(T thisValue, T otherValue, EContext ctx) {

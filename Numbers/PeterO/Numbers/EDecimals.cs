@@ -1044,9 +1044,9 @@ namespace PeterO.Numbers {
       }
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
           ed.Mantissa.Sign < 0) ? null : FromLogical(
-          ed.UnsignedMantissa,
-          ec,
-          iradix);
+            ed.UnsignedMantissa,
+            ec,
+            iradix);
     }
 
     internal static byte[] FromLogical(EFloat ed, EContext ec, int iradix) {
@@ -1057,9 +1057,9 @@ namespace PeterO.Numbers {
       // IsPrecisionInBits here
       return (!ed.IsFinite || ed.IsNegative || ed.Exponent.Sign != 0 ||
           ed.Mantissa.Sign < 0) ? null : FromLogical(
-          ed.UnsignedMantissa,
-          ec,
-          iradix);
+            ed.UnsignedMantissa,
+            ec,
+            iradix);
     }
   }
 }

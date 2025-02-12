@@ -515,8 +515,7 @@ namespace PeterO.Numbers {
           return this.mnum.ToInt32();
         case 2:
           return (int)this.largeValue;
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -528,8 +527,7 @@ namespace PeterO.Numbers {
           return this.ToEInteger().CompareTo(ei);
         case 2:
           return this.largeValue.CompareTo(ei);
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -554,8 +552,7 @@ namespace PeterO.Numbers {
         case (2 << 2) | 1:
         case (2 << 2) | 2:
           return this.largeValue.CompareTo(val.ToEInteger());
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -640,8 +637,7 @@ namespace PeterO.Numbers {
           case 2:
             this.largeValue *= (EInteger)val;
             break;
-          default:
-            throw new InvalidOperationException();
+          default: throw new InvalidOperationException();
         }
       }
       return this;
@@ -729,8 +725,7 @@ namespace PeterO.Numbers {
           valValue = val.ToEInteger();
           this.largeValue -= (EInteger)valValue;
           break;
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
       return this;
     }
@@ -871,8 +866,7 @@ namespace PeterO.Numbers {
           valValue = val.ToEInteger();
           this.largeValue += (EInteger)valValue;
           break;
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
       return this;
     }
@@ -998,8 +992,7 @@ namespace PeterO.Numbers {
           return ei.ShiftLeft(this.mnum.ToEInteger());
         case 2:
           return ei.ShiftLeft(this.largeValue);
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -1069,8 +1062,7 @@ namespace PeterO.Numbers {
           valValue = (EInteger)val;
           this.largeValue += (EInteger)valValue;
           break;
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
       return this;
     }
@@ -1083,8 +1075,7 @@ namespace PeterO.Numbers {
           return this.mnum.CanFitInInt32();
         case 2:
           return this.largeValue.CanFitInInt32();
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -1097,8 +1088,7 @@ namespace PeterO.Numbers {
         case 2:
           return this.largeValue.CanFitInInt64();
 
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -1111,8 +1101,7 @@ namespace PeterO.Numbers {
         case 2:
           return this.largeValue.ToInt64Unchecked();
 
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -1231,8 +1220,7 @@ namespace PeterO.Numbers {
           return this.mnum.ToEInteger().ToString();
         case 2:
           return this.largeValue.ToString();
-        default:
-          return String.Empty;
+        default: return String.Empty;
       }
     }
 
@@ -1278,8 +1266,7 @@ namespace PeterO.Numbers {
           return this.mnum.ToEInteger().CompareTo((EInteger)val);
         case 2:
           return this.largeValue.CompareTo((EInteger)val);
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -1291,8 +1278,7 @@ namespace PeterO.Numbers {
           return this.mnum.ToEInteger();
         case 2:
           return this.largeValue;
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
   }

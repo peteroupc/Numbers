@@ -4538,8 +4538,8 @@ namespace PeterO.Numbers {
       EDecimal divisor,
       EContext ctx) {
       return this.Subtract(
-          this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
-          ctx);
+        this.DivideToIntegerNaturalScale(divisor, null).Multiply(divisor, null),
+        ctx);
     }
 
     /// <summary>Finds the distance to the closest multiple of the
@@ -5534,8 +5534,7 @@ namespace PeterO.Numbers {
               return unchecked((short)smallmantissa);
             }
           }
-          */
-        }
+          */ }
         if (this.exponent.CompareToInt(39) > 0) {
           // Very high exponent, treat as infinity
           return this.IsNegative ? unchecked((short)(EFloat.Binary16Infinity +

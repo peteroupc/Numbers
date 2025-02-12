@@ -92,8 +92,7 @@ namespace PeterO.Numbers {
           return this.smallValue == fi.smallValue;
         case IntegerMode.LargeValue:
           return this.largeValue.Equals(fi.largeValue);
-        default:
-          return true;
+        default: return true;
       }
     }
 
@@ -316,8 +315,7 @@ namespace PeterO.Numbers {
               IntegerMode.LargeValue,
               0,
               this.largeValue.Negate());
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -327,8 +325,7 @@ namespace PeterO.Numbers {
           return -evalue.CompareTo(this.smallValue);
         case IntegerMode.LargeValue:
           return this.largeValue.CompareTo(evalue);
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -338,8 +335,7 @@ namespace PeterO.Numbers {
           return -fint.CompareToInt(this.smallValue);
         case IntegerMode.LargeValue:
           return -fint.CompareTo(this.largeValue);
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -367,8 +363,7 @@ namespace PeterO.Numbers {
           return FromInt32(this.smallValue);
         case IntegerMode.LargeValue:
           return FastIntegerFixed.FromBig(this.largeValue);
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
 
@@ -398,8 +393,7 @@ namespace PeterO.Numbers {
           return FastInteger.IntToString(this.smallValue);
         case IntegerMode.LargeValue:
           return this.largeValue.ToString();
-        default:
-          return String.Empty;
+        default: return String.Empty;
       }
     }
 
@@ -461,8 +455,7 @@ namespace PeterO.Numbers {
             valLong ? -1 : 1);
         case IntegerMode.LargeValue:
           return this.largeValue.CompareTo(valLong);
-        default:
-          return 0;
+        default: return 0;
       }
     }
 
@@ -473,8 +466,7 @@ namespace PeterO.Numbers {
             1);
         case IntegerMode.LargeValue:
           return this.largeValue.CompareTo((EInteger)val);
-        default:
-          return 0;
+        default: return 0;
       }
     }
 
@@ -484,8 +476,7 @@ namespace PeterO.Numbers {
           return EInteger.FromInt32(this.smallValue);
         case IntegerMode.LargeValue:
           return this.largeValue;
-        default:
-          throw new InvalidOperationException();
+        default: throw new InvalidOperationException();
       }
     }
   }
