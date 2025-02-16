@@ -55,7 +55,7 @@ namespace Test {
           // ", " + (sw3.ElapsedMilliseconds));
         }
         // sw3.Start();
-        EDecimal ed = RandomObjects.RandomEDecimal(fr);
+        EDecimal ed = RandomNumerics.RandomEDecimal(fr);
         // sw3.Stop();
         // Reduce to Decimal128. Without this reduction,
         // Decimal.Parse would run significantly more slowly

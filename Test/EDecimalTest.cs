@@ -115,8 +115,8 @@ namespace Test {
         EInteger exp1 = EInteger.FromInt32(exp)
           .Add(EInteger.FromInt32(fr.UniformInt(32) - 16));
         EInteger exp2 = exp1.Add(EInteger.FromInt32(fr.UniformInt(18) - 9));
-        EInteger mant1 = RandomObjects.RandomEInteger(fr);
-        EInteger mant2 = RandomObjects.RandomEInteger(fr);
+        EInteger mant1 = RandomNumerics.RandomEInteger(fr);
+        EInteger mant2 = RandomNumerics.RandomEInteger(fr);
         EDecimal decA = EDecimal.Create(mant1, exp1);
         EDecimal decB = EDecimal.Create(mant2, exp2);
         EDecimal decC = decA.Add(decB);
@@ -179,15 +179,15 @@ namespace Test {
     public void TestCompareTo() {
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EDecimal bigintA = RandomObjects.RandomEDecimal(r);
-        EDecimal bigintB = RandomObjects.RandomEDecimal(r);
-        EDecimal bigintC = RandomObjects.RandomEDecimal(r);
+        EDecimal bigintA = RandomNumerics.RandomEDecimal(r);
+        EDecimal bigintB = RandomNumerics.RandomEDecimal(r);
+        EDecimal bigintC = RandomNumerics.RandomEDecimal(r);
         TestCommon.CompareTestRelations(bigintA, bigintB, bigintC);
       }
       // Test equivalence of EInteger and EDecimal for integers
       for (var i = 0; i < 3000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
-        EInteger bigintB = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
+        EInteger bigintB = RandomNumerics.RandomEInteger(r);
         EInteger bigintC = bigintA.Add(bigintB);
         EDecimal ba1 = EDecimal.FromEInteger(bigintA)
           .Add(EDecimal.FromEInteger(bigintB));
@@ -267,7 +267,7 @@ namespace Test {
       }
       var r = new RandomGenerator();
       for (var i = 0; i < 30000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
         int cmp = EDecimal.FromEInteger(bigintA).CompareToBinary(
           EFloat.FromEInteger(bigintA));
         Assert.AreEqual(0, cmp);
@@ -492,7 +492,7 @@ namespace Test {
       TestConversionsOne(EDecimal.FromString("4766857907817990.0000000000"));
       var fr = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
-        EDecimal enumber = RandomObjects.RandomEDecimal(fr);
+        EDecimal enumber = RandomNumerics.RandomEDecimal(fr);
         TestConversionsOne(enumber);
       }
       TestConversionsOne(EDecimal.FromString("-0.8995"));
@@ -1291,8 +1291,8 @@ namespace Test {
       EDecimalTest.TestDivideOne(ed1, ed2);
       var fr = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
-        ed1 = RandomObjects.RandomEDecimal(fr);
-        ed2 = RandomObjects.RandomEDecimal(fr);
+        ed1 = RandomNumerics.RandomEDecimal(fr);
+        ed2 = RandomNumerics.RandomEDecimal(fr);
         TestDivideOne(ed1, ed2);
       }
       try {
@@ -1376,8 +1376,8 @@ namespace Test {
       }
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EDecimal bigintA = RandomObjects.RandomEDecimal(r);
-        EDecimal bigintB = RandomObjects.RandomEDecimal(r);
+        EDecimal bigintA = RandomNumerics.RandomEDecimal(r);
+        EDecimal bigintB = RandomNumerics.RandomEDecimal(r);
         TestCommon.AssertEqualsHashCode(bigintA, bigintB);
       }
     }
@@ -1686,7 +1686,7 @@ namespace Test {
     public void TestFromEInteger() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
-        EInteger ei = RandomObjects.RandomEInteger(fr);
+        EInteger ei = RandomNumerics.RandomEInteger(fr);
         EDecimal edec = EDecimal.FromEInteger(ei);
         Assert.AreEqual(EInteger.Zero, edec.Exponent);
         Assert.AreEqual(ei, edec.Mantissa);
@@ -2759,8 +2759,8 @@ namespace Test {
       }
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EDecimal bigintA = RandomObjects.RandomEDecimal(r);
-        EDecimal bigintB = RandomObjects.RandomEDecimal(r);
+        EDecimal bigintA = RandomNumerics.RandomEDecimal(r);
+        EDecimal bigintB = RandomNumerics.RandomEDecimal(r);
         if (!bigintA.IsFinite || !bigintB.IsFinite) {
           continue;
         }
@@ -2826,8 +2826,8 @@ namespace Test {
       }
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EDecimal bigintA = RandomObjects.RandomEDecimal(r);
-        EDecimal bigintB = RandomObjects.RandomEDecimal(r);
+        EDecimal bigintA = RandomNumerics.RandomEDecimal(r);
+        EDecimal bigintB = RandomNumerics.RandomEDecimal(r);
         if (!bigintA.IsFinite || !bigintB.IsFinite) {
           continue;
         }
@@ -3039,7 +3039,7 @@ namespace Test {
     public void TestCopySign() {
       var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EDecimal ed = RandomObjects.RandomEDecimal(r);
+        EDecimal ed = RandomNumerics.RandomEDecimal(r);
         ed = ed.CopySign(EDecimal.Zero);
         Assert.IsFalse(ed.IsNegative);
         ed = ed.CopySign(EDecimal.NegativeZero);
@@ -3080,7 +3080,7 @@ namespace Test {
     public void TestNegate() {
       var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EDecimal ed = RandomObjects.RandomEDecimal(r);
+        EDecimal ed = RandomNumerics.RandomEDecimal(r);
         ed = ed.CopySign(EDecimal.Zero);
         Assert.IsTrue(ed.Negate().IsNegative);
         ed = ed.CopySign(EDecimal.NegativeZero);
@@ -3612,7 +3612,7 @@ namespace Test {
       }
       var rg = new RandomGenerator();
       for (var i = 0; i < 75000; ++i) {
-        EDecimal ed = RandomObjects.RandomEDecimal(rg);
+        EDecimal ed = RandomNumerics.RandomEDecimal(rg);
         bool bv = rg.UniformInt(2) == 0;
         int msb = rg.UniformInt(129);
         try {
@@ -3624,7 +3624,7 @@ namespace Test {
         }
       }
       for (var i = 0; i < 10000; ++i) {
-        EInteger ei = RandomObjects.RandomEInteger(rg);
+        EInteger ei = RandomNumerics.RandomEInteger(rg);
         int expo = rg.UniformInt(20);
         bool bv = rg.UniformInt(2) == 0;
         int msb = rg.UniformInt(129);
@@ -3765,7 +3765,7 @@ namespace Test {
       }
       var rg = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EInteger ei = RandomObjects.RandomEInteger(rg);
+        EInteger ei = RandomNumerics.RandomEInteger(rg);
         int expo = rg.UniformInt(20);
         EDecimal ed = EDecimal.FromEInteger(ei)
           .ScaleByPowerOfTen(expo).MovePointLeft(expo);
@@ -3941,7 +3941,7 @@ namespace Test {
       Assert.IsTrue(dbl == 0.0);
       for (var i = 0; i < 100000; ++i) {
         EDecimal edec;
-        edec = RandomObjects.RandomEDecimal(fr);
+        edec = RandomNumerics.RandomEDecimal(fr);
         if (edec.IsFinite) {
           dbl = edec.ToDouble();
           if (Double.IsNegativeInfinity(dbl)) {
@@ -5451,7 +5451,7 @@ namespace Test {
       Assert.IsTrue(sng == 0.0);
       for (var i = 0; i < 100000; ++i) {
         EDecimal edec;
-        edec = RandomObjects.RandomEDecimal(fr);
+        edec = RandomNumerics.RandomEDecimal(fr);
         if (edec.IsFinite) {
           sng = edec.ToSingle();
           if (Single.IsNegativeInfinity(sng)) {

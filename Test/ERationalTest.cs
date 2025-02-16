@@ -166,7 +166,7 @@ namespace Test {
       }
       var rg = new RandomGenerator();
       for (var i = 0; i < 100000; ++i) {
-        TestSizedEIntegerOne(RandomObjects.RandomERational(rg),
+        TestSizedEIntegerOne(RandomNumerics.RandomERational(rg),
           rg.UniformInt(2) == 0,
           rg.UniformInt(129));
       }
@@ -267,8 +267,8 @@ namespace Test {
       }
       var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EInteger ei1 = RandomObjects.RandomEInteger(fr);
-        EInteger ei2 = RandomObjects.RandomEInteger(fr).Abs();
+        EInteger ei1 = RandomNumerics.RandomEInteger(fr);
+        EInteger ei2 = RandomNumerics.RandomEInteger(fr).Abs();
         if (ei2.IsZero) {
           ei2 = EInteger.One;
         }
@@ -293,15 +293,15 @@ namespace Test {
     public void TestCompareTo() {
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        ERational bigintA = RandomObjects.RandomERational(r);
-        ERational bigintB = RandomObjects.RandomERational(r);
-        ERational bigintC = RandomObjects.RandomERational(r);
+        ERational bigintA = RandomNumerics.RandomERational(r);
+        ERational bigintB = RandomNumerics.RandomERational(r);
+        ERational bigintC = RandomNumerics.RandomERational(r);
         TestCommon.CompareTestRelations(bigintA, bigintB, bigintC);
       }
       TestCommon.CompareTestLess(ERational.Zero, ERational.NaN);
       ERational rat, rat2;
       for (var i = 0; i < 100; ++i) {
-        EInteger num = RandomObjects.RandomEInteger(r);
+        EInteger num = RandomNumerics.RandomEInteger(r);
         if (num.IsZero) {
           // Skip if number is 0; 0/1 and 0/2 are
           // equal in that case
@@ -317,8 +317,8 @@ namespace Test {
         ERational.Create(EInteger.One, (EInteger)2),
         ERational.Create((EInteger)4, EInteger.One));
       for (var i = 0; i < 100; ++i) {
-        EInteger num = RandomObjects.RandomEInteger(r);
-        EInteger den = RandomObjects.RandomEInteger(r);
+        EInteger num = RandomNumerics.RandomEInteger(r);
+        EInteger den = RandomNumerics.RandomEInteger(r);
         if (den.IsZero) {
           den = EInteger.One;
         }
@@ -326,7 +326,7 @@ namespace Test {
         for (int j = 0; j < 10; ++j) {
           EInteger num2 = num;
           EInteger den2 = den;
-          EInteger mult = RandomObjects.RandomEInteger(r);
+          EInteger mult = RandomNumerics.RandomEInteger(r);
           if (mult.IsZero || mult.Equals(EInteger.One)) {
             mult = (EInteger)2;
           }
@@ -345,10 +345,10 @@ namespace Test {
     public void TestCompareToDecimal() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 100; ++i) {
-        ERational er = RandomObjects.RandomERational(fr);
+        ERational er = RandomNumerics.RandomERational(fr);
         int exp = -100000 + fr.UniformInt(200000);
         EDecimal ed = EDecimal.Create(
-            RandomObjects.RandomEInteger(fr),
+            RandomNumerics.RandomEInteger(fr),
             (EInteger)exp);
         ERational er2 = ERational.FromEDecimal(ed);
         int c2r = er.CompareTo(er2);
@@ -402,8 +402,8 @@ namespace Test {
     public void TestDivide() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        ERational er = RandomObjects.RandomERational(fr);
-        ERational er2 = RandomObjects.RandomERational(fr);
+        ERational er = RandomNumerics.RandomERational(fr);
+        ERational er2 = RandomNumerics.RandomERational(fr);
         if (er2.IsZero || !er2.IsFinite) {
           continue;
         }
@@ -449,7 +449,7 @@ namespace Test {
       for (var i = 0; i < 20000; ++i) {
         bool isNum, isTruncated, isInteger;
         EInteger eint;
-        ERational enumber = RandomObjects.RandomERational(fr);
+        ERational enumber = RandomNumerics.RandomERational(fr);
         bool numDenClose = !enumber.IsFinite ||
           enumber.Numerator.GetUnsignedBitLengthAsEInteger()
           .Subtract(enumber.Denominator.GetUnsignedBitLengthAsEInteger())
@@ -1028,10 +1028,10 @@ namespace Test {
         ERational er;
         ERational er2;
         er = ERational.Create(
-            RandomObjects.RandomEInteger(fr),
+            RandomNumerics.RandomEInteger(fr),
             EInteger.One);
         er2 = ERational.Create(
-            RandomObjects.RandomEInteger(fr),
+            RandomNumerics.RandomEInteger(fr),
             EInteger.One);
         if (er2.IsZero || !er2.IsFinite) {
           continue;
@@ -1237,7 +1237,7 @@ namespace Test {
     public void TestToEFloat() {
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        ERational er = RandomObjects.RandomERational(r);
+        ERational er = RandomNumerics.RandomERational(r);
         if (!er.IsFinite) {
           continue;
         }
@@ -1381,7 +1381,7 @@ namespace Test {
       var fr = new RandomGenerator();
       ERational dec;
       for (var i = 0; i < 1000; ++i) {
-        dec = RandomObjects.RandomERational(fr);
+        dec = RandomNumerics.RandomERational(fr);
         ExtraTest.TestStringEqualRoundTrip(dec);
       }
       dec = ERational.FromString("-0/500");

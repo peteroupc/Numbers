@@ -113,7 +113,7 @@ namespace Test {
     private static EInteger RandomManageableEInteger(IRandomGenExtended rg) {
       EInteger ei;
       while (true) {
-        ei = RandomObjects.RandomEInteger(rg);
+        ei = RandomNumerics.RandomEInteger(rg);
         if (ei.GetUnsignedBitLengthAsInt64() <= 16 * 3000) {
           return ei;
         }
@@ -436,7 +436,7 @@ namespace Test {
       EInteger eib = EInteger.One.ShiftLeft(1000);
       EInteger eic = EInteger.One.ShiftLeft(10000);
       for (var i = 0; i < 10000; ++i) {
-        EInteger ei = RandomObjects.RandomEInteger(r).Abs();
+        EInteger ei = RandomNumerics.RandomEInteger(r).Abs();
         for (var j = 0; j < ints.Length; ++j) {
           EInteger ei1 = ei.And(EInteger.One.ShiftLeft(ints[j]).Subtract(1));
           EInteger ei2 = ei.LowBits(ints[j]);
@@ -459,8 +459,8 @@ namespace Test {
     public void TestAddSubtract() {
       var r = new RandomGenerator();
       for (var i = 0; i < 10000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
-        EInteger bigintB = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
+        EInteger bigintB = RandomNumerics.RandomEInteger(r);
         EInteger bigintC = bigintA + (EInteger)bigintB;
         EInteger bigintD = bigintC - (EInteger)bigintB;
         if (!bigintD.Equals(bigintA)) {
@@ -486,7 +486,7 @@ namespace Test {
         }
       }
       for (var i = 0; i < 10000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
         int smallIntB = r.UniformInt(0x7fffffff);
         EInteger bigintC = bigintA.Add(smallIntB);
         EInteger bigintD = bigintC.Subtract(smallIntB);
@@ -894,7 +894,7 @@ namespace Test {
     public void TestCanFitInInt() {
       var r = new RandomGenerator();
       for (var i = 0; i < 2000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
         Assert.AreEqual(
           bigintA.CanFitInInt32(),
           bigintA.GetSignedBitLengthAsEInteger().CompareTo(31) <= 0);
@@ -983,9 +983,9 @@ namespace Test {
     public void TestCompareTo() {
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
-        EInteger bigintB = RandomObjects.RandomEInteger(r);
-        EInteger bigintC = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
+        EInteger bigintB = RandomNumerics.RandomEInteger(r);
+        EInteger bigintC = RandomNumerics.RandomEInteger(r);
         TestCommon.CompareTestRelations(bigintA, bigintB, bigintC);
         TestCommon.CompareTestConsistency(bigintA, bigintB, bigintC);
       }
@@ -1197,8 +1197,8 @@ namespace Test {
         EInteger.One);
       var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
-        EInteger bigintB = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
+        EInteger bigintB = RandomNumerics.RandomEInteger(r);
         TestCommon.AssertEqualsHashCode(bigintA, bigintB);
       }
     }
@@ -2074,7 +2074,7 @@ namespace Test {
           }
         }
         var bigprime = (EInteger)prime;
-        EInteger ba = RandomObjects.RandomEInteger(rand);
+        EInteger ba = RandomNumerics.RandomEInteger(rand);
         if (ba.IsZero) {
           continue;
         }
@@ -2243,7 +2243,7 @@ namespace Test {
         Assert.AreEqual(39, integerTemp2);
       }
       for (var i = 0; i < 1000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
         String str = bigintA.Abs().ToString();
         Assert.AreEqual(
           EInteger.FromInt32(str.Length),
@@ -2649,7 +2649,7 @@ namespace Test {
     public void TestIsEven() {
       var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
         EInteger mod = bigintA.Remainder(EInteger.FromInt64(2));
         Assert.AreEqual(mod.IsZero, bigintA.IsEven);
         if (bigintA.IsEven) {
@@ -3107,13 +3107,13 @@ namespace Test {
         TestMultiplyDivideOne(bigA, bigB);
       }
       for (var i = 0; i < 100; ++i) {
-        EInteger bigA = RandomObjects.RandomEInteger(r);
-        EInteger bigB = RandomObjects.RandomEInteger(r);
+        EInteger bigA = RandomNumerics.RandomEInteger(r);
+        EInteger bigB = RandomNumerics.RandomEInteger(r);
         TestMultiplyDivideOne(bigA, bigB);
       }
       for (var i = 0; i < 10000; ++i) {
-        EInteger bigA = RandomObjects.RandomEIntegerSmall(r);
-        EInteger bigB = RandomObjects.RandomEIntegerSmall(r);
+        EInteger bigA = RandomNumerics.RandomEIntegerSmall(r);
+        EInteger bigB = RandomNumerics.RandomEIntegerSmall(r);
         TestMultiplyDivideOne(bigA, bigB);
       }
       TestMultiplyDivideOne(EInteger.FromInt32(-985), EInteger.FromInt32(0));
@@ -3227,7 +3227,7 @@ namespace Test {
       TestCommon.CompareTestEqualAndConsistent(bigint << -12, bigint >> 12);
       var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
         EInteger bigintB = bigintA;
         for (int j = 0; j < 100; ++j) {
           EInteger ba = bigintA;
@@ -3260,7 +3260,7 @@ namespace Test {
         }
       }
       for (var i = 0; i < 1000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
         bigintA = bigintA.Abs();
         EInteger bigintB = bigintA;
         for (int j = 0; j < 100; ++j) {
@@ -3568,14 +3568,14 @@ namespace Test {
       AssertBigIntegersEqual("898989", other);
       var r = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
         ExtraTest.TestStringEqualRoundTrip(bigintA);
       }
       // Test serialization of relatively big numbers
       for (var i = 0; i < 20; ++i) {
-        EInteger bigintA = RandomObjects.RandomEInteger(r);
+        EInteger bigintA = RandomNumerics.RandomEInteger(r);
         bigintA = bigintA.ShiftLeft(r.UniformInt(2000) + (16 * 500));
-        bigintA = bigintA.Subtract(RandomObjects.RandomEInteger(r));
+        bigintA = bigintA.Subtract(RandomNumerics.RandomEInteger(r));
         ExtraTest.TestStringEqualRoundTrip(bigintA);
       }
     }

@@ -97,7 +97,7 @@ namespace Test {
     public void TestCompareToBinary2Test() {
       var rg = new RandomGenerator();
       for (int i = 0; i < 1000; ++i) {
-        TestCompareToBinary2(RandomObjects.RandomEFloat(rg));
+        TestCompareToBinary2(RandomNumerics.RandomEFloat(rg));
       }
     }
     [Test]
@@ -165,9 +165,9 @@ namespace Test {
     public void TestCompareTo() {
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EFloat bigintA = RandomObjects.RandomEFloat(r);
-        EFloat bigintB = RandomObjects.RandomEFloat(r);
-        EFloat bigintC = RandomObjects.RandomEFloat(r);
+        EFloat bigintA = RandomNumerics.RandomEFloat(r);
+        EFloat bigintB = RandomNumerics.RandomEFloat(r);
+        EFloat bigintC = RandomNumerics.RandomEFloat(r);
         TestCommon.CompareTestRelations(bigintA, bigintB, bigintC);
       }
       TestCommon.CompareTestLess(EFloat.Zero, EFloat.NaN);
@@ -271,8 +271,8 @@ namespace Test {
       }
       var fr = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
-        EFloat ed1 = RandomObjects.RandomEFloat(fr);
-        EFloat ed2 = RandomObjects.RandomEFloat(fr);
+        EFloat ed1 = RandomNumerics.RandomEFloat(fr);
+        EFloat ed2 = RandomNumerics.RandomEFloat(fr);
         if (!ed1.IsFinite || !ed2.IsFinite) {
           continue;
         }
@@ -335,8 +335,8 @@ namespace Test {
       }
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EFloat bigintA = RandomObjects.RandomEFloat(r);
-        EFloat bigintB = RandomObjects.RandomEFloat(r);
+        EFloat bigintA = RandomNumerics.RandomEFloat(r);
+        EFloat bigintB = RandomNumerics.RandomEFloat(r);
         TestCommon.AssertEqualsHashCode(bigintA, bigintB);
       }
     }
@@ -616,7 +616,7 @@ namespace Test {
     public void TestFloatDecimalRoundTrip() {
       var r = new RandomGenerator();
       for (var i = 0; i < 5000; ++i) {
-        EFloat ef = RandomObjects.RandomEFloat(r);
+        EFloat ef = RandomNumerics.RandomEFloat(r);
         EDecimal ed = ef.ToEDecimal();
         EFloat ef2 = ed.ToEFloat();
         // Tests that values converted from float to decimal and
@@ -1354,8 +1354,8 @@ namespace Test {
       }
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EFloat bigintA = RandomObjects.RandomEFloat(r);
-        EFloat bigintB = RandomObjects.RandomEFloat(r);
+        EFloat bigintA = RandomNumerics.RandomEFloat(r);
+        EFloat bigintB = RandomNumerics.RandomEFloat(r);
         if (!bigintA.IsFinite || !bigintB.IsFinite) {
           continue;
         }
@@ -1422,8 +1422,8 @@ namespace Test {
 
       var r = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EFloat bigintA = RandomObjects.RandomEFloat(r);
-        EFloat bigintB = RandomObjects.RandomEFloat(r);
+        EFloat bigintA = RandomNumerics.RandomEFloat(r);
+        EFloat bigintB = RandomNumerics.RandomEFloat(r);
         if (!bigintA.IsFinite || !bigintB.IsFinite) {
           continue;
         }
@@ -1565,7 +1565,7 @@ namespace Test {
         EInteger.FromString("36410213260593956497280175692088585748480"));
       var rg = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EInteger ei = RandomObjects.RandomEInteger(rg);
+        EInteger ei = RandomNumerics.RandomEInteger(rg);
         TestIntegerDoubleSingleOne(ei);
       }
     }
@@ -1780,7 +1780,7 @@ namespace Test {
       }
       var rg = new RandomGenerator();
       for (var i = 0; i < 500; ++i) {
-        EInteger ei = RandomObjects.RandomEInteger(rg);
+        EInteger ei = RandomNumerics.RandomEInteger(rg);
         EInteger thresh = EInteger.FromInt64(6999999999999999999L);
         if (ei.Abs().CompareTo(thresh) < 0) {
           ei = ei.Add(ei.Sign < 0 ? thresh.Negate() : thresh);
@@ -2824,7 +2824,7 @@ namespace Test {
     public void TestConversions() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 20000; ++i) {
-        EFloat enumber = RandomObjects.RandomEFloat(fr);
+        EFloat enumber = RandomNumerics.RandomEFloat(fr);
         TestConversionsOne(enumber);
       }
     }
@@ -3307,7 +3307,7 @@ namespace Test {
       }
       for (var i = 0; i < 1000; ++i) {
         var rg = new RandomGenerator();
-        EInteger ei = RandomObjects.RandomEInteger(rg);
+        EInteger ei = RandomNumerics.RandomEInteger(rg);
         int expo = rg.UniformInt(20);
         EFloat ed = EFloat.FromEInteger(ei).ScaleByPowerOfTwo(
           expo).MovePointLeft(expo);
@@ -3411,7 +3411,7 @@ namespace Test {
       for (var i = 0; i < 100000; ++i) {
         bool b = rg.UniformInt(2) == 0;
         TestSizedEIntegerOne(
-          RandomObjects.RandomEFloat(rg),
+          RandomNumerics.RandomEFloat(rg),
           b,
           rg.UniformInt(129));
       }
@@ -3547,7 +3547,7 @@ namespace Test {
     public void TestToString() {
       var fr = new RandomGenerator();
       for (var i = 0; i < 1000; ++i) {
-        EFloat dec = RandomObjects.RandomEFloat(fr);
+        EFloat dec = RandomNumerics.RandomEFloat(fr);
         if (dec.IsFinite) {
           EDecimal ed = EDecimal.FromString(dec.ToString());
           Assert.AreEqual(0, ed.CompareToBinary(dec));
