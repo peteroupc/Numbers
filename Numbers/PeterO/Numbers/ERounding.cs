@@ -32,7 +32,7 @@ namespace PeterO.Numbers {
     /// <summary>Rounded to the nearest number; if the fractional part is
     /// exactly half, the number is rounded to the closest representable
     /// number away from zero. This is the most familiar rounding mode for
-    /// many people.</summary>
+    /// many.</summary>
     HalfUp,
 
     /// <summary>Rounded to the nearest number; if the fractional part is
