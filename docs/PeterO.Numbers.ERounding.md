@@ -62,7 +62,7 @@ Rounded to the nearest number; if the fractional part is exactly half, the numbe
 
     public static PeterO.Numbers.ERounding HalfUp = 3;
 
-Rounded to the nearest number; if the fractional part is exactly half, the number is rounded to the closest representable number away from zero. This is the most familiar rounding mode for many people.
+Rounded to the nearest number; if the fractional part is exactly half, the number is rounded to the closest representable number away from zero. This is the most familiar rounding mode for many.
 
 <a id="None"></a>
 ### None
