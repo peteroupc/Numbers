@@ -45,12 +45,13 @@ namespace PeterO.Numbers {
   /// identify a particular arbitrary-precision binary floating-point
   /// number value.</item></list>
   /// <para>If an operation requires creating an intermediate value that
-  /// might be too big to fit in memory (or might require more than 2
-  /// gigabytes of memory to store -- due to the current use of a 32-bit
-  /// integer internally as a length), the operation may signal an
-  /// invalid-operation flag and return not-a-number (NaN). In certain
-  /// rare cases, the CompareTo method may throw OutOfMemoryException
-  /// (called OutOfMemoryError in Java) in the same circumstances.</para>
+  /// might be too big to fit in system memory (or might require more
+  /// than 2 gigabytes of system memory to store -- due to the current
+  /// use of a 32-bit integer internally as a length), the operation may
+  /// signal an invalid-operation flag and return not-a-number (NaN). In
+  /// certain rare cases, the CompareTo method may throw
+  /// OutOfMemoryException (called OutOfMemoryError in Java) in the same
+  /// circumstances.</para>
   /// <para><b>Thread safety</b></para>
   /// <para>Instances of this class are immutable, so they are inherently
   /// safe for use by multiple threads. Multiple instances of this object
@@ -4338,9 +4339,9 @@ namespace PeterO.Numbers {
     /// fractional part of this value will be discarded when converting to
     /// an arbitrary-precision integer. Note that depending on the value,
     /// especially the exponent, generating the arbitrary-precision integer
-    /// may require a huge amount of memory. Use the ToSizedEInteger method
-    /// to convert a number to an EInteger only if the integer fits in a
-    /// bounded bit range; that method will throw an exception on
+    /// may require a huge amount of system memory. Use the ToSizedEInteger
+    /// method to convert a number to an EInteger only if the integer fits
+    /// in a bounded bit range; that method will throw an exception on
     /// overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
@@ -4352,10 +4353,10 @@ namespace PeterO.Numbers {
     /// <summary>Converts this value to an arbitrary-precision integer,
     /// checking whether the value contains a fractional part. Note that
     /// depending on the value, especially the exponent, generating the
-    /// arbitrary-precision integer may require a huge amount of memory.
-    /// Use the ToSizedEIntegerIfExact method to convert a number to an
-    /// EInteger only if the integer fits in a bounded bit range; that
-    /// method will throw an exception on overflow.</summary>
+    /// arbitrary-precision integer may require a huge amount of system
+    /// memory. Use the ToSizedEIntegerIfExact method to convert a number
+    /// to an EInteger only if the integer fits in a bounded bit range;
+    /// that method will throw an exception on overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
@@ -4369,10 +4370,10 @@ namespace PeterO.Numbers {
     /// <summary>Converts this value to an arbitrary-precision integer,
     /// checking whether the value contains a fractional part. Note that
     /// depending on the value, especially the exponent, generating the
-    /// arbitrary-precision integer may require a huge amount of memory.
-    /// Use the ToSizedEIntegerIfExact method to convert a number to an
-    /// EInteger only if the integer fits in a bounded bit range; that
-    /// method will throw an exception on overflow.</summary>
+    /// arbitrary-precision integer may require a huge amount of system
+    /// memory. Use the ToSizedEIntegerIfExact method to convert a number
+    /// to an EInteger only if the integer fits in a bounded bit range;
+    /// that method will throw an exception on overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>

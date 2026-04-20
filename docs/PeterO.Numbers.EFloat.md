@@ -18,7 +18,7 @@ An arbitrary-precision binary floating-point number value can be serialized in o
 
  * By calling the UnsignedMantissa, Exponent, and IsNegative properties, and calling the IsInfinity, IsQuietNaN, and IsSignalingNaN methods. The return values combined will uniquely identify a particular arbitrary-precision binary floating-point number value.
 
-If an operation requires creating an intermediate value that might be too big to fit in memory (or might require more than 2 gigabytes of memory to store -- due to the current use of a 32-bit integer internally as a length), the operation may signal an invalid-operation flag and return not-a-number (NaN). In certain rare cases, the CompareTo method may throw OutOfMemoryException (called OutOfMemoryError in Java) in the same circumstances.
+If an operation requires creating an intermediate value that might be too big to fit in system memory (or might require more than 2 gigabytes of system memory to store -- due to the current use of a 32-bit integer internally as a length), the operation may signal an invalid-operation flag and return not-a-number (NaN). In certain rare cases, the CompareTo method may throw OutOfMemoryException (called OutOfMemoryError in Java) in the same circumstances.
 
 <b>Thread safety</b>
 
@@ -4423,7 +4423,7 @@ This number, converted to an arbitrary-precision decimal number.
 
     public PeterO.Numbers.EInteger ToEInteger();
 
-Converts this value to an arbitrary-precision integer. Any fractional part of this value will be discarded when converting to an arbitrary-precision integer. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEInteger method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
+Converts this value to an arbitrary-precision integer. Any fractional part of this value will be discarded when converting to an arbitrary-precision integer. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of system memory. Use the ToSizedEInteger method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 
@@ -4441,7 +4441,7 @@ This object's value is infinity or not-a-number (NaN).
 
 <b>Obsolete.</b> Renamed to ToEIntegerIfExact.
 
-Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
+Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of system memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 
@@ -4460,7 +4460,7 @@ This object's value is not an exact integer.
 
     public PeterO.Numbers.EInteger ToEIntegerIfExact();
 
-Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
+Converts this value to an arbitrary-precision integer, checking whether the value contains a fractional part. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of system memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 

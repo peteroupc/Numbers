@@ -95,12 +95,13 @@ namespace PeterO.Numbers {
   /// too, unless the flag's trap is enabled in the arithmetic context
   /// (see EContext's Traps property).</para>
   /// <para>If an operation requires creating an intermediate value that
-  /// might be too big to fit in memory (or might require more than 2
-  /// gigabytes of memory to store -- due to the current use of a 32-bit
-  /// integer internally as a length), the operation may signal an
-  /// invalid-operation flag and return not-a-number (NaN). In certain
-  /// rare cases, the CompareTo method may throw OutOfMemoryException
-  /// (called OutOfMemoryError in Java) in the same circumstances.</para>
+  /// might be too big to fit in system memory (or might require more
+  /// than 2 gigabytes of system memory to store -- due to the current
+  /// use of a 32-bit integer internally as a length), the operation may
+  /// signal an invalid-operation flag and return not-a-number (NaN). In
+  /// certain rare cases, the CompareTo method may throw
+  /// OutOfMemoryException (called OutOfMemoryError in Java) in the same
+  /// circumstances.</para>
   /// <para><b>Serialization</b>
   /// </para>
   /// <para>An arbitrary-precision decimal value can be serialized
@@ -5337,10 +5338,10 @@ namespace PeterO.Numbers {
     /// <summary>Converts this value to an arbitrary-precision integer,
     /// discarding the fractional part in this value. Note that depending
     /// on the value, especially the exponent, generating the
-    /// arbitrary-precision integer may require a huge amount of memory.
-    /// Use the ToSizedEInteger method to convert a number to an EInteger
-    /// only if the integer fits in a bounded bit range; that method will
-    /// throw an exception on overflow.</summary>
+    /// arbitrary-precision integer may require a huge amount of system
+    /// memory. Use the ToSizedEInteger method to convert a number to an
+    /// EInteger only if the integer fits in a bounded bit range; that
+    /// method will throw an exception on overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
@@ -5354,9 +5355,10 @@ namespace PeterO.Numbers {
     /// checking whether the fractional part of the value would be lost.
     /// Note that depending on the value, especially the exponent,
     /// generating the arbitrary-precision integer may require a huge
-    /// amount of memory. Use the ToSizedEIntegerIfExact method to convert
-    /// a number to an EInteger only if the integer fits in a bounded bit
-    /// range; that method will throw an exception on overflow.</summary>
+    /// amount of system memory. Use the ToSizedEIntegerIfExact method to
+    /// convert a number to an EInteger only if the integer fits in a
+    /// bounded bit range; that method will throw an exception on
+    /// overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>
@@ -5371,9 +5373,10 @@ namespace PeterO.Numbers {
     /// checking whether the fractional part of the value would be lost.
     /// Note that depending on the value, especially the exponent,
     /// generating the arbitrary-precision integer may require a huge
-    /// amount of memory. Use the ToSizedEIntegerIfExact method to convert
-    /// a number to an EInteger only if the integer fits in a bounded bit
-    /// range; that method will throw an exception on overflow.</summary>
+    /// amount of system memory. Use the ToSizedEIntegerIfExact method to
+    /// convert a number to an EInteger only if the integer fits in a
+    /// bounded bit range; that method will throw an exception on
+    /// overflow.</summary>
     /// <returns>An arbitrary-precision integer.</returns>
     /// <exception cref='OverflowException'>This object's value is infinity
     /// or not-a-number (NaN).</exception>

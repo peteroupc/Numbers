@@ -32,7 +32,7 @@ Unless noted otherwise, passing a null arbitrary-precision decimal argument to a
 
 When an arithmetic operation signals the flag FlagInvalid, FlagOverflow, or FlagDivideByZero, it will not throw an exception too, unless the flag's trap is enabled in the arithmetic context (see EContext's Traps property).
 
-If an operation requires creating an intermediate value that might be too big to fit in memory (or might require more than 2 gigabytes of memory to store -- due to the current use of a 32-bit integer internally as a length), the operation may signal an invalid-operation flag and return not-a-number (NaN). In certain rare cases, the CompareTo method may throw OutOfMemoryException (called OutOfMemoryError in Java) in the same circumstances.
+If an operation requires creating an intermediate value that might be too big to fit in system memory (or might require more than 2 gigabytes of system memory to store -- due to the current use of a 32-bit integer internally as a length), the operation may signal an invalid-operation flag and return not-a-number (NaN). In certain rare cases, the CompareTo method may throw OutOfMemoryException (called OutOfMemoryError in Java) in the same circumstances.
 
 <b>Serialization</b>
 
@@ -4809,7 +4809,7 @@ An arbitrary-precision binary floating-point number.
 
     public PeterO.Numbers.EInteger ToEInteger();
 
-Converts this value to an arbitrary-precision integer, discarding the fractional part in this value. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEInteger method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
+Converts this value to an arbitrary-precision integer, discarding the fractional part in this value. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of system memory. Use the ToSizedEInteger method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 
@@ -4830,7 +4830,7 @@ There is not enough memory to store the value as an EInteger.
 
 <b>Obsolete.</b> Renamed to ToEIntegerIfExact.
 
-Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
+Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of system memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 
@@ -4849,7 +4849,7 @@ This object's value is not an exact integer.
 
     public PeterO.Numbers.EInteger ToEIntegerIfExact();
 
-Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
+Converts this value to an arbitrary-precision integer, checking whether the fractional part of the value would be lost. Note that depending on the value, especially the exponent, generating the arbitrary-precision integer may require a huge amount of system memory. Use the ToSizedEIntegerIfExact method to convert a number to an EInteger only if the integer fits in a bounded bit range; that method will throw an exception on overflow.
 
 <b>Return Value:</b>
 
